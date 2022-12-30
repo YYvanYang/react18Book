@@ -1,0 +1,228 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Server APIs - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../highlight.css">
+        <link rel="stylesheet" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../../../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../../../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../../../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../../../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../../../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../../../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../../../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../../../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../../../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../../../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../../../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../../../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../../../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../../../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../../../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../../../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../../../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../../../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../../../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../../../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../../../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../../../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../../../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../../../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../../../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../../../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../../../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../../../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../../../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../../../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../../../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../../../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../../../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../../../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../../../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../../../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../../../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../../../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../../../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../../../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../../../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../../../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../../../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/server/index.html" class="active"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../../../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../../../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../../../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../../../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../../../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../../../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../../../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../../../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-server-react-dom-apis"><a class="header" href="#title-server-react-dom-apis">title: Server React DOM APIs</a></h2>
+<Intro>
+<p>The <code>react-dom/server</code> APIs let you render React components to HTML on the server. These APIs are only used on the server at the top level of your app to generate the initial HTML. A <a href="/learn/start-a-new-react-project#building-with-a-full-featured-framework">framework</a> may call them for you. Most of your components don't need to import or use them.</p>
+</Intro>
+<hr />
+<h2 id="server-apis-for-nodejs-streams-server-apis-for-nodejs-streams"><a class="header" href="#server-apis-for-nodejs-streams-server-apis-for-nodejs-streams">Server APIs for Node.js Streams {/<em>server-apis-for-nodejs-streams</em>/}</a></h2>
+<p>These methods are only available in the environments with <a href="https://nodejs.org/api/stream.html">Node.js Streams:</a></p>
+<ul>
+<li><a href="/reference/react-dom/server/renderToPipeableStream"><code>renderToPipeableStream</code></a> renders a React tree to a pipeable <a href="https://nodejs.org/api/stream.html">Node.js Stream.</a></li>
+<li><a href="/reference/react-dom/server/renderToStaticNodeStream"><code>renderToStaticNodeStream</code></a> renders a non-interactive React tree to a <a href="https://nodejs.org/api/stream.html#readable-streams">Node.js Readable Stream.</a></li>
+</ul>
+<hr />
+<h2 id="server-apis-for-web-streams-server-apis-for-web-streams"><a class="header" href="#server-apis-for-web-streams-server-apis-for-web-streams">Server APIs for Web Streams {/<em>server-apis-for-web-streams</em>/}</a></h2>
+<p>These methods are only available in the environments with <a href="https://developer.mozilla.org/en-US/docs/Web/API/Streams_API">Web Streams</a>, which includes browsers, Deno, and some modern edge runtimes:</p>
+<ul>
+<li><a href="/reference/react-dom/server/renderToReadableStream"><code>renderToReadableStream</code></a> renders a React tree to a <a href="https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream">Readable Web Stream.</a></li>
+</ul>
+<hr />
+<h2 id="server-apis-for-non-streaming-environments-server-apis-for-non-streaming-environments"><a class="header" href="#server-apis-for-non-streaming-environments-server-apis-for-non-streaming-environments">Server APIs for non-streaming environments {/<em>server-apis-for-non-streaming-environments</em>/}</a></h2>
+<p>These methods can be used in the environments that don't support streams:</p>
+<ul>
+<li><a href="/reference/react-dom/server/renderToString"><code>renderToString</code></a> renders a React tree to a string.</li>
+<li><a href="/reference/react-dom/server/renderToStaticMarkup"><code>renderToStaticMarkup</code></a> renders a non-interactive React tree to a string.</li>
+</ul>
+<p>They have limited functionality compared to the streaming APIs.</p>
+<hr />
+<h2 id="deprecated-server-apis-deprecated-server-apis"><a class="header" href="#deprecated-server-apis-deprecated-server-apis">Deprecated server APIs {/<em>deprecated-server-apis</em>/}</a></h2>
+<Deprecated>
+<p>These APIs will be removed in a future major version of React.</p>
+</Deprecated>
+<ul>
+<li><a href="/reference/react-dom/server/renderToNodeStream"><code>renderToNodeStream</code></a> renders a React tree to a <a href="https://nodejs.org/api/stream.html#readable-streams">Node.js Readable stream.</a> (Deprecated.)</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../reference/react-dom/client/hydrateRoot.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../../reference/react-dom/server/renderToNodeStream.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../reference/react-dom/client/hydrateRoot.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../../reference/react-dom/server/renderToNodeStream.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
+
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

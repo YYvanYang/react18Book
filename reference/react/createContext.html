@@ -1,0 +1,344 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>createContext - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/createContext.html" class="active"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-createcontext"><a class="header" href="#title-createcontext">title: createContext</a></h2>
+<Intro>
+<p><code>createContext</code> lets you create a <a href="/learn/passing-data-deeply-with-context">context</a> that components can provide or read.</p>
+<pre><code class="language-js">const SomeContext = createContext(defaultValue)
+</code></pre>
+</Intro>
+<InlineToc />
+<hr />
+<h2 id="reference-reference"><a class="header" href="#reference-reference">Reference {/<em>reference</em>/}</a></h2>
+<h3 id="createcontextdefaultvalue-createcontext"><a class="header" href="#createcontextdefaultvalue-createcontext"><code>createContext(defaultValue)</code> {/<em>createcontext</em>/}</a></h3>
+<p>Call <code>createContext</code> outside of any components to create a context.</p>
+<pre><code class="language-js">import { createContext } from 'react';
+
+const ThemeContext = createContext('light');
+</code></pre>
+<h4 id="parameters-parameters"><a class="header" href="#parameters-parameters">Parameters {/<em>parameters</em>/}</a></h4>
+<ul>
+<li><code>defaultValue</code>: The value that you want the context to have when there is no matching context provider in the tree above the component that reads context. If you don't have any meaningful default value, specify <code>null</code>. The default value is meant as a &quot;last resort&quot; fallback. It is static and never changes over time.</li>
+</ul>
+<h4 id="returns-returns"><a class="header" href="#returns-returns">Returns {/<em>returns</em>/}</a></h4>
+<p><code>createContext</code> returns a context object.</p>
+<p><strong>The context object itself does not hold any information.</strong> It represents <em>which</em> context other components can read or provide. Typically, you will use <a href="#provider"><code>SomeContext.Provider</code></a> in components above to specify the context value, and call <a href="/reference/react/useContext"><code>useContext(SomeContext)</code></a> in components below to read it. The context object has a few properties:</p>
+<ul>
+<li><code>SomeContext.Provider</code> lets you provide the context value to components.</li>
+<li><code>SomeContext.Consumer</code> is an alternative and rarely used way to read the context value.</li>
+</ul>
+<hr />
+<h3 id="somecontextprovider-provider"><a class="header" href="#somecontextprovider-provider"><code>SomeContext.Provider</code> {/<em>provider</em>/}</a></h3>
+<p>Wrap your components into a context provider to specify the value of this context for all components inside:</p>
+<pre><code class="language-js">function App() {
+  const [theme, setTheme] = useState('light');
+  // ...
+  return (
+    &lt;ThemeContext.Provider value={theme}&gt;
+      &lt;Page /&gt;
+    &lt;/ThemeContext.Provider&gt;
+  );
+}
+</code></pre>
+<h4 id="props-provider-props"><a class="header" href="#props-provider-props">Props {/<em>provider-props</em>/}</a></h4>
+<ul>
+<li><code>value</code>: The value that you want to pass to all the components reading this context inside this provider, no matter how deep. The context value can be of any type. A component calling <a href="/reference/react/useContext"><code>useContext(SomeContext)</code></a> inside of the provider receives the <code>value</code> of the innermost corresponding context provider above it.</li>
+</ul>
+<hr />
+<h3 id="somecontextconsumer-consumer"><a class="header" href="#somecontextconsumer-consumer"><code>SomeContext.Consumer</code> {/<em>consumer</em>/}</a></h3>
+<p>Before <code>useContext</code> existed, there was an older way to read context:</p>
+<pre><code class="language-js">function Button() {
+  // 🟡 Legacy way (not recommended)
+  return (
+    &lt;ThemeContext.Consumer&gt;
+      {theme =&gt; (
+        &lt;button className={theme} /&gt;
+      )}
+    &lt;/ThemeContext.Consumer&gt;
+  );
+}
+</code></pre>
+<p>Although this older way still works, but <strong>newly written code should read context with <a href="/reference/react/useContext"><code>useContext()</code></a> instead:</strong></p>
+<pre><code class="language-js">function Button() {
+  // ✅ Recommended way
+  const theme = useContext(ThemeContext);
+  return &lt;button className={theme} /&gt;;
+}
+</code></pre>
+<h4 id="props-consumer-props"><a class="header" href="#props-consumer-props">Props {/<em>consumer-props</em>/}</a></h4>
+<ul>
+<li><code>children</code>: A function. React will call the function you pass with the current context value determined by the same algorithm as <a href="/reference/react/useContext"><code>useContext()</code></a> does, and render the result you return from this function. React will also re-run this function and update the UI whenever the context passed from the parent components have changed.</li>
+</ul>
+<hr />
+<h2 id="usage-usage"><a class="header" href="#usage-usage">Usage {/<em>usage</em>/}</a></h2>
+<h3 id="creating-context-creating-context"><a class="header" href="#creating-context-creating-context">Creating context {/<em>creating-context</em>/}</a></h3>
+<p>Context lets components <a href="/learn/passing-data-deeply-with-context">pass information deep down</a> without explicitly passing props.</p>
+<p>Call <code>createContext</code> outside any components to create one or more contexts.</p>
+<pre><code class="language-js [[1  3  &quot;ThemeContext&quot;]  [1  4  &quot;AuthContext&quot;]  [3  3  &quot;'light'&quot;]  [3  4  &quot;null&quot;]]">import { createContext } from 'react';
+
+const ThemeContext = createContext('light');
+const AuthContext = createContext(null);
+</code></pre>
+<p><code>createContext</code> returns a <CodeStep step={1}>context object</CodeStep>. Components can read context by passing it to <a href="/reference/react/useContext"><code>useContext()</code></a>:</p>
+<pre><code class="language-js [[1  2  &quot;ThemeContext&quot;]  [1  7  &quot;AuthContext&quot;]]">function Button() {
+  const theme = useContext(ThemeContext);
+  // ...
+}
+
+function Profile() {
+  const currentUser = useContext(AuthContext);
+  // ...
+}
+</code></pre>
+<p>By default, the values they receive will be the <CodeStep step={3}>default values</CodeStep> you have specified when creating the contexts. However, by itself this isn't useful because the default values never change.</p>
+<p>Context is useful because you can <strong>provide other, dynamic values from your components:</strong></p>
+<pre><code class="language-js {8-9 11-12}">function App() {
+  const [theme, setTheme] = useState('dark');
+  const [currentUser, setCurrentUser] = useState({ name: 'Taylor' });
+
+  // ...
+
+  return (
+    &lt;ThemeContext.Provider value={theme}&gt;
+      &lt;AuthContext.Provider value={currentUser}&gt;
+        &lt;Page /&gt;
+      &lt;/AuthContext.Provider&gt;
+    &lt;/ThemeContext.Provider&gt;
+  );
+}
+</code></pre>
+<p>Now the <code>Page</code> component and any components inside it, no matter how deep, will &quot;see&quot; the passed context values. If the passed context values change, React will re-render the components reading the context as well.</p>
+<p><a href="/reference/react/useContext">Read more about reading and providing context and see examples.</a></p>
+<hr />
+<h3 id="importing-and-exporting-context-from-a-file-importing-and-exporting-context-from-a-file"><a class="header" href="#importing-and-exporting-context-from-a-file-importing-and-exporting-context-from-a-file">Importing and exporting context from a file {/<em>importing-and-exporting-context-from-a-file</em>/}</a></h3>
+<p>Often, components in different files will need access to the same context. This is why it's common to declare contexts in a separate file. Then you can use the <a href="https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export"><code>export</code> statement</a> to make context available for other files:</p>
+<pre><code class="language-js {4-5}">// Contexts.js
+import { createContext } from 'react';
+
+export const ThemeContext = createContext('light');
+export const AuthContext = createContext(null);
+</code></pre>
+<p>Components declared in other files can then use the <a href="https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/import"><code>import</code></a> statement to read or provide this context:</p>
+<pre><code class="language-js {2}">// Button.js
+import { ThemeContext } from './Contexts.js';
+
+function Button() {
+  const theme = useContext(ThemeContext);
+  // ...
+}
+</code></pre>
+<pre><code class="language-js {2}">// App.js
+import { ThemeContext, AuthContext } from './Contexts.js';
+
+function App() {
+  // ...
+  return (
+    &lt;ThemeContext.Provider value={theme}&gt;
+      &lt;AuthContext.Provider value={currentUser}&gt;
+        &lt;Page /&gt;
+      &lt;/AuthContext.Provider&gt;
+    &lt;/ThemeContext.Provider&gt;
+  );
+}
+</code></pre>
+<p>This works similar to <a href="/learn/importing-and-exporting-components">importing and exporting components.</a></p>
+<hr />
+<h2 id="troubleshooting-troubleshooting"><a class="header" href="#troubleshooting-troubleshooting">Troubleshooting {/<em>troubleshooting</em>/}</a></h2>
+<h3 id="i-cant-find-a-way-to-change-the-context-value-i-cant-find-a-way-to-change-the-context-value"><a class="header" href="#i-cant-find-a-way-to-change-the-context-value-i-cant-find-a-way-to-change-the-context-value">I can't find a way to change the context value {/<em>i-cant-find-a-way-to-change-the-context-value</em>/}</a></h3>
+<p>Code like this specifies the <em>default</em> context value:</p>
+<pre><code class="language-js">const ThemeContext = createContext('light');
+</code></pre>
+<p>This value never changes. React only uses this value as a fallback if it can't find a matching provider above.</p>
+<p>To make context change over time, <a href="/reference/react/useContext#updating-data-passed-via-context">add state and wrap components in a context provider.</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../reference/react/apis.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../reference/react/forwardRef.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../reference/react/apis.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../reference/react/forwardRef.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

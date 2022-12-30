@@ -1,0 +1,681 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Queueing a Series of State Updates - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html" class="active"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-queueing-a-series-of-state-updates"><a class="header" href="#title-queueing-a-series-of-state-updates">title: Queueing a Series of State Updates</a></h2>
+<Intro>
+<p>Setting a state variable will queue another render. But sometimes you might want to perform multiple operations on the value before queueing the next render. To do this, it helps to understand how React batches state updates.</p>
+</Intro>
+<YouWillLearn>
+<ul>
+<li>What &quot;batching&quot; is and how React uses it to process multiple state updates</li>
+<li>How to apply several updates to the same state variable in a row</li>
+</ul>
+</YouWillLearn>
+<h2 id="react-batches-state-updates-react-batches-state-updates"><a class="header" href="#react-batches-state-updates-react-batches-state-updates">React batches state updates {/<em>react-batches-state-updates</em>/}</a></h2>
+<p>You might expect that clicking the &quot;+3&quot; button will increment the counter three times because it calls <code>setNumber(number + 1)</code> three times:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Counter() {
+  const [number, setNumber] = useState(0);
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{number}&lt;/h1&gt;
+      &lt;button onClick={() =&gt; {
+        setNumber(number + 1);
+        setNumber(number + 1);
+        setNumber(number + 1);
+      }}&gt;+3&lt;/button&gt;
+    &lt;/&gt;
+  )
+}
+</code></pre>
+<pre><code class="language-css">button { display: inline-block; margin: 10px; font-size: 20px; }
+h1 { display: inline-block; margin: 10px; width: 30px; text-align: center; }
+</code></pre>
+</Sandpack>
+<p>However, as you might recall from the previous section, <a href="/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time">each render's state values are fixed</a>, so the value of <code>number</code> inside the first render's event handler is always <code>0</code>, no matter how many times you call <code>setNumber(1)</code>:</p>
+<pre><code class="language-js">setNumber(0 + 1);
+setNumber(0 + 1);
+setNumber(0 + 1);
+</code></pre>
+<p>But there is one other factor at work here to discuss. <strong>React waits until <em>all</em> code in the event handlers has run before processing your state updates.</strong> This is why the re-render only happens <em>after</em> all these <code>setNumber()</code> calls.</p>
+<p>This might remind you of a waiter taking an order at the restaurant. A waiter doesn't run to the kitchen at the mention of your first dish! Instead, they let you finish your order, let you make changes to it, and even take orders from other people at the table.</p>
+<Illustration src="/images/docs/illustrations/i_react-batching.png"  alt="An elegant cursor at a restaurant places and order multiple times with React, playing the part of the waiter. After she calls setState() multiple times, the waiter writes down the last one she requested as her final order." />
+<p>This lets you update multiple state variables--even from multiple components--without triggering too many <a href="/learn/render-and-commit#re-renders-when-state-updates">re-renders.</a> But this also means that the UI won't be updated until <em>after</em> your event handler, and any code in it, completes. This behavior, also known as <strong>batching,</strong> makes your React app run much faster. It also avoids dealing with confusing &quot;half-finished&quot; renders where only some of the variables have been updated.</p>
+<p><strong>React does not batch across <em>multiple</em> intentional events like clicks</strong>--each click is handled separately. Rest assured that React only does batching when it's generally safe to do. This ensures that, for example, if the first button click disables a form, the second click would not submit it again.</p>
+<h2 id="updating-the-same-state-variable-multiple-times-before-the-next-render-updating-the-same-state-variable-multiple-times-before-the-next-render"><a class="header" href="#updating-the-same-state-variable-multiple-times-before-the-next-render-updating-the-same-state-variable-multiple-times-before-the-next-render">Updating the same state variable multiple times before the next render {/<em>updating-the-same-state-variable-multiple-times-before-the-next-render</em>/}</a></h2>
+<p>It is an uncommon use case, but if you would like to update the same state variable multiple times before the next render, instead of passing the <em>next state value</em> like <code>setNumber(number + 1)</code>, you can pass a <em>function</em> that calculates the next state based on the previous one in the queue, like <code>setNumber(n =&gt; n + 1)</code>. It is a way to tell React to &quot;do something with the state value&quot; instead of just replacing it.</p>
+<p>Try incrementing the counter now:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Counter() {
+  const [number, setNumber] = useState(0);
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{number}&lt;/h1&gt;
+      &lt;button onClick={() =&gt; {
+        setNumber(n =&gt; n + 1);
+        setNumber(n =&gt; n + 1);
+        setNumber(n =&gt; n + 1);
+      }}&gt;+3&lt;/button&gt;
+    &lt;/&gt;
+  )
+}
+</code></pre>
+<pre><code class="language-css">button { display: inline-block; margin: 10px; font-size: 20px; }
+h1 { display: inline-block; margin: 10px; width: 30px; text-align: center; }
+</code></pre>
+</Sandpack>
+<p>Here, <code>n =&gt; n + 1</code> is called an <strong>updater function.</strong> When you pass it to a state setter:</p>
+<ol>
+<li>React queues this function to be processed after all the other code in the event handler has run.</li>
+<li>During the next render, React goes through the queue and gives you the final updated state.</li>
+</ol>
+<pre><code class="language-js">setNumber(n =&gt; n + 1);
+setNumber(n =&gt; n + 1);
+setNumber(n =&gt; n + 1);
+</code></pre>
+<p>Here's how React works through these lines of code while executing the event handler:</p>
+<ol>
+<li><code>setNumber(n =&gt; n + 1)</code>: <code>n =&gt; n + 1</code> is a function. React adds it to a queue.</li>
+<li><code>setNumber(n =&gt; n + 1)</code>: <code>n =&gt; n + 1</code> is a function. React adds it to a queue.</li>
+<li><code>setNumber(n =&gt; n + 1)</code>: <code>n =&gt; n + 1</code> is a function. React adds it to a queue.</li>
+</ol>
+<p>When you call <code>useState</code> during the next render, React goes through the queue. The previous <code>number</code> state was <code>0</code>, so that's what React passes to the first updater function as the <code>n</code> argument. Then React takes the return value of your previous updater function and passes it to the next updater as <code>n</code>, and so on:</p>
+<div class="table-wrapper"><table><thead><tr><th>queued update</th><th><code>n</code></th><th>returns</th></tr></thead><tbody>
+<tr><td><code>n =&gt; n + 1</code></td><td><code>0</code></td><td><code>0 + 1 = 1</code></td></tr>
+<tr><td><code>n =&gt; n + 1</code></td><td><code>1</code></td><td><code>1 + 1 = 2</code></td></tr>
+<tr><td><code>n =&gt; n + 1</code></td><td><code>2</code></td><td><code>2 + 1 = 3</code></td></tr>
+</tbody></table>
+</div>
+<p>React stores <code>3</code> as the final result and returns it from <code>useState</code>.</p>
+<p>This is why clicking &quot;+3&quot; in the above example correctly increments the value by 3.</p>
+<h3 id="what-happens-if-you-update-state-after-replacing-it-what-happens-if-you-update-state-after-replacing-it"><a class="header" href="#what-happens-if-you-update-state-after-replacing-it-what-happens-if-you-update-state-after-replacing-it">What happens if you update state after replacing it {/<em>what-happens-if-you-update-state-after-replacing-it</em>/}</a></h3>
+<p>What about this event handler? What do you think <code>number</code> will be in the next render?</p>
+<pre><code class="language-js">&lt;button onClick={() =&gt; {
+  setNumber(number + 5);
+  setNumber(n =&gt; n + 1);
+}}&gt;
+</code></pre>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Counter() {
+  const [number, setNumber] = useState(0);
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{number}&lt;/h1&gt;
+      &lt;button onClick={() =&gt; {
+        setNumber(number + 5);
+        setNumber(n =&gt; n + 1);
+      }}&gt;Increase the number&lt;/button&gt;
+    &lt;/&gt;
+  )
+}
+</code></pre>
+<pre><code class="language-css">button { display: inline-block; margin: 10px; font-size: 20px; }
+h1 { display: inline-block; margin: 10px; width: 30px; text-align: center; }
+</code></pre>
+</Sandpack>
+<p>Here's what this event handler tells React to do:</p>
+<ol>
+<li><code>setNumber(number + 5)</code>: <code>number</code> is <code>0</code>, so <code>setNumber(0 + 5)</code>. React adds <em>&quot;replace with <code>5</code>&quot;</em> to its queue.</li>
+<li><code>setNumber(n =&gt; n + 1)</code>: <code>n =&gt; n + 1</code> is an updater function. React adds <em>that function</em> to its queue.</li>
+</ol>
+<p>During the next render, React goes through the state queue:</p>
+<div class="table-wrapper"><table><thead><tr><th>queued update</th><th><code>n</code></th><th>returns</th></tr></thead><tbody>
+<tr><td>&quot;replace with <code>5</code>&quot;</td><td><code>0</code> (unused)</td><td><code>5</code></td></tr>
+<tr><td><code>n =&gt; n + 1</code></td><td><code>5</code></td><td><code>5 + 1 = 6</code></td></tr>
+</tbody></table>
+</div>
+<p>React stores <code>6</code> as the final result and returns it from <code>useState</code>. </p>
+<blockquote>
+<p>You may have noticed that <code>setState(x)</code> actually works like <code>setState(n =&gt; x)</code>, but <code>n</code> is unused!</p>
+</blockquote>
+<h3 id="what-happens-if-you-replace-state-after-updating-it-what-happens-if-you-replace-state-after-updating-it"><a class="header" href="#what-happens-if-you-replace-state-after-updating-it-what-happens-if-you-replace-state-after-updating-it">What happens if you replace state after updating it {/<em>what-happens-if-you-replace-state-after-updating-it</em>/}</a></h3>
+<p>Let's try one more example. What do you think <code>number</code> will be in the next render?</p>
+<pre><code class="language-js">&lt;button onClick={() =&gt; {
+  setNumber(number + 5);
+  setNumber(n =&gt; n + 1);
+  setNumber(42);
+}}&gt;
+</code></pre>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Counter() {
+  const [number, setNumber] = useState(0);
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{number}&lt;/h1&gt;
+      &lt;button onClick={() =&gt; {
+        setNumber(number + 5);
+        setNumber(n =&gt; n + 1);
+        setNumber(42);
+      }}&gt;Increase the number&lt;/button&gt;
+    &lt;/&gt;
+  )
+}
+</code></pre>
+<pre><code class="language-css">button { display: inline-block; margin: 10px; font-size: 20px; }
+h1 { display: inline-block; margin: 10px; width: 30px; text-align: center; }
+</code></pre>
+</Sandpack>
+<p>Here's how React works through these lines of code while executing this event handler:</p>
+<ol>
+<li><code>setNumber(number + 5)</code>: <code>number</code> is <code>0</code>, so <code>setNumber(0 + 5)</code>. React adds <em>&quot;replace with <code>5</code>&quot;</em> to its queue.</li>
+<li><code>setNumber(n =&gt; n + 1)</code>: <code>n =&gt; n + 1</code> is an updater function. React adds <em>that function</em> to its queue.</li>
+<li><code>setNumber(42)</code>: React adds <em>&quot;replace with <code>42</code>&quot;</em> to its queue.</li>
+</ol>
+<p>During the next render, React goes through the state queue:</p>
+<div class="table-wrapper"><table><thead><tr><th>queued update</th><th><code>n</code></th><th>returns</th></tr></thead><tbody>
+<tr><td>&quot;replace with <code>5</code>&quot;</td><td><code>0</code> (unused)</td><td><code>5</code></td></tr>
+<tr><td><code>n =&gt; n + 1</code></td><td><code>5</code></td><td><code>5 + 1 = 6</code></td></tr>
+<tr><td>&quot;replace with <code>42</code>&quot;</td><td><code>6</code> (unused)</td><td><code>42</code></td></tr>
+</tbody></table>
+</div>
+<p>Then React stores <code>42</code> as the final result and returns it from <code>useState</code>.</p>
+<p>To summarize, here's how you can think of what you're passing to the <code>setNumber</code> state setter:</p>
+<ul>
+<li><strong>An updater function</strong> (e.g. <code>n =&gt; n + 1</code>) gets added to the queue.</li>
+<li><strong>Any other value</strong> (e.g. number <code>5</code>) adds &quot;replace with <code>5</code>&quot; to the queue, ignoring what's already queued.</li>
+</ul>
+<p>After the event handler completes, React will trigger a re-render. During the re-render, React will process the queue. Updater functions run during rendering, so <strong>updater functions must be <a href="/learn/keeping-components-pure">pure</a></strong> and only <em>return</em> the result. Don't try to set state from inside of them or run other side effects. In Strict Mode, React will run each updater function twice (but discard the second result) to help you find mistakes.</p>
+<h3 id="naming-conventions-naming-conventions"><a class="header" href="#naming-conventions-naming-conventions">Naming conventions {/<em>naming-conventions</em>/}</a></h3>
+<p>It's common to name the updater function argument by the first letters of the corresponding state variable:</p>
+<pre><code class="language-js">setEnabled(e =&gt; !e);
+setLastName(ln =&gt; ln.reverse());
+setFriendCount(fc =&gt; fc * 2);
+</code></pre>
+<p>If you prefer more verbose code, another common convention is to repeat the full state variable name, like <code>setEnabled(enabled =&gt; !enabled)</code>, or to use a prefix like <code>setEnabled(prevEnabled =&gt; !prevEnabled)</code>.</p>
+<Recap>
+<ul>
+<li>Setting state does not change the variable in the existing render, but it requests a new render.</li>
+<li>React processes state updates after event handlers have finished running. This is called batching.</li>
+<li>To update some state multiple times in one event, you can use <code>setNumber(n =&gt; n + 1)</code> updater function.</li>
+</ul>
+</Recap>
+<Challenges>
+<h4 id="fix-a-request-counter-fix-a-request-counter"><a class="header" href="#fix-a-request-counter-fix-a-request-counter">Fix a request counter {/<em>fix-a-request-counter</em>/}</a></h4>
+<p>You're working on an art marketplace app that lets the user submit multiple orders for an art item at the same time. Each time the user presses the &quot;Buy&quot; button, the &quot;Pending&quot; counter should increase by one. After three seconds, the &quot;Pending&quot; counter should decrease, and the &quot;Completed&quot; counter should increase.</p>
+<p>However, the &quot;Pending&quot; counter does not behave as intended. When you press &quot;Buy&quot;, it decreases to <code>-1</code> (which should not be possible!). And if you click fast twice, both counters seem to behave unpredictably.</p>
+<p>Why does this happen? Fix both counters.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function RequestTracker() {
+  const [pending, setPending] = useState(0);
+  const [completed, setCompleted] = useState(0);
+
+  async function handleClick() {
+    setPending(pending + 1);
+    await delay(3000);
+    setPending(pending - 1);
+    setCompleted(completed + 1);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h3&gt;
+        Pending: {pending}
+      &lt;/h3&gt;
+      &lt;h3&gt;
+        Completed: {completed}
+      &lt;/h3&gt;
+      &lt;button onClick={handleClick}&gt;
+        Buy     
+      &lt;/button&gt;
+    &lt;/&gt;
+  );
+}
+
+function delay(ms) {
+  return new Promise(resolve =&gt; {
+    setTimeout(resolve, ms);
+  });
+}
+</code></pre>
+</Sandpack>
+<Solution>
+<p>Inside the <code>handleClick</code> event handler, the values of <code>pending</code> and <code>completed</code> correspond to what they were at the time of the click event. For the first render, <code>pending</code> was <code>0</code>, so <code>setPending(pending - 1)</code> becomes <code>setPending(-1)</code>, which is wrong. Since you want to <em>increment</em> or <em>decrement</em> the counters, rather than set them to a concrete value determined during the click, you can instead pass the updater functions:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function RequestTracker() {
+  const [pending, setPending] = useState(0);
+  const [completed, setCompleted] = useState(0);
+
+  async function handleClick() {
+    setPending(p =&gt; p + 1);
+    await delay(3000);
+    setPending(p =&gt; p - 1);
+    setCompleted(c =&gt; c + 1);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h3&gt;
+        Pending: {pending}
+      &lt;/h3&gt;
+      &lt;h3&gt;
+        Completed: {completed}
+      &lt;/h3&gt;
+      &lt;button onClick={handleClick}&gt;
+        Buy     
+      &lt;/button&gt;
+    &lt;/&gt;
+  );
+}
+
+function delay(ms) {
+  return new Promise(resolve =&gt; {
+    setTimeout(resolve, ms);
+  });
+}
+</code></pre>
+</Sandpack>
+<p>This ensures that when you increment or decrement a counter, you do it in relation to its <em>latest</em> state rather than what the state was at the time of the click.</p>
+</Solution>
+<h4 id="implement-the-state-queue-yourself-implement-the-state-queue-yourself"><a class="header" href="#implement-the-state-queue-yourself-implement-the-state-queue-yourself">Implement the state queue yourself {/<em>implement-the-state-queue-yourself</em>/}</a></h4>
+<p>In this challenge, you will reimplement a tiny part of React from scratch! It's not as hard as it sounds.</p>
+<p>Scroll through the sandbox preview. Notice that it shows <strong>four test cases.</strong> They correspond to the examples you've seen earlier on this page. Your task is to implement the <code>getFinalState</code> function so that it returns the correct result for each of those cases. If you implement it correctly, all four tests should pass.</p>
+<p>You will receive two arguments: <code>baseState</code> is the initial state (like <code>0</code>), and the <code>queue</code> is an array which contains a mix of numbers (like <code>5</code>) and updater functions (like <code>n =&gt; n + 1</code>) in the order they were added.</p>
+<p>Your task is to return the final state, just like the tables on this page show!</p>
+<Hint>
+<p>If you're feeling stuck, start with this code structure:</p>
+<pre><code class="language-js">export function getFinalState(baseState, queue) {
+  let finalState = baseState;
+
+  for (let update of queue) {
+    if (typeof update === 'function') {
+      // TODO: apply the updater function
+    } else {
+      // TODO: replace the state
+    }
+  }
+
+  return finalState;
+}
+</code></pre>
+<p>Fill out the missing lines!</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-js processQueue.js active">export function getFinalState(baseState, queue) {
+  let finalState = baseState;
+
+  // TODO: do something with the queue...
+
+  return finalState;
+}
+</code></pre>
+<pre><code class="language-js App.js">import { getFinalState } from './processQueue.js';
+
+function increment(n) {
+  return n + 1;
+}
+increment.toString = () =&gt; 'n =&gt; n+1';
+
+export default function App() {
+  return (
+    &lt;&gt;
+      &lt;TestCase
+        baseState={0}
+        queue={[1, 1, 1]}
+        expected={1}
+      /&gt;
+      &lt;hr /&gt;
+      &lt;TestCase
+        baseState={0}
+        queue={[
+          increment,
+          increment,
+          increment
+        ]}
+        expected={3}
+      /&gt;
+      &lt;hr /&gt;
+      &lt;TestCase
+        baseState={0}
+        queue={[
+          5,
+          increment,
+        ]}
+        expected={6}
+      /&gt;
+      &lt;hr /&gt;
+      &lt;TestCase
+        baseState={0}
+        queue={[
+          5,
+          increment,
+          42,
+        ]}
+        expected={42}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+
+function TestCase({
+  baseState,
+  queue,
+  expected
+}) {
+  const actual = getFinalState(baseState, queue);
+  return (
+    &lt;&gt;
+      &lt;p&gt;Base state: &lt;b&gt;{baseState}&lt;/b&gt;&lt;/p&gt;
+      &lt;p&gt;Queue: &lt;b&gt;[{queue.join(', ')}]&lt;/b&gt;&lt;/p&gt;
+      &lt;p&gt;Expected result: &lt;b&gt;{expected}&lt;/b&gt;&lt;/p&gt;
+      &lt;p style={{
+        color: actual === expected ?
+          'green' :
+          'red'
+      }}&gt;
+        Your result: &lt;b&gt;{actual}&lt;/b&gt;
+        {' '}
+        ({actual === expected ?
+          'correct' :
+          'wrong'
+        })
+      &lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<Solution>
+<p>This is the exact algorithm described on this page that React uses to calculate the final state:</p>
+<Sandpack>
+<pre><code class="language-js processQueue.js active">export function getFinalState(baseState, queue) {
+  let finalState = baseState;
+
+  for (let update of queue) {
+    if (typeof update === 'function') {
+      // Apply the updater function.
+      finalState = update(finalState);
+    } else {
+      // Replace the next state.
+      finalState = update;
+    }
+  }
+
+  return finalState;
+}
+</code></pre>
+<pre><code class="language-js App.js">import { getFinalState } from './processQueue.js';
+
+function increment(n) {
+  return n + 1;
+}
+increment.toString = () =&gt; 'n =&gt; n+1';
+
+export default function App() {
+  return (
+    &lt;&gt;
+      &lt;TestCase
+        baseState={0}
+        queue={[1, 1, 1]}
+        expected={1}
+      /&gt;
+      &lt;hr /&gt;
+      &lt;TestCase
+        baseState={0}
+        queue={[
+          increment,
+          increment,
+          increment
+        ]}
+        expected={3}
+      /&gt;
+      &lt;hr /&gt;
+      &lt;TestCase
+        baseState={0}
+        queue={[
+          5,
+          increment,
+        ]}
+        expected={6}
+      /&gt;
+      &lt;hr /&gt;
+      &lt;TestCase
+        baseState={0}
+        queue={[
+          5,
+          increment,
+          42,
+        ]}
+        expected={42}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+
+function TestCase({
+  baseState,
+  queue,
+  expected
+}) {
+  const actual = getFinalState(baseState, queue);
+  return (
+    &lt;&gt;
+      &lt;p&gt;Base state: &lt;b&gt;{baseState}&lt;/b&gt;&lt;/p&gt;
+      &lt;p&gt;Queue: &lt;b&gt;[{queue.join(', ')}]&lt;/b&gt;&lt;/p&gt;
+      &lt;p&gt;Expected result: &lt;b&gt;{expected}&lt;/b&gt;&lt;/p&gt;
+      &lt;p style={{
+        color: actual === expected ?
+          'green' :
+          'red'
+      }}&gt;
+        Your result: &lt;b&gt;{actual}&lt;/b&gt;
+        {' '}
+        ({actual === expected ?
+          'correct' :
+          'wrong'
+        })
+      &lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>Now you know how this part of React works!</p>
+</Solution>
+</Challenges>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/state-as-a-snapshot.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/updating-objects-in-state.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/state-as-a-snapshot.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/updating-objects-in-state.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

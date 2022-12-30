@@ -1,0 +1,875 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Adding Interactivity - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html" class="active"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-adding-interactivity"><a class="header" href="#title-adding-interactivity">title: Adding Interactivity</a></h2>
+<Intro>
+<p>Some things on the screen update in response to user input. For example, clicking an image gallery switches the active image. In React, data that changes over time is called <em>state.</em> You can add state to any component, and update it as needed. In this chapter, you'll learn how to write components that handle interactions, update their state, and display different output over time.</p>
+</Intro>
+<YouWillLearn isChapter={true}>
+<ul>
+<li><a href="/learn/responding-to-events">How to handle user-initiated events</a></li>
+<li><a href="/learn/state-a-components-memory">How to make components &quot;remember&quot; information with state</a></li>
+<li><a href="/learn/render-and-commit">How React updates the UI in two phases</a></li>
+<li><a href="/learn/state-as-a-snapshot">Why state doesn't update right after you change it</a></li>
+<li><a href="/learn/queueing-a-series-of-state-updates">How to queue multiple state updates</a></li>
+<li><a href="/learn/updating-objects-in-state">How to update an object in state</a></li>
+<li><a href="/learn/updating-arrays-in-state">How to update an array in state</a></li>
+</ul>
+</YouWillLearn>
+<h2 id="responding-to-events-responding-to-events"><a class="header" href="#responding-to-events-responding-to-events">Responding to events {/<em>responding-to-events</em>/}</a></h2>
+<p>React lets you add <em>event handlers</em> to your JSX. Event handlers are your own functions that will be triggered in response to user interactions like clicking, hovering, focusing on form inputs, and so on.</p>
+<p>Built-in components like <code>&lt;button&gt;</code> only support built-in browser events like <code>onClick</code>. However, you can also create your own components, and give their event handler props any application-specific names that you like.</p>
+<Sandpack>
+<pre><code class="language-js">export default function App() {
+  return (
+    &lt;Toolbar
+      onPlayMovie={() =&gt; alert('Playing!')}
+      onUploadImage={() =&gt; alert('Uploading!')}
+    /&gt;
+  );
+}
+
+function Toolbar({ onPlayMovie, onUploadImage }) {
+  return (
+    &lt;div&gt;
+      &lt;Button onClick={onPlayMovie}&gt;
+        Play Movie
+      &lt;/Button&gt;
+      &lt;Button onClick={onUploadImage}&gt;
+        Upload Image
+      &lt;/Button&gt;
+    &lt;/div&gt;
+  );
+}
+
+function Button({ onClick, children }) {
+  return (
+    &lt;button onClick={onClick}&gt;
+      {children}
+    &lt;/button&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button { margin-right: 10px; }
+</code></pre>
+</Sandpack>
+<LearnMore path="/learn/responding-to-events">
+<p>Read <strong><a href="/learn/responding-to-events">Responding to Events</a></strong> to learn how to add event handlers.</p>
+</LearnMore>
+<h2 id="state-a-components-memory-state-a-components-memory"><a class="header" href="#state-a-components-memory-state-a-components-memory">State: a component's memory {/<em>state-a-components-memory</em>/}</a></h2>
+<p>Components often need to change what's on the screen as a result of an interaction. Typing into the form should update the input field, clicking &quot;next&quot; on an image carousel should change which image is displayed, clicking &quot;buy&quot; puts a product in the shopping cart. Components need to &quot;remember&quot; things: the current input value, the current image, the shopping cart. In React, this kind of component-specific memory is called <em>state.</em></p>
+<p>You can add state to a component with a <a href="/reference/react/useState"><code>useState</code></a> Hook. <em>Hooks</em> are special functions that let your components use React features (state is one of those features). The <code>useState</code> Hook lets you declare a state variable. It takes the initial state and returns a pair of values: the current state, and a state setter function that lets you update it.</p>
+<pre><code class="language-js">const [index, setIndex] = useState(0);
+const [showMore, setShowMore] = useState(false);
+</code></pre>
+<p>Here is how an image gallery uses and updates state on click:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+import { sculptureList } from './data.js';
+
+export default function Gallery() {
+  const [index, setIndex] = useState(0);
+  const [showMore, setShowMore] = useState(false);
+
+  function handleNextClick() {
+    setIndex(index + 1);
+  }
+
+  function handleMoreClick() {
+    setShowMore(!showMore);
+  }
+
+  let sculpture = sculptureList[index];
+  return (
+    &lt;&gt;
+      &lt;button onClick={handleNextClick}&gt;
+        Next
+      &lt;/button&gt;
+      &lt;h2&gt;
+        &lt;i&gt;{sculpture.name} &lt;/i&gt;
+        by {sculpture.artist}
+      &lt;/h2&gt;
+      &lt;h3&gt;
+        ({index + 1} of {sculptureList.length})
+      &lt;/h3&gt;
+      &lt;button onClick={handleMoreClick}&gt;
+        {showMore ? 'Hide' : 'Show'} details
+      &lt;/button&gt;
+      {showMore &amp;&amp; &lt;p&gt;{sculpture.description}&lt;/p&gt;}
+      &lt;img
+        src={sculpture.url}
+        alt={sculpture.alt}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js data.js">export const sculptureList = [{
+  name: 'Homenaje a la Neurocirugía',
+  artist: 'Marta Colvin Andrade',
+  description: 'Although Colvin is predominantly known for abstract themes that allude to pre-Hispanic symbols, this gigantic sculpture, an homage to neurosurgery, is one of her most recognizable public art pieces.',
+  url: 'https://i.imgur.com/Mx7dA2Y.jpg',
+  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'
+}, {
+  name: 'Floralis Genérica',
+  artist: 'Eduardo Catalano',
+  description: 'This enormous (75 ft. or 23m) silver flower is located in Buenos Aires. It is designed to move, closing its petals in the evening or when strong winds blow and opening them in the morning.',
+  url: 'https://i.imgur.com/ZF6s192m.jpg',
+  alt: 'A gigantic metallic flower sculpture with reflective mirror-like petals and strong stamens.'
+}, {
+  name: 'Eternal Presence',
+  artist: 'John Woodrow Wilson',
+  description: 'Wilson was known for his preoccupation with equality, social justice, as well as the essential and spiritual qualities of humankind. This massive (7ft. or 2,13m) bronze represents what he described as &quot;a symbolic Black presence infused with a sense of universal humanity.&quot;',
+  url: 'https://i.imgur.com/aTtVpES.jpg',
+  alt: 'The sculpture depicting a human head seems ever-present and solemn. It radiates calm and serenity.'
+}, {
+  name: 'Moai',
+  artist: 'Unknown Artist',
+  description: 'Located on the Easter Island, there are 1,000 moai, or extant monumental statues, created by the early Rapa Nui people, which some believe represented deified ancestors.',
+  url: 'https://i.imgur.com/RCwLEoQm.jpg',
+  alt: 'Three monumental stone busts with the heads that are disproportionately large with somber faces.'
+}, {
+  name: 'Blue Nana',
+  artist: 'Niki de Saint Phalle',
+  description: 'The Nanas are triumphant creatures, symbols of femininity and maternity. Initially, Saint Phalle used fabric and found objects for the Nanas, and later on introduced polyester to achieve a more vibrant effect.',
+  url: 'https://i.imgur.com/Sd1AgUOm.jpg',
+  alt: 'A large mosaic sculpture of a whimsical dancing female figure in a colorful costume emanating joy.'
+}, {
+  name: 'Ultimate Form',
+  artist: 'Barbara Hepworth',
+  description: 'This abstract bronze sculpture is a part of The Family of Man series located at Yorkshire Sculpture Park. Hepworth chose not to create literal representations of the world but developed abstract forms inspired by people and landscapes.',
+  url: 'https://i.imgur.com/2heNQDcm.jpg',
+  alt: 'A tall sculpture made of three elements stacked on each other reminding of a human figure.'
+}, {
+  name: 'Cavaliere',
+  artist: 'Lamidi Olonade Fakeye',
+  description: &quot;Descended from four generations of woodcarvers, Fakeye's work blended traditional and contemporary Yoruba themes.&quot;,
+  url: 'https://i.imgur.com/wIdGuZwm.png',
+  alt: 'An intricate wood sculpture of a warrior with a focused face on a horse adorned with patterns.'
+}, {
+  name: 'Big Bellies',
+  artist: 'Alina Szapocznikow',
+  description: &quot;Szapocznikow is known for her sculptures of the fragmented body as a metaphor for the fragility and impermanence of youth and beauty. This sculpture depicts two very realistic large bellies stacked on top of each other, each around five feet (1,5m) tall.&quot;,
+  url: 'https://i.imgur.com/AlHTAdDm.jpg',
+  alt: 'The sculpture reminds a cascade of folds, quite different from bellies in classical sculptures.'
+}, {
+  name: 'Terracotta Army',
+  artist: 'Unknown Artist',
+  description: 'The Terracotta Army is a collection of terracotta sculptures depicting the armies of Qin Shi Huang, the first Emperor of China. The army consisted of more than 8,000 soldiers, 130 chariots with 520 horses, and 150 cavalry horses.',
+  url: 'https://i.imgur.com/HMFmH6m.jpg',
+  alt: '12 terracotta sculptures of solemn warriors, each with a unique facial expression and armor.'
+}, {
+  name: 'Lunar Landscape',
+  artist: 'Louise Nevelson',
+  description: 'Nevelson was known for scavenging objects from New York City debris, which she would later assemble into monumental constructions. In this one, she used disparate parts like a bedpost, juggling pin, and seat fragment, nailing and gluing them into boxes that reflect the influence of Cubism’s geometric abstraction of space and form.',
+  url: 'https://i.imgur.com/rN7hY6om.jpg',
+  alt: 'A black matte sculpture where the individual elements are initially indistinguishable.'
+}, {
+  name: 'Aureole',
+  artist: 'Ranjani Shettar',
+  description: 'Shettar merges the traditional and the modern, the natural and the industrial. Her art focuses on the relationship between man and nature. Her work was described as compelling both abstractly and figuratively, gravity defying, and a &quot;fine synthesis of unlikely materials.&quot;',
+  url: 'https://i.imgur.com/okTpbHhm.jpg',
+  alt: 'A pale wire-like sculpture mounted on concrete wall and descending on the floor. It appears light.'
+}, {
+  name: 'Hippos',
+  artist: 'Taipei Zoo',
+  description: 'The Taipei Zoo commissioned a Hippo Square featuring submerged hippos at play.',
+  url: 'https://i.imgur.com/6o5Vuyu.jpg',
+  alt: 'A group of bronze hippo sculptures emerging from the sett sidewalk as if they were swimming.'
+}];
+</code></pre>
+<pre><code class="language-css">h2 { margin-top: 10px; margin-bottom: 0; }
+h3 {
+ margin-top: 5px;
+ font-weight: normal;
+ font-size: 100%;
+}
+img { width: 120px; height: 120px; }
+button {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+</code></pre>
+</Sandpack>
+<LearnMore path="/learn/state-a-components-memory">
+<p>Read <strong><a href="/learn/state-a-components-memory">State: A Component's Memory</a></strong> to learn how to remember a value and update it on interaction.</p>
+</LearnMore>
+<h2 id="render-and-commit-render-and-commit"><a class="header" href="#render-and-commit-render-and-commit">Render and commit {/<em>render-and-commit</em>/}</a></h2>
+<p>Before your components are displayed on the screen, they must be rendered by React. Understanding the steps in this process will help you think about how your code executes and explain its behavior.</p>
+<p>Imagine that your components are cooks in the kitchen, assembling tasty dishes from ingredients. In this scenario, React is the waiter who puts in requests from customers and brings them their orders. This process of requesting and serving UI has three steps:</p>
+<ol>
+<li><strong>Triggering</strong> a render (delivering the diner's order to the kitchen)</li>
+<li><strong>Rendering</strong> the component (preparing the order in the kitchen)</li>
+<li><strong>Committing</strong> to the DOM (placing the order on the table)</li>
+</ol>
+<IllustrationBlock sequential>
+  <Illustration caption="Trigger" alt="React as a server in a restaurant, fetching orders from the users and delivering them to the Component Kitchen." src="/images/docs/illustrations/i_render-and-commit1.png" />
+  <Illustration caption="Render" alt="The Card Chef gives React a fresh Card component." src="/images/docs/illustrations/i_render-and-commit2.png" />
+  <Illustration caption="Commit" alt="React delivers the Card to the user at their table." src="/images/docs/illustrations/i_render-and-commit3.png" />
+</IllustrationBlock>
+<LearnMore path="/learn/render-and-commit">
+<p>Read <strong><a href="/learn/render-and-commit">Render and Commit</a></strong> to learn the lifecycle of a UI update.</p>
+</LearnMore>
+<h2 id="state-as-a-snapshot-state-as-a-snapshot"><a class="header" href="#state-as-a-snapshot-state-as-a-snapshot">State as a snapshot {/<em>state-as-a-snapshot</em>/}</a></h2>
+<p>Unlike regular JavaScript variables, React state behaves more like a snapshot. Setting it does not change the state variable you already have, but instead triggers a re-render. This can be surprising at first!</p>
+<pre><code class="language-js">console.log(count);  // 0
+setCount(count + 1); // Request a re-render with 1
+console.log(count);  // Still 0!
+</code></pre>
+<p>React works this way to help you avoid subtle bugs. Here is a little chat app. Try to guess what happens if you press &quot;Send&quot; first and <em>then</em> change the recipient to Bob. Whose name will appear in the <code>alert</code> five seconds later?</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Form() {
+  const [to, setTo] = useState('Alice');
+  const [message, setMessage] = useState('Hello');
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setTimeout(() =&gt; {
+      alert(`You said ${message} to ${to}`);
+    }, 5000);
+  }
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;label&gt;
+        To:{' '}
+        &lt;select
+          value={to}
+          onChange={e =&gt; setTo(e.target.value)}&gt;
+          &lt;option value=&quot;Alice&quot;&gt;Alice&lt;/option&gt;
+          &lt;option value=&quot;Bob&quot;&gt;Bob&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;textarea
+        placeholder=&quot;Message&quot;
+        value={message}
+        onChange={e =&gt; setMessage(e.target.value)}
+      /&gt;
+      &lt;button type=&quot;submit&quot;&gt;Send&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label, textarea { margin-bottom: 10px; display: block; }
+</code></pre>
+</Sandpack>
+<LearnMore path="/learn/state-as-a-snapshot">
+<p>Read <strong><a href="/learn/state-as-a-snapshot">State as a Snapshot</a></strong> to learn why state appears &quot;fixed&quot; and unchanging inside the event handlers.</p>
+</LearnMore>
+<h2 id="queueing-a-series-of-state-updates-queueing-a-series-of-state-updates"><a class="header" href="#queueing-a-series-of-state-updates-queueing-a-series-of-state-updates">Queueing a series of state updates {/<em>queueing-a-series-of-state-updates</em>/}</a></h2>
+<p>This component is buggy: clicking &quot;+3&quot; increments the score only once.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Counter() {
+  const [score, setScore] = useState(0);
+
+  function increment() {
+    setScore(score + 1);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;button onClick={() =&gt; increment()}&gt;+1&lt;/button&gt;
+      &lt;button onClick={() =&gt; {
+        increment();
+        increment();
+        increment();
+      }}&gt;+3&lt;/button&gt;
+      &lt;h1&gt;Score: {score}&lt;/h1&gt;
+    &lt;/&gt;
+  )
+}
+</code></pre>
+<pre><code class="language-css">button { display: inline-block; margin: 10px; font-size: 20px; }
+</code></pre>
+</Sandpack>
+<p><a href="/learn/state-as-a-snapshot">State as a Snapshot</a> explains why this is happening. Setting state requests a new re-render, but does not change it in the already running code. So <code>score</code> continues to be <code>0</code> right after you call <code>setScore(score + 1)</code>.</p>
+<pre><code class="language-js">console.log(score);  // 0
+setScore(score + 1); // setScore(0 + 1);
+console.log(score);  // 0
+setScore(score + 1); // setScore(0 + 1);
+console.log(score);  // 0
+setScore(score + 1); // setScore(0 + 1);
+console.log(score);  // 0
+</code></pre>
+<p>You can fix this by passing an <em>updater function</em> when setting state. Notice how replacing <code>setScore(score + 1)</code> with <code>setScore(s =&gt; s + 1)</code> fixes the &quot;+3&quot; button. This is handy if you need to queue multiple state updates.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Counter() {
+  const [score, setScore] = useState(0);
+
+  function increment() {
+    setScore(s =&gt; s + 1);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;button onClick={() =&gt; increment()}&gt;+1&lt;/button&gt;
+      &lt;button onClick={() =&gt; {
+        increment();
+        increment();
+        increment();
+      }}&gt;+3&lt;/button&gt;
+      &lt;h1&gt;Score: {score}&lt;/h1&gt;
+    &lt;/&gt;
+  )
+}
+</code></pre>
+<pre><code class="language-css">button { display: inline-block; margin: 10px; font-size: 20px; }
+</code></pre>
+</Sandpack>
+<LearnMore path="/learn/queueing-a-series-of-state-updates">
+<p>Read <strong><a href="/learn/queueing-a-series-of-state-updates">Queueing a Series of State Updates</a></strong> to learn how to queue multiple updates before the next render.</p>
+</LearnMore>
+<h2 id="updating-objects-in-state-updating-objects-in-state"><a class="header" href="#updating-objects-in-state-updating-objects-in-state">Updating objects in state {/<em>updating-objects-in-state</em>/}</a></h2>
+<p>State can hold any kind of JavaScript value, including objects. But you shouldn't change objects and arrays that you hold in the React state directly. Instead, when you want to update an object and array, you need to create a new one (or make a copy of an existing one), and then update the state to use that copy.</p>
+<p>Usually, you will use the <code>...</code> spread syntax to copy objects and arrays that you want to change. For example, updating a nested object could look like this:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Form() {
+  const [person, setPerson] = useState({
+    name: 'Niki de Saint Phalle',
+    artwork: {
+      title: 'Blue Nana',
+      city: 'Hamburg',
+      image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+    }
+  });
+
+  function handleNameChange(e) {
+    setPerson({
+      ...person,
+      name: e.target.value
+    });
+  }
+
+  function handleTitleChange(e) {
+    setPerson({
+      ...person,
+      artwork: {
+        ...person.artwork,
+        title: e.target.value
+      }
+    });
+  }
+
+  function handleCityChange(e) {
+    setPerson({
+      ...person,
+      artwork: {
+        ...person.artwork,
+        city: e.target.value
+      }
+    });
+  }
+
+  function handleImageChange(e) {
+    setPerson({
+      ...person,
+      artwork: {
+        ...person.artwork,
+        image: e.target.value
+      }
+    });
+  }
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Name:
+        &lt;input
+          value={person.name}
+          onChange={handleNameChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Title:
+        &lt;input
+          value={person.artwork.title}
+          onChange={handleTitleChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        City:
+        &lt;input
+          value={person.artwork.city}
+          onChange={handleCityChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Image:
+        &lt;input
+          value={person.artwork.image}
+          onChange={handleImageChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;p&gt;
+        &lt;i&gt;{person.artwork.title}&lt;/i&gt;
+        {' by '}
+        {person.name}
+        &lt;br /&gt;
+        (located in {person.artwork.city})
+      &lt;/p&gt;
+      &lt;img
+        src={person.artwork.image}
+        alt={person.artwork.title}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label { display: block; }
+input { margin-left: 5px; margin-bottom: 5px; }
+img { width: 200px; height: 200px; }
+</code></pre>
+</Sandpack>
+<p>If copying objects in code gets tedious, you can use a library like <a href="https://github.com/immerjs/use-immer">Immer</a> to reduce repetitive code:</p>
+<Sandpack>
+<pre><code class="language-js">import { useImmer } from 'use-immer';
+
+export default function Form() {
+  const [person, updatePerson] = useImmer({
+    name: 'Niki de Saint Phalle',
+    artwork: {
+      title: 'Blue Nana',
+      city: 'Hamburg',
+      image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+    }
+  });
+
+  function handleNameChange(e) {
+    updatePerson(draft =&gt; {
+      draft.name = e.target.value;
+    });
+  }
+
+  function handleTitleChange(e) {
+    updatePerson(draft =&gt; {
+      draft.artwork.title = e.target.value;
+    });
+  }
+
+  function handleCityChange(e) {
+    updatePerson(draft =&gt; {
+      draft.artwork.city = e.target.value;
+    });
+  }
+
+  function handleImageChange(e) {
+    updatePerson(draft =&gt; {
+      draft.artwork.image = e.target.value;
+    });
+  }
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Name:
+        &lt;input
+          value={person.name}
+          onChange={handleNameChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Title:
+        &lt;input
+          value={person.artwork.title}
+          onChange={handleTitleChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        City:
+        &lt;input
+          value={person.artwork.city}
+          onChange={handleCityChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Image:
+        &lt;input
+          value={person.artwork.image}
+          onChange={handleImageChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;p&gt;
+        &lt;i&gt;{person.artwork.title}&lt;/i&gt;
+        {' by '}
+        {person.name}
+        &lt;br /&gt;
+        (located in {person.artwork.city})
+      &lt;/p&gt;
+      &lt;img
+        src={person.artwork.image}
+        alt={person.artwork.title}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-json package.json">{
+  &quot;dependencies&quot;: {
+    &quot;immer&quot;: &quot;1.7.3&quot;,
+    &quot;react&quot;: &quot;latest&quot;,
+    &quot;react-dom&quot;: &quot;latest&quot;,
+    &quot;react-scripts&quot;: &quot;latest&quot;,
+    &quot;use-immer&quot;: &quot;0.5.1&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-css">label { display: block; }
+input { margin-left: 5px; margin-bottom: 5px; }
+img { width: 200px; height: 200px; }
+</code></pre>
+</Sandpack>
+<LearnMore path="/learn/updating-objects-in-state">
+<p>Read <strong><a href="/learn/updating-objects-in-state">Updating Objects in State</a></strong> to learn how to update objects correctly.</p>
+</LearnMore>
+<h2 id="updating-arrays-in-state-updating-arrays-in-state"><a class="header" href="#updating-arrays-in-state-updating-arrays-in-state">Updating arrays in state {/<em>updating-arrays-in-state</em>/}</a></h2>
+<p>Arrays are another type of mutable JavaScript objects you can store in state and should treat as read-only. Just like with objects, when you want to update an array stored in state, you need to create a new one (or make a copy of an existing one), and then set state to use the new array:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+let nextId = 3;
+const initialList = [
+  { id: 0, title: 'Big Bellies', seen: false },
+  { id: 1, title: 'Lunar Landscape', seen: false },
+  { id: 2, title: 'Terracotta Army', seen: true },
+];
+
+export default function BucketList() {
+  const [list, setList] = useState(
+    initialList
+  );
+
+  function handleToggle(artworkId, nextSeen) {
+    setList(list.map(artwork =&gt; {
+      if (artwork.id === artworkId) {
+        return { ...artwork, seen: nextSeen };
+      } else {
+        return artwork;
+      }
+    }));
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Art Bucket List&lt;/h1&gt;
+      &lt;h2&gt;My list of art to see:&lt;/h2&gt;
+      &lt;ItemList
+        artworks={list}
+        onToggle={handleToggle} /&gt;
+    &lt;/&gt;
+  );
+}
+
+function ItemList({ artworks, onToggle }) {
+  return (
+    &lt;ul&gt;
+      {artworks.map(artwork =&gt; (
+        &lt;li key={artwork.id}&gt;
+          &lt;label&gt;
+            &lt;input
+              type=&quot;checkbox&quot;
+              checked={artwork.seen}
+              onChange={e =&gt; {
+                onToggle(
+                  artwork.id,
+                  e.target.checked
+                );
+              }}
+            /&gt;
+            {artwork.title}
+          &lt;/label&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>If copying arrays in code gets tedious, you can use a library like <a href="https://github.com/immerjs/use-immer">Immer</a> to reduce repetitive code:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+import { useImmer } from 'use-immer';
+
+let nextId = 3;
+const initialList = [
+  { id: 0, title: 'Big Bellies', seen: false },
+  { id: 1, title: 'Lunar Landscape', seen: false },
+  { id: 2, title: 'Terracotta Army', seen: true },
+];
+
+export default function BucketList() {
+  const [list, updateList] = useImmer(initialList);
+
+  function handleToggle(artworkId, nextSeen) {
+    updateList(draft =&gt; {
+      const artwork = draft.find(a =&gt;
+        a.id === artworkId
+      );
+      artwork.seen = nextSeen;
+    });
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Art Bucket List&lt;/h1&gt;
+      &lt;h2&gt;My list of art to see:&lt;/h2&gt;
+      &lt;ItemList
+        artworks={list}
+        onToggle={handleToggle} /&gt;
+    &lt;/&gt;
+  );
+}
+
+function ItemList({ artworks, onToggle }) {
+  return (
+    &lt;ul&gt;
+      {artworks.map(artwork =&gt; (
+        &lt;li key={artwork.id}&gt;
+          &lt;label&gt;
+            &lt;input
+              type=&quot;checkbox&quot;
+              checked={artwork.seen}
+              onChange={e =&gt; {
+                onToggle(
+                  artwork.id,
+                  e.target.checked
+                );
+              }}
+            /&gt;
+            {artwork.title}
+          &lt;/label&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-json package.json">{
+  &quot;dependencies&quot;: {
+    &quot;immer&quot;: &quot;1.7.3&quot;,
+    &quot;react&quot;: &quot;latest&quot;,
+    &quot;react-dom&quot;: &quot;latest&quot;,
+    &quot;react-scripts&quot;: &quot;latest&quot;,
+    &quot;use-immer&quot;: &quot;0.5.1&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+</Sandpack>
+<LearnMore path="/learn/updating-arrays-in-state">
+<p>Read <strong><a href="/learn/updating-arrays-in-state">Updating Arrays in State</a></strong> to learn how to update arrays correctly.</p>
+</LearnMore>
+<h2 id="whats-next-whats-next"><a class="header" href="#whats-next-whats-next">What's next? {/<em>whats-next</em>/}</a></h2>
+<p>Head over to <a href="/learn/responding-to-events">Responding to Events</a> to start reading this chapter page by page!</p>
+<p>Or, if you're already familiar with these topics, why not read about <a href="/learn/managing-state">Managing State</a>?</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/keeping-components-pure.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/responding-to-events.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/keeping-components-pure.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/responding-to-events.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

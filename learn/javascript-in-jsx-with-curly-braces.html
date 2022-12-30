@@ -1,0 +1,643 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>JavaScript in JSX with Curly Braces - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html" class="active"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-javascript-in-jsx-with-curly-braces"><a class="header" href="#title-javascript-in-jsx-with-curly-braces">title: JavaScript in JSX with Curly Braces</a></h2>
+<Intro>
+<p>JSX lets you write HTML-like markup inside a JavaScript file, keeping rendering logic and content in the same place. Sometimes you will want to add a little JavaScript logic or reference a dynamic property inside that markup. In this situation, you can use curly braces in your JSX to open a window to JavaScript.</p>
+</Intro>
+<YouWillLearn>
+<ul>
+<li>How to pass strings with quotes</li>
+<li>How to reference a JavaScript variable inside JSX with curly braces</li>
+<li>How to call a JavaScript function inside JSX with curly braces</li>
+<li>How to use a JavaScript object inside JSX with curly braces</li>
+</ul>
+</YouWillLearn>
+<h2 id="passing-strings-with-quotes-passing-strings-with-quotes"><a class="header" href="#passing-strings-with-quotes-passing-strings-with-quotes">Passing strings with quotes {/<em>passing-strings-with-quotes</em>/}</a></h2>
+<p>When you want to pass a string attribute to JSX, you put it in single or double quotes:</p>
+<Sandpack>
+<pre><code class="language-js">export default function Avatar() {
+  return (
+    &lt;img
+      className=&quot;avatar&quot;
+      src=&quot;https://i.imgur.com/7vQD0fPs.jpg&quot;
+      alt=&quot;Gregorio Y. Zara&quot;
+    /&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.avatar { border-radius: 50%; height: 90px; }
+</code></pre>
+</Sandpack>
+<p>Here, <code>&quot;https://i.imgur.com/7vQD0fPs.jpg&quot;</code> and <code>&quot;Gregorio Y. Zara&quot;</code> are being passed as strings.</p>
+<p>But what if you want to dynamically specify the <code>src</code> or <code>alt</code> text? You could <strong>use a value from JavaScript by replacing <code>&quot;</code> and <code>&quot;</code> with <code>{</code> and <code>}</code></strong>:</p>
+<Sandpack>
+<pre><code class="language-js">export default function Avatar() {
+  const avatar = 'https://i.imgur.com/7vQD0fPs.jpg';
+  const description = 'Gregorio Y. Zara';
+  return (
+    &lt;img
+      className=&quot;avatar&quot;
+      src={avatar}
+      alt={description}
+    /&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.avatar { border-radius: 50%; height: 90px; }
+</code></pre>
+</Sandpack>
+<p>Notice the difference between <code>className=&quot;avatar&quot;</code>, which specifies an <code>&quot;avatar&quot;</code> CSS class name that makes the image round, and <code>src={avatar}</code> that reads the value of the JavaScript variable called <code>avatar</code>. That's because curly braces let you work with JavaScript right there in your markup!</p>
+<h2 id="using-curly-braces-a-window-into-the-javascript-world-using-curly-braces-a-window-into-the-javascript-world"><a class="header" href="#using-curly-braces-a-window-into-the-javascript-world-using-curly-braces-a-window-into-the-javascript-world">Using curly braces: A window into the JavaScript world {/<em>using-curly-braces-a-window-into-the-javascript-world</em>/}</a></h2>
+<p>JSX is a special way of writing JavaScript. That means it’s possible to use JavaScript inside it—with curly braces <code>{ }</code>. The example below first declares a name for the scientist, <code>name</code>, then embeds it with curly braces inside the <code>&lt;h1&gt;</code>:</p>
+<Sandpack>
+<pre><code class="language-js">export default function TodoList() {
+  const name = 'Gregorio Y. Zara';
+  return (
+    &lt;h1&gt;{name}'s To Do List&lt;/h1&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>Try changing <code>name</code>'s value from <code>'Gregorio Y. Zara'</code> to <code>'Hedy Lamarr'</code>. See how the To Do List title changes?</p>
+<p>Any JavaScript expression will work between curly braces, including function calls like <code>formatDate()</code>:</p>
+<Sandpack>
+<pre><code class="language-js">const today = new Date();
+
+function formatDate(date) {
+  return new Intl.DateTimeFormat(
+    'en-US',
+    { weekday: 'long' }
+  ).format(date);
+}
+
+export default function TodoList() {
+  return (
+    &lt;h1&gt;To Do List for {formatDate(today)}&lt;/h1&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<h3 id="where-to-use-curly-braces-where-to-use-curly-braces"><a class="header" href="#where-to-use-curly-braces-where-to-use-curly-braces">Where to use curly braces {/<em>where-to-use-curly-braces</em>/}</a></h3>
+<p>You can only use curly braces in two ways inside JSX:</p>
+<ol>
+<li><strong>As text</strong> directly inside a JSX tag: <code>&lt;h1&gt;{name}'s To Do List&lt;/h1&gt;</code> works, but <code>&lt;{tag}&gt;Gregorio Y. Zara's To Do List&lt;/{tag}&gt;</code>  will not.</li>
+<li><strong>As attributes</strong> immediately following the <code>=</code> sign: <code>src={avatar}</code> will read the <code>avatar</code> variable, but <code>src=&quot;{avatar}&quot;</code> will pass the string <code>&quot;{avatar}&quot;</code>.</li>
+</ol>
+<h2 id="using-double-curlies-css-and-other-objects-in-jsx-using-double-curlies-css-and-other-objects-in-jsx"><a class="header" href="#using-double-curlies-css-and-other-objects-in-jsx-using-double-curlies-css-and-other-objects-in-jsx">Using &quot;double curlies&quot;: CSS and other objects in JSX {/<em>using-double-curlies-css-and-other-objects-in-jsx</em>/}</a></h2>
+<p>In addition to strings, numbers, and other JavaScript expressions, you can even pass objects in JSX. Objects are also denoted with curly braces, like <code>{ name: &quot;Hedy Lamarr&quot;, inventions: 5 }</code>. Therefore, to pass a JS object in JSX, you must wrap the object in another pair of curly braces: <code>person={{ name: &quot;Hedy Lamarr&quot;, inventions: 5 }}</code>.</p>
+<p>You may see this with inline CSS styles in JSX. React does not require you to use inline styles (CSS classes work great for most cases). But when you need an inline style, you pass an object to the <code>style</code> attribute:</p>
+<Sandpack>
+<pre><code class="language-js">export default function TodoList() {
+  return (
+    &lt;ul style={{
+      backgroundColor: 'black',
+      color: 'pink'
+    }}&gt;
+      &lt;li&gt;Improve the videophone&lt;/li&gt;
+      &lt;li&gt;Prepare aeronautics lectures&lt;/li&gt;
+      &lt;li&gt;Work on the alcohol-fuelled engine&lt;/li&gt;
+    &lt;/ul&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body { padding: 0; margin: 0 }
+ul { padding: 20px 20px 20px 40px; margin: 0; }
+</code></pre>
+</Sandpack>
+<p>Try changing the values of <code>backgroundColor</code> and <code>color</code>.</p>
+<p>You can really see the JavaScript object inside the curly braces when you write it like this:</p>
+<pre><code class="language-js {2-5}">&lt;ul style={
+  {
+    backgroundColor: 'black',
+    color: 'pink'
+  }
+}&gt;
+</code></pre>
+<p>The next time you see <code>{{</code> and <code>}}</code> in JSX, know that it's nothing more than an object inside the JSX curlies!</p>
+<Pitfall>
+<p>Inline <code>style</code> properties are written in camelCase. For example, HTML <code>&lt;ul style=&quot;background-color: black&quot;&gt;</code> would be written as <code>&lt;ul style={{ backgroundColor: 'black' }}&gt;</code>  in your component.</p>
+</Pitfall>
+<h2 id="more-fun-with-javascript-objects-and-curly-braces-more-fun-with-javascript-objects-and-curly-braces"><a class="header" href="#more-fun-with-javascript-objects-and-curly-braces-more-fun-with-javascript-objects-and-curly-braces">More fun with JavaScript objects and curly braces {/<em>more-fun-with-javascript-objects-and-curly-braces</em>/}</a></h2>
+<p>You can move several expressions into one object, and reference them in your JSX inside curly braces:</p>
+<Sandpack>
+<pre><code class="language-js">const person = {
+  name: 'Gregorio Y. Zara',
+  theme: {
+    backgroundColor: 'black',
+    color: 'pink'
+  }
+};
+
+export default function TodoList() {
+  return (
+    &lt;div style={person.theme}&gt;
+      &lt;h1&gt;{person.name}'s Todos&lt;/h1&gt;
+      &lt;img
+        className=&quot;avatar&quot;
+        src=&quot;https://i.imgur.com/7vQD0fPs.jpg&quot;
+        alt=&quot;Gregorio Y. Zara&quot;
+      /&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Improve the videophone&lt;/li&gt;
+        &lt;li&gt;Prepare aeronautics lectures&lt;/li&gt;
+        &lt;li&gt;Work on the alcohol-fuelled engine&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body { padding: 0; margin: 0 }
+body &gt; div &gt; div { padding: 20px; }
+.avatar { border-radius: 50%; height: 90px; }
+</code></pre>
+</Sandpack>
+<p>In this example, the <code>person</code> JavaScript object contains a <code>name</code> string and a <code>theme</code> object:</p>
+<pre><code class="language-js">const person = {
+  name: 'Gregorio Y. Zara',
+  theme: {
+    backgroundColor: 'black',
+    color: 'pink'
+  }
+};
+</code></pre>
+<p>The component can use these values from <code>person</code> like so:</p>
+<pre><code class="language-js">&lt;div style={person.theme}&gt;
+  &lt;h1&gt;{person.name}'s Todos&lt;/h1&gt;
+</code></pre>
+<p>JSX is very minimal as a templating language because it lets you organize data and logic using JavaScript.</p>
+<Recap>
+<p>Now you know almost everything about JSX:</p>
+<ul>
+<li>JSX attributes inside quotes are passed as strings.</li>
+<li>Curly braces let you bring JavaScript logic and variables into your markup.</li>
+<li>They work inside the JSX tag content or immediately after <code>=</code> in attributes.</li>
+<li><code>{{</code> and <code>}}</code> is not special syntax: it's a JavaScript object tucked inside JSX curly braces.</li>
+</ul>
+</Recap>
+<Challenges>
+<h4 id="fix-the-mistake-fix-the-mistake"><a class="header" href="#fix-the-mistake-fix-the-mistake">Fix the mistake {/<em>fix-the-mistake</em>/}</a></h4>
+<p>This code crashes with an error saying <code>Objects are not valid as a React child</code>:</p>
+<Sandpack>
+<pre><code class="language-js">const person = {
+  name: 'Gregorio Y. Zara',
+  theme: {
+    backgroundColor: 'black',
+    color: 'pink'
+  }
+};
+
+export default function TodoList() {
+  return (
+    &lt;div style={person.theme}&gt;
+      &lt;h1&gt;{person}'s Todos&lt;/h1&gt;
+      &lt;img
+        className=&quot;avatar&quot;
+        src=&quot;https://i.imgur.com/7vQD0fPs.jpg&quot;
+        alt=&quot;Gregorio Y. Zara&quot;
+      /&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Improve the videophone&lt;/li&gt;
+        &lt;li&gt;Prepare aeronautics lectures&lt;/li&gt;
+        &lt;li&gt;Work on the alcohol-fuelled engine&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body { padding: 0; margin: 0 }
+body &gt; div &gt; div { padding: 20px; }
+.avatar { border-radius: 50%; height: 90px; }
+</code></pre>
+</Sandpack>
+<p>Can you find the problem?</p>
+<p><Hint>Look for what's inside the curly braces. Are we putting the right thing there?</Hint></p>
+<Solution>
+<p>This is happening because this example renders <em>an object itself</em> into the markup rather than a string: <code>&lt;h1&gt;{person}'s Todos&lt;/h1&gt;</code> is trying to render the entire <code>person</code> object! Including raw objects as text content throws an error because React doesn't know how you want to display them.</p>
+<p>To fix it, replace <code>&lt;h1&gt;{person}'s Todos&lt;/h1&gt;</code> with <code>&lt;h1&gt;{person.name}'s Todos&lt;/h1&gt;</code>:</p>
+<Sandpack>
+<pre><code class="language-js">const person = {
+  name: 'Gregorio Y. Zara',
+  theme: {
+    backgroundColor: 'black',
+    color: 'pink'
+  }
+};
+
+export default function TodoList() {
+  return (
+    &lt;div style={person.theme}&gt;
+      &lt;h1&gt;{person.name}'s Todos&lt;/h1&gt;
+      &lt;img
+        className=&quot;avatar&quot;
+        src=&quot;https://i.imgur.com/7vQD0fPs.jpg&quot;
+        alt=&quot;Gregorio Y. Zara&quot;
+      /&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Improve the videophone&lt;/li&gt;
+        &lt;li&gt;Prepare aeronautics lectures&lt;/li&gt;
+        &lt;li&gt;Work on the alcohol-fuelled engine&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body { padding: 0; margin: 0 }
+body &gt; div &gt; div { padding: 20px; }
+.avatar { border-radius: 50%; height: 90px; }
+</code></pre>
+</Sandpack>
+</Solution>
+<h4 id="extract-information-into-an-object-extract-information-into-an-object"><a class="header" href="#extract-information-into-an-object-extract-information-into-an-object">Extract information into an object {/<em>extract-information-into-an-object</em>/}</a></h4>
+<p>Extract the image URL into the <code>person</code> object.</p>
+<Sandpack>
+<pre><code class="language-js">const person = {
+  name: 'Gregorio Y. Zara',
+  theme: {
+    backgroundColor: 'black',
+    color: 'pink'
+  }
+};
+
+export default function TodoList() {
+  return (
+    &lt;div style={person.theme}&gt;
+      &lt;h1&gt;{person.name}'s Todos&lt;/h1&gt;
+      &lt;img
+        className=&quot;avatar&quot;
+        src=&quot;https://i.imgur.com/7vQD0fPs.jpg&quot;
+        alt=&quot;Gregorio Y. Zara&quot;
+      /&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Improve the videophone&lt;/li&gt;
+        &lt;li&gt;Prepare aeronautics lectures&lt;/li&gt;
+        &lt;li&gt;Work on the alcohol-fuelled engine&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body { padding: 0; margin: 0 }
+body &gt; div &gt; div { padding: 20px; }
+.avatar { border-radius: 50%; height: 90px; }
+</code></pre>
+</Sandpack>
+<Solution>
+<p>Move the image URL into a property called <code>person.imageUrl</code> and read it from the <code>&lt;img&gt;</code> tag using the curlies:</p>
+<Sandpack>
+<pre><code class="language-js">const person = {
+  name: 'Gregorio Y. Zara',
+  imageUrl: &quot;https://i.imgur.com/7vQD0fPs.jpg&quot;,
+  theme: {
+    backgroundColor: 'black',
+    color: 'pink'
+  }
+};
+
+export default function TodoList() {
+  return (
+    &lt;div style={person.theme}&gt;
+      &lt;h1&gt;{person.name}'s Todos&lt;/h1&gt;
+      &lt;img
+        className=&quot;avatar&quot;
+        src={person.imageUrl}
+        alt=&quot;Gregorio Y. Zara&quot;
+      /&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Improve the videophone&lt;/li&gt;
+        &lt;li&gt;Prepare aeronautics lectures&lt;/li&gt;
+        &lt;li&gt;Work on the alcohol-fuelled engine&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body { padding: 0; margin: 0 }
+body &gt; div &gt; div { padding: 20px; }
+.avatar { border-radius: 50%; height: 90px; }
+</code></pre>
+</Sandpack>
+</Solution>
+<h4 id="write-an-expression-inside-jsx-curly-braces-write-an-expression-inside-jsx-curly-braces"><a class="header" href="#write-an-expression-inside-jsx-curly-braces-write-an-expression-inside-jsx-curly-braces">Write an expression inside JSX curly braces {/<em>write-an-expression-inside-jsx-curly-braces</em>/}</a></h4>
+<p>In the object below, the full image URL is split into four parts: base URL, <code>imageId</code>, <code>imageSize</code>, and file extension.</p>
+<p>We want the image URL to combine these attributes together: base URL (always <code>'https://i.imgur.com/'</code>), <code>imageId</code> (<code>'7vQD0fP'</code>), <code>imageSize</code> (<code>'s'</code>), and file extension (always <code>'.jpg'</code>). However, something is wrong with how the <code>&lt;img&gt;</code> tag specifies its <code>src</code>.</p>
+<p>Can you fix it?</p>
+<Sandpack>
+<pre><code class="language-js">
+const baseUrl = 'https://i.imgur.com/';
+const person = {
+  name: 'Gregorio Y. Zara',
+  imageId: '7vQD0fP',
+  imageSize: 's',
+  theme: {
+    backgroundColor: 'black',
+    color: 'pink'
+  }
+};
+
+export default function TodoList() {
+  return (
+    &lt;div style={person.theme}&gt;
+      &lt;h1&gt;{person.name}'s Todos&lt;/h1&gt;
+      &lt;img
+        className=&quot;avatar&quot;
+        src=&quot;{baseUrl}{person.imageId}{person.imageSize}.jpg&quot;
+        alt={person.name}
+      /&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Improve the videophone&lt;/li&gt;
+        &lt;li&gt;Prepare aeronautics lectures&lt;/li&gt;
+        &lt;li&gt;Work on the alcohol-fuelled engine&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body { padding: 0; margin: 0 }
+body &gt; div &gt; div { padding: 20px; }
+.avatar { border-radius: 50%; height: 90px; }
+</code></pre>
+</Sandpack>
+<p>To check that your fix worked, try changing the value of <code>imageSize</code> to <code>'b'</code>. The image should resize after your edit.</p>
+<Solution>
+<p>You can write it as <code>src={baseUrl + person.imageId + person.imageSize + '.jpg'}</code>.</p>
+<ol>
+<li><code>{</code> opens the JavaScript expression</li>
+<li><code>baseUrl + person.imageId + person.imageSize + '.jpg'</code> produces the correct URL string</li>
+<li><code>}</code> closes the JavaScript expression</li>
+</ol>
+<Sandpack>
+<pre><code class="language-js">const baseUrl = 'https://i.imgur.com/';
+const person = {
+  name: 'Gregorio Y. Zara',
+  imageId: '7vQD0fP',
+  imageSize: 's',
+  theme: {
+    backgroundColor: 'black',
+    color: 'pink'
+  }
+};
+
+export default function TodoList() {
+  return (
+    &lt;div style={person.theme}&gt;
+      &lt;h1&gt;{person.name}'s Todos&lt;/h1&gt;
+      &lt;img
+        className=&quot;avatar&quot;
+        src={baseUrl + person.imageId + person.imageSize + '.jpg'}
+        alt={person.name}
+      /&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Improve the videophone&lt;/li&gt;
+        &lt;li&gt;Prepare aeronautics lectures&lt;/li&gt;
+        &lt;li&gt;Work on the alcohol-fuelled engine&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body { padding: 0; margin: 0 }
+body &gt; div &gt; div { padding: 20px; }
+.avatar { border-radius: 50%; height: 90px; }
+</code></pre>
+</Sandpack>
+<p>You can also move this expression into a separate function like <code>getImageUrl</code> below:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { getImageUrl } from './utils.js'
+
+const person = {
+  name: 'Gregorio Y. Zara',
+  imageId: '7vQD0fP',
+  imageSize: 's',
+  theme: {
+    backgroundColor: 'black',
+    color: 'pink'
+  }
+};
+
+export default function TodoList() {
+  return (
+    &lt;div style={person.theme}&gt;
+      &lt;h1&gt;{person.name}'s Todos&lt;/h1&gt;
+      &lt;img
+        className=&quot;avatar&quot;
+        src={getImageUrl(person)}
+        alt={person.name}
+      /&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Improve the videophone&lt;/li&gt;
+        &lt;li&gt;Prepare aeronautics lectures&lt;/li&gt;
+        &lt;li&gt;Work on the alcohol-fuelled engine&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(person) {
+  return (
+    'https://i.imgur.com/' +
+    person.imageId +
+    person.imageSize +
+    '.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">body { padding: 0; margin: 0 }
+body &gt; div &gt; div { padding: 20px; }
+.avatar { border-radius: 50%; height: 90px; }
+</code></pre>
+</Sandpack>
+<p>Variables and functions can help you keep the markup simple!</p>
+</Solution>
+</Challenges>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/writing-markup-with-jsx.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/passing-props-to-a-component.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/writing-markup-with-jsx.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/passing-props-to-a-component.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

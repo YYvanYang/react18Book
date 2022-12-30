@@ -1,0 +1,2522 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>&lt;Suspense&gt; - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react/Suspense.html" class="active"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title"><a class="header" href="#title">title: <Suspense></a></h2>
+<Intro>
+<p><code>&lt;Suspense&gt;</code> lets you display a fallback until its children have finished loading.</p>
+<pre><code class="language-js">&lt;Suspense fallback={&lt;Loading /&gt;}&gt;
+  &lt;SomeComponent /&gt;
+&lt;/Suspense&gt;
+</code></pre>
+</Intro>
+<InlineToc />
+<hr />
+<h2 id="reference-reference"><a class="header" href="#reference-reference">Reference {/<em>reference</em>/}</a></h2>
+<h3 id="suspense-suspense"><a class="header" href="#suspense-suspense"><code>&lt;Suspense&gt;</code> {/<em>suspense</em>/}</a></h3>
+<h4 id="props-props"><a class="header" href="#props-props">Props {/<em>props</em>/}</a></h4>
+<ul>
+<li><code>children</code>: The actual UI you intend to render. If <code>children</code> suspends while rendering, the Suspense boundary will switch to rendering <code>fallback</code>.</li>
+<li><code>fallback</code>: An alternate UI to render in place of the actual UI if it has not finished loading. Any valid React node is accepted, though in practice, a fallback is a lightweight placeholder view, such as a loading spinner or skeleton. Suspense will automatically switch to <code>fallback</code> when <code>children</code> suspends, and back to <code>children</code> when the data is ready. If <code>fallback</code> suspends while rendering, it will activate the closest parent Suspense boundary.</li>
+</ul>
+<h4 id="caveats-caveats"><a class="header" href="#caveats-caveats">Caveats {/<em>caveats</em>/}</a></h4>
+<ul>
+<li>React does not preserve any state for renders that got suspended before they were able to mount for the first time. When the component has loaded, React will retry rendering the suspended tree from scratch.</li>
+<li>If Suspense was displaying content for the tree, but then it suspended again, the <code>fallback</code> will be shown again unless the update causing it was caused by <a href="/reference/react/startTransition"><code>startTransition</code></a> or <a href="/reference/react/useDeferredValue"><code>useDeferredValue</code></a>.</li>
+<li>If React needs to hide the already visible content because it suspended again, it will clean up <a href="/reference/react/useLayoutEffect">layout Effects</a> in the content tree. When the content is ready to be shown again, React will fire the layout Effects again. This lets you make sure that Effects measuring the DOM layout don't try to do this while the content is hidden.</li>
+<li>React includes under-the-hood optimizations like <em>Streaming Server Rendering</em> and <em>Selective Hydration</em> that are integrated with Suspense. Read <a href="https://github.com/reactwg/react-18/discussions/37">an architectural overview</a> and watch <a href="https://www.youtube.com/watch?v=pj5N-Khihgc">a technical talk</a> to learn more.</li>
+</ul>
+<hr />
+<h2 id="usage-usage"><a class="header" href="#usage-usage">Usage {/<em>usage</em>/}</a></h2>
+<h3 id="displaying-a-fallback-while-content-is-loading-displaying-a-fallback-while-content-is-loading"><a class="header" href="#displaying-a-fallback-while-content-is-loading-displaying-a-fallback-while-content-is-loading">Displaying a fallback while content is loading {/<em>displaying-a-fallback-while-content-is-loading</em>/}</a></h3>
+<p>You can wrap any part of your application with a Suspense boundary:</p>
+<pre><code class="language-js [[1  1  &quot;&lt;Loading /&gt;&quot;]  [2  2  &quot;&lt;Albums /&gt;&quot;]]">&lt;Suspense fallback={&lt;Loading /&gt;}&gt;
+  &lt;Albums /&gt;
+&lt;/Suspense&gt;
+</code></pre>
+<p>React will display your <CodeStep step={1}>loading fallback</CodeStep> until all the code and data needed by <CodeStep step={2}>the children</CodeStep> has been loaded.</p>
+<p>In the example below, the <code>Albums</code> component <em>suspends</em> while fetching the list of albums. Until it's ready to render, React switches the closest Suspense boundary above to show the fallback--your <code>Loading</code> component. Then, when the data loads, React hides the <code>Loading</code> fallback and renders the <code>Albums</code> component with data.</p>
+<Sandpack>
+<pre><code class="language-json package.json hidden">{
+  &quot;dependencies&quot;: {
+    &quot;react&quot;: &quot;experimental&quot;,
+    &quot;react-dom&quot;: &quot;experimental&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-js App.js hidden">import { useState } from 'react';
+import ArtistPage from './ArtistPage.js';
+
+export default function App() {
+  const [show, setShow] = useState(false);
+  if (show) {
+    return (
+      &lt;ArtistPage
+        artist={{
+          id: 'the-beatles',
+          name: 'The Beatles',
+        }}
+      /&gt;
+    );
+  } else {
+    return (
+      &lt;button onClick={() =&gt; setShow(true)}&gt;
+        Open The Beatles artist page
+      &lt;/button&gt;
+    );
+  }
+}
+</code></pre>
+<pre><code class="language-js ArtistPage.js active">import { Suspense } from 'react';
+import Albums from './Albums.js';
+
+export default function ArtistPage({ artist }) {
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{artist.name}&lt;/h1&gt;
+      &lt;Suspense fallback={&lt;Loading /&gt;}&gt;
+        &lt;Albums artistId={artist.id} /&gt;
+      &lt;/Suspense&gt;
+    &lt;/&gt;
+  );
+}
+
+function Loading() {
+  return &lt;h2&gt;🌀 Loading...&lt;/h2&gt;;
+}
+</code></pre>
+<pre><code class="language-js Albums.js hidden">import { fetchData } from './data.js';
+
+// Note: this component is written using an experimental API
+// that's not yet available in stable versions of React.
+
+// For a realistic example you can follow today, try a framework
+// that's integrated with Suspense, like Relay or Next.js.
+
+export default function Albums({ artistId }) {
+  const albums = use(fetchData(`/${artistId}/albums`));
+  return (
+    &lt;ul&gt;
+      {albums.map(album =&gt; (
+        &lt;li key={album.id}&gt;
+          {album.title} ({album.year})
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result =&gt; {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason =&gt; {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },      
+    );
+    throw promise;
+  }
+}
+</code></pre>
+<pre><code class="language-js data.js hidden">// Note: the way you would do data fething depends on
+// the framework that you use together with Suspense.
+// Normally, the caching logic would be inside a framework.
+
+let cache = new Map();
+
+export function fetchData(url) {
+  if (!cache.has(url)) {
+    cache.set(url, getData(url));
+  }
+  return cache.get(url);
+}
+
+async function getData(url) {
+  if (url === '/the-beatles/albums') {
+    return await getAlbums();
+  } else {
+    throw Error('Not implemented');
+  }
+}
+
+async function getAlbums() {
+  // Add a fake delay to make waiting noticeable.
+  await new Promise(resolve =&gt; {
+    setTimeout(resolve, 3000);
+  });
+
+  return [{
+    id: 13,
+    title: 'Let It Be',
+    year: 1970
+  }, {
+    id: 12,
+    title: 'Abbey Road',
+    year: 1969
+  }, {
+    id: 11,
+    title: 'Yellow Submarine',
+    year: 1969
+  }, {
+    id: 10,
+    title: 'The Beatles',
+    year: 1968
+  }, {
+    id: 9,
+    title: 'Magical Mystery Tour',
+    year: 1967
+  }, {
+    id: 8,
+    title: 'Sgt. Pepper\'s Lonely Hearts Club Band',
+    year: 1967
+  }, {
+    id: 7,
+    title: 'Revolver',
+    year: 1966
+  }, {
+    id: 6,
+    title: 'Rubber Soul',
+    year: 1965
+  }, {
+    id: 5,
+    title: 'Help!',
+    year: 1965
+  }, {
+    id: 4,
+    title: 'Beatles For Sale',
+    year: 1964
+  }, {
+    id: 3,
+    title: 'A Hard Day\'s Night',
+    year: 1964
+  }, {
+    id: 2,
+    title: 'With The Beatles',
+    year: 1963
+  }, {
+    id: 1,
+    title: 'Please Please Me',
+    year: 1963
+  }];
+}
+</code></pre>
+</Sandpack>
+<Note>
+<p><strong>Only Suspense-enabled data sources will activate the Suspense component.</strong> They include:</p>
+<ul>
+<li>Data fetching with Suspense-enabled frameworks like <a href="https://relay.dev/docs/guided-tour/rendering/loading-states/">Relay</a> and <a href="https://nextjs.org/docs/advanced-features/react-18">Next.js</a></li>
+<li>Lazy-loading component code with <a href="/reference/react/lazy"><code>lazy</code></a></li>
+</ul>
+<p>Suspense <strong>does not</strong> detect when data is fetched inside an Effect or event handler.</p>
+<p>The exact way you would load data in the <code>Albums</code> component above depends on your framework. If you use a Suspense-enabled framework, you'll find the details in its data fetching documentation.</p>
+<p>Suspense-enabled data fetching without the use of an opinionated framework is not yet supported. The requirements for implementing a Suspense-enabled data source are unstable and undocumented. An official API for integrating data sources with Suspense will be released in a future version of React. </p>
+</Note>
+<hr />
+<h3 id="revealing-content-together-at-once-revealing-content-together-at-once"><a class="header" href="#revealing-content-together-at-once-revealing-content-together-at-once">Revealing content together at once {/<em>revealing-content-together-at-once</em>/}</a></h3>
+<p>By default, the whole tree inside Suspense is treated as a single unit. For example, even if <em>only one</em> of these components suspends waiting for some data, <em>all</em> of them together will be replaced by the loading indicator:</p>
+<pre><code class="language-js {2-5}">&lt;Suspense fallback={&lt;Loading /&gt;}&gt;
+  &lt;Biography /&gt;
+  &lt;Panel&gt;
+    &lt;Albums /&gt;
+  &lt;/Panel&gt;
+&lt;/Suspense&gt;
+</code></pre>
+<p>Then, after all of them are ready to be displayed, they will all appear together at once.</p>
+<p>In the example below, both <code>Biography</code> and <code>Albums</code> fetch some data. However, because they are grouped under a single Suspense boundary, these components always &quot;pop in&quot; together at the same time.</p>
+<Sandpack>
+<pre><code class="language-json package.json hidden">{
+  &quot;dependencies&quot;: {
+    &quot;react&quot;: &quot;experimental&quot;,
+    &quot;react-dom&quot;: &quot;experimental&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-js App.js hidden">import { useState } from 'react';
+import ArtistPage from './ArtistPage.js';
+
+export default function App() {
+  const [show, setShow] = useState(false);
+  if (show) {
+    return (
+      &lt;ArtistPage
+        artist={{
+          id: 'the-beatles',
+          name: 'The Beatles',
+        }}
+      /&gt;
+    );
+  } else {
+    return (
+      &lt;button onClick={() =&gt; setShow(true)}&gt;
+        Open The Beatles artist page
+      &lt;/button&gt;
+    );
+  }
+}
+</code></pre>
+<pre><code class="language-js ArtistPage.js active">import { Suspense } from 'react';
+import Albums from './Albums.js';
+import Biography from './Biography.js';
+import Panel from './Panel.js';
+
+export default function ArtistPage({ artist }) {
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{artist.name}&lt;/h1&gt;
+      &lt;Suspense fallback={&lt;Loading /&gt;}&gt;
+        &lt;Biography artistId={artist.id} /&gt;
+        &lt;Panel&gt;
+          &lt;Albums artistId={artist.id} /&gt;
+        &lt;/Panel&gt;
+      &lt;/Suspense&gt;
+    &lt;/&gt;
+  );
+}
+
+function Loading() {
+  return &lt;h2&gt;🌀 Loading...&lt;/h2&gt;;
+}
+</code></pre>
+<pre><code class="language-js Panel.js">export default function Panel({ children }) {
+  return (
+    &lt;section className=&quot;panel&quot;&gt;
+      {children}
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Biography.js hidden">import { fetchData } from './data.js';
+
+// Note: this component is written using an experimental API
+// that's not yet available in stable versions of React.
+
+// For a realistic example you can follow today, try a framework
+// that's integrated with Suspense, like Relay or Next.js.
+
+export default function Biography({ artistId }) {
+  const bio = use(fetchData(`/${artistId}/bio`));
+  return (
+    &lt;section&gt;
+      &lt;p className=&quot;bio&quot;&gt;{bio}&lt;/p&gt;
+    &lt;/section&gt;
+  );
+}
+
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result =&gt; {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason =&gt; {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },      
+    );
+    throw promise;
+  }
+}
+</code></pre>
+<pre><code class="language-js Albums.js hidden">import { fetchData } from './data.js';
+
+// Note: this component is written using an experimental API
+// that's not yet available in stable versions of React.
+
+// For a realistic example you can follow today, try a framework
+// that's integrated with Suspense, like Relay or Next.js.
+
+export default function Albums({ artistId }) {
+  const albums = use(fetchData(`/${artistId}/albums`));
+  return (
+    &lt;ul&gt;
+      {albums.map(album =&gt; (
+        &lt;li key={album.id}&gt;
+          {album.title} ({album.year})
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result =&gt; {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason =&gt; {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },      
+    );
+    throw promise;
+  }
+}
+</code></pre>
+<pre><code class="language-js data.js hidden">// Note: the way you would do data fething depends on
+// the framework that you use together with Suspense.
+// Normally, the caching logic would be inside a framework.
+
+let cache = new Map();
+
+export function fetchData(url) {
+  if (!cache.has(url)) {
+    cache.set(url, getData(url));
+  }
+  return cache.get(url);
+}
+
+async function getData(url) {
+  if (url === '/the-beatles/albums') {
+    return await getAlbums();
+  } else if (url === '/the-beatles/bio') {
+    return await getBio();
+  } else {
+    throw Error('Not implemented');
+  }
+}
+
+async function getBio() {
+  // Add a fake delay to make waiting noticeable.
+  await new Promise(resolve =&gt; {
+    setTimeout(resolve, 1500);
+  });
+
+  return `The Beatles were an English rock band, 
+    formed in Liverpool in 1960, that comprised 
+    John Lennon, Paul McCartney, George Harrison 
+    and Ringo Starr.`;
+}
+
+async function getAlbums() {
+  // Add a fake delay to make waiting noticeable.
+  await new Promise(resolve =&gt; {
+    setTimeout(resolve, 3000);
+  });
+
+  return [{
+    id: 13,
+    title: 'Let It Be',
+    year: 1970
+  }, {
+    id: 12,
+    title: 'Abbey Road',
+    year: 1969
+  }, {
+    id: 11,
+    title: 'Yellow Submarine',
+    year: 1969
+  }, {
+    id: 10,
+    title: 'The Beatles',
+    year: 1968
+  }, {
+    id: 9,
+    title: 'Magical Mystery Tour',
+    year: 1967
+  }, {
+    id: 8,
+    title: 'Sgt. Pepper\'s Lonely Hearts Club Band',
+    year: 1967
+  }, {
+    id: 7,
+    title: 'Revolver',
+    year: 1966
+  }, {
+    id: 6,
+    title: 'Rubber Soul',
+    year: 1965
+  }, {
+    id: 5,
+    title: 'Help!',
+    year: 1965
+  }, {
+    id: 4,
+    title: 'Beatles For Sale',
+    year: 1964
+  }, {
+    id: 3,
+    title: 'A Hard Day\'s Night',
+    year: 1964
+  }, {
+    id: 2,
+    title: 'With The Beatles',
+    year: 1963
+  }, {
+    id: 1,
+    title: 'Please Please Me',
+    year: 1963
+  }];
+}
+</code></pre>
+<pre><code class="language-css">.bio { font-style: italic; }
+
+.panel {
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 10px;
+}
+</code></pre>
+</Sandpack>
+<p>Components that load data don't have to be direct children of the Suspense boundary. For example, you can move <code>Biography</code> and <code>Albums</code> into a new <code>Details</code> component. This doesn't change the behavior. Because <code>Biography</code> and <code>Albums</code> share the same closest parent Suspense boundary, their reveal is coordinated together.</p>
+<pre><code class="language-js {2 8-11}">&lt;Suspense fallback={&lt;Loading /&gt;}&gt;
+  &lt;Details artistId={artist.id} /&gt;
+&lt;/Suspense&gt;
+
+function Details({ artistId }) {
+  return (
+    &lt;&gt;
+      &lt;Biography artistId={artistId} /&gt;
+      &lt;Panel&gt;
+        &lt;Albums artistId={artistId} /&gt;
+      &lt;/Panel&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<hr />
+<h3 id="revealing-nested-content-as-it-loads-revealing-nested-content-as-it-loads"><a class="header" href="#revealing-nested-content-as-it-loads-revealing-nested-content-as-it-loads">Revealing nested content as it loads {/<em>revealing-nested-content-as-it-loads</em>/}</a></h3>
+<p>When a component suspends, the closest parent Suspense component shows the fallback. This lets you nest multiple Suspense components to create a loading sequence. Each Suspense boundary's fallback will be filled in as the next level of content becomes available. For example, you can give the album list its own loading fallback:</p>
+<pre><code class="language-js {3 7}">&lt;Suspense fallback={&lt;BigSpinner /&gt;}&gt;
+  &lt;Biography /&gt;
+  &lt;Suspense fallback={&lt;AlbumsGlimmer /&gt;}&gt;
+    &lt;Panel&gt;
+      &lt;Albums /&gt;
+    &lt;/Panel&gt;
+  &lt;/Suspense&gt;
+&lt;/Suspense&gt;
+</code></pre>
+<p>With this change, displaying the <code>Biography</code> doesn't need to &quot;wait&quot; for the <code>Albums</code> to load.</p>
+<p>The sequence will be:</p>
+<ol>
+<li>If <code>Biography</code> hasn't loaded yet, <code>BigSpinner</code> is shown in place of the entire content area.</li>
+<li>Once <code>Biography</code> finishes loading, <code>BigSpinner</code> is replaced by the content.</li>
+<li>If <code>Albums</code> hasn't loaded yet, <code>AlbumsGlimmer</code> is shown in place of <code>Albums</code> and its parent <code>Panel</code>.</li>
+<li>Finally, once <code>Albums</code> finishes loading, it replaces <code>AlbumsGlimmer</code>.</li>
+</ol>
+<Sandpack>
+<pre><code class="language-json package.json hidden">{
+  &quot;dependencies&quot;: {
+    &quot;react&quot;: &quot;experimental&quot;,
+    &quot;react-dom&quot;: &quot;experimental&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-js App.js hidden">import { useState } from 'react';
+import ArtistPage from './ArtistPage.js';
+
+export default function App() {
+  const [show, setShow] = useState(false);
+  if (show) {
+    return (
+      &lt;ArtistPage
+        artist={{
+          id: 'the-beatles',
+          name: 'The Beatles',
+        }}
+      /&gt;
+    );
+  } else {
+    return (
+      &lt;button onClick={() =&gt; setShow(true)}&gt;
+        Open The Beatles artist page
+      &lt;/button&gt;
+    );
+  }
+}
+</code></pre>
+<pre><code class="language-js ArtistPage.js active">import { Suspense } from 'react';
+import Albums from './Albums.js';
+import Biography from './Biography.js';
+import Panel from './Panel.js';
+
+export default function ArtistPage({ artist }) {
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{artist.name}&lt;/h1&gt;
+      &lt;Suspense fallback={&lt;BigSpinner /&gt;}&gt;
+        &lt;Biography artistId={artist.id} /&gt;
+        &lt;Suspense fallback={&lt;AlbumsGlimmer /&gt;}&gt;
+          &lt;Panel&gt;
+            &lt;Albums artistId={artist.id} /&gt;
+          &lt;/Panel&gt;
+        &lt;/Suspense&gt;
+      &lt;/Suspense&gt;
+    &lt;/&gt;
+  );
+}
+
+function BigSpinner() {
+  return &lt;h2&gt;🌀 Loading...&lt;/h2&gt;;
+}
+
+function AlbumsGlimmer() {
+  return (
+    &lt;div className=&quot;glimmer-panel&quot;&gt;
+      &lt;div className=&quot;glimmer-line&quot; /&gt;
+      &lt;div className=&quot;glimmer-line&quot; /&gt;
+      &lt;div className=&quot;glimmer-line&quot; /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Panel.js">export default function Panel({ children }) {
+  return (
+    &lt;section className=&quot;panel&quot;&gt;
+      {children}
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Biography.js hidden">import { fetchData } from './data.js';
+
+// Note: this component is written using an experimental API
+// that's not yet available in stable versions of React.
+
+// For a realistic example you can follow today, try a framework
+// that's integrated with Suspense, like Relay or Next.js.
+
+export default function Biography({ artistId }) {
+  const bio = use(fetchData(`/${artistId}/bio`));
+  return (
+    &lt;section&gt;
+      &lt;p className=&quot;bio&quot;&gt;{bio}&lt;/p&gt;
+    &lt;/section&gt;
+  );
+}
+
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result =&gt; {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason =&gt; {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },      
+    );
+    throw promise;
+  }
+}
+</code></pre>
+<pre><code class="language-js Albums.js hidden">import { fetchData } from './data.js';
+
+// Note: this component is written using an experimental API
+// that's not yet available in stable versions of React.
+
+// For a realistic example you can follow today, try a framework
+// that's integrated with Suspense, like Relay or Next.js.
+
+export default function Albums({ artistId }) {
+  const albums = use(fetchData(`/${artistId}/albums`));
+  return (
+    &lt;ul&gt;
+      {albums.map(album =&gt; (
+        &lt;li key={album.id}&gt;
+          {album.title} ({album.year})
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result =&gt; {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason =&gt; {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },      
+    );
+    throw promise;
+  }
+}
+</code></pre>
+<pre><code class="language-js data.js hidden">// Note: the way you would do data fething depends on
+// the framework that you use together with Suspense.
+// Normally, the caching logic would be inside a framework.
+
+let cache = new Map();
+
+export function fetchData(url) {
+  if (!cache.has(url)) {
+    cache.set(url, getData(url));
+  }
+  return cache.get(url);
+}
+
+async function getData(url) {
+  if (url === '/the-beatles/albums') {
+    return await getAlbums();
+  } else if (url === '/the-beatles/bio') {
+    return await getBio();
+  } else {
+    throw Error('Not implemented');
+  }
+}
+
+async function getBio() {
+  // Add a fake delay to make waiting noticeable.
+  await new Promise(resolve =&gt; {
+    setTimeout(resolve, 500);
+  });
+
+  return `The Beatles were an English rock band, 
+    formed in Liverpool in 1960, that comprised 
+    John Lennon, Paul McCartney, George Harrison 
+    and Ringo Starr.`;
+}
+
+async function getAlbums() {
+  // Add a fake delay to make waiting noticeable.
+  await new Promise(resolve =&gt; {
+    setTimeout(resolve, 3000);
+  });
+
+  return [{
+    id: 13,
+    title: 'Let It Be',
+    year: 1970
+  }, {
+    id: 12,
+    title: 'Abbey Road',
+    year: 1969
+  }, {
+    id: 11,
+    title: 'Yellow Submarine',
+    year: 1969
+  }, {
+    id: 10,
+    title: 'The Beatles',
+    year: 1968
+  }, {
+    id: 9,
+    title: 'Magical Mystery Tour',
+    year: 1967
+  }, {
+    id: 8,
+    title: 'Sgt. Pepper\'s Lonely Hearts Club Band',
+    year: 1967
+  }, {
+    id: 7,
+    title: 'Revolver',
+    year: 1966
+  }, {
+    id: 6,
+    title: 'Rubber Soul',
+    year: 1965
+  }, {
+    id: 5,
+    title: 'Help!',
+    year: 1965
+  }, {
+    id: 4,
+    title: 'Beatles For Sale',
+    year: 1964
+  }, {
+    id: 3,
+    title: 'A Hard Day\'s Night',
+    year: 1964
+  }, {
+    id: 2,
+    title: 'With The Beatles',
+    year: 1963
+  }, {
+    id: 1,
+    title: 'Please Please Me',
+    year: 1963
+  }];
+}
+</code></pre>
+<pre><code class="language-css">.bio { font-style: italic; }
+
+.panel {
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.glimmer-panel {
+  border: 1px dashed #aaa;
+  background: linear-gradient(90deg, rgba(221,221,221,1) 0%, rgba(255,255,255,1) 100%);
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.glimmer-line {
+  display: block;
+  width: 60%;
+  height: 20px;
+  margin: 10px;
+  border-radius: 4px;
+  background: #f0f0f0;
+}
+</code></pre>
+</Sandpack>
+<p>Suspense boundaries let you coordinate which parts of your UI should always &quot;pop in&quot; together at the same time, and which parts should progressively reveal more content in a sequence of loading states. You can add, move, or delete Suspense boundaries in any place in the tree without affecting the rest of your app's behavior.</p>
+<p>Don't put a Suspense boundary around every component. Suspense boundaries should not be more granular than the loading sequence that you want the user to experience. If you work with a designer, ask them where the loading states should be placed--it's likely that they've already included them in their design wireframes.</p>
+<hr />
+<h3 id="showing-stale-content-while-fresh-content-is-loading-showing-stale-content-while-fresh-content-is-loading"><a class="header" href="#showing-stale-content-while-fresh-content-is-loading-showing-stale-content-while-fresh-content-is-loading">Showing stale content while fresh content is loading {/<em>showing-stale-content-while-fresh-content-is-loading</em>/}</a></h3>
+<p>In this example, the <code>SearchResults</code> component suspends while fetching the search results. Try typing <code>&quot;a&quot;</code>, waiting for the results, and then editing it to <code>&quot;ab&quot;</code>. The results for <code>&quot;a&quot;</code> will get replaced by the loading fallback.</p>
+<Sandpack>
+<pre><code class="language-json package.json hidden">{
+  &quot;dependencies&quot;: {
+    &quot;react&quot;: &quot;experimental&quot;,
+    &quot;react-dom&quot;: &quot;experimental&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-js App.js">import { Suspense, useState } from 'react';
+import SearchResults from './SearchResults.js';
+
+export default function App() {
+  const [query, setQuery] = useState('');
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Search albums:
+        &lt;input value={query} onChange={e =&gt; setQuery(e.target.value)} /&gt;
+      &lt;/label&gt;
+      &lt;Suspense fallback={&lt;h2&gt;Loading...&lt;/h2&gt;}&gt;
+        &lt;SearchResults query={query} /&gt;
+      &lt;/Suspense&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js SearchResults.js hidden">import { fetchData } from './data.js';
+
+// Note: this component is written using an experimental API
+// that's not yet available in stable versions of React.
+
+// For a realistic example you can follow today, try a framework
+// that's integrated with Suspense, like Relay or Next.js.
+
+export default function SearchResults({ query }) {
+  if (query === '') {
+    return null;
+  }
+  const albums = use(fetchData(`/search?q=${query}`));
+  if (albums.length === 0) {
+    return &lt;p&gt;No matches for &lt;i&gt;&quot;{query}&quot;&lt;/i&gt;&lt;/p&gt;;
+  }
+  return (
+    &lt;ul&gt;
+      {albums.map(album =&gt; (
+        &lt;li key={album.id}&gt;
+          {album.title} ({album.year})
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result =&gt; {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason =&gt; {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },      
+    );
+    throw promise;
+  }
+}
+</code></pre>
+<pre><code class="language-js data.js hidden">// Note: the way you would do data fething depends on
+// the framework that you use together with Suspense.
+// Normally, the caching logic would be inside a framework.
+
+let cache = new Map();
+
+export function fetchData(url) {
+  if (!cache.has(url)) {
+    cache.set(url, getData(url));
+  }
+  return cache.get(url);
+}
+
+async function getData(url) {
+  if (url.startsWith('/search?q=')) {
+    return await getSearchResults(url.slice('/search?q='.length));
+  } else {
+    throw Error('Not implemented');
+  }
+}
+
+async function getSearchResults(query) {
+  // Add a fake delay to make waiting noticeable.
+  await new Promise(resolve =&gt; {
+    setTimeout(resolve, 500);
+  });
+
+  const allAlbums = [{
+    id: 13,
+    title: 'Let It Be',
+    year: 1970
+  }, {
+    id: 12,
+    title: 'Abbey Road',
+    year: 1969
+  }, {
+    id: 11,
+    title: 'Yellow Submarine',
+    year: 1969
+  }, {
+    id: 10,
+    title: 'The Beatles',
+    year: 1968
+  }, {
+    id: 9,
+    title: 'Magical Mystery Tour',
+    year: 1967
+  }, {
+    id: 8,
+    title: 'Sgt. Pepper\'s Lonely Hearts Club Band',
+    year: 1967
+  }, {
+    id: 7,
+    title: 'Revolver',
+    year: 1966
+  }, {
+    id: 6,
+    title: 'Rubber Soul',
+    year: 1965
+  }, {
+    id: 5,
+    title: 'Help!',
+    year: 1965
+  }, {
+    id: 4,
+    title: 'Beatles For Sale',
+    year: 1964
+  }, {
+    id: 3,
+    title: 'A Hard Day\'s Night',
+    year: 1964
+  }, {
+    id: 2,
+    title: 'With The Beatles',
+    year: 1963
+  }, {
+    id: 1,
+    title: 'Please Please Me',
+    year: 1963
+  }];
+
+  const lowerQuery = query.trim().toLowerCase();
+  return allAlbums.filter(album =&gt; {
+    const lowerTitle = album.title.toLowerCase();
+    return (
+      lowerTitle.startsWith(lowerQuery) ||
+      lowerTitle.indexOf(' ' + lowerQuery) !== -1
+    )
+  });
+}
+</code></pre>
+<pre><code class="language-css">input { margin: 10px; }
+</code></pre>
+</Sandpack>
+<p>A common alternative UI pattern is to <em>defer</em> updating the list of results and to keep showing the previous results until the new results are ready. The <a href="/reference/react/useDeferredValue"><code>useDeferredValue</code></a> Hook lets you pass a deferred version of the query down: </p>
+<pre><code class="language-js {3 11}">export default function App() {
+  const [query, setQuery] = useState('');
+  const deferredQuery = useDeferredValue(query);
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Search albums:
+        &lt;input value={query} onChange={e =&gt; setQuery(e.target.value)} /&gt;
+      &lt;/label&gt;
+      &lt;Suspense fallback={&lt;h2&gt;Loading...&lt;/h2&gt;}&gt;
+        &lt;SearchResults query={deferredQuery} /&gt;
+      &lt;/Suspense&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<p>The <code>query</code> will update immediately, so the input will display the new value. However, the <code>deferredQuery</code> will keep its previous value until the data has loaded, so <code>SearchResults</code> will show the stale results for a bit.</p>
+<p>To make it more obvious to the user, you can add a visual indication when the stale result list is displayed:</p>
+<pre><code class="language-js {2}">&lt;div style={{
+  opacity: query !== deferredQuery ? 0.5 : 1 
+}}&gt;
+  &lt;SearchResults query={deferredQuery} /&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Enter <code>&quot;a&quot;</code> in the example below, wait for the results to load, and then edit the input to <code>&quot;ab&quot;</code>. Notice how instead of the Suspense fallback, you now see the slightly dimmed stale result list until the new results have loaded:</p>
+<Sandpack>
+<pre><code class="language-json package.json hidden">{
+  &quot;dependencies&quot;: {
+    &quot;react&quot;: &quot;experimental&quot;,
+    &quot;react-dom&quot;: &quot;experimental&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-js App.js">import { Suspense, useState, useDeferredValue } from 'react';
+import SearchResults from './SearchResults.js';
+
+export default function App() {
+  const [query, setQuery] = useState('');
+  const deferredQuery = useDeferredValue(query);
+  const isStale = query !== deferredQuery;
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Search albums:
+        &lt;input value={query} onChange={e =&gt; setQuery(e.target.value)} /&gt;
+      &lt;/label&gt;
+      &lt;Suspense fallback={&lt;h2&gt;Loading...&lt;/h2&gt;}&gt;
+        &lt;div style={{ opacity: isStale ? 0.5 : 1 }}&gt;
+          &lt;SearchResults query={deferredQuery} /&gt;
+        &lt;/div&gt;
+      &lt;/Suspense&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js SearchResults.js hidden">import { fetchData } from './data.js';
+
+// Note: this component is written using an experimental API
+// that's not yet available in stable versions of React.
+
+// For a realistic example you can follow today, try a framework
+// that's integrated with Suspense, like Relay or Next.js.
+
+export default function SearchResults({ query }) {
+  if (query === '') {
+    return null;
+  }
+  const albums = use(fetchData(`/search?q=${query}`));
+  if (albums.length === 0) {
+    return &lt;p&gt;No matches for &lt;i&gt;&quot;{query}&quot;&lt;/i&gt;&lt;/p&gt;;
+  }
+  return (
+    &lt;ul&gt;
+      {albums.map(album =&gt; (
+        &lt;li key={album.id}&gt;
+          {album.title} ({album.year})
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result =&gt; {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason =&gt; {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },      
+    );
+    throw promise;
+  }
+}
+</code></pre>
+<pre><code class="language-js data.js hidden">// Note: the way you would do data fething depends on
+// the framework that you use together with Suspense.
+// Normally, the caching logic would be inside a framework.
+
+let cache = new Map();
+
+export function fetchData(url) {
+  if (!cache.has(url)) {
+    cache.set(url, getData(url));
+  }
+  return cache.get(url);
+}
+
+async function getData(url) {
+  if (url.startsWith('/search?q=')) {
+    return await getSearchResults(url.slice('/search?q='.length));
+  } else {
+    throw Error('Not implemented');
+  }
+}
+
+async function getSearchResults(query) {
+  // Add a fake delay to make waiting noticeable.
+  await new Promise(resolve =&gt; {
+    setTimeout(resolve, 500);
+  });
+
+  const allAlbums = [{
+    id: 13,
+    title: 'Let It Be',
+    year: 1970
+  }, {
+    id: 12,
+    title: 'Abbey Road',
+    year: 1969
+  }, {
+    id: 11,
+    title: 'Yellow Submarine',
+    year: 1969
+  }, {
+    id: 10,
+    title: 'The Beatles',
+    year: 1968
+  }, {
+    id: 9,
+    title: 'Magical Mystery Tour',
+    year: 1967
+  }, {
+    id: 8,
+    title: 'Sgt. Pepper\'s Lonely Hearts Club Band',
+    year: 1967
+  }, {
+    id: 7,
+    title: 'Revolver',
+    year: 1966
+  }, {
+    id: 6,
+    title: 'Rubber Soul',
+    year: 1965
+  }, {
+    id: 5,
+    title: 'Help!',
+    year: 1965
+  }, {
+    id: 4,
+    title: 'Beatles For Sale',
+    year: 1964
+  }, {
+    id: 3,
+    title: 'A Hard Day\'s Night',
+    year: 1964
+  }, {
+    id: 2,
+    title: 'With The Beatles',
+    year: 1963
+  }, {
+    id: 1,
+    title: 'Please Please Me',
+    year: 1963
+  }];
+
+  const lowerQuery = query.trim().toLowerCase();
+  return allAlbums.filter(album =&gt; {
+    const lowerTitle = album.title.toLowerCase();
+    return (
+      lowerTitle.startsWith(lowerQuery) ||
+      lowerTitle.indexOf(' ' + lowerQuery) !== -1
+    )
+  });
+}
+</code></pre>
+<pre><code class="language-css">input { margin: 10px; }
+</code></pre>
+</Sandpack>
+<Note>
+<p>Both deferred values and <a href="#preventing-already-revealed-content-from-hiding">transitions</a> let you avoid showing Suspense fallback in favor of inline indicators. Transitions mark the whole update as non-urgent so they are typically used by frameworks and router libraries for navigation. Deferred values, on the other hand, are mostly useful in application code where you want to mark a part of UI as non-urgent, meaning that it's allowed to &quot;lag behind&quot; the rest of the UI.</p>
+</Note>
+<hr />
+<h3 id="preventing-already-revealed-content-from-hiding-preventing-already-revealed-content-from-hiding"><a class="header" href="#preventing-already-revealed-content-from-hiding-preventing-already-revealed-content-from-hiding">Preventing already revealed content from hiding {/<em>preventing-already-revealed-content-from-hiding</em>/}</a></h3>
+<p>When a component suspends, the closest parent Suspense boundary switches to showing the fallback. This can lead to a jarring user experience if it was already displaying some content. Press the button in the example below:</p>
+<Sandpack>
+<pre><code class="language-json package.json hidden">{
+  &quot;dependencies&quot;: {
+    &quot;react&quot;: &quot;experimental&quot;,
+    &quot;react-dom&quot;: &quot;experimental&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-js App.js">import { Suspense, useState } from 'react';
+import IndexPage from './IndexPage.js';
+import ArtistPage from './ArtistPage.js';
+import Layout from './Layout.js';
+
+export default function App() {
+  return (
+    &lt;Suspense fallback={&lt;BigSpinner /&gt;}&gt;
+      &lt;Router /&gt;
+    &lt;/Suspense&gt;
+  );
+}
+
+function Router() {
+  const [page, setPage] = useState('/');
+
+  function navigate(url) {
+    setPage(url);
+  }
+
+  let content;
+  if (page === '/') {
+    content = (
+      &lt;IndexPage navigate={navigate} /&gt;
+    );
+  } else if (page === '/the-beatles') {
+    content = (
+      &lt;ArtistPage
+        artist={{
+          id: 'the-beatles',
+          name: 'The Beatles',
+        }}
+      /&gt;
+    );
+  }
+  return (
+    &lt;Layout&gt;
+      {content}
+    &lt;/Layout&gt;
+  );
+}
+
+function BigSpinner() {
+  return &lt;h2&gt;🌀 Loading...&lt;/h2&gt;;
+}
+</code></pre>
+<pre><code class="language-js Layout.js">export default function Layout({ children }) {
+  return (
+    &lt;div className=&quot;layout&quot;&gt;
+      &lt;section className=&quot;header&quot;&gt;
+        Music Browser
+      &lt;/section&gt;
+      &lt;main&gt;
+        {children}
+      &lt;/main&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js IndexPage.js">export default function IndexPage({ navigate }) {
+  return (
+    &lt;button onClick={() =&gt; navigate('/the-beatles')}&gt;
+      Open The Beatles artist page
+    &lt;/button&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js ArtistPage.js">import { Suspense } from 'react';
+import Albums from './Albums.js';
+import Biography from './Biography.js';
+import Panel from './Panel.js';
+
+export default function ArtistPage({ artist }) {
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{artist.name}&lt;/h1&gt;
+      &lt;Biography artistId={artist.id} /&gt;
+      &lt;Suspense fallback={&lt;AlbumsGlimmer /&gt;}&gt;
+        &lt;Panel&gt;
+          &lt;Albums artistId={artist.id} /&gt;
+        &lt;/Panel&gt;
+      &lt;/Suspense&gt;
+    &lt;/&gt;
+  );
+}
+
+function AlbumsGlimmer() {
+  return (
+    &lt;div className=&quot;glimmer-panel&quot;&gt;
+      &lt;div className=&quot;glimmer-line&quot; /&gt;
+      &lt;div className=&quot;glimmer-line&quot; /&gt;
+      &lt;div className=&quot;glimmer-line&quot; /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Albums.js hidden">import { fetchData } from './data.js';
+
+// Note: this component is written using an experimental API
+// that's not yet available in stable versions of React.
+
+// For a realistic example you can follow today, try a framework
+// that's integrated with Suspense, like Relay or Next.js.
+
+export default function Albums({ artistId }) {
+  const albums = use(fetchData(`/${artistId}/albums`));
+  return (
+    &lt;ul&gt;
+      {albums.map(album =&gt; (
+        &lt;li key={album.id}&gt;
+          {album.title} ({album.year})
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result =&gt; {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason =&gt; {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },      
+    );
+    throw promise;
+  }
+}
+</code></pre>
+<pre><code class="language-js Biography.js hidden">import { fetchData } from './data.js';
+
+// Note: this component is written using an experimental API
+// that's not yet available in stable versions of React.
+
+// For a realistic example you can follow today, try a framework
+// that's integrated with Suspense, like Relay or Next.js.
+
+export default function Biography({ artistId }) {
+  const bio = use(fetchData(`/${artistId}/bio`));
+  return (
+    &lt;section&gt;
+      &lt;p className=&quot;bio&quot;&gt;{bio}&lt;/p&gt;
+    &lt;/section&gt;
+  );
+}
+
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result =&gt; {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason =&gt; {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },      
+    );
+    throw promise;
+  }
+}
+</code></pre>
+<pre><code class="language-js Panel.js hidden">export default function Panel({ children }) {
+  return (
+    &lt;section className=&quot;panel&quot;&gt;
+      {children}
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js data.js hidden">// Note: the way you would do data fething depends on
+// the framework that you use together with Suspense.
+// Normally, the caching logic would be inside a framework.
+
+let cache = new Map();
+
+export function fetchData(url) {
+  if (!cache.has(url)) {
+    cache.set(url, getData(url));
+  }
+  return cache.get(url);
+}
+
+async function getData(url) {
+  if (url === '/the-beatles/albums') {
+    return await getAlbums();
+  } else if (url === '/the-beatles/bio') {
+    return await getBio();
+  } else {
+    throw Error('Not implemented');
+  }
+}
+
+async function getBio() {
+  // Add a fake delay to make waiting noticeable.
+  await new Promise(resolve =&gt; {
+    setTimeout(resolve, 500);
+  });
+
+  return `The Beatles were an English rock band, 
+    formed in Liverpool in 1960, that comprised 
+    John Lennon, Paul McCartney, George Harrison 
+    and Ringo Starr.`;
+}
+
+async function getAlbums() {
+  // Add a fake delay to make waiting noticeable.
+  await new Promise(resolve =&gt; {
+    setTimeout(resolve, 3000);
+  });
+
+  return [{
+    id: 13,
+    title: 'Let It Be',
+    year: 1970
+  }, {
+    id: 12,
+    title: 'Abbey Road',
+    year: 1969
+  }, {
+    id: 11,
+    title: 'Yellow Submarine',
+    year: 1969
+  }, {
+    id: 10,
+    title: 'The Beatles',
+    year: 1968
+  }, {
+    id: 9,
+    title: 'Magical Mystery Tour',
+    year: 1967
+  }, {
+    id: 8,
+    title: 'Sgt. Pepper\'s Lonely Hearts Club Band',
+    year: 1967
+  }, {
+    id: 7,
+    title: 'Revolver',
+    year: 1966
+  }, {
+    id: 6,
+    title: 'Rubber Soul',
+    year: 1965
+  }, {
+    id: 5,
+    title: 'Help!',
+    year: 1965
+  }, {
+    id: 4,
+    title: 'Beatles For Sale',
+    year: 1964
+  }, {
+    id: 3,
+    title: 'A Hard Day\'s Night',
+    year: 1964
+  }, {
+    id: 2,
+    title: 'With The Beatles',
+    year: 1963
+  }, {
+    id: 1,
+    title: 'Please Please Me',
+    year: 1963
+  }];
+}
+</code></pre>
+<pre><code class="language-css">main {
+  min-height: 200px;
+  padding: 10px;
+}
+
+.layout {
+  border: 1px solid black;
+}
+
+.header {
+  background: #222;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+.bio { font-style: italic; }
+
+.panel {
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.glimmer-panel {
+  border: 1px dashed #aaa;
+  background: linear-gradient(90deg, rgba(221,221,221,1) 0%, rgba(255,255,255,1) 100%);
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.glimmer-line {
+  display: block;
+  width: 60%;
+  height: 20px;
+  margin: 10px;
+  border-radius: 4px;
+  background: #f0f0f0;
+}
+</code></pre>
+</Sandpack>
+<p>When you pressed the button, the <code>Router</code> component rendered <code>ArtistPage</code> instead of <code>IndexPage</code>. A component inside the <code>ArtistPage</code> suspended, so the closest Suspense boundary started showing the fallback. The closest Suspense boundary was near the root, so the whole site layout got replaced by <code>BigSpinner</code>.</p>
+<p>To prevent this from happening, you can mark the navigation state update as a <em>transition</em> with <a href="/reference/react/startTransition"><code>startTransition</code>:</a></p>
+<pre><code class="language-js {5 7}">function Router() {
+  const [page, setPage] = useState('/');
+
+  function navigate(url) {
+    startTransition(() =&gt; {
+      setPage(url);      
+    });
+  }
+  // ...
+</code></pre>
+<p>This tells React that the state transition is not urgent, and it's better to keep showing the previous page instead of hiding any already revealed content. Notice how clicking the button now &quot;waits&quot; for the <code>Biography</code> to load:</p>
+<Sandpack>
+<pre><code class="language-json package.json hidden">{
+  &quot;dependencies&quot;: {
+    &quot;react&quot;: &quot;experimental&quot;,
+    &quot;react-dom&quot;: &quot;experimental&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-js App.js">import { Suspense, startTransition, useState } from 'react';
+import IndexPage from './IndexPage.js';
+import ArtistPage from './ArtistPage.js';
+import Layout from './Layout.js';
+
+export default function App() {
+  return (
+    &lt;Suspense fallback={&lt;BigSpinner /&gt;}&gt;
+      &lt;Router /&gt;
+    &lt;/Suspense&gt;
+  );
+}
+
+function Router() {
+  const [page, setPage] = useState('/');
+
+  function navigate(url) {
+    startTransition(() =&gt; {
+      setPage(url);
+    });
+  }
+
+  let content;
+  if (page === '/') {
+    content = (
+      &lt;IndexPage navigate={navigate} /&gt;
+    );
+  } else if (page === '/the-beatles') {
+    content = (
+      &lt;ArtistPage
+        artist={{
+          id: 'the-beatles',
+          name: 'The Beatles',
+        }}
+      /&gt;
+    );
+  }
+  return (
+    &lt;Layout&gt;
+      {content}
+    &lt;/Layout&gt;
+  );
+}
+
+function BigSpinner() {
+  return &lt;h2&gt;🌀 Loading...&lt;/h2&gt;;
+}
+</code></pre>
+<pre><code class="language-js Layout.js">export default function Layout({ children }) {
+  return (
+    &lt;div className=&quot;layout&quot;&gt;
+      &lt;section className=&quot;header&quot;&gt;
+        Music Browser
+      &lt;/section&gt;
+      &lt;main&gt;
+        {children}
+      &lt;/main&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js IndexPage.js">export default function IndexPage({ navigate }) {
+  return (
+    &lt;button onClick={() =&gt; navigate('/the-beatles')}&gt;
+      Open The Beatles artist page
+    &lt;/button&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js ArtistPage.js">import { Suspense } from 'react';
+import Albums from './Albums.js';
+import Biography from './Biography.js';
+import Panel from './Panel.js';
+
+export default function ArtistPage({ artist }) {
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{artist.name}&lt;/h1&gt;
+      &lt;Biography artistId={artist.id} /&gt;
+      &lt;Suspense fallback={&lt;AlbumsGlimmer /&gt;}&gt;
+        &lt;Panel&gt;
+          &lt;Albums artistId={artist.id} /&gt;
+        &lt;/Panel&gt;
+      &lt;/Suspense&gt;
+    &lt;/&gt;
+  );
+}
+
+function AlbumsGlimmer() {
+  return (
+    &lt;div className=&quot;glimmer-panel&quot;&gt;
+      &lt;div className=&quot;glimmer-line&quot; /&gt;
+      &lt;div className=&quot;glimmer-line&quot; /&gt;
+      &lt;div className=&quot;glimmer-line&quot; /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Albums.js hidden">import { fetchData } from './data.js';
+
+// Note: this component is written using an experimental API
+// that's not yet available in stable versions of React.
+
+// For a realistic example you can follow today, try a framework
+// that's integrated with Suspense, like Relay or Next.js.
+
+export default function Albums({ artistId }) {
+  const albums = use(fetchData(`/${artistId}/albums`));
+  return (
+    &lt;ul&gt;
+      {albums.map(album =&gt; (
+        &lt;li key={album.id}&gt;
+          {album.title} ({album.year})
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result =&gt; {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason =&gt; {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },      
+    );
+    throw promise;
+  }
+}
+</code></pre>
+<pre><code class="language-js Biography.js hidden">import { fetchData } from './data.js';
+
+// Note: this component is written using an experimental API
+// that's not yet available in stable versions of React.
+
+// For a realistic example you can follow today, try a framework
+// that's integrated with Suspense, like Relay or Next.js.
+
+export default function Biography({ artistId }) {
+  const bio = use(fetchData(`/${artistId}/bio`));
+  return (
+    &lt;section&gt;
+      &lt;p className=&quot;bio&quot;&gt;{bio}&lt;/p&gt;
+    &lt;/section&gt;
+  );
+}
+
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result =&gt; {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason =&gt; {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },      
+    );
+    throw promise;
+  }
+}
+</code></pre>
+<pre><code class="language-js Panel.js hidden">export default function Panel({ children }) {
+  return (
+    &lt;section className=&quot;panel&quot;&gt;
+      {children}
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js data.js hidden">// Note: the way you would do data fething depends on
+// the framework that you use together with Suspense.
+// Normally, the caching logic would be inside a framework.
+
+let cache = new Map();
+
+export function fetchData(url) {
+  if (!cache.has(url)) {
+    cache.set(url, getData(url));
+  }
+  return cache.get(url);
+}
+
+async function getData(url) {
+  if (url === '/the-beatles/albums') {
+    return await getAlbums();
+  } else if (url === '/the-beatles/bio') {
+    return await getBio();
+  } else {
+    throw Error('Not implemented');
+  }
+}
+
+async function getBio() {
+  // Add a fake delay to make waiting noticeable.
+  await new Promise(resolve =&gt; {
+    setTimeout(resolve, 500);
+  });
+
+  return `The Beatles were an English rock band, 
+    formed in Liverpool in 1960, that comprised 
+    John Lennon, Paul McCartney, George Harrison 
+    and Ringo Starr.`;
+}
+
+async function getAlbums() {
+  // Add a fake delay to make waiting noticeable.
+  await new Promise(resolve =&gt; {
+    setTimeout(resolve, 3000);
+  });
+
+  return [{
+    id: 13,
+    title: 'Let It Be',
+    year: 1970
+  }, {
+    id: 12,
+    title: 'Abbey Road',
+    year: 1969
+  }, {
+    id: 11,
+    title: 'Yellow Submarine',
+    year: 1969
+  }, {
+    id: 10,
+    title: 'The Beatles',
+    year: 1968
+  }, {
+    id: 9,
+    title: 'Magical Mystery Tour',
+    year: 1967
+  }, {
+    id: 8,
+    title: 'Sgt. Pepper\'s Lonely Hearts Club Band',
+    year: 1967
+  }, {
+    id: 7,
+    title: 'Revolver',
+    year: 1966
+  }, {
+    id: 6,
+    title: 'Rubber Soul',
+    year: 1965
+  }, {
+    id: 5,
+    title: 'Help!',
+    year: 1965
+  }, {
+    id: 4,
+    title: 'Beatles For Sale',
+    year: 1964
+  }, {
+    id: 3,
+    title: 'A Hard Day\'s Night',
+    year: 1964
+  }, {
+    id: 2,
+    title: 'With The Beatles',
+    year: 1963
+  }, {
+    id: 1,
+    title: 'Please Please Me',
+    year: 1963
+  }];
+}
+</code></pre>
+<pre><code class="language-css">main {
+  min-height: 200px;
+  padding: 10px;
+}
+
+.layout {
+  border: 1px solid black;
+}
+
+.header {
+  background: #222;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+.bio { font-style: italic; }
+
+.panel {
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.glimmer-panel {
+  border: 1px dashed #aaa;
+  background: linear-gradient(90deg, rgba(221,221,221,1) 0%, rgba(255,255,255,1) 100%);
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.glimmer-line {
+  display: block;
+  width: 60%;
+  height: 20px;
+  margin: 10px;
+  border-radius: 4px;
+  background: #f0f0f0;
+}
+</code></pre>
+</Sandpack>
+<p>A transition doesn't wait for <em>all</em> content to load. It only waits long enough to avoid hiding already revealed content. For example, the website <code>Layout</code> was already revealed, so it would be bad to hide it behind a loading spinner. However, the nested <code>Suspense</code> boundary around <code>Albums</code> is new, so the transition doesn't wait for it.</p>
+<Note>
+<p>Suspense-enabled routers are expected to wrap the navigation updates into transitions by default.</p>
+</Note>
+<hr />
+<h3 id="indicating-that-a-transition-is-happening-indicating-that-a-transition-is-happening"><a class="header" href="#indicating-that-a-transition-is-happening-indicating-that-a-transition-is-happening">Indicating that a transition is happening {/<em>indicating-that-a-transition-is-happening</em>/}</a></h3>
+<p>In the above example, once you click the button, there is no visual indication that a navigation is in progress. To add an indicator, you can replace <a href="/reference/react/startTransition"><code>startTransition</code></a> with <a href="/reference/react/useTransition"><code>useTransition</code></a> which gives you a boolean <code>isPending</code> value. In the example below, it's used to change the website header styling while a transition is happening:</p>
+<Sandpack>
+<pre><code class="language-json package.json hidden">{
+  &quot;dependencies&quot;: {
+    &quot;react&quot;: &quot;experimental&quot;,
+    &quot;react-dom&quot;: &quot;experimental&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-js App.js">import { Suspense, useState, useTransition } from 'react';
+import IndexPage from './IndexPage.js';
+import ArtistPage from './ArtistPage.js';
+import Layout from './Layout.js';
+
+export default function App() {
+  return (
+    &lt;Suspense fallback={&lt;BigSpinner /&gt;}&gt;
+      &lt;Router /&gt;
+    &lt;/Suspense&gt;
+  );
+}
+
+function Router() {
+  const [page, setPage] = useState('/');
+  const [isPending, startTransition] = useTransition();
+
+  function navigate(url) {
+    startTransition(() =&gt; {
+      setPage(url);
+    });
+  }
+
+  let content;
+  if (page === '/') {
+    content = (
+      &lt;IndexPage navigate={navigate} /&gt;
+    );
+  } else if (page === '/the-beatles') {
+    content = (
+      &lt;ArtistPage
+        artist={{
+          id: 'the-beatles',
+          name: 'The Beatles',
+        }}
+      /&gt;
+    );
+  }
+  return (
+    &lt;Layout isPending={isPending}&gt;
+      {content}
+    &lt;/Layout&gt;
+  );
+}
+
+function BigSpinner() {
+  return &lt;h2&gt;🌀 Loading...&lt;/h2&gt;;
+}
+</code></pre>
+<pre><code class="language-js Layout.js">export default function Layout({ children, isPending }) {
+  return (
+    &lt;div className=&quot;layout&quot;&gt;
+      &lt;section className=&quot;header&quot; style={{
+        opacity: isPending ? 0.7 : 1
+      }}&gt;
+        Music Browser
+      &lt;/section&gt;
+      &lt;main&gt;
+        {children}
+      &lt;/main&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js IndexPage.js">export default function IndexPage({ navigate }) {
+  return (
+    &lt;button onClick={() =&gt; navigate('/the-beatles')}&gt;
+      Open The Beatles artist page
+    &lt;/button&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js ArtistPage.js">import { Suspense } from 'react';
+import Albums from './Albums.js';
+import Biography from './Biography.js';
+import Panel from './Panel.js';
+
+export default function ArtistPage({ artist }) {
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{artist.name}&lt;/h1&gt;
+      &lt;Biography artistId={artist.id} /&gt;
+      &lt;Suspense fallback={&lt;AlbumsGlimmer /&gt;}&gt;
+        &lt;Panel&gt;
+          &lt;Albums artistId={artist.id} /&gt;
+        &lt;/Panel&gt;
+      &lt;/Suspense&gt;
+    &lt;/&gt;
+  );
+}
+
+function AlbumsGlimmer() {
+  return (
+    &lt;div className=&quot;glimmer-panel&quot;&gt;
+      &lt;div className=&quot;glimmer-line&quot; /&gt;
+      &lt;div className=&quot;glimmer-line&quot; /&gt;
+      &lt;div className=&quot;glimmer-line&quot; /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Albums.js hidden">import { fetchData } from './data.js';
+
+// Note: this component is written using an experimental API
+// that's not yet available in stable versions of React.
+
+// For a realistic example you can follow today, try a framework
+// that's integrated with Suspense, like Relay or Next.js.
+
+export default function Albums({ artistId }) {
+  const albums = use(fetchData(`/${artistId}/albums`));
+  return (
+    &lt;ul&gt;
+      {albums.map(album =&gt; (
+        &lt;li key={album.id}&gt;
+          {album.title} ({album.year})
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result =&gt; {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason =&gt; {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },      
+    );
+    throw promise;
+  }
+}
+</code></pre>
+<pre><code class="language-js Biography.js hidden">import { fetchData } from './data.js';
+
+// Note: this component is written using an experimental API
+// that's not yet available in stable versions of React.
+
+// For a realistic example you can follow today, try a framework
+// that's integrated with Suspense, like Relay or Next.js.
+
+export default function Biography({ artistId }) {
+  const bio = use(fetchData(`/${artistId}/bio`));
+  return (
+    &lt;section&gt;
+      &lt;p className=&quot;bio&quot;&gt;{bio}&lt;/p&gt;
+    &lt;/section&gt;
+  );
+}
+
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result =&gt; {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason =&gt; {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },      
+    );
+    throw promise;
+  }
+}
+</code></pre>
+<pre><code class="language-js Panel.js hidden">export default function Panel({ children }) {
+  return (
+    &lt;section className=&quot;panel&quot;&gt;
+      {children}
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js data.js hidden">// Note: the way you would do data fething depends on
+// the framework that you use together with Suspense.
+// Normally, the caching logic would be inside a framework.
+
+let cache = new Map();
+
+export function fetchData(url) {
+  if (!cache.has(url)) {
+    cache.set(url, getData(url));
+  }
+  return cache.get(url);
+}
+
+async function getData(url) {
+  if (url === '/the-beatles/albums') {
+    return await getAlbums();
+  } else if (url === '/the-beatles/bio') {
+    return await getBio();
+  } else {
+    throw Error('Not implemented');
+  }
+}
+
+async function getBio() {
+  // Add a fake delay to make waiting noticeable.
+  await new Promise(resolve =&gt; {
+    setTimeout(resolve, 500);
+  });
+
+  return `The Beatles were an English rock band, 
+    formed in Liverpool in 1960, that comprised 
+    John Lennon, Paul McCartney, George Harrison 
+    and Ringo Starr.`;
+}
+
+async function getAlbums() {
+  // Add a fake delay to make waiting noticeable.
+  await new Promise(resolve =&gt; {
+    setTimeout(resolve, 3000);
+  });
+
+  return [{
+    id: 13,
+    title: 'Let It Be',
+    year: 1970
+  }, {
+    id: 12,
+    title: 'Abbey Road',
+    year: 1969
+  }, {
+    id: 11,
+    title: 'Yellow Submarine',
+    year: 1969
+  }, {
+    id: 10,
+    title: 'The Beatles',
+    year: 1968
+  }, {
+    id: 9,
+    title: 'Magical Mystery Tour',
+    year: 1967
+  }, {
+    id: 8,
+    title: 'Sgt. Pepper\'s Lonely Hearts Club Band',
+    year: 1967
+  }, {
+    id: 7,
+    title: 'Revolver',
+    year: 1966
+  }, {
+    id: 6,
+    title: 'Rubber Soul',
+    year: 1965
+  }, {
+    id: 5,
+    title: 'Help!',
+    year: 1965
+  }, {
+    id: 4,
+    title: 'Beatles For Sale',
+    year: 1964
+  }, {
+    id: 3,
+    title: 'A Hard Day\'s Night',
+    year: 1964
+  }, {
+    id: 2,
+    title: 'With The Beatles',
+    year: 1963
+  }, {
+    id: 1,
+    title: 'Please Please Me',
+    year: 1963
+  }];
+}
+</code></pre>
+<pre><code class="language-css">main {
+  min-height: 200px;
+  padding: 10px;
+}
+
+.layout {
+  border: 1px solid black;
+}
+
+.header {
+  background: #222;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+.bio { font-style: italic; }
+
+.panel {
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.glimmer-panel {
+  border: 1px dashed #aaa;
+  background: linear-gradient(90deg, rgba(221,221,221,1) 0%, rgba(255,255,255,1) 100%);
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.glimmer-line {
+  display: block;
+  width: 60%;
+  height: 20px;
+  margin: 10px;
+  border-radius: 4px;
+  background: #f0f0f0;
+}
+</code></pre>
+</Sandpack>
+<hr />
+<h3 id="resetting-suspense-boundaries-on-navigation-resetting-suspense-boundaries-on-navigation"><a class="header" href="#resetting-suspense-boundaries-on-navigation-resetting-suspense-boundaries-on-navigation">Resetting Suspense boundaries on navigation {/<em>resetting-suspense-boundaries-on-navigation</em>/}</a></h3>
+<p>During a transition, React will avoid hiding already revealed content. However, if you navigate to a route with different parameters, you might want to tell React it is <em>different</em> content. You can express this with a <code>key</code>:</p>
+<pre><code class="language-js">&lt;ProfilePage key={queryParams.id} /&gt;
+</code></pre>
+<p>Imagine you're navigating within a user's profile page, and something suspends. If that update is wrapped in a transition, it will not trigger the fallback for already visible content. That's the expected behavior.</p>
+<p>However, now imagine you're navigating between two different user profiles. In that case, it makes sense to show the fallback. For example, one user's timeline is <em>different content</em> from another user's timeline. By specifying a <code>key</code>, you ensure that React treats different users' profiles as different components, and resets the Suspense boundaries during navigation. A Suspense-integrated routing framework should do this automatically.</p>
+<hr />
+<h3 id="providing-a-fallback-for-server-errors-and-server-only-content-providing-a-fallback-for-server-errors-and-server-only-content"><a class="header" href="#providing-a-fallback-for-server-errors-and-server-only-content-providing-a-fallback-for-server-errors-and-server-only-content">Providing a fallback for server errors and server-only content {/<em>providing-a-fallback-for-server-errors-and-server-only-content</em>/}</a></h3>
+<p>If you use one of the <a href="/reference/react-dom/server">streaming server rendering APIs</a> (or a framework that relies on them), React will also use your <code>&lt;Suspense&gt;</code> boundaries to handle errors on the server. If a component throws an error on the server, React will not abort the server render. Instead, it will find the closest <code>&lt;Suspense&gt;</code> component above it and include its fallback (such as a spinner) into the generated server HTML. The user will see a spinner instead of an error.</p>
+<p>On the client, React will attempt to render the same component again. If it errors on the client too, React will throw the error and display the closest <a href="/reference/react/Component#static-getderivedstatefromerror">error boundary.</a> However, if it does not error on the client, React will not display the error to the user since the content was eventually displayed successfully.</p>
+<p>You can use this to opt out some components from rendering on the server. To do this, throw an error from them in the server environment and then wrap them in a <code>&lt;Suspense&gt;</code> boundary to replace their HTML with fallbacks:</p>
+<pre><code class="language-js">&lt;Suspense fallback={&lt;Loading /&gt;}&gt;
+  &lt;Chat /&gt;
+&lt;/Suspense&gt;
+
+function Chat() {
+  if (typeof window === 'undefined') {
+    throw Error('Chat should only render on the client.');
+  }
+  // ...
+}
+</code></pre>
+<p>The server HTML will include the loading indicator. It will be replaced by the <code>Chat</code> component on the client.</p>
+<hr />
+<h2 id="troubleshooting-troubleshooting"><a class="header" href="#troubleshooting-troubleshooting">Troubleshooting {/<em>troubleshooting</em>/}</a></h2>
+<h3 id="how-do-i-prevent-the-ui-from-being-replaced-by-a-fallback-during-an-update-preventing-unwanted-fallbacks"><a class="header" href="#how-do-i-prevent-the-ui-from-being-replaced-by-a-fallback-during-an-update-preventing-unwanted-fallbacks">How do I prevent the UI from being replaced by a fallback during an update? {/<em>preventing-unwanted-fallbacks</em>/}</a></h3>
+<p>Replacing visible UI with a fallback creates a jarring user experience. This can happen when an update causes a component to suspend, and the nearest Suspense boundary is already showing content to the user.</p>
+<p>To prevent this from happening, <a href="#preventing-already-revealed-content-from-hiding">mark the update as non-urgent using <code>startTransition</code></a>. During a transition, React will wait until enough data has loaded to prevent an unwanted fallback from appearing:</p>
+<pre><code class="language-js {2-3 5}">function handleNextPageClick() {
+  // If this update suspends, don't hide the already displayed content
+  startTransition(() =&gt; {
+    setCurrentPage(currentPage + 1);
+  });
+}
+</code></pre>
+<p>This will avoid hiding existing content. However, any newly rendered <code>Suspense</code> boundaries will still immediately display fallbacks to avoid blocking the UI and let the user see the content as it becomes available.</p>
+<p><strong>React will only prevent unwanted fallbacks during non-urgent updates</strong>. It will not delay a render if it's the result of an urgent update. You must opt in with an API like <a href="/reference/react/startTransition"><code>startTransition</code></a> or <a href="/reference/react/useDeferredValue"><code>useDeferredValue</code></a>.</p>
+<p>If your router is integrated with Suspense, it should wrap its updates into <a href="/reference/react/startTransition"><code>startTransition</code></a> automatically.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../reference/react/StrictMode.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../reference/react/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../reference/react/StrictMode.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../reference/react/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

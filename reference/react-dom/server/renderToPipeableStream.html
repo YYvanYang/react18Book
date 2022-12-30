@@ -1,0 +1,663 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>renderToPipeableStream - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../highlight.css">
+        <link rel="stylesheet" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../../../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../../../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../../../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../../../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../../../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../../../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../../../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../../../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../../../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../../../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../../../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../../../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../../../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../../../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../../../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../../../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../../../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../../../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../../../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../../../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../../../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../../../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../../../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../../../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../../../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../../../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../../../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../../../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../../../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../../../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../../../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../../../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../../../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../../../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../../../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../../../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../../../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../../../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../../../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../../../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../../../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../../../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../../../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../../../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/server/renderToPipeableStream.html" class="active"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../../../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../../../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../../../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../../../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../../../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../../../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../../../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../../../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../../../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-rendertopipeablestream"><a class="header" href="#title-rendertopipeablestream">title: renderToPipeableStream</a></h2>
+<Intro>
+<p><code>renderToPipeableStream</code> renders a React tree to a pipeable <a href="https://nodejs.org/api/stream.html">Node.js Stream.</a></p>
+<pre><code class="language-js">const { pipe, abort } = renderToPipeableStream(reactNode, options?)
+</code></pre>
+</Intro>
+<InlineToc />
+<Note>
+<p>This API is specific to Node.js. Environments with <a href="https://developer.mozilla.org/en-US/docs/Web/API/Streams_API">Web Streams,</a> like Deno and modern edge runtimes, should use <a href="/reference/react-dom/server/renderToReadableStream"><code>renderToReadableStream</code></a> instead.</p>
+</Note>
+<hr />
+<h2 id="reference-reference"><a class="header" href="#reference-reference">Reference {/<em>reference</em>/}</a></h2>
+<h3 id="rendertopipeablestreamreactnode-options-rendertopipeablestream"><a class="header" href="#rendertopipeablestreamreactnode-options-rendertopipeablestream"><code>renderToPipeableStream(reactNode, options)</code> {/<em>rendertopipeablestream</em>/}</a></h3>
+<p>Call <code>renderToPipeableStream</code> to render your React tree as HTML into a <a href="https://nodejs.org/api/stream.html#writable-streams">Node.js Stream.</a></p>
+<pre><code class="language-js">import { renderToPipeableStream } from 'react-dom/server';
+
+const { pipe } = renderToPipeableStream(&lt;App /&gt;, {
+  bootstrapScripts: ['/main.js'],
+  onShellReady() {
+    response.setHeader('content-type', 'text/html');
+    pipe(response);
+  }
+});
+</code></pre>
+<p>On the client, call <a href="/reference/react-dom/client/hydrateRoot"><code>hydrateRoot</code></a> to make the server-generated HTML interactive.</p>
+<h4 id="parameters-parameters"><a class="header" href="#parameters-parameters">Parameters {/<em>parameters</em>/}</a></h4>
+<ul>
+<li>
+<p><code>reactNode</code>: A React node you want to render to HTML. For example, a JSX element like <code>&lt;App /&gt;</code>. It is expected to represent the entire document, so the <code>App</code> component should render the <code>&lt;html&gt;</code> tag.</p>
+</li>
+<li>
+<p><strong>optional</strong> <code>options</code>: An object with streaming options.</p>
+<ul>
+<li><strong>optional</strong> <code>bootstrapScriptContent</code>: If specified, this string will be placed in an inline <code>&lt;script&gt;</code> tag.</li>
+<li><strong>optional</strong> <code>bootstrapScripts</code>: An array of string URLs for the <code>&lt;script&gt;</code> tags to emit on the page. Use this to include the <code>&lt;script&gt;</code> that calls <a href="/reference/react-dom/client/hydrateRoot"><code>hydrateRoot</code>.</a> Omit it if you don't want to run React on the client at all.</li>
+<li><strong>optional</strong> <code>bootstrapModules</code>: Like <code>bootstrapScripts</code>, but emits <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules"><code>&lt;script type=&quot;module&quot;&gt;</code></a> instead.</li>
+<li><strong>optional</strong> <code>identifierPrefix</code>: A string prefix React uses for IDs generated by <a href="/reference/react/useId"><code>useId</code>.</a> Useful to avoid conflicts when using multiple roots on the same page. Must be the same prefix as passed to <a href="/reference/react-dom/client/hydrateRoot#parameters"><code>hydrateRoot</code>.</a></li>
+<li><strong>optional</strong> <code>namespaceURI</code>: A string with the root <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createElementNS#important_namespace_uris">namespace URI</a> for the stream. Defaults to regular HTML. Pass <code>'http://www.w3.org/2000/svg'</code> for SVG or <code>'http://www.w3.org/1998/Math/MathML'</code> for MathML.</li>
+<li><strong>optional</strong> <code>nonce</code>: A <a href="http://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#nonce"><code>nonce</code></a> string to allow scripts for <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src"><code>script-src</code> Content-Security-Policy</a>.</li>
+<li><strong>optional</strong> <code>onAllReady</code>: A callback that fires when all rendering is complete, including both the <a href="#specifying-what-goes-into-the-shell">shell</a> and all additional <a href="#streaming-more-content-as-it-loads">content.</a> You can use this instead of <code>onShellReady</code> <a href="#waiting-for-all-content-to-load-for-crawlers-and-static-generation">for crawlers and static generation.</a> If you start streaming here, you won't get any progressive loading. The stream will contain the final HTML.</li>
+<li><strong>optional</strong> <code>onError</code>: A callback that fires whenever there is a server error, whether <a href="#recovering-from-errors-outside-the-shell">recoverable</a> or <a href="#recovering-from-errors-inside-the-shell">not.</a> By default, this only calls <code>console.error</code>. If you override it to <a href="#logging-crashes-on-the-server">log crash reports,</a> make sure that you still call <code>console.error</code>. You can also use it to <a href="#setting-the-status-code">adjust the status code</a> before the shell is emitted.</li>
+<li><strong>optional</strong> <code>onShellReady</code>: A callback that fires right after the <a href="#specifying-what-goes-into-the-shell">initial shell</a> has been rendered. You can <a href="#setting-the-status-code">set the status code</a> and call <code>pipe</code> here to start streaming. React will <a href="#streaming-more-content-as-it-loads">stream the additional content</a> after the shell along with the inline <code>&lt;script&gt;</code> tags that place that replace the HTML loading fallbacks with the content.</li>
+<li><strong>optional</strong> <code>onShellError</code>: A callback that fires if there was an error rendering the initial shell.  It receives the error as an argument. No bytes were emitted from the stream yet, and neither <code>onShellReady</code> nor <code>onAllReady</code> will get called, so you can <a href="#recovering-from-errors-inside-the-shell">output a fallback HTML shell.</a></li>
+<li><strong>optional</strong> <code>progressiveChunkSize</code>: The number of bytes in a chunk. <a href="https://github.com/facebook/react/blob/14c2be8dac2d5482fda8a0906a31d239df8551fc/packages/react-server/src/ReactFizzServer.js#L210-L225">Read more about the default heuristic.</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="returns-returns"><a class="header" href="#returns-returns">Returns {/<em>returns</em>/}</a></h4>
+<p><code>renderToPipeableStream</code> returns an object with two methods:</p>
+<ul>
+<li><code>pipe</code> outputs the HTML into the provided <a href="https://nodejs.org/api/stream.html#writable-streams">Writable Node.js Stream.</a> Call <code>pipe</code> in <code>onShellReady</code> if you want to enable streaming, or in <code>onAllReady</code> for crawlers and static generation.</li>
+<li><code>abort</code> lets you <a href="#aborting-server-rendering">abort server rendering</a> and render the rest on the client.</li>
+</ul>
+<hr />
+<h2 id="usage-usage"><a class="header" href="#usage-usage">Usage {/<em>usage</em>/}</a></h2>
+<h3 id="rendering-a-react-tree-as-html-to-a-nodejs-stream-rendering-a-react-tree-as-html-to-a-nodejs-stream"><a class="header" href="#rendering-a-react-tree-as-html-to-a-nodejs-stream-rendering-a-react-tree-as-html-to-a-nodejs-stream">Rendering a React tree as HTML to a Node.js Stream {/<em>rendering-a-react-tree-as-html-to-a-nodejs-stream</em>/}</a></h3>
+<p>Call <code>renderToPipeableStream</code> to render your React tree as HTML into a <a href="https://nodejs.org/api/stream.html#writable-streams">Node.js Stream:</a></p>
+<pre><code class="language-js [[1  5  &quot;&lt;App /&gt;&quot;]  [2  6  &quot;['/main.js']&quot;]]">import { renderToPipeableStream } from 'react-dom/server';
+
+// The route handler syntax depends on your backend framework
+app.use('/', (request, response) =&gt; {
+  const { pipe } = renderToPipeableStream(&lt;App /&gt;, {
+    bootstrapScripts: ['/main.js'],
+    onShellReady() {
+      response.setHeader('content-type', 'text/html');
+      pipe(response);
+    }
+  });
+});
+</code></pre>
+<p>Along with the <CodeStep step={1}>root component</CodeStep>, you need to provide a list of <CodeStep step={2}>boostrap <code>&lt;script&gt;</code> paths</CodeStep>. Your root component should return <strong>the entire document including the root <code>&lt;html&gt;</code> tag.</strong> For example, it might look like this:</p>
+<pre><code class="language-js [[1  1  &quot;App&quot;]]">export default function App() {
+  return (
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;meta charSet=&quot;utf-8&quot; /&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;/styles.css&quot;&gt;&lt;/link&gt;
+        &lt;title&gt;My app&lt;/title&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;Router /&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  );
+}
+</code></pre>
+<p>React will automatically inject the <a href="https://developer.mozilla.org/en-US/docs/Glossary/Doctype">doctype</a> and your <CodeStep step={2}>bootstrap <code>&lt;script&gt;</code> tags</CodeStep> into the resulting HTML stream:</p>
+<pre><code class="language-html [[2  5  &quot;/main.js&quot;]]">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;!-- ... HTML from your components ... --&gt;
+&lt;/html&gt;
+&lt;script src=&quot;/main.js&quot; async=&quot;&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>On the client, your bootstrap script should <a href="/reference/react-dom/client/hydrateRoot#hydrating-an-entire-document">hydrate the entire <code>document</code> with a call to <code>hydrateRoot</code>:</a></p>
+<pre><code class="language-js [[1  4  &quot;&lt;App /&gt;&quot;]]">import {hydrateRoot} from 'react-dom/client';
+import App from './App.js';
+
+hydrateRoot(document, &lt;App /&gt;);
+</code></pre>
+<p>This will attach event listeners to the server-generated HTML and make it interactive.</p>
+<DeepDive>
+<h4 id="reading-css-and-js-asset-paths-from-the-build-output-reading-css-and-js-asset-paths-from-the-build-output"><a class="header" href="#reading-css-and-js-asset-paths-from-the-build-output-reading-css-and-js-asset-paths-from-the-build-output">Reading CSS and JS asset paths from the build output {/<em>reading-css-and-js-asset-paths-from-the-build-output</em>/}</a></h4>
+<p>The final asset URLs (like JavaScript and CSS files) are often hashed after the build. For example, instead of <code>styles.css</code> you might end up with <code>styles.123456.css</code>. Hashing static asset filenames guarantees that every distinct build of the same asset will have a different filename. This is useful because it lets you safely enable long-term caching for static assets: a file with a certain name would never change content.</p>
+<p>However, if you don't know the asset URLs until after the build, there's no way for you to put them in the source code. For example, hardcoding <code>&quot;/styles.css&quot;</code> into JSX like earlier wouldn't work. To keep them out of your source code, your root component can read the real filenames from a map passed as a prop:</p>
+<pre><code class="language-js {1 6}">export default function App({ assetMap }) {
+  return (
+    &lt;html&gt;
+      &lt;head&gt;
+        ...
+        &lt;link rel=&quot;stylesheet&quot; href={assetMap['styles.css']}&gt;&lt;/link&gt;
+        ...
+      &lt;/head&gt;
+      ...
+    &lt;/html&gt;
+  );
+}
+</code></pre>
+<p>On the server, render <code>&lt;App assetMap={assetMap} /&gt;</code> and pass your <code>assetMap</code> with the asset URLs:</p>
+<pre><code class="language-js {1-5 8 9}">// You'd need to get this JSON from your build tooling, e.g. read it from the build output.
+const assetMap = {
+  'styles.css': '/styles.123456.css',
+  'main.js': '/main.123456.js'
+};
+
+app.use('/', (request, response) =&gt; {
+  const { pipe } = renderToPipeableStream(&lt;App assetMap={assetMap} /&gt;, {
+    bootstrapScripts: [assetMap['main.js']],
+    onShellReady() {
+      response.setHeader('content-type', 'text/html');
+      pipe(response);
+    }
+  });
+});
+</code></pre>
+<p>Since your server is now rendering <code>&lt;App assetMap={assetMap} /&gt;</code>, you need to render it with <code>assetMap</code> on the client too to avoid hydration errors. You can serialize and pass <code>assetMap</code> to the client like this:</p>
+<pre><code class="language-js {9-10}">// You'd need to get this JSON from your build tooling.
+const assetMap = {
+  'styles.css': '/styles.123456.css',
+  'main.js': '/main.123456.js'
+};
+
+app.use('/', (request, response) =&gt; {
+  const { pipe } = renderToPipeableStream(&lt;App assetMap={assetMap} /&gt;, {
+    // Careful: It's safe to stringify() this because this data isn't user-generated.
+    bootstrapScriptContent: `window.assetMap = ${JSON.stringify(assetMap)};`,
+    bootstrapScripts: [assetMap['main.js']],
+    onShellReady() {
+      response.setHeader('content-type', 'text/html');
+      pipe(response);
+    }
+  });
+});
+</code></pre>
+<p>In the example above, the <code>bootstrapScriptContent</code> option adds an extra inline <code>&lt;script&gt;</code> tag that sets the global <code>window.assetMap</code> variable on the client. This lets the client code read the same <code>assetMap</code>:</p>
+<pre><code class="language-js {4}">import {hydrateRoot} from 'react-dom/client';
+import App from './App.js';
+
+hydrateRoot(document, &lt;App assetMap={window.assetMap} /&gt;);
+</code></pre>
+<p>Both client and server render <code>App</code> with the same <code>assetMap</code> prop, so there are no hydration errors.</p>
+</DeepDive>
+<hr />
+<h3 id="streaming-more-content-as-it-loads-streaming-more-content-as-it-loads"><a class="header" href="#streaming-more-content-as-it-loads-streaming-more-content-as-it-loads">Streaming more content as it loads {/<em>streaming-more-content-as-it-loads</em>/}</a></h3>
+<p>Streaming allows the user to start seeing the content even before all the data has loaded on the server. For example, consider a profile page that shows a cover, a sidebar with friends and photos, and a list of posts:</p>
+<pre><code class="language-js">function ProfilePage() {
+  return (
+    &lt;ProfileLayout&gt;
+      &lt;ProfileCover /&gt;
+      &lt;Sidebar&gt;
+        &lt;Friends /&gt;
+        &lt;Photos /&gt;
+      &lt;/Sidebar&gt;
+      &lt;Posts /&gt;
+    &lt;/ProfileLayout&gt;
+  );
+}
+</code></pre>
+<p>Imagine that loading data for <code>&lt;Posts /&gt;</code> takes some time. Ideally, you'd want to show the rest of the profile page content to the user without waiting for the posts. To do this, <a href="/reference/react/Suspense#displaying-a-fallback-while-content-is-loading">wrap <code>Posts</code> in a <code>&lt;Suspense&gt;</code> boundary:</a></p>
+<pre><code class="language-js {9 11}">function ProfilePage() {
+  return (
+    &lt;ProfileLayout&gt;
+      &lt;ProfileCover /&gt;
+      &lt;Sidebar&gt;
+        &lt;Friends /&gt;
+        &lt;Photos /&gt;
+      &lt;/Sidebar&gt;
+      &lt;Suspense fallback={&lt;PostsGlimmer /&gt;}&gt;
+        &lt;Posts /&gt;
+      &lt;/Suspense&gt;
+    &lt;/ProfileLayout&gt;
+  );
+}
+</code></pre>
+<p>This way, you tell React to start streaming the HTML before <code>Posts</code> loads its data. React will send the HTML for the loading fallback (<code>PostsGlimmer</code>) first, and then, when <code>Posts</code> finishes loading its data, React will send the remaining HTML along with an inline <code>&lt;script&gt;</code> tag that replaces the loading fallback with that HTML. From the user's perspective, the page will first appear with the <code>PostsGlimmer</code>, and then it will be replaced by the <code>Posts</code>.</p>
+<p>You can further <a href="/reference/react/Suspense#revealing-nested-content-as-it-loads">nest <code>&lt;Suspense&gt;</code> boundaries</a> to create a more granular loading sequence:</p>
+<pre><code class="language-js {5 13}">function ProfilePage() {
+  return (
+    &lt;ProfileLayout&gt;
+      &lt;ProfileCover /&gt;
+      &lt;Suspense fallback={&lt;BigSpinner /&gt;}&gt;
+        &lt;Sidebar&gt;
+          &lt;Friends /&gt;
+          &lt;Photos /&gt;
+        &lt;/Sidebar&gt;
+        &lt;Suspense fallback={&lt;PostsGlimmer /&gt;}&gt;
+          &lt;Posts /&gt;
+        &lt;/Suspense&gt;
+      &lt;/Suspense&gt;
+    &lt;/ProfileLayout&gt;
+  );
+}
+</code></pre>
+<p>In this example, React can start streaming the page even earlier. Only <code>ProfileLayout</code> and <code>ProfileCover</code> must finish rendering first because they are not wrapped in any <code>&lt;Suspense&gt;</code> boundary. However, if <code>Sidebar</code>, <code>Friends</code>, or <code>Photos</code> need to load some data, React will send the HTML for the <code>BigSpinner</code> fallback instead. Then, as enough data becomes available, more content will continue to be revealed until all of it becomes visible.</p>
+<p>Streaming does not need to wait for React itself to load in the browser, or for your app to become interactive. The HTML content from the server will get progressively revealed before any of the <code>&lt;script&gt;</code> tags have loaded.</p>
+<p><a href="https://github.com/reactwg/react-18/discussions/37">Read more about how streaming HTML works.</a></p>
+<Note>
+<p><strong>Only Suspense-enabled data sources will activate the Suspense component.</strong> They include:</p>
+<ul>
+<li>Data fetching with Suspense-enabled frameworks like <a href="https://relay.dev/docs/guided-tour/rendering/loading-states/">Relay</a> and <a href="https://nextjs.org/docs/advanced-features/react-18">Next.js</a></li>
+<li>Lazy-loading component code with <a href="/reference/react/lazy"><code>lazy</code></a></li>
+</ul>
+<p>Suspense <strong>does not</strong> detect when data is fetched inside an Effect or event handler.</p>
+<p>The exact way you would load data in the <code>Posts</code> component above depends on your framework. If you use a Suspense-enabled framework, you'll find the details in its data fetching documentation.</p>
+<p>Suspense-enabled data fetching without the use of an opinionated framework is not yet supported. The requirements for implementing a Suspense-enabled data source are unstable and undocumented. An official API for integrating data sources with Suspense will be released in a future version of React. </p>
+</Note>
+<hr />
+<h3 id="specifying-what-goes-into-the-shell-specifying-what-goes-into-the-shell"><a class="header" href="#specifying-what-goes-into-the-shell-specifying-what-goes-into-the-shell">Specifying what goes into the shell {/<em>specifying-what-goes-into-the-shell</em>/}</a></h3>
+<p>The part of your app outside of any <code>&lt;Suspense&gt;</code> boundaries is called <em>the shell:</em></p>
+<pre><code class="language-js {3-5 13 14}">function ProfilePage() {
+  return (
+    &lt;ProfileLayout&gt;
+      &lt;ProfileCover /&gt;
+      &lt;Suspense fallback={&lt;BigSpinner /&gt;}&gt;
+        &lt;Sidebar&gt;
+          &lt;Friends /&gt;
+          &lt;Photos /&gt;
+        &lt;/Sidebar&gt;
+        &lt;Suspense fallback={&lt;PostsGlimmer /&gt;}&gt;
+          &lt;Posts /&gt;
+        &lt;/Suspense&gt;
+      &lt;/Suspense&gt;
+    &lt;/ProfileLayout&gt;
+  );
+}
+</code></pre>
+<p>It determines the earliest loading state that the user may see:</p>
+<pre><code class="language-js {3-5 13">&lt;ProfileLayout&gt;
+  &lt;ProfileCover /&gt;
+  &lt;BigSpinner /&gt;
+&lt;/ProfileLayout&gt;
+</code></pre>
+<p>If you wrap the whole app into a <code>&lt;Suspense&gt;</code> boundary at the root, the shell will only contain that spinner. However, that's not a pleasant user experience because seeing a big spinner on the screen can feel slower and more annoying than waiting a bit more and seeing the real layout. This is why usually you'll want to place the <code>&lt;Suspense&gt;</code> boundaries so that the shell feels <em>minimal but complete</em>--like a skeleton of the entire page layout.</p>
+<p>The <code>onShellReady</code> callback fires when the entire shell has been rendered. Usually, you'll start streaming then:</p>
+<pre><code class="language-js {3-6}">const { pipe } = renderToPipeableStream(&lt;App /&gt;, {
+  bootstrapScripts: ['/main.js'],
+  onShellReady() {
+    response.setHeader('content-type', 'text/html');
+    pipe(response);
+  }
+});
+</code></pre>
+<p>By the time <code>onShellReady</code> fires, components in nested <code>&lt;Suspense&gt;</code> boundaries might still be loading data.</p>
+<hr />
+<h3 id="logging-crashes-on-the-server-logging-crashes-on-the-server"><a class="header" href="#logging-crashes-on-the-server-logging-crashes-on-the-server">Logging crashes on the server {/<em>logging-crashes-on-the-server</em>/}</a></h3>
+<p>By default, all errors on the server are logged to console. You can override this behavior to log crash reports:</p>
+<pre><code class="language-js {7-10}">const { pipe } = renderToPipeableStream(&lt;App /&gt;, {
+  bootstrapScripts: ['/main.js'],
+  onShellReady() {
+    response.setHeader('content-type', 'text/html');
+    pipe(response);
+  },
+  onError(error) {
+    console.error(error);
+    logServerCrashReport(error);
+  }
+});
+</code></pre>
+<p>If you provide a custom <code>onError</code> implementation, don't forget to also log errors to the console like above.</p>
+<hr />
+<h3 id="recovering-from-errors-inside-the-shell-recovering-from-errors-inside-the-shell"><a class="header" href="#recovering-from-errors-inside-the-shell-recovering-from-errors-inside-the-shell">Recovering from errors inside the shell {/<em>recovering-from-errors-inside-the-shell</em>/}</a></h3>
+<p>In this example, the shell contains <code>ProfileLayout</code>, <code>ProfileCover</code>, and <code>PostsGlimmer</code>:</p>
+<pre><code class="language-js {3-5 7-8}">function ProfilePage() {
+  return (
+    &lt;ProfileLayout&gt;
+      &lt;ProfileCover /&gt;
+      &lt;Suspense fallback={&lt;PostsGlimmer /&gt;}&gt;
+        &lt;Posts /&gt;
+      &lt;/Suspense&gt;
+    &lt;/ProfileLayout&gt;
+  );
+}
+</code></pre>
+<p>If an error occurs while rendering those components, React won't have any meaningful HTML to send to the client. Override <code>onShellError</code> to send a fallback HTML that doesn't rely on server rendering as the last resort:</p>
+<pre><code class="language-js {7-11}">const { pipe } = renderToPipeableStream(&lt;App /&gt;, {
+  bootstrapScripts: ['/main.js'],
+  onShellReady() {
+    response.setHeader('content-type', 'text/html');
+    pipe(response);
+  },
+  onShellError(error) {
+    response.statusCode = 500;
+    response.setHeader('content-type', 'text/html');
+    response.send('&lt;h1&gt;Something went wrong&lt;/h1&gt;'); 
+  },
+  onError(error) {
+    console.error(error);
+    logServerCrashReport(error);
+  }
+});
+</code></pre>
+<p>If there is an error while generating the shell, both <code>onError</code> and <code>onShellError</code> will fire. Use <code>onError</code> for error reporting and use <code>onShellError</code> to send the fallback HTML document. Your fallback HTML does not have to be an error page. For example, you can include an alternative shell that tries to render your app on the client only.</p>
+<hr />
+<h3 id="recovering-from-errors-outside-the-shell-recovering-from-errors-outside-the-shell"><a class="header" href="#recovering-from-errors-outside-the-shell-recovering-from-errors-outside-the-shell">Recovering from errors outside the shell {/<em>recovering-from-errors-outside-the-shell</em>/}</a></h3>
+<p>In this example, the <code>&lt;Posts /&gt;</code> component is wrapped in <code>&lt;Suspense&gt;</code> so it is <em>not</em> a part of the shell:</p>
+<pre><code class="language-js {6}">function ProfilePage() {
+  return (
+    &lt;ProfileLayout&gt;
+      &lt;ProfileCover /&gt;
+      &lt;Suspense fallback={&lt;PostsGlimmer /&gt;}&gt;
+        &lt;Posts /&gt;
+      &lt;/Suspense&gt;
+    &lt;/ProfileLayout&gt;
+  );
+}
+</code></pre>
+<p>If an error happens in the <code>Posts</code> component or somewhere inside it, React will <a href="/reference/react/Suspense#providing-a-fallback-for-server-errors-and-server-only-content">try to recover from it:</a></p>
+<ol>
+<li>It will emit the loading fallback for the closest <code>&lt;Suspense&gt;</code> boundary (<code>PostsGlimmer</code>) into the HTML.</li>
+<li>It will &quot;give up&quot; on trying to render the <code>Posts</code> content on the server anymore.</li>
+<li>When the JavaScript code loads on the client, React will <em>retry</em> rendering the <code>Posts</code> component on the client.</li>
+</ol>
+<p>If retrying rendering <code>Posts</code> on the client <em>also</em> fails, React will throw the error on the client. As with all the errors thrown during rendering, the <a href="/reference/react/Component#static-getderivedstatefromerror">closest parent error boundary</a> determines how to present the error to the user. In practice, this means that the user will see a loading indicator until it is certain that the error is not recoverable.</p>
+<p>If retrying rendering <code>Posts</code> on the client succeeds, the loading fallback from the server will be replaced with the client rendering output. The user will not know that there was a server error. However, the server <code>onError</code> callback and the client <a href="/reference/react-dom/client/hydrateRoot#hydrateroot"><code>onRecoverableError</code></a> callbacks will fire so that you can get notified about the error.</p>
+<hr />
+<h3 id="setting-the-status-code-setting-the-status-code"><a class="header" href="#setting-the-status-code-setting-the-status-code">Setting the status code {/<em>setting-the-status-code</em>/}</a></h3>
+<p>Streaming introduces a tradeoff. You want to start streaming the page as early as possible so that the user can see the content sooner. However, once you start streaming, you can no longer set the response status code.</p>
+<p>By <a href="#specifying-what-goes-into-the-shell">dividing your app</a> into the shell (above all <code>&lt;Suspense&gt;</code> boundaries) and the rest of the content, you've already solved a part of this problem. If the shell errors, you'll get the <code>onShellError</code> callback which lets you set the error status code. Otherwise, you know that the app may recover on the client, so the &quot;OK&quot; status code is reasonable.</p>
+<pre><code class="language-js {4}">const { pipe } = renderToPipeableStream(&lt;App /&gt;, {
+  bootstrapScripts: ['/main.js'],
+  onShellReady() {
+    response.statusCode = 200;
+    response.setHeader('content-type', 'text/html');
+    pipe(response);
+  },
+  onShellError(error) {
+    response.statusCode = 500;
+    response.setHeader('content-type', 'text/html');
+    response.send('&lt;h1&gt;Something went wrong&lt;/h1&gt;'); 
+  },
+  onError(error) {
+    console.error(error);
+    logServerCrashReport(error);
+  }
+});
+</code></pre>
+<p>If a component <em>outside</em> the shell (i.e. inside a <code>&lt;Suspense&gt;</code> boundary) throws an error, React will not stop rendering. This means that the <code>onError</code> callback will fire, but you will still get <code>onShellReady</code> instead of <code>onShellError</code>. This is because React will try to recover from that error on the client, <a href="#recovering-from-errors-outside-the-shell">as described above.</a></p>
+<p>However, if you'd like, you can use the fact that something has errored to set the status code:</p>
+<pre><code class="language-js {1 6 16}">let didError = false;
+
+const { pipe } = renderToPipeableStream(&lt;App /&gt;, {
+  bootstrapScripts: ['/main.js'],
+  onShellReady() {
+    response.statusCode = didError ? 500 : 200;
+    response.setHeader('content-type', 'text/html');
+    pipe(response);
+  },
+  onShellError(error) {
+    response.statusCode = 500;
+    response.setHeader('content-type', 'text/html');
+    response.send('&lt;h1&gt;Something went wrong&lt;/h1&gt;'); 
+  },
+  onError(error) {
+    didError = true;
+    console.error(error);
+    logServerCrashReport(error);
+  }
+});
+</code></pre>
+<p>This will only catch errors outside the shell that happened while generating the initial shell content, so it's not exhaustive. If knowing whether an error occurred for some content is critical, you can move it up into the shell.</p>
+<hr />
+<h3 id="handling-different-errors-in-different-ways-handling-different-errors-in-different-ways"><a class="header" href="#handling-different-errors-in-different-ways-handling-different-errors-in-different-ways">Handling different errors in different ways {/<em>handling-different-errors-in-different-ways</em>/}</a></h3>
+<p>You can <a href="https://javascript.info/custom-errors">create your own <code>Error</code> subclasses</a> and use the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof"><code>instanceof</code></a> operator to check which error is thrown. For example, you can define a custom <code>NotFoundError</code> and throw it from your component. Then your <code>onError</code>, <code>onShellReady</code>, and <code>onShellError</code> callbacks can do something different depending on the error type:</p>
+<pre><code class="language-js {2 4-14 19 24 30}">let didError = false;
+let caughtError = null;
+
+function getStatusCode() {
+  if (didError) {
+    if (caughtError instanceof NotFoundError) {
+      return 404;
+    } else {
+      return 500;
+    }
+  } else {
+    return 200;
+  }
+}
+
+const { pipe } = renderToPipeableStream(&lt;App /&gt;, {
+  bootstrapScripts: ['/main.js'],
+  onShellReady() {
+    response.statusCode = getStatusCode();
+    response.setHeader('content-type', 'text/html');
+    pipe(response);
+  },
+  onShellError(error) {
+   response.statusCode = getStatusCode();
+   response.setHeader('content-type', 'text/html');
+   response.send('&lt;h1&gt;Something went wrong&lt;/h1&gt;'); 
+  },
+  onError(error) {
+    didError = true;
+    caughtError = error;
+    console.error(error);
+    logServerCrashReport(error);
+  }
+});
+</code></pre>
+<p>Keep in mind that once you emit the shell and start streaming, you can't change the status code.</p>
+<hr />
+<h3 id="waiting-for-all-content-to-load-for-crawlers-and-static-generation-waiting-for-all-content-to-load-for-crawlers-and-static-generation"><a class="header" href="#waiting-for-all-content-to-load-for-crawlers-and-static-generation-waiting-for-all-content-to-load-for-crawlers-and-static-generation">Waiting for all content to load for crawlers and static generation {/<em>waiting-for-all-content-to-load-for-crawlers-and-static-generation</em>/}</a></h3>
+<p>Streaming offers a better user experience because the user can see the content as it becomes available.</p>
+<p>However, when a crawler visits your page, or if you're generating the pages at the build time, you might want to let all of the content load first and then produce the final HTML output instead of revealing it progressively.</p>
+<p>You can wait for all the content to load using the <code>onAllReady</code> callback:</p>
+<pre><code class="language-js {2 7 11 18-24}">let didError = false;
+let isCrawler = // ... depends on your bot detection strategy ...
+
+const { pipe } = renderToPipeableStream(&lt;App /&gt;, {
+  bootstrapScripts: ['/main.js'],
+  onShellReady() {
+    if (!isCrawler) {
+      response.statusCode = didError ? 500 : 200;
+      response.setHeader('content-type', 'text/html');
+      pipe(response);
+    }
+  },
+  onShellError(error) {
+    response.statusCode = 500;
+    response.setHeader('content-type', 'text/html');
+    response.send('&lt;h1&gt;Something went wrong&lt;/h1&gt;'); 
+  },
+  onAllReady() {
+    if (isCrawler) {
+      response.statusCode = didError ? 500 : 200;
+      response.setHeader('content-type', 'text/html');
+      pipe(response);      
+    }
+  },
+  onError(error) {
+    didError = true;
+    console.error(error);
+    logServerCrashReport(error);
+  }
+});
+</code></pre>
+<p>A regular visitor will get a stream of progressively loaded content. A crawler will receive the final HTML output after all the data loads. However, this also means that the crawler will have to wait for <em>all</em> data, some of which might be slow to load or error. Depending on your app, you could choose to send the shell to the crawlers too.</p>
+<hr />
+<h3 id="aborting-server-rendering-aborting-server-rendering"><a class="header" href="#aborting-server-rendering-aborting-server-rendering">Aborting server rendering {/<em>aborting-server-rendering</em>/}</a></h3>
+<p>You can force the server rendering to &quot;give up&quot; after a timeout:</p>
+<pre><code class="language-js {1 5-7}">const { pipe, abort } = renderToPipeableStream(&lt;App /&gt;, {
+  // ...
+});
+
+setTimeout(() =&gt; {
+  abort();
+}, 10000);
+</code></pre>
+<p>React will flush the remaining loading fallbacks as HTML, and will attempt to render the rest on the client.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../reference/react-dom/server/renderToNodeStream.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../../reference/react-dom/server/renderToReadableStream.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../reference/react-dom/server/renderToNodeStream.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../../reference/react-dom/server/renderToReadableStream.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
+
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

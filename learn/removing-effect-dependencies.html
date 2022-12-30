@@ -1,0 +1,2155 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Removing Effect Dependencies - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html" class="active"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-removing-effect-dependencies"><a class="header" href="#title-removing-effect-dependencies">title: 'Removing Effect Dependencies'</a></h2>
+<Intro>
+<p>When you write an Effect, the linter will verify that you've included every reactive value (like props and state) that the Effect reads in the list of your Effect's dependencies. This ensures that your Effect remains synchronized with the latest props and state of your component. Unnecessary dependencies may cause your Effect to run too often, or even create an infinite loop. Follow this guide to review and remove unnecessary dependencies from your Effects.</p>
+</Intro>
+<YouWillLearn>
+<ul>
+<li>How to fix infinite Effect dependency loops</li>
+<li>What to do when you want to remove a dependency</li>
+<li>How to read a value from your Effect without &quot;reacting&quot; to it</li>
+<li>How and why to avoid object and function dependencies</li>
+<li>Why suppressing the dependency linter is dangerous, and what to do instead</li>
+</ul>
+</YouWillLearn>
+<h2 id="dependencies-should-match-the-code-dependencies-should-match-the-code"><a class="header" href="#dependencies-should-match-the-code-dependencies-should-match-the-code">Dependencies should match the code {/<em>dependencies-should-match-the-code</em>/}</a></h2>
+<p>When you write an Effect, you first specify how to <a href="/learn/lifecycle-of-reactive-effects#the-lifecycle-of-an-effect">start and stop</a> whatever you want your Effect to be doing:</p>
+<pre><code class="language-js {5-7}">const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  	// ...
+}
+</code></pre>
+<p>Then, if you leave the Effect dependencies empty (<code>[]</code>), the linter will suggest the correct dependencies:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, []); // &lt;-- Fix the mistake here!
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom roomId={roomId} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection(serverUrl, roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+<p>Fill them in according to what the linter says:</p>
+<pre><code class="language-js {6}">function ChatRoom({ roomId }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId]); // ✅ All dependencies declared
+  // ...
+}
+</code></pre>
+<p><a href="/learn/lifecycle-of-reactive-effects#effects-react-to-reactive-values">Effects &quot;react&quot; to reactive values.</a> Since <code>roomId</code> is a reactive value (it can change due to a re-render), the linter verifies that you've specified it as a dependency. If <code>roomId</code> receives a different value, React will re-synchronize your Effect. This ensures that the chat stays connected to the selected room and &quot;reacts&quot; to the dropdown:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId]);
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom roomId={roomId} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection(serverUrl, roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+<h3 id="to-remove-a-dependency-prove-that-its-not-a-dependency-to-remove-a-dependency-prove-that-its-not-a-dependency"><a class="header" href="#to-remove-a-dependency-prove-that-its-not-a-dependency-to-remove-a-dependency-prove-that-its-not-a-dependency">To remove a dependency, prove that it's not a dependency {/<em>to-remove-a-dependency-prove-that-its-not-a-dependency</em>/}</a></h3>
+<p>Notice that you can't &quot;choose&quot; the dependencies of your Effect. Every <CodeStep step={2}>reactive value</CodeStep> used by your Effect's code must be declared in your dependency list. Your Effect's dependency list is determined by the surrounding code:</p>
+<pre><code class="language-js [[2  3  &quot;roomId&quot;]  [2  5  &quot;roomId&quot;]  [2  8  &quot;roomId&quot;]]">const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) { // This is a reactive value
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId); // This Effect reads that reactive value
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId]); // ✅ So you must specify that reactive value as a dependency of your Effect
+  // ...
+}
+</code></pre>
+<p><a href="/learn/lifecycle-of-reactive-effects#all-variables-declared-in-the-component-body-are-reactive">Reactive values</a> include props and all variables and functions declared directly inside of your component. Since <code>roomId</code> is a reactive value, you can't remove it from the dependency list. The linter wouldn't allow it:</p>
+<pre><code class="language-js {8}">const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, []); // 🔴 React Hook useEffect has a missing dependency: 'roomId'
+  // ...
+}
+</code></pre>
+<p>And the linter would be right! Since <code>roomId</code> may change over time, this would introduce a bug in your code.</p>
+<p><strong>To remove a dependency, you need to &quot;prove&quot; to the linter that it <em>doesn't need</em> to be a dependency.</strong> For example, you can move <code>roomId</code> out of your component to prove that it's not reactive and won't change on re-renders:</p>
+<pre><code class="language-js {2 9}">const serverUrl = 'https://localhost:1234';
+const roomId = 'music'; // Not a reactive value anymore
+
+function ChatRoom() {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, []); // ✅ All dependencies declared
+  // ...
+}
+</code></pre>
+<p>Now that <code>roomId</code> is not a reactive value (and can't change on a re-render), it doesn't need to be a dependency:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+const serverUrl = 'https://localhost:1234';
+const roomId = 'music';
+
+export default function ChatRoom() {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, []);
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection(serverUrl, roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+<p>This is why you could now specify an <a href="/learn/lifecycle-of-reactive-effects#what-an-effect-with-empty-dependencies-means">empty (<code>[]</code>) dependency list.</a> Your Effect <em>really doesn't</em> depend on any reactive value anymore, so it <em>really doesn't</em> need to re-run when any of the component's props or state change.</p>
+<h3 id="to-change-the-dependencies-change-the-code-to-change-the-dependencies-change-the-code"><a class="header" href="#to-change-the-dependencies-change-the-code-to-change-the-dependencies-change-the-code">To change the dependencies, change the code {/<em>to-change-the-dependencies-change-the-code</em>/}</a></h3>
+<p>You might have noticed a pattern in your workflow:</p>
+<ol>
+<li>First, you <strong>change the code</strong> of your Effect or how your reactive values are declared.</li>
+<li>Then, you follow the linter and adjust the dependencies to <strong>match the code you have changed.</strong></li>
+<li>If you're not happy with the list of dependencies, you <strong>go back to the first step</strong> (and change the code again).</li>
+</ol>
+<p>The last part is important. <strong>If you want to change the dependencies, change the surrounding code first.</strong> You can think of the dependency list as <a href="/learn/lifecycle-of-reactive-effects#react-verifies-that-you-specified-every-reactive-value-as-a-dependency">a list of all the reactive values used by your Effect's code.</a> You don't intentionally <em>choose</em> what to put on that list. The list <em>describes</em> your code. To change the dependency list, change the code.</p>
+<p>This might feel like solving an equation. You might start with a goal (for example, to remove a dependency), and you need to &quot;find&quot; the exact code matching that goal. Not everyone finds solving equations fun, and the same thing could be said about writing Effects! Luckily, there is a list of common recipes that you can try below.</p>
+<Pitfall>
+<p>If you have an existing codebase, you might have some Effects that suppress the linter like this:</p>
+<pre><code class="language-js {3-4}">useEffect(() =&gt; {
+  // ...
+  // 🔴 Avoid suppressing the linter like this:
+  // eslint-ignore-next-line react-hooks/exhaustive-dependencies
+}, []);
+</code></pre>
+<p><strong>When dependencies don't match the code, there is a very high risk of introducing bugs.</strong> By suppressing the linter, you &quot;lie&quot; to React about the values your Effect depends on. Instead, use the techniques below.</p>
+</Pitfall>
+<DeepDive>
+<h4 id="why-is-suppressing-the-dependency-linter-so-dangerous-why-is-suppressing-the-dependency-linter-so-dangerous"><a class="header" href="#why-is-suppressing-the-dependency-linter-so-dangerous-why-is-suppressing-the-dependency-linter-so-dangerous">Why is suppressing the dependency linter so dangerous? {/<em>why-is-suppressing-the-dependency-linter-so-dangerous</em>/}</a></h4>
+<p>Suppressing the linter leads to very unintuitive bugs that are hard to find and fix. Here's one example:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+
+export default function Timer() {
+  const [count, setCount] = useState(0);
+  const [increment, setIncrement] = useState(1);
+
+  function onTick() {
+	setCount(count + increment);
+  }
+
+  useEffect(() =&gt; {
+    const id = setInterval(onTick, 1000);
+    return () =&gt; clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;
+        Counter: {count}
+        &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
+      &lt;/h1&gt;
+      &lt;hr /&gt;
+      &lt;p&gt;
+        Every second, increment by:
+        &lt;button disabled={increment === 0} onClick={() =&gt; {
+          setIncrement(i =&gt; i - 1);
+        }}&gt;–&lt;/button&gt;
+        &lt;b&gt;{increment}&lt;/b&gt;
+        &lt;button onClick={() =&gt; {
+          setIncrement(i =&gt; i + 1);
+        }}&gt;+&lt;/button&gt;
+      &lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button { margin: 10px; }
+</code></pre>
+</Sandpack>
+<p>Let's say that you wanted to run the Effect &quot;only on mount&quot;. You've read that <a href="/learn/lifecycle-of-reactive-effects#what-an-effect-with-empty-dependencies-means">empty (<code>[]</code>) dependencies</a> do that, so you've decided to ignore the linter, and forcefully specified <code>[]</code> as the dependencies.</p>
+<p>This counter was supposed to increment every second by the amount configurable with the two buttons. However, since you &quot;lied&quot; to React that this Effect doesn't depend on anything, React forever keeps using the <code>onTick</code> function from the initial render. <a href="/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time">During that render,</a> <code>count</code> was <code>0</code> and <code>increment</code> was <code>1</code>. This is why <code>onTick</code> from that render always calls <code>setCount(0 + 1)</code> every second, and you always see <code>1</code>. Bugs like this are harder to fix when they're spread across multiple components.</p>
+<p>There's always a better solution than ignoring the linter! To fix this code, you need to add <code>onTick</code> to the dependency list. (To ensure the interval is only setup once, <a href="/learn/separating-events-from-effects#reading-latest-props-and-state-with-effect-events">make <code>onTick</code> an Effect Event.</a>)</p>
+<p><strong>We recommend to treat the dependency lint error as a compilation error. If you don't suppress it, you will never see bugs like this.</strong> The rest of this page documents the alternatives for this and other cases.</p>
+</DeepDive>
+<h2 id="removing-unnecessary-dependencies-removing-unnecessary-dependencies"><a class="header" href="#removing-unnecessary-dependencies-removing-unnecessary-dependencies">Removing unnecessary dependencies {/<em>removing-unnecessary-dependencies</em>/}</a></h2>
+<p>Every time you adjust the Effect's dependencies to reflect the code, look at the dependency list. Does it make sense for the Effect to re-run when any of these dependencies change? Sometimes, the answer is &quot;no&quot;:</p>
+<ul>
+<li>Sometimes, you want to re-execute <em>different parts</em> of your Effect under different conditions.</li>
+<li>Sometimes, you want to only read the <em>latest value</em> of some dependency instead of &quot;reacting&quot; to its changes.</li>
+<li>Sometimes, a dependency may change too often <em>unintentionally</em> because it's an object or a function.</li>
+</ul>
+<p>To find the right solution, you'll need to answer a few questions about your Effect. Let's walk through them.</p>
+<h3 id="should-this-code-move-to-an-event-handler-should-this-code-move-to-an-event-handler"><a class="header" href="#should-this-code-move-to-an-event-handler-should-this-code-move-to-an-event-handler">Should this code move to an event handler? {/<em>should-this-code-move-to-an-event-handler</em>/}</a></h3>
+<p>The first thing you should think about is whether this code should be an Effect at all.</p>
+<p>Imagine a form. On submit, you set the <code>submitted</code> state variable to <code>true</code>. You need to send a POST request and show a notification. You've decided to put this logic inside an Effect that &quot;reacts&quot; to <code>submitted</code> being <code>true</code>:</p>
+<pre><code class="language-js {6-8}">function Form() {
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() =&gt; {
+    if (submitted) {
+      // 🔴 Avoid: Event-specific logic inside an Effect
+      post('/api/register');
+      showNotification('Successfully registered!');
+    }
+  }, [submitted]);
+
+  function handleSubmit() {
+    setSubmitted(true);
+  }
+
+  // ...
+}
+</code></pre>
+<p>Later, you want to style the notification message according to the current theme, so you read the current theme. Since <code>theme</code> is declared in the component body, it is a reactive value, and you must declare it as a dependency:</p>
+<pre><code class="language-js {3 9 11}">function Form() {
+  const [submitted, setSubmitted] = useState(false);
+  const theme = useContext(ThemeContext);
+
+  useEffect(() =&gt; {
+    if (submitted) {
+      // 🔴 Avoid: Event-specific logic inside an Effect
+      post('/api/register');
+      showNotification('Successfully registered!', theme);
+    }
+  }, [submitted, theme]); // ✅ All dependencies declared
+
+  function handleSubmit() {
+    setSubmitted(true);
+  }  
+
+  // ...
+}
+</code></pre>
+<p>But by doing this, you've introduced a bug. Imagine you submit the form first and then switch between Dark and Light themes. The <code>theme</code> will change, the Effect will re-run, and so it will display the same notification again!</p>
+<p><strong>The problem here is that this shouldn't be an Effect in the first place.</strong> You want to send this POST request and show the notification in response to <em>submitting the form,</em> which is a particular interaction. When you want to run some code in response to particular interaction, put that logic directly into the corresponding event handler:</p>
+<pre><code class="language-js {6-7}">function Form() {
+  const theme = useContext(ThemeContext);
+
+  function handleSubmit() {
+    // ✅ Good: Event-specific logic is called from event handlers
+    post('/api/register');
+    showNotification('Successfully registered!', theme);
+  }  
+
+  // ...
+}
+</code></pre>
+<p>Now that the code is in an event handler, it's not reactive--so it will only run when the user submits the form. Read more about <a href="/learn/separating-events-from-effects#reactive-values-and-reactive-logic">choosing between event handlers and Effects</a> and <a href="/learn/you-might-not-need-an-effect">how to delete unnecessary Effects.</a></p>
+<h3 id="is-your-effect-doing-several-unrelated-things-is-your-effect-doing-several-unrelated-things"><a class="header" href="#is-your-effect-doing-several-unrelated-things-is-your-effect-doing-several-unrelated-things">Is your Effect doing several unrelated things? {/<em>is-your-effect-doing-several-unrelated-things</em>/}</a></h3>
+<p>The next question you should ask yourself is whether your Effect is doing several unrelated things.</p>
+<p>Imagine you're creating a shipping form where the user needs to choose their city and area. You fetch the list of <code>cities</code> from the server according to the selected <code>country</code> so that you can show them as dropdown options:</p>
+<pre><code class="language-js">function ShippingForm({ country }) {
+  const [cities, setCities] = useState(null);
+  const [city, setCity] = useState(null);
+
+  useEffect(() =&gt; {
+    let ignore = false;
+    fetch(`/api/cities?country=${country}`)
+      .then(response =&gt; response.json())
+      .then(json =&gt; {
+        if (!ignore) {
+          setCities(json);
+        }
+      });
+    return () =&gt; {
+      ignore = true;
+    };
+  }, [country]); // ✅ All dependencies declared
+
+  // ...
+</code></pre>
+<p>This is a good example of <a href="/learn/you-might-not-need-an-effect#fetching-data">fetching data in an Effect.</a> You are synchronizing the <code>cities</code> state with the network according to the <code>country</code> prop. You can't do this in an event handler because you need to fetch as soon as <code>ShippingForm</code> is displayed and whenever the <code>country</code> changes (no matter which interaction causes it).</p>
+<p>Now let's say you're adding a second select box for city areas, which should fetch the <code>areas</code> for the currently selected <code>city</code>. You might start by adding a second <code>fetch</code> call for the list of areas inside the same Effect:</p>
+<pre><code class="language-js {15-24 28}">function ShippingForm({ country }) {
+  const [cities, setCities] = useState(null);
+  const [city, setCity] = useState(null);
+  const [areas, setAreas] = useState(null);
+
+  useEffect(() =&gt; {
+    let ignore = false;
+    fetch(`/api/cities?country=${country}`)
+      .then(response =&gt; response.json())
+      .then(json =&gt; {
+        if (!ignore) {
+          setCities(json);
+        }
+      });
+    // 🔴 Avoid: A single Effect synchronizes two independent processes
+    if (city) {
+      fetch(`/api/areas?city=${city}`)
+        .then(response =&gt; response.json())
+        .then(json =&gt; {
+          if (!ignore) {
+            setAreas(json);
+          }
+        });
+    }
+    return () =&gt; {
+      ignore = true;
+    };
+  }, [country, city]); // ✅ All dependencies declared
+
+  // ...
+</code></pre>
+<p>However, since the Effect now uses the <code>city</code> state variable, you've had to add <code>city</code> to the list of dependencies. That, in turn, has introduced a problem. Now, whenever the user selects a different city, the Effect will re-run and call <code>fetchCities(country)</code>. As a result, you will be unnecessarily refetching the list of cities many times.</p>
+<p><strong>The problem with this code is that you're synchronizing two different unrelated things:</strong></p>
+<ol>
+<li>You want to synchronize the <code>cities</code> state to the network based on the <code>country</code> prop.</li>
+<li>You want to synchronize the <code>areas</code> state to the network based on the <code>city</code> state.</li>
+</ol>
+<p>Split the logic into two Effects, each of which reacts to the prop that it needs to synchronize with:</p>
+<pre><code class="language-js {19-33}">function ShippingForm({ country }) {
+  const [cities, setCities] = useState(null);
+  useEffect(() =&gt; {
+    let ignore = false;
+    fetch(`/api/cities?country=${country}`)
+      .then(response =&gt; response.json())
+      .then(json =&gt; {
+        if (!ignore) {
+          setCities(json);
+        }
+      });
+    return () =&gt; {
+      ignore = true;
+    };
+  }, [country]); // ✅ All dependencies declared
+
+  const [city, setCity] = useState(null);
+  const [areas, setAreas] = useState(null);
+  useEffect(() =&gt; {
+    if (city) {
+      let ignore = false;
+      fetch(`/api/areas?city=${city}`)
+        .then(response =&gt; response.json())
+        .then(json =&gt; {
+          if (!ignore) {
+            setAreas(json);
+          }
+        });
+      return () =&gt; {
+        ignore = true;
+      };
+    }
+  }, [city]); // ✅ All dependencies declared
+
+  // ...
+</code></pre>
+<p>Now the first Effect only re-runs if the <code>country</code> changes, while the second Effect re-runs when the <code>city</code> changes. You've separated them by purpose: two different things are synchronized by two separate Effects. Two separate Effects have two separate dependency lists, so they will no longer trigger each other unintentionally.</p>
+<p>The final code is longer than the original, but splitting these Effects is still correct. <a href="/learn/lifecycle-of-reactive-effects#each-effect-represents-a-separate-synchronization-process">Each Effect should represent an independent synchronization process.</a> In this example, deleting one Effect doesn't break the other Effect's logic. This is a good indication that they <em>synchronize different things,</em> and it made sense to split them up. If the duplication feels concerning, you can further improve this code by <a href="/learn/reusing-logic-with-custom-hooks#when-to-use-custom-hooks">extracting repetitive logic into a custom Hook.</a></p>
+<h3 id="are-you-reading-some-state-to-calculate-the-next-state-are-you-reading-some-state-to-calculate-the-next-state"><a class="header" href="#are-you-reading-some-state-to-calculate-the-next-state-are-you-reading-some-state-to-calculate-the-next-state">Are you reading some state to calculate the next state? {/<em>are-you-reading-some-state-to-calculate-the-next-state</em>/}</a></h3>
+<p>This Effect updates the <code>messages</code> state variable with a newly created array every time a new message arrives:</p>
+<pre><code class="language-js {2 6-8}">function ChatRoom({ roomId }) {
+  const [messages, setMessages] = useState([]);
+  useEffect(() =&gt; {
+    const connection = createConnection();
+    connection.connect();
+    connection.on('message', (receivedMessage) =&gt; {
+      setMessages([...messages, receivedMessage]);
+    });
+    // ...
+</code></pre>
+<p>It uses the <code>messages</code> variable to <a href="/learn/updating-arrays-in-state">create a new array</a> starting with all the existing messages and adds the new message at the end. However, since <code>messages</code> is a reactive value read by an Effect, it must be a dependency:</p>
+<pre><code class="language-js {7 10}">function ChatRoom({ roomId }) {
+  const [messages, setMessages] = useState([]);
+  useEffect(() =&gt; {
+    const connection = createConnection();
+    connection.connect();
+    connection.on('message', (receivedMessage) =&gt; {
+      setMessages([...messages, receivedMessage]);
+    });
+    return () =&gt; connection.disconnect();
+  }, [roomId, messages]); // ✅ All dependencies declared
+  // ...
+</code></pre>
+<p>And making <code>messages</code> a dependency introduces a problem.</p>
+<p>Every time you receive a message, <code>setMessages()</code> causes the component to re-render with a new <code>messages</code> array that includes the received message. However, since this Effect now depends on <code>messages</code>, this will <em>also</em> re-synchronize the Effect. So every new message will make the chat re-connect. The user would not like that!</p>
+<p>To fix the issue, don't read <code>messages</code> inside the Effect. Instead, pass an <a href="/reference/react/useState#updating-state-based-on-the-previous-state">updater function</a> to <code>setMessages</code>:</p>
+<pre><code class="language-js {7 10}">function ChatRoom({ roomId }) {
+  const [messages, setMessages] = useState([]);
+  useEffect(() =&gt; {
+    const connection = createConnection();
+    connection.connect();
+    connection.on('message', (receivedMessage) =&gt; {
+      setMessages(msgs =&gt; [...msgs, receivedMessage]);
+    });
+    return () =&gt; connection.disconnect();
+  }, [roomId]); // ✅ All dependencies declared
+  // ...
+</code></pre>
+<p><strong>Notice how your Effect does not read the <code>messages</code> variable at all now.</strong> You only need to pass an updater function like <code>msgs =&gt; [...msgs, receivedMessage]</code>. React <a href="/learn/queueing-a-series-of-state-updates">puts your updater function in a queue</a> and will provide the <code>msgs</code> argument to it during the next render. This is why the Effect itself doesn't need to depend on <code>messages</code> anymore. As a result of this fix, receiving a chat message will no longer make the chat re-connect.</p>
+<h3 id="do-you-want-to-read-a-value-without-reacting-to-its-changes-do-you-want-to-read-a-value-without-reacting-to-its-changes"><a class="header" href="#do-you-want-to-read-a-value-without-reacting-to-its-changes-do-you-want-to-read-a-value-without-reacting-to-its-changes">Do you want to read a value without &quot;reacting&quot; to its changes? {/<em>do-you-want-to-read-a-value-without-reacting-to-its-changes</em>/}</a></h3>
+<Wip>
+<p>This section describes an <strong>experimental API that has not yet been added to React,</strong> so you can't use it yet.</p>
+</Wip>
+<p>Suppose that you want to play a sound when the user receives a new message unless <code>isMuted</code> is <code>true</code>:</p>
+<pre><code class="language-js {3 10-12}">function ChatRoom({ roomId }) {
+  const [messages, setMessages] = useState([]);
+  const [isMuted, setIsMuted] = useState(false);
+
+  useEffect(() =&gt; {
+    const connection = createConnection();
+    connection.connect();
+    connection.on('message', (receivedMessage) =&gt; {
+      setMessages(msgs =&gt; [...msgs, receivedMessage]);
+      if (!isMuted) {
+        playSound();
+      }
+    });
+    // ...
+</code></pre>
+<p>Since your Effect now uses <code>isMuted</code> in its code, you have to add it to the dependencies:</p>
+<pre><code class="language-js {10 15}">function ChatRoom({ roomId }) {
+  const [messages, setMessages] = useState([]);
+  const [isMuted, setIsMuted] = useState(false);
+
+  useEffect(() =&gt; {
+    const connection = createConnection();
+    connection.connect();
+    connection.on('message', (receivedMessage) =&gt; {
+      setMessages(msgs =&gt; [...msgs, receivedMessage]);
+      if (!isMuted) {
+        playSound();
+      }
+    });
+    return () =&gt; connection.disconnect();
+  }, [roomId, isMuted]); // ✅ All dependencies declared
+  // ...
+</code></pre>
+<p>The problem is that every time <code>isMuted</code> changes (for example, when the user presses the &quot;Muted&quot; toggle), the Effect will re-synchronize, and reconnect to the chat server. This is not the desired user experience! (In this example, even disabling the linter would not work--if you do that, <code>isMuted</code> would get &quot;stuck&quot; with its old value.)</p>
+<p>To solve this problem, you need to extract the logic that shouldn't be reactive out of the Effect. You don't want this Effect to &quot;react&quot; to the changes in <code>isMuted</code>. <a href="/learn/separating-events-from-effects#declaring-an-effect-event">Move this non-reactive piece of logic into an Effect Event:</a></p>
+<pre><code class="language-js {1 7-12 18 21}">import { useState, useEffect, useEffectEvent } from 'react';
+
+function ChatRoom({ roomId }) {
+  const [messages, setMessages] = useState([]);
+  const [isMuted, setIsMuted] = useState(false);
+
+  const onMessage = useEffectEvent(receivedMessage =&gt; {
+    setMessages(msgs =&gt; [...msgs, receivedMessage]);
+    if (!isMuted) {
+      playSound();
+    }
+  });
+
+  useEffect(() =&gt; {
+    const connection = createConnection();
+    connection.connect();
+    connection.on('message', (receivedMessage) =&gt; {
+      onMessage(receivedMessage);
+    });
+    return () =&gt; connection.disconnect();
+  }, [roomId]); // ✅ All dependencies declared
+  // ...
+</code></pre>
+<p>Effect Events let you split an Effect into reactive parts (which should &quot;react&quot; to reactive values like <code>roomId</code> and their changes) and non-reactive parts (which only read their latest values, like <code>onMessage</code> reads <code>isMuted</code>). <strong>Now that you read <code>isMuted</code> inside an Effect Event, it doesn't need to be a dependency of your Effect.</strong> As a result, the chat won't re-connect when you toggle the &quot;Muted&quot; setting on and off, solving the original issue!</p>
+<h4 id="wrapping-an-event-handler-from-the-props-wrapping-an-event-handler-from-the-props"><a class="header" href="#wrapping-an-event-handler-from-the-props-wrapping-an-event-handler-from-the-props">Wrapping an event handler from the props {/<em>wrapping-an-event-handler-from-the-props</em>/}</a></h4>
+<p>You might run into a similar problem when your component receives an event handler as a prop:</p>
+<pre><code class="language-js {1 8 11}">function ChatRoom({ roomId, onReceiveMessage }) {
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() =&gt; {
+    const connection = createConnection();
+    connection.connect();
+    connection.on('message', (receivedMessage) =&gt; {
+      onReceiveMessage(receivedMessage);
+    });
+    return () =&gt; connection.disconnect();
+  }, [roomId, onReceiveMessage]); // ✅ All dependencies declared
+  // ...
+</code></pre>
+<p>Suppose that the parent component passes a <em>different</em> <code>onReceiveMessage</code> function on every render:</p>
+<pre><code class="language-js {3-5}">&lt;ChatRoom
+  roomId={roomId}
+  onReceiveMessage={receivedMessage =&gt; {
+    // ...
+  }}
+/&gt;
+</code></pre>
+<p>Since <code>onReceiveMessage</code> is a dependency of your Effect, it would cause the Effect to re-synchronize after every parent re-render. This would make it re-connect to the chat. To solve this, wrap the call in an Effect Event:</p>
+<pre><code class="language-js {4-6 12 15}">function ChatRoom({ roomId, onReceiveMessage }) {
+  const [messages, setMessages] = useState([]);
+
+  const onMessage = useEffectEvent(receivedMessage =&gt; {
+    onReceiveMessage(receivedMessage);
+  });
+
+  useEffect(() =&gt; {
+    const connection = createConnection();
+    connection.connect();
+    connection.on('message', (receivedMessage) =&gt; {
+      onMessage(receivedMessage);
+    });
+    return () =&gt; connection.disconnect();
+  }, [roomId]); // ✅ All dependencies declared
+  // ...
+</code></pre>
+<p>Effect Events aren't reactive, so you don't need to specify them as dependencies. As a result, the chat will no longer re-connect even if the parent component passes a function that's different on every re-render.</p>
+<h4 id="separating-reactive-and-non-reactive-code-separating-reactive-and-non-reactive-code"><a class="header" href="#separating-reactive-and-non-reactive-code-separating-reactive-and-non-reactive-code">Separating reactive and non-reactive code {/<em>separating-reactive-and-non-reactive-code</em>/}</a></h4>
+<p>In this example, you want to log a visit every time <code>roomId</code> changes. You want to include the current <code>notificationCount</code> with every log, but you <em>don't</em> want a change to <code>notificationCount</code> to trigger a log event.</p>
+<p>The solution is again to split out the non-reactive code into an Effect Event:</p>
+<pre><code class="language-js {2-4 7}">function Chat({ roomId, notificationCount }) {
+  const onVisit = useEffectEvent(visitedRoomId =&gt; {
+    logVisit(visitedRoomId, notificationCount);
+  });
+
+  useEffect(() =&gt; {
+    onVisit(roomId);
+  }, [roomId]); // ✅ All dependencies declared
+  // ...
+}
+</code></pre>
+<p>You want your logic to be reactive with regards to <code>roomId</code>, so you read <code>roomId</code> inside of your Effect. However, you don't want a change to <code>notificationCount</code> to log an extra visit, so you read <code>notificationCount</code> inside of the Effect Event. <a href="/learn/separating-events-from-effects#reading-latest-props-and-state-with-effect-events">Learn more about reading the latest props and state from Effects using Effect Events.</a></p>
+<h3 id="does-some-reactive-value-change-unintentionally-does-some-reactive-value-change-unintentionally"><a class="header" href="#does-some-reactive-value-change-unintentionally-does-some-reactive-value-change-unintentionally">Does some reactive value change unintentionally? {/<em>does-some-reactive-value-change-unintentionally</em>/}</a></h3>
+<p>Sometimes, you <em>do</em> want your Effect to &quot;react&quot; to a certain value, but that value changes more often than you'd like--and might not reflect any actual change from the user's perspective. For example, let's say that you create an <code>options</code> object in the body of your component, and then read that object from inside of your Effect:</p>
+<pre><code class="language-js {3-6 9}">function ChatRoom({ roomId }) {
+  // ...
+  const options = {
+    serverUrl: serverUrl,
+    roomId: roomId
+  };
+
+  useEffect(() =&gt; {
+    const connection = createConnection(options);
+    connection.connect();
+    // ...
+</code></pre>
+<p>This object is declared in the component body, so it's a <a href="/learn/lifecycle-of-reactive-effects#effects-react-to-reactive-values">reactive value.</a> When you read a reactive value like this inside an Effect, you declare it as a dependency. This ensures your Effect &quot;reacts&quot; to its changes:</p>
+<pre><code class="language-js {3 6}">  // ...
+  useEffect(() =&gt; {
+    const connection = createConnection(options);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [options]); // ✅ All dependencies declared
+  // ...
+</code></pre>
+<p>It is important to declare it as a dependency! This ensures, for example, that if the <code>roomId</code> changes, then your Effect will re-connect to the chat with the new <code>options</code>. However, there is also a problem with the code above. To see the problem, try typing into the input in the sandbox below, and watch what happens in the console:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  const [message, setMessage] = useState('');
+
+  const options = {
+    serverUrl: serverUrl,
+    roomId: roomId
+  };
+
+  useEffect(() =&gt; {
+    const connection = createConnection(options);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [options]);
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;
+      &lt;input value={message} onChange={e =&gt; setMessage(e.target.value)} /&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom roomId={roomId} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection({ serverUrl, roomId }) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+<p>In the sandbox above, the input only updates the <code>message</code> state variable. From the user's perspective, this should not affect the chat connection. However, every time you update the <code>message</code>, your component re-renders. When your component re-renders, the code inside of it runs again from scratch.</p>
+<p>This means that a new <code>options</code> object is created from scratch on every re-render of the <code>ChatRoom</code> component. React sees that the <code>options</code> object is a <em>different object</em> from the <code>options</code> object created during the last render. This is why it re-synchronizes your Effect (which depends on <code>options</code>), and the chat re-connects as you type.</p>
+<p><strong>This problem affects objects and functions in particular. In JavaScript, each newly created object and function is considered distinct from all the others. It doesn't matter that the contents inside of them may be the same!</strong></p>
+<pre><code class="language-js {7-8}">// During the first render
+const options1 = { serverUrl: 'https://localhost:1234', roomId: 'music' };
+
+// During the next render
+const options2 = { serverUrl: 'https://localhost:1234', roomId: 'music' };
+
+// These are two different objects!
+console.log(Object.is(options1, options2)); // false
+</code></pre>
+<p><strong>Object and function dependencies create a risk that your Effect will re-synchronize more often than you need.</strong> </p>
+<p>This is why, whenever possible, you should try to avoid objects and functions as your Effect's dependencies. Instead, try moving them outside the component, inside the Effect, or extracting primitive values out of them.</p>
+<h4 id="move-static-objects-and-functions-outside-your-component-move-static-objects-and-functions-outside-your-component"><a class="header" href="#move-static-objects-and-functions-outside-your-component-move-static-objects-and-functions-outside-your-component">Move static objects and functions outside your component {/<em>move-static-objects-and-functions-outside-your-component</em>/}</a></h4>
+<p>If the object does not depend on any props and state, you can move that object outside your component:</p>
+<pre><code class="language-js {1-4 13}">const options = {
+  serverUrl: 'https://localhost:1234',
+  roomId: 'music'
+};
+
+function ChatRoom() {
+  const [message, setMessage] = useState('');
+
+  useEffect(() =&gt; {
+    const connection = createConnection(options);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, []); // ✅ All dependencies declared
+  // ...
+</code></pre>
+<p>This way, you <em>prove</em> to the linter that it's not reactive. It can't change as a result of a re-render, so it doesn't need to be a dependency of your Effect. Now re-rendering <code>ChatRoom</code> won't cause your Effect to re-synchronize.</p>
+<p>This works for functions too:</p>
+<pre><code class="language-js {1-6 12}">function createOptions() {
+  return {
+    serverUrl: 'https://localhost:1234',
+    roomId: 'music'
+  };
+}
+
+function ChatRoom() {
+  const [message, setMessage] = useState('');
+
+  useEffect(() =&gt; {
+    const options = createOptions();
+    const connection = createConnection();
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, []); // ✅ All dependencies declared
+  // ...
+</code></pre>
+<p>Since <code>createOptions</code> is declared outside your component, it's not a reactive value. This is why it doesn't need to be specified in your Effect's dependencies, and why it won't ever cause your Effect to re-synchronize.</p>
+<h4 id="move-dynamic-objects-and-functions-inside-your-effect-move-dynamic-objects-and-functions-inside-your-effect"><a class="header" href="#move-dynamic-objects-and-functions-inside-your-effect-move-dynamic-objects-and-functions-inside-your-effect">Move dynamic objects and functions inside your Effect {/<em>move-dynamic-objects-and-functions-inside-your-effect</em>/}</a></h4>
+<p>If your object depends on some reactive value that may change as a result of a re-render, like a <code>roomId</code> prop, you can't pull it <em>outside</em> your component. You can, however, move its creation <em>inside</em> of your Effect's code:</p>
+<pre><code class="language-js {7-10 11 14}">const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  const [message, setMessage] = useState('');
+
+  useEffect(() =&gt; {
+    const options = {
+      serverUrl: serverUrl,
+      roomId: roomId
+    };
+    const connection = createConnection(options);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId]); // ✅ All dependencies declared
+  // ...
+</code></pre>
+<p>Now that <code>options</code> is declared inside of your Effect, it is no longer a dependency of your Effect. Instead, the only reactive value used by your Effect is <code>roomId</code>. Since <code>roomId</code> is not an object or function, you can be sure that it won't be <em>unintentionally</em> different. In JavaScript, numbers and strings are compared by their content:</p>
+<pre><code class="language-js {7-8}">// During the first render
+const roomId1 = 'music';
+
+// During the next render
+const roomId2 = 'music';
+
+// These two strings are the same!
+console.log(Object.is(roomId1, roomId2)); // true
+</code></pre>
+<p>Thanks to this fix, the chat no longer re-connects if you edit the input:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  const [message, setMessage] = useState('');
+
+  useEffect(() =&gt; {
+    const options = {
+      serverUrl: serverUrl,
+      roomId: roomId
+    };
+    const connection = createConnection(options);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId]);
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;
+      &lt;input value={message} onChange={e =&gt; setMessage(e.target.value)} /&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom roomId={roomId} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection({ serverUrl, roomId }) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+<p>However, it <em>does</em> re-connect when you change the <code>roomId</code> dropdown, as you would expect.</p>
+<p>This works for functions, too:</p>
+<pre><code class="language-js {7-12 14}">const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  const [message, setMessage] = useState('');
+
+  useEffect(() =&gt; {
+    function createOptions() {
+      return {
+        serverUrl: serverUrl,
+        roomId: roomId
+      };
+    }
+
+    const options = createOptions();
+    const connection = createConnection(options);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId]); // ✅ All dependencies declared
+  // ...
+</code></pre>
+<p>You can write your own functions to group pieces of logic inside your Effect. As long as you also declare them <em>inside</em> your Effect, they're not reactive values, and so they don't need to be dependencies of your Effect.</p>
+<h4 id="read-primitive-values-from-objects-read-primitive-values-from-objects"><a class="header" href="#read-primitive-values-from-objects-read-primitive-values-from-objects">Read primitive values from objects {/<em>read-primitive-values-from-objects</em>/}</a></h4>
+<p>Sometimes, you may receive an object from props:</p>
+<pre><code class="language-js {1 5 8}">function ChatRoom({ options }) {
+  const [message, setMessage] = useState('');
+
+  useEffect(() =&gt; {
+    const connection = createConnection(options);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [options]); // ✅ All dependencies declared
+  // ...
+</code></pre>
+<p>The risk here is that the parent component will create the object during rendering:</p>
+<pre><code class="language-js {3-6}">&lt;ChatRoom
+  roomId={roomId}
+  options={{
+    serverUrl: serverUrl,
+    roomId: roomId
+  }}
+/&gt;
+</code></pre>
+<p>This would cause your Effect to re-connect every time the parent component re-renders. To fix this, read all the necessary information from the object <em>outside</em> the Effect, and avoid having objects and functions dependencies:</p>
+<pre><code class="language-js {4 7-8 12}">function ChatRoom({ options }) {
+  const [message, setMessage] = useState('');
+
+  const { roomId, serverUrl } = options;
+  useEffect(() =&gt; {
+    const connection = createConnection({
+      roomId: roomId,
+      serverUrl: serverUrl
+    });
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId, serverUrl]); // ✅ All dependencies declared
+  // ...
+</code></pre>
+<p>The logic gets a little repetitive (you read some values from an object outside an Effect, and then create an object with the same values inside the Effect). But it makes it very explicit what information your Effect <em>actually</em> depends on. If an object is re-created unintentionally by the parent component, the chat would not re-connect. However, if <code>options.roomId</code> or <code>options.serverUrl</code> actually change, the chat would re-connect as you'd expect.</p>
+<h4 id="calculate-primitive-values-from-functions-calculate-primitive-values-from-functions"><a class="header" href="#calculate-primitive-values-from-functions-calculate-primitive-values-from-functions">Calculate primitive values from functions {/<em>calculate-primitive-values-from-functions</em>/}</a></h4>
+<p>The same approach can work for functions. For example, suppose the parent component passes a function:</p>
+<pre><code class="language-js {3-8}">&lt;ChatRoom
+  roomId={roomId}
+  getOptions={() =&gt; {
+    return {
+      serverUrl: serverUrl,
+      roomId: roomId
+    };
+  }}
+/&gt;
+</code></pre>
+<p>To avoid making it a dependency (and thus causing it to re-connect on re-renders), call it outside the Effect. This gives you the <code>roomId</code> and <code>serverUrl</code> values that aren't objects, and that you can read from inside your Effect:</p>
+<pre><code class="language-js {1 4}">function ChatRoom({ getOptions }) {
+  const [message, setMessage] = useState('');
+
+  const { roomId, serverUrl } = getOptions();
+  useEffect(() =&gt; {
+    const connection = createConnection({
+      roomId: roomId,
+      serverUrl: serverUrl
+    });
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId, serverUrl]); // ✅ All dependencies declared
+  // ...
+</code></pre>
+<p>This only works for <a href="/learn/keeping-components-pure">pure</a> functions because they are safe to call during rendering. If your function is an event handler, but you don't want its changes to re-synchronize your Effect, <a href="#do-you-want-to-read-a-value-without-reacting-to-its-changes">wrap it into an Effect Event instead.</a></p>
+<Recap>
+<ul>
+<li>Dependencies should always match the code.</li>
+<li>When you're not happy with your dependencies, what you need to edit is the code.</li>
+<li>Suppressing the linter leads to very confusing bugs, and you should always avoid it.</li>
+<li>To remove a dependency, you need to &quot;prove&quot; to the linter that it's not necessary.</li>
+<li>If the code in your Effect should run in response to a specific interaction, move that code to an event handler.</li>
+<li>If different parts of your Effect should re-run for different reasons, split it into several Effects.</li>
+<li>If you want to update some state based on the previous state, pass an updater function.</li>
+<li>If you want to read the latest value without &quot;reacting&quot; it, extract an Effect Event from your Effect.</li>
+<li>In JavaScript, objects and functions are considered different if they were created at different times.</li>
+<li>Try to avoid object and function dependencies. Move them outside the component or inside the Effect.</li>
+</ul>
+</Recap>
+<Challenges>
+<h4 id="fix-a-resetting-interval-fix-a-resetting-interval"><a class="header" href="#fix-a-resetting-interval-fix-a-resetting-interval">Fix a resetting interval {/<em>fix-a-resetting-interval</em>/}</a></h4>
+<p>This Effect sets up an interval that ticks every second. You've noticed something strange happening: it seems like the interval gets destroyed and re-created every time it ticks. Fix the code so that the interval doesn't get constantly re-created.</p>
+<Hint>
+<p>It seems like this Effect's code depends on <code>count</code>. Is there some way to not need this dependency? There should be a way to update the <code>count</code> state based on its previous value without adding a dependency on that value.</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+
+export default function Timer() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() =&gt; {
+    console.log('✅ Creating an interval');
+    const id = setInterval(() =&gt; {
+      console.log('⏰ Interval tick');
+      setCount(count + 1);
+    }, 1000);
+    return () =&gt; {
+      console.log('❌ Clearing an interval');
+      clearInterval(id);
+    };
+  }, [count]);
+
+  return &lt;h1&gt;Counter: {count}&lt;/h1&gt;
+}
+</code></pre>
+</Sandpack>
+<Solution>
+<p>You want to update the <code>count</code> state to be <code>count + 1</code> from inside the Effect. However, this makes your Effect depend on <code>count</code>, which changes with every tick, and that's why your interval gets re-created on every tick.</p>
+<p>To solve this, use the <a href="/reference/react/useState#updating-state-based-on-the-previous-state">updater function</a> and write <code>setCount(c =&gt; c + 1)</code> instead of <code>setCount(count + 1)</code>:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+
+export default function Timer() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() =&gt; {
+    console.log('✅ Creating an interval');
+    const id = setInterval(() =&gt; {
+      console.log('⏰ Interval tick');
+      setCount(c =&gt; c + 1);
+    }, 1000);
+    return () =&gt; {
+      console.log('❌ Clearing an interval');
+      clearInterval(id);
+    };
+  }, []);
+
+  return &lt;h1&gt;Counter: {count}&lt;/h1&gt;
+}
+</code></pre>
+</Sandpack>
+<p>Instead of reading <code>count</code> inside the Effect, you pass a <code>c =&gt; c + 1</code> instruction (&quot;increment this number!&quot;) to React. React will apply it on the next render. And since you don't need to read the value of <code>count</code> inside your Effect anymore, so you can keep your Effect's dependencies empty (<code>[]</code>). This prevents your Effect from re-creating the interval on every tick.</p>
+</Solution>
+<h4 id="fix-a-retriggering-animation-fix-a-retriggering-animation"><a class="header" href="#fix-a-retriggering-animation-fix-a-retriggering-animation">Fix a retriggering animation {/<em>fix-a-retriggering-animation</em>/}</a></h4>
+<p>In this example, when you press &quot;Show&quot;, a welcome message fades in. The animation takes a second. When you press &quot;Remove&quot;, the welcome message immediately disappears. The logic for the fade-in animation is implemented in the <code>animation.js</code> file as plain JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">animation loop.</a> You don't need to change that logic. You can treat it as a third-party library. Your Effect creates an instance of <code>FadeInAnimation</code> for the DOM node, and then calls <code>start(duration)</code> or <code>stop()</code> to control the animation. The <code>duration</code> is controlled by a slider. Adjust the slider and see how the animation changes.</p>
+<p>This code already works, but there is something you want to change. Currently, when you move the slider that controls the <code>duration</code> state variable, it retriggers the animation. Change the behavior so that the Effect does not &quot;react&quot; to the <code>duration</code> variable. When you press &quot;Show&quot;, the Effect should use the current <code>duration</code> on the slider. However, moving the slider itself should not by itself retrigger the animation.</p>
+<Hint>
+<p>Is there a line of code inside the Effect that should not be reactive? How can you move non-reactive code out of the Effect?</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-json package.json hidden">{
+  &quot;dependencies&quot;: {
+    &quot;react&quot;: &quot;experimental&quot;,
+    &quot;react-dom&quot;: &quot;experimental&quot;,
+    &quot;react-scripts&quot;: &quot;latest&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-js">import { useState, useEffect, useRef } from 'react';
+import { experimental_useEffectEvent as useEffectEvent } from 'react';
+import { FadeInAnimation } from './animation.js';
+
+function Welcome({ duration }) {
+  const ref = useRef(null);
+
+  useEffect(() =&gt; {
+    const animation = new FadeInAnimation(ref.current);
+    animation.start(duration);
+    return () =&gt; {
+      animation.stop();
+    };
+  }, [duration]);
+
+  return (
+    &lt;h1
+      ref={ref}
+      style={{
+        opacity: 0,
+        color: 'white',
+        padding: 50,
+        textAlign: 'center',
+        fontSize: 50,
+        backgroundImage: 'radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%)'
+      }}
+    &gt;
+      Welcome
+    &lt;/h1&gt;
+  );
+}
+
+export default function App() {
+  const [duration, setDuration] = useState(1000);
+  const [show, setShow] = useState(false);
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        &lt;input
+          type=&quot;range&quot;
+          min=&quot;100&quot;
+          max=&quot;3000&quot;
+          value={duration}
+          onChange={e =&gt; setDuration(Number(e.target.value))}
+        /&gt;
+        &lt;br /&gt;
+        Fade in duration: {duration} ms
+      &lt;/label&gt;
+      &lt;button onClick={() =&gt; setShow(!show)}&gt;
+        {show ? 'Remove' : 'Show'}
+      &lt;/button&gt;
+      &lt;hr /&gt;
+      {show &amp;&amp; &lt;Welcome duration={duration} /&gt;}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js animation.js">export class FadeInAnimation {
+  constructor(node) {
+    this.node = node;
+  }
+  start(duration) {
+    this.duration = duration;
+    if (this.duration === 0) {
+      // Jump to end immediately
+      this.onProgress(1);
+    } else {
+      this.onProgress(0);
+      // Start animating
+      this.startTime = performance.now();
+      this.frameId = requestAnimationFrame(() =&gt; this.onFrame());
+    }
+  }
+  onFrame() {
+    const timePassed = performance.now() - this.startTime;
+    const progress = Math.min(timePassed / this.duration, 1);
+    this.onProgress(progress);
+    if (progress &lt; 1) {
+      // We still have more frames to paint
+      this.frameId = requestAnimationFrame(() =&gt; this.onFrame());
+    }
+  }
+  onProgress(progress) {
+    this.node.style.opacity = progress;
+  }
+  stop() {
+    cancelAnimationFrame(this.frameId);
+    this.startTime = null;
+    this.frameId = null;
+    this.duration = 0;
+  }
+}
+</code></pre>
+<pre><code class="language-css">label, button { display: block; margin-bottom: 20px; }
+html, body { min-height: 300px; }
+</code></pre>
+</Sandpack>
+<Solution>
+<p>Your Effect needs to read the latest value of <code>duration</code>, but you don't want it to &quot;react&quot; to changes in <code>duration</code>. You use <code>duration</code> to start the animation, but starting animation isn't reactive. Extract the non-reactive line of code into an Effect Event, and call that function from your Effect.</p>
+<Sandpack>
+<pre><code class="language-json package.json hidden">{
+  &quot;dependencies&quot;: {
+    &quot;react&quot;: &quot;experimental&quot;,
+    &quot;react-dom&quot;: &quot;experimental&quot;,
+    &quot;react-scripts&quot;: &quot;latest&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-js">import { useState, useEffect, useRef } from 'react';
+import { FadeInAnimation } from './animation.js';
+import { experimental_useEffectEvent as useEffectEvent } from 'react';
+
+function Welcome({ duration }) {
+  const ref = useRef(null);
+
+  const onAppear = useEffectEvent(animation =&gt; {
+    animation.start(duration);
+  });
+
+  useEffect(() =&gt; {
+    const animation = new FadeInAnimation(ref.current);
+    onAppear(animation);
+    return () =&gt; {
+      animation.stop();
+    };
+  }, []);
+
+  return (
+    &lt;h1
+      ref={ref}
+      style={{
+        opacity: 0,
+        color: 'white',
+        padding: 50,
+        textAlign: 'center',
+        fontSize: 50,
+        backgroundImage: 'radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%)'
+      }}
+    &gt;
+      Welcome
+    &lt;/h1&gt;
+  );
+}
+
+export default function App() {
+  const [duration, setDuration] = useState(1000);
+  const [show, setShow] = useState(false);
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        &lt;input
+          type=&quot;range&quot;
+          min=&quot;100&quot;
+          max=&quot;3000&quot;
+          value={duration}
+          onChange={e =&gt; setDuration(Number(e.target.value))}
+        /&gt;
+        &lt;br /&gt;
+        Fade in duration: {duration} ms
+      &lt;/label&gt;
+      &lt;button onClick={() =&gt; setShow(!show)}&gt;
+        {show ? 'Remove' : 'Show'}
+      &lt;/button&gt;
+      &lt;hr /&gt;
+      {show &amp;&amp; &lt;Welcome duration={duration} /&gt;}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js animation.js">export class FadeInAnimation {
+  constructor(node) {
+    this.node = node;
+  }
+  start(duration) {
+    this.duration = duration;
+    this.onProgress(0);
+    this.startTime = performance.now();
+    this.frameId = requestAnimationFrame(() =&gt; this.onFrame());
+  }
+  onFrame() {
+    const timePassed = performance.now() - this.startTime;
+    const progress = Math.min(timePassed / this.duration, 1);
+    this.onProgress(progress);
+    if (progress &lt; 1) {
+      // We still have more frames to paint
+      this.frameId = requestAnimationFrame(() =&gt; this.onFrame());
+    }
+  }
+  onProgress(progress) {
+    this.node.style.opacity = progress;
+  }
+  stop() {
+    cancelAnimationFrame(this.frameId);
+    this.startTime = null;
+    this.frameId = null;
+    this.duration = 0;
+  }
+}
+</code></pre>
+<pre><code class="language-css">label, button { display: block; margin-bottom: 20px; }
+html, body { min-height: 300px; }
+</code></pre>
+</Sandpack>
+<p>Effect Events like <code>onAppear</code> are not reactive, so you can read <code>duration</code> inside without retriggering the animation.</p>
+</Solution>
+<h4 id="fix-a-reconnecting-chat-fix-a-reconnecting-chat"><a class="header" href="#fix-a-reconnecting-chat-fix-a-reconnecting-chat">Fix a reconnecting chat {/<em>fix-a-reconnecting-chat</em>/}</a></h4>
+<p>In this example, every time you press &quot;Toggle theme&quot;, the chat re-connects. Why does this happen? Fix the mistake so that the chat re-connects only when you edit Server URL or choose a different the chat room.</p>
+<p>Treat <code>chat.js</code> as an external third-party library: you can consult it to check its API, but don't edit it.</p>
+<Hint>
+<p>There's more than one way to fix this, but ultimately you want to avoid having an object as your dependency.</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import ChatRoom from './ChatRoom.js';
+
+export default function App() {
+  const [isDark, setIsDark] = useState(false);
+  const [roomId, setRoomId] = useState('general');
+  const [serverUrl, setServerUrl] = useState('https://localhost:1234');
+
+  const options = {
+    serverUrl: serverUrl,
+    roomId: roomId
+  };
+
+  return (
+    &lt;div className={isDark ? 'dark' : 'light'}&gt;
+      &lt;button onClick={() =&gt; setIsDark(!isDark)}&gt;
+        Toggle theme
+      &lt;/button&gt;
+      &lt;label&gt;
+        Server URL:{' '}
+        &lt;input
+          value={serverUrl}
+          onChange={e =&gt; setServerUrl(e.target.value)}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom options={options} /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js ChatRoom.js active">import { useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+export default function ChatRoom({ options }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(options);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [options]);
+
+  return &lt;h1&gt;Welcome to the {options.roomId} room!&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection({ serverUrl, roomId }) {
+  // A real implementation would actually connect to the server
+  if (typeof serverUrl !== 'string') {
+    throw Error('Expected serverUrl to be a string. Received: ' + serverUrl);
+  }
+  if (typeof roomId !== 'string') {
+    throw Error('Expected roomId to be a string. Received: ' + roomId);
+  }
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">label, button { display: block; margin-bottom: 5px; }
+.dark { background: #222; color: #eee; }
+</code></pre>
+</Sandpack>
+<Solution>
+<p>Your Effect is re-running because it depends on the <code>options</code> object. Objects can be re-created unintentionally, you should try to avoid them as dependencies of your Effects whenever possible.</p>
+<p>The least invasive fix is to read <code>roomId</code> and <code>serverUrl</code> right outside the Effect, and then make the Effect depend on those primitive values (which can't change unintentionally). Inside the Effect, create an object and it pass to <code>createConnnection</code>:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import ChatRoom from './ChatRoom.js';
+
+export default function App() {
+  const [isDark, setIsDark] = useState(false);
+  const [roomId, setRoomId] = useState('general');
+  const [serverUrl, setServerUrl] = useState('https://localhost:1234');
+
+  const options = {
+    serverUrl: serverUrl,
+    roomId: roomId
+  };
+
+  return (
+    &lt;div className={isDark ? 'dark' : 'light'}&gt;
+      &lt;button onClick={() =&gt; setIsDark(!isDark)}&gt;
+        Toggle theme
+      &lt;/button&gt;
+      &lt;label&gt;
+        Server URL:{' '}
+        &lt;input
+          value={serverUrl}
+          onChange={e =&gt; setServerUrl(e.target.value)}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom options={options} /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js ChatRoom.js active">import { useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+export default function ChatRoom({ options }) {
+  const { roomId, serverUrl } = options;
+  useEffect(() =&gt; {
+    const connection = createConnection({
+      roomId: roomId,
+      serverUrl: serverUrl
+    });
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId, serverUrl]);
+
+  return &lt;h1&gt;Welcome to the {options.roomId} room!&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection({ serverUrl, roomId }) {
+  // A real implementation would actually connect to the server
+  if (typeof serverUrl !== 'string') {
+    throw Error('Expected serverUrl to be a string. Received: ' + serverUrl);
+  }
+  if (typeof roomId !== 'string') {
+    throw Error('Expected roomId to be a string. Received: ' + roomId);
+  }
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">label, button { display: block; margin-bottom: 5px; }
+.dark { background: #222; color: #eee; }
+</code></pre>
+</Sandpack>
+<p>It would be even better to replace the object <code>options</code> prop with the more specific <code>roomId</code> and <code>serverUrl</code> props:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import ChatRoom from './ChatRoom.js';
+
+export default function App() {
+  const [isDark, setIsDark] = useState(false);
+  const [roomId, setRoomId] = useState('general');
+  const [serverUrl, setServerUrl] = useState('https://localhost:1234');
+
+  return (
+    &lt;div className={isDark ? 'dark' : 'light'}&gt;
+      &lt;button onClick={() =&gt; setIsDark(!isDark)}&gt;
+        Toggle theme
+      &lt;/button&gt;
+      &lt;label&gt;
+        Server URL:{' '}
+        &lt;input
+          value={serverUrl}
+          onChange={e =&gt; setServerUrl(e.target.value)}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom
+        roomId={roomId}
+        serverUrl={serverUrl}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js ChatRoom.js active">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+export default function ChatRoom({ roomId, serverUrl }) {
+  useEffect(() =&gt; {
+    const connection = createConnection({
+      roomId: roomId,
+      serverUrl: serverUrl
+    });
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId, serverUrl]);
+
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection({ serverUrl, roomId }) {
+  // A real implementation would actually connect to the server
+  if (typeof serverUrl !== 'string') {
+    throw Error('Expected serverUrl to be a string. Received: ' + serverUrl);
+  }
+  if (typeof roomId !== 'string') {
+    throw Error('Expected roomId to be a string. Received: ' + roomId);
+  }
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">label, button { display: block; margin-bottom: 5px; }
+.dark { background: #222; color: #eee; }
+</code></pre>
+</Sandpack>
+<p>Sticking to primitive props where possible makes it easier to optimize your components later.</p>
+</Solution>
+<h4 id="fix-a-reconnecting-chat-again-fix-a-reconnecting-chat-again"><a class="header" href="#fix-a-reconnecting-chat-again-fix-a-reconnecting-chat-again">Fix a reconnecting chat, again {/<em>fix-a-reconnecting-chat-again</em>/}</a></h4>
+<p>This example connects to the chat either with or without encryption. Toggle the checkbox and notice the different messages in the console when the encryption is on and off. Try changing the room. Then, try toggling the theme. When you're connected to a chat room, you will receive new messages every few seconds. Verify that their color matches the theme you've picked.</p>
+<p>In this example, the chat re-connects every time you try to change the theme. Fix this. After the fix, changing the theme should not re-connect the chat, but toggling encryption settings or changing the room should re-connect.</p>
+<p>Don't change any code in <code>chat.js</code>. Other than that, you can change any code as long as it results in the same behavior. For example, you may find it helpful to change which props are being passed down.</p>
+<Hint>
+<p>You're passing down two functions: <code>onMessage</code> and <code>createConnection</code>. Both of them are created from scratch every time <code>App</code> re-renders. They are considered to be new values every time, which is why they re-trigger your Effect.</p>
+<p>One of these functions is an event handler. Do you know some way to call an event handler an Effect without &quot;reacting&quot; to the new values of the event handler function? That would come in handy!</p>
+<p>Another of these functions only exists to pass some state to an imported API method. Is this function really necessary? What is the essential information that's being passed down? You might need to move some imports from <code>App.js</code> to <code>ChatRoom.js</code>.</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-json package.json hidden">{
+  &quot;dependencies&quot;: {
+    &quot;react&quot;: &quot;experimental&quot;,
+    &quot;react-dom&quot;: &quot;experimental&quot;,
+    &quot;react-scripts&quot;: &quot;latest&quot;,
+    &quot;toastify-js&quot;: &quot;1.12.0&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import ChatRoom from './ChatRoom.js';
+import {
+  createEncryptedConnection,
+  createUnencryptedConnection,
+} from './chat.js';
+import { showNotification } from './notifications.js';
+
+export default function App() {
+  const [isDark, setIsDark] = useState(false);
+  const [roomId, setRoomId] = useState('general');
+  const [isEncrypted, setIsEncrypted] = useState(false);
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        &lt;input
+          type=&quot;checkbox&quot;
+          checked={isDark}
+          onChange={e =&gt; setIsDark(e.target.checked)}
+        /&gt;
+        Use dark theme
+      &lt;/label&gt;
+      &lt;label&gt;
+        &lt;input
+          type=&quot;checkbox&quot;
+          checked={isEncrypted}
+          onChange={e =&gt; setIsEncrypted(e.target.checked)}
+        /&gt;
+        Enable encryption
+      &lt;/label&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom
+        roomId={roomId}
+        onMessage={msg =&gt; {
+          showNotification('New message: ' + msg, isDark ? 'dark' : 'light');
+        }}
+        createConnection={() =&gt; {
+          const options = {
+            serverUrl: 'https://localhost:1234',
+            roomId: roomId
+          };
+          if (isEncrypted) {
+            return createEncryptedConnection(options);
+          } else {
+            return createUnencryptedConnection(options);
+          }
+        }}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js ChatRoom.js active">import { useState, useEffect } from 'react';
+import { experimental_useEffectEvent as useEffectEvent } from 'react';
+
+export default function ChatRoom({ roomId, createConnection, onMessage }) {
+  useEffect(() =&gt; {
+    const connection = createConnection();
+    connection.on('message', (msg) =&gt; onMessage(msg));
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [createConnection, onMessage]);
+
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createEncryptedConnection({ serverUrl, roomId }) {
+  // A real implementation would actually connect to the server
+  if (typeof serverUrl !== 'string') {
+    throw Error('Expected serverUrl to be a string. Received: ' + serverUrl);
+  }
+  if (typeof roomId !== 'string') {
+    throw Error('Expected roomId to be a string. Received: ' + roomId);
+  }
+  let intervalId;
+  let messageCallback;
+  return {
+    connect() {
+      console.log('✅ 🔐 Connecting to &quot;' + roomId + '&quot; room... (encrypted)');
+      clearInterval(intervalId);
+      intervalId = setInterval(() =&gt; {
+        if (messageCallback) {
+          if (Math.random() &gt; 0.5) {
+            messageCallback('hey')
+          } else {
+            messageCallback('lol');
+          }
+        }
+      }, 3000);
+    },
+    disconnect() {
+      clearInterval(intervalId);
+      messageCallback = null;
+      console.log('❌ 🔐 Disconnected from &quot;' + roomId + '&quot; room (encrypted)');
+    },
+    on(event, callback) {
+      if (messageCallback) {
+        throw Error('Cannot add the handler twice.');
+      }
+      if (event !== 'message') {
+        throw Error('Only &quot;message&quot; event is supported.');
+      }
+      messageCallback = callback;
+    },
+  };
+}
+
+export function createUnencryptedConnection({ serverUrl, roomId }) {
+  // A real implementation would actually connect to the server
+  if (typeof serverUrl !== 'string') {
+    throw Error('Expected serverUrl to be a string. Received: ' + serverUrl);
+  }
+  if (typeof roomId !== 'string') {
+    throw Error('Expected roomId to be a string. Received: ' + roomId);
+  }
+  let intervalId;
+  let messageCallback;
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room (unencrypted)...');
+      clearInterval(intervalId);
+      intervalId = setInterval(() =&gt; {
+        if (messageCallback) {
+          if (Math.random() &gt; 0.5) {
+            messageCallback('hey')
+          } else {
+            messageCallback('lol');
+          }
+        }
+      }, 3000);
+    },
+    disconnect() {
+      clearInterval(intervalId);
+      messageCallback = null;
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room (unencrypted)');
+    },
+    on(event, callback) {
+      if (messageCallback) {
+        throw Error('Cannot add the handler twice.');
+      }
+      if (event !== 'message') {
+        throw Error('Only &quot;message&quot; event is supported.');
+      }
+      messageCallback = callback;
+    },
+  };
+}
+</code></pre>
+<pre><code class="language-js notifications.js">import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
+
+export function showNotification(message, theme) {
+  Toastify({
+    text: message,
+    duration: 2000,
+    gravity: 'top',
+    position: 'right',
+    style: {
+      background: theme === 'dark' ? 'black' : 'white',
+      color: theme === 'dark' ? 'white' : 'black',
+    },
+  }).showToast();
+}
+</code></pre>
+<pre><code class="language-css">label, button { display: block; margin-bottom: 5px; }
+</code></pre>
+</Sandpack>
+<Solution>
+<p>There's more than one correct way to solve this, but the here is one possible solution.</p>
+<p>In the original example, toggling the theme caused different <code>onMessage</code> and <code>createConnection</code> functions to be created and passed down. Since the Effect depended on these functions, the chat would re-connect every time you toggle the theme.</p>
+<p>To fix the problem with <code>onMessage</code>, you needed to wrap it into an Effect Event:</p>
+<pre><code class="language-js {1 2 6}">export default function ChatRoom({ roomId, createConnection, onMessage }) {
+  const onReceiveMessage = useEffectEvent(onMessage);
+
+  useEffect(() =&gt; {
+    const connection = createConnection();
+    connection.on('message', (msg) =&gt; onReceiveMessage(msg));
+    // ...
+</code></pre>
+<p>Unlike the <code>onMessage</code> prop, the <code>onReceiveMessage</code> Effect Event is not reactive. This is why it doesn't need to be a dependency of your Effect. As a result, changes to <code>onMessage</code> won't cause the chat to re-connect.</p>
+<p>You can't do the same with <code>createConnection</code> because it <em>should</em> be reactive. You <em>want</em> the Effect to re-trigger if the user switches between an encrypted and an unencryption connection, or if the user switches the current room. However, because <code>createConnection</code> is a function, you can't check whether the information it reads has <em>actually</em> changed or not. To solve this, instead of passing <code>createConnection</code> down from the <code>App</code> component, pass the raw <code>roomId</code> and <code>isEncrypted</code> values:</p>
+<pre><code class="language-js {2-3}">      &lt;ChatRoom
+        roomId={roomId}
+        isEncrypted={isEncrypted}
+        onMessage={msg =&gt; {
+          showNotification('New message: ' + msg, isDark ? 'dark' : 'light');
+        }}
+      /&gt;
+</code></pre>
+<p>Now you can move the <code>createConnection</code> function <em>inside</em> the Effect instead of passing it down from the <code>App</code>:</p>
+<pre><code class="language-js {1-4 6 10-20}">import {
+  createEncryptedConnection,
+  createUnencryptedConnection,
+} from './chat.js';
+
+export default function ChatRoom({ roomId, isEncrypted, onMessage }) {
+  const onReceiveMessage = useEffectEvent(onMessage);
+
+  useEffect(() =&gt; {
+    function createConnection() {
+      const options = {
+        serverUrl: 'https://localhost:1234',
+        roomId: roomId
+      };
+      if (isEncrypted) {
+        return createEncryptedConnection(options);
+      } else {
+        return createUnencryptedConnection(options);
+      }
+    }
+    // ...
+</code></pre>
+<p>After these two changes, your Effect no longer depends on any function values:</p>
+<pre><code class="language-js {1 8 10 21}">export default function ChatRoom({ roomId, isEncrypted, onMessage }) { // Reactive values
+  const onReceiveMessage = useEffectEvent(onMessage); // Not reactive
+
+  useEffect(() =&gt; {
+    function createConnection() {
+      const options = {
+        serverUrl: 'https://localhost:1234',
+        roomId: roomId // Reading a reactive value
+      };
+      if (isEncrypted) { // Reading a reactive value
+        return createEncryptedConnection(options);
+      } else {
+        return createUnencryptedConnection(options);
+      }
+    }
+
+    const connection = createConnection();
+    connection.on('message', (msg) =&gt; onReceiveMessage(msg));
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId, isEncrypted]); // ✅ All dependencies declared
+</code></pre>
+<p>As a result, the chat re-connects only when something meaningful (<code>roomId</code> or <code>isEncrypted</code>) changes:</p>
+<Sandpack>
+<pre><code class="language-json package.json hidden">{
+  &quot;dependencies&quot;: {
+    &quot;react&quot;: &quot;experimental&quot;,
+    &quot;react-dom&quot;: &quot;experimental&quot;,
+    &quot;react-scripts&quot;: &quot;latest&quot;,
+    &quot;toastify-js&quot;: &quot;1.12.0&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import ChatRoom from './ChatRoom.js';
+
+import { showNotification } from './notifications.js';
+
+export default function App() {
+  const [isDark, setIsDark] = useState(false);
+  const [roomId, setRoomId] = useState('general');
+  const [isEncrypted, setIsEncrypted] = useState(false);
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        &lt;input
+          type=&quot;checkbox&quot;
+          checked={isDark}
+          onChange={e =&gt; setIsDark(e.target.checked)}
+        /&gt;
+        Use dark theme
+      &lt;/label&gt;
+      &lt;label&gt;
+        &lt;input
+          type=&quot;checkbox&quot;
+          checked={isEncrypted}
+          onChange={e =&gt; setIsEncrypted(e.target.checked)}
+        /&gt;
+        Enable encryption
+      &lt;/label&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom
+        roomId={roomId}
+        isEncrypted={isEncrypted}
+        onMessage={msg =&gt; {
+          showNotification('New message: ' + msg, isDark ? 'dark' : 'light');
+        }}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js ChatRoom.js active">import { useState, useEffect } from 'react';
+import { experimental_useEffectEvent as useEffectEvent } from 'react';
+import {
+  createEncryptedConnection,
+  createUnencryptedConnection,
+} from './chat.js';
+
+export default function ChatRoom({ roomId, isEncrypted, onMessage }) {
+  const onReceiveMessage = useEffectEvent(onMessage);
+
+  useEffect(() =&gt; {
+    function createConnection() {
+      const options = {
+        serverUrl: 'https://localhost:1234',
+        roomId: roomId
+      };
+      if (isEncrypted) {
+        return createEncryptedConnection(options);
+      } else {
+        return createUnencryptedConnection(options);
+      }
+    }
+
+    const connection = createConnection();
+    connection.on('message', (msg) =&gt; onReceiveMessage(msg));
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId, isEncrypted]);
+
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createEncryptedConnection({ serverUrl, roomId }) {
+  // A real implementation would actually connect to the server
+  if (typeof serverUrl !== 'string') {
+    throw Error('Expected serverUrl to be a string. Received: ' + serverUrl);
+  }
+  if (typeof roomId !== 'string') {
+    throw Error('Expected roomId to be a string. Received: ' + roomId);
+  }
+  let intervalId;
+  let messageCallback;
+  return {
+    connect() {
+      console.log('✅ 🔐 Connecting to &quot;' + roomId + '&quot; room... (encrypted)');
+      clearInterval(intervalId);
+      intervalId = setInterval(() =&gt; {
+        if (messageCallback) {
+          if (Math.random() &gt; 0.5) {
+            messageCallback('hey')
+          } else {
+            messageCallback('lol');
+          }
+        }
+      }, 3000);
+    },
+    disconnect() {
+      clearInterval(intervalId);
+      messageCallback = null;
+      console.log('❌ 🔐 Disconnected from &quot;' + roomId + '&quot; room (encrypted)');
+    },
+    on(event, callback) {
+      if (messageCallback) {
+        throw Error('Cannot add the handler twice.');
+      }
+      if (event !== 'message') {
+        throw Error('Only &quot;message&quot; event is supported.');
+      }
+      messageCallback = callback;
+    },
+  };
+}
+
+export function createUnencryptedConnection({ serverUrl, roomId }) {
+  // A real implementation would actually connect to the server
+  if (typeof serverUrl !== 'string') {
+    throw Error('Expected serverUrl to be a string. Received: ' + serverUrl);
+  }
+  if (typeof roomId !== 'string') {
+    throw Error('Expected roomId to be a string. Received: ' + roomId);
+  }
+  let intervalId;
+  let messageCallback;
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room (unencrypted)...');
+      clearInterval(intervalId);
+      intervalId = setInterval(() =&gt; {
+        if (messageCallback) {
+          if (Math.random() &gt; 0.5) {
+            messageCallback('hey')
+          } else {
+            messageCallback('lol');
+          }
+        }
+      }, 3000);
+    },
+    disconnect() {
+      clearInterval(intervalId);
+      messageCallback = null;
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room (unencrypted)');
+    },
+    on(event, callback) {
+      if (messageCallback) {
+        throw Error('Cannot add the handler twice.');
+      }
+      if (event !== 'message') {
+        throw Error('Only &quot;message&quot; event is supported.');
+      }
+      messageCallback = callback;
+    },
+  };
+}
+</code></pre>
+<pre><code class="language-js notifications.js">import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
+
+export function showNotification(message, theme) {
+  Toastify({
+    text: message,
+    duration: 2000,
+    gravity: 'top',
+    position: 'right',
+    style: {
+      background: theme === 'dark' ? 'black' : 'white',
+      color: theme === 'dark' ? 'white' : 'black',
+    },
+  }).showToast();
+}
+</code></pre>
+<pre><code class="language-css">label, button { display: block; margin-bottom: 5px; }
+</code></pre>
+</Sandpack>
+</Solution>
+</Challenges>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/separating-events-from-effects.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/reusing-logic-with-custom-hooks.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/separating-events-from-effects.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/reusing-logic-with-custom-hooks.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

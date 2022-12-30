@@ -1,0 +1,1230 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>useState - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../../reference/react/useState.html" class="active"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-usestate"><a class="header" href="#title-usestate">title: useState</a></h2>
+<Intro>
+<p><code>useState</code> is a React Hook that lets you add a <a href="/learn/state-a-components-memory">state variable</a> to your component.</p>
+<pre><code class="language-js">const [state, setState] = useState(initialState)
+</code></pre>
+</Intro>
+<InlineToc />
+<hr />
+<h2 id="reference-reference"><a class="header" href="#reference-reference">Reference {/<em>reference</em>/}</a></h2>
+<h3 id="usestateinitialstate-usestate"><a class="header" href="#usestateinitialstate-usestate"><code>useState(initialState)</code> {/<em>usestate</em>/}</a></h3>
+<p>Call <code>useState</code> at the top level of your component to declare a <a href="/learn/state-a-components-memory">state variable.</a></p>
+<pre><code class="language-js">import { useState } from 'react';
+
+function MyComponent() {
+  const [age, setAge] = useState(28);
+  const [name, setName] = useState('Taylor');
+  const [todos, setTodos] = useState(() =&gt; createTodos());
+  // ...
+</code></pre>
+<p>The convention is to name state variables like <code>[something, setSomething]</code> using <a href="https://javascript.info/destructuring-assignment">array destructuring.</a></p>
+<p><a href="#usage">See more examples below.</a></p>
+<h4 id="parameters-parameters"><a class="header" href="#parameters-parameters">Parameters {/<em>parameters</em>/}</a></h4>
+<ul>
+<li><code>initialState</code>: The value you want the state to be initially. It can be a value of any type, but there is a special behavior for functions. This argument is ignored after the initial render.
+<ul>
+<li>If you pass a function as <code>initialState</code>, it will be treated as an <em>initializer function</em>. It should be pure, should take no arguments, and should return a value of any type. React will call your initializer function when initializing the component, and store its return value as the initial state. <a href="#avoiding-recreating-the-initial-state">See an example above.</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="returns-returns"><a class="header" href="#returns-returns">Returns {/<em>returns</em>/}</a></h4>
+<p><code>useState</code> returns an array with exactly two values:</p>
+<ol>
+<li>The current state. During the first render, it will match the <code>initialState</code> you have passed.</li>
+<li>The <a href="#setstate"><code>set</code> function</a> that lets you update the state to a different value and trigger a re-render.</li>
+</ol>
+<h4 id="caveats-caveats"><a class="header" href="#caveats-caveats">Caveats {/<em>caveats</em>/}</a></h4>
+<ul>
+<li><code>useState</code> is a Hook, so you can only call it <strong>at the top level of your component</strong> or your own Hooks. You can't call it inside loops or conditions. If you need that, extract a new component and move the state into it.</li>
+<li>In Strict Mode, React will <strong>call your initializer function twice</strong> in order to <a href="#my-initializer-or-updater-function-runs-twice">help you find accidental impurities.</a> This is development-only behavior and does not affect production. If your initializer function is pure (as it should be), this should not affect the logic of your component. The result from one of the calls will be ignored.</li>
+</ul>
+<hr />
+<h3 id="set-functions-like-setsomethingnextstate-setstate"><a class="header" href="#set-functions-like-setsomethingnextstate-setstate"><code>set</code> functions, like <code>setSomething(nextState)</code> {/<em>setstate</em>/}</a></h3>
+<p>The <code>set</code> function returned by <code>useState</code> lets you update the state to a different value and trigger a re-render. You can pass the next state directly, or a function that calculates it from the previous state:</p>
+<pre><code class="language-js">const [name, setName] = useState('Edward');
+
+function handleClick() {
+  setName('Taylor');
+  setAge(a =&gt; a + 1);
+  // ...
+</code></pre>
+<h4 id="parameters-setstate-parameters"><a class="header" href="#parameters-setstate-parameters">Parameters {/<em>setstate-parameters</em>/}</a></h4>
+<ul>
+<li><code>nextState</code>: The value that you want the state to be. It can be a value of any type, but there is a special behavior for functions.
+<ul>
+<li>If you pass a function as <code>nextState</code>, it will be treated as an <em>updater function</em>. It must be pure, should take the pending state as its only argument, and should return the next state. React will put your updater function in a queue and re-render your component. During the next render, React will calculate the next state by applying all of the queued updaters to the previous state. <a href="#updating-state-based-on-the-previous-state">See an example below.</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="returns-setstate-returns"><a class="header" href="#returns-setstate-returns">Returns {/<em>setstate-returns</em>/}</a></h4>
+<p><code>set</code> functions do not have a return value.</p>
+<h4 id="caveats-setstate-caveats"><a class="header" href="#caveats-setstate-caveats">Caveats {/<em>setstate-caveats</em>/}</a></h4>
+<ul>
+<li>
+<p>The <code>set</code> function <strong>only updates the state variable for the <em>next</em> render</strong>. If you read the state variable after calling the <code>set</code> function, <a href="#ive-updated-the-state-but-logging-gives-me-the-old-value">you will still get the old value</a> that was on the screen before your call.</p>
+</li>
+<li>
+<p>If the new value you provide is identical to the current <code>state</code>, as determined by an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is"><code>Object.is</code></a> comparison, React will <strong>skip re-rendering the component and its children.</strong> This is an optimization. Although in some cases React may still need to call your component before skipping the children, it shouldn't affect your code.</p>
+</li>
+<li>
+<p>React <a href="/learn/queueing-a-series-of-state-updates">batches state updates.</a> It updates the screen <strong>after all the event handlers have run</strong> and have called their <code>set</code> functions. This prevents multiple re-renders during a single event. In the rare case that you need to force React to update the screen earlier, for example to access the DOM, you can use <a href="/reference/react-dom/flushSync"><code>flushSync</code>.</a></p>
+</li>
+<li>
+<p>Calling the <code>set</code> function <em>during rendering</em> is only allowed from within the currently rendering component. React will discard its output and immediately attempt to render it again with the new state. This pattern is rarely needed, but you can use it to <strong>store information from the previous renders</strong>. <a href="#storing-information-from-previous-renders">See an example below.</a></p>
+</li>
+<li>
+<p>In Strict Mode, React will <strong>call your updater function twice</strong> in order to <a href="#my-initializer-or-updater-function-runs-twice">help you find accidental impurities.</a> This is development-only behavior and does not affect production. If your updater function is pure (as it should be), this should not affect the logic of your component. The result from one of the calls will be ignored.</p>
+</li>
+</ul>
+<hr />
+<h2 id="usage-usage"><a class="header" href="#usage-usage">Usage {/<em>usage</em>/}</a></h2>
+<h3 id="adding-state-to-a-component-adding-state-to-a-component"><a class="header" href="#adding-state-to-a-component-adding-state-to-a-component">Adding state to a component {/<em>adding-state-to-a-component</em>/}</a></h3>
+<p>Call <code>useState</code> at the top level of your component to declare one or more <a href="/learn/state-a-components-memory">state variables.</a></p>
+<pre><code class="language-js [[1  4  &quot;age&quot;]  [2  4  &quot;setAge&quot;]  [3  4  &quot;42&quot;]  [1  5  &quot;name&quot;]  [2  5  &quot;setName&quot;]  [3  5  &quot;'Taylor'&quot;]]">import { useState } from 'react';
+
+function MyComponent() {
+  const [age, setAge] = useState(42);
+  const [name, setName] = useState('Taylor');
+  // ...
+</code></pre>
+<p>The convention is to name state variables like <code>[something, setSomething]</code> using <a href="https://javascript.info/destructuring-assignment">array destructuring.</a></p>
+<p><code>useState</code> returns an array with exactly two items:</p>
+<ol>
+<li>The <CodeStep step={1}>current state</CodeStep> of this state variable, initially set to the <CodeStep step={3}>initial state</CodeStep> you provided.</li>
+<li>The <CodeStep step={2}><code>set</code> function</CodeStep> that lets you change it to any other value in response to interaction.</li>
+</ol>
+<p>To update what’s on the screen, call the <code>set</code> function with some next state:</p>
+<pre><code class="language-js [[2  2  &quot;setName&quot;]]">function handleClick() {
+  setName('Robin');
+}
+</code></pre>
+<p>React will store the next state, render your component again with the new values, and update the UI.</p>
+<Pitfall>
+<p>Calling the <code>set</code> function <a href="#ive-updated-the-state-but-logging-gives-me-the-old-value"><strong>does not</strong> change the current state in the already executing code</a>:</p>
+<pre><code class="language-js {3}">function handleClick() {
+  setName('Robin');
+  console.log(name); // Still &quot;Taylor&quot;!
+}
+</code></pre>
+<p>It only affects what <code>useState</code> will return starting from the <em>next</em> render.</p>
+</Pitfall>
+<Recipes titleText="Basic useState examples" titleId="examples-basic">
+<h4 id="counter-number-counter-number"><a class="header" href="#counter-number-counter-number">Counter (number) {/<em>counter-number</em>/}</a></h4>
+<p>In this example, the <code>count</code> state variable holds a number. Clicking the button increments it.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
+  return (
+    &lt;button onClick={handleClick}&gt;
+      You pressed me {count} times
+    &lt;/button&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<Solution />
+<h4 id="text-field-string-text-field-string"><a class="header" href="#text-field-string-text-field-string">Text field (string) {/<em>text-field-string</em>/}</a></h4>
+<p>In this example, the <code>text</code> state variable holds a string. When you type, <code>handleChange</code> reads the latest input value from the browser input DOM element, and calls <code>setText</code> to update the state. This allows you to display the current <code>text</code> below.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function MyInput() {
+  const [text, setText] = useState('hello');
+
+  function handleChange(e) {
+    setText(e.target.value);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;input value={text} onChange={handleChange} /&gt;
+      &lt;p&gt;You typed: {text}&lt;/p&gt;
+      &lt;button onClick={() =&gt; setText('hello')}&gt;
+        Reset
+      &lt;/button&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<Solution />
+<h4 id="checkbox-boolean-checkbox-boolean"><a class="header" href="#checkbox-boolean-checkbox-boolean">Checkbox (boolean) {/<em>checkbox-boolean</em>/}</a></h4>
+<p>In this example, the <code>liked</code> state variable holds a boolean. When you click the input, <code>setLiked</code> updates the <code>liked</code> state variable with whether the browser checkbox input is checked. The <code>liked</code> variable is used to render the text below the checkbox.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function MyCheckbox() {
+  const [liked, setLiked] = useState(true);
+
+  function handleChange(e) {
+    setLiked(e.target.checked);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        &lt;input
+          type=&quot;checkbox&quot;
+          checked={liked}
+          onChange={handleChange}
+        /&gt;
+        I liked this
+      &lt;/label&gt;
+      &lt;p&gt;You {liked ? 'liked' : 'did not like'} this.&lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<Solution />
+<h4 id="form-two-variables-form-two-variables"><a class="header" href="#form-two-variables-form-two-variables">Form (two variables) {/<em>form-two-variables</em>/}</a></h4>
+<p>You can declare more than one state variable in the same component. Each state variable is completely independent.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Form() {
+  const [name, setName] = useState('Taylor');
+  const [age, setAge] = useState(42);
+
+  return (
+    &lt;&gt;
+      &lt;input
+        value={name}
+        onChange={e =&gt; setName(e.target.value)}
+      /&gt;
+      &lt;button onClick={() =&gt; setAge(age + 1)}&gt;
+        Increment age
+      &lt;/button&gt;
+      &lt;p&gt;Hello, {name}. You are {age}.&lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button { display: block; margin-top: 10px; }
+</code></pre>
+</Sandpack>
+<Solution />
+</Recipes>
+<hr />
+<h3 id="updating-state-based-on-the-previous-state-updating-state-based-on-the-previous-state"><a class="header" href="#updating-state-based-on-the-previous-state-updating-state-based-on-the-previous-state">Updating state based on the previous state {/<em>updating-state-based-on-the-previous-state</em>/}</a></h3>
+<p>Suppose the <code>age</code> is <code>42</code>. This handler calls <code>setAge(age + 1)</code> three times:</p>
+<pre><code class="language-js">function handleClick() {
+  setAge(age + 1); // setAge(42 + 1)
+  setAge(age + 1); // setAge(42 + 1)
+  setAge(age + 1); // setAge(42 + 1)
+}
+</code></pre>
+<p>However, after one click, <code>age</code> will only be <code>43</code> rather than <code>45</code>! This is because calling the <code>set</code> function <a href="/learn/state-as-a-snapshot">does not update</a> the <code>age</code> state variable in the already running code. So each <code>setAge(age + 1)</code> call becomes <code>setAge(43)</code>.</p>
+<p>To solve this problem, <strong>you may pass an <em>updater function</em></strong> to <code>setAge</code> instead of the next state:</p>
+<pre><code class="language-js [[1  2  &quot;a&quot;  0]  [2  2  &quot;a + 1&quot;]  [1  3  &quot;a&quot;  0]  [2  3  &quot;a + 1&quot;]  [1  4  &quot;a&quot;  0]  [2  4  &quot;a + 1&quot;]]">function handleClick() {
+  setAge(a =&gt; a + 1); // setAge(42 =&gt; 43)
+  setAge(a =&gt; a + 1); // setAge(43 =&gt; 44)
+  setAge(a =&gt; a + 1); // setAge(44 =&gt; 45)
+}
+</code></pre>
+<p>Here, <code>a =&gt; a + 1</code> is your updater function. It takes the <CodeStep step={1}>pending state</CodeStep> and calculates the <CodeStep step={2}>next state</CodeStep> from it.</p>
+<p>React puts your updater functions in a <a href="/learn/queueing-a-series-of-state-updates">queue.</a> Then, during the next render, it will call them in the same order:</p>
+<ol>
+<li><code>a =&gt; a + 1</code> will receive <code>42</code> as the pending state and return <code>43</code> as the next state.</li>
+<li><code>a =&gt; a + 1</code> will receive <code>43</code> as the pending state and return <code>44</code> as the next state.</li>
+<li><code>a =&gt; a + 1</code> will receive <code>44</code> as the pending state and return <code>45</code> as the next state.</li>
+</ol>
+<p>There are no other queued updates, so React will store <code>45</code> as the current state in the end.</p>
+<p>By convention, it's common to name the pending state argument for the first letter of the state variable name, like <code>a</code> for <code>age</code>. However, you may also call it like <code>prevAge</code> or something else that you find clearer.</p>
+<p>React may <a href="#my-initializer-or-updater-function-runs-twice">call your updaters twice</a> in development to verify that they are <a href="/learn/keeping-components-pure">pure.</a></p>
+<DeepDive>
+<h4 id="is-using-an-updater-always-preferred-is-using-an-updater-always-preferred"><a class="header" href="#is-using-an-updater-always-preferred-is-using-an-updater-always-preferred">Is using an updater always preferred? {/<em>is-using-an-updater-always-preferred</em>/}</a></h4>
+<p>You might hear a recommendation to always write code like <code>setAge(a =&gt; a + 1)</code> if the state you're setting is calculated from the previous state. There is no harm in it, but it is also not always necessary.</p>
+<p>In most cases, there is no difference between these two approaches. React always makes sure that for intentional user actions, like clicks, the <code>age</code> state variable would be updated before the next click. This means there is no risk of a click handler seeing a &quot;stale&quot; <code>age</code> at the beginning of the event handler.</p>
+<p>However, if you do multiple updates within the same event, updaters can be helpful. They're also helpful if accessing the state variable itself is inconvenient (you might run into this when optimizing re-renders).</p>
+<p>If you prefer consistency over slightly more verbose syntax, it's reasonable to always write an updater if the state you're setting is calculated from the previous state. If it's calculated from the previous state of some <em>other</em> state variable, you might want to combine them into one object and <a href="/learn/extracting-state-logic-into-a-reducer">use a reducer.</a></p>
+</DeepDive>
+<Recipes titleText="The difference between passing an updater and passing the next state directly" titleId="examples-updater">
+<h4 id="passing-the-updater-function-passing-the-updater-function"><a class="header" href="#passing-the-updater-function-passing-the-updater-function">Passing the updater function {/<em>passing-the-updater-function</em>/}</a></h4>
+<p>This example passes the updater function, so the &quot;+3&quot; button works.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Counter() {
+  const [age, setAge] = useState(42);
+
+  function increment() {
+    setAge(a =&gt; a + 1);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Your age: {age}&lt;/h1&gt;
+      &lt;button onClick={() =&gt; {
+        increment();
+        increment();
+        increment();
+      }}&gt;+3&lt;/button&gt;
+      &lt;button onClick={() =&gt; {
+        increment();
+      }}&gt;+1&lt;/button&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button { display: block; margin: 10px; font-size: 20px; }
+h1 { display: block; margin: 10px; }
+</code></pre>
+</Sandpack>
+<Solution />
+<h4 id="passing-the-next-state-directly-passing-the-next-state-directly"><a class="header" href="#passing-the-next-state-directly-passing-the-next-state-directly">Passing the next state directly {/<em>passing-the-next-state-directly</em>/}</a></h4>
+<p>This example <strong>does not</strong> pass the updater function, so the &quot;+3&quot; button <strong>doesn't work as intended</strong>.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Counter() {
+  const [age, setAge] = useState(42);
+
+  function increment() {
+    setAge(age + 1);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Your age: {age}&lt;/h1&gt;
+      &lt;button onClick={() =&gt; {
+        increment();
+        increment();
+        increment();
+      }}&gt;+3&lt;/button&gt;
+      &lt;button onClick={() =&gt; {
+        increment();
+      }}&gt;+1&lt;/button&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button { display: block; margin: 10px; font-size: 20px; }
+h1 { display: block; margin: 10px; }
+</code></pre>
+</Sandpack>
+<Solution />
+</Recipes>
+<hr />
+<h3 id="updating-objects-and-arrays-in-state-updating-objects-and-arrays-in-state"><a class="header" href="#updating-objects-and-arrays-in-state-updating-objects-and-arrays-in-state">Updating objects and arrays in state {/<em>updating-objects-and-arrays-in-state</em>/}</a></h3>
+<p>You can put objects and arrays into state. In React, state is considered read-only, so <strong>you should <em>replace</em> it rather than <em>mutate</em> your existing objects</strong>. For example, if you have a <code>form</code> object in state, don't update it like this:</p>
+<pre><code class="language-js">// 🚩 Don't mutate an object in state like this:
+form.firstName = 'Taylor';
+</code></pre>
+<p>Instead, replace the whole object by creating a new one:</p>
+<pre><code class="language-js">// ✅ Replace state with a new object
+setForm({
+  ...form,
+  firstName: 'Taylor'
+});
+</code></pre>
+<p>Read <a href="/learn/updating-objects-in-state">updating objects in state</a> and <a href="/learn/updating-arrays-in-state">updating arrays in state</a> to learn more.</p>
+<Recipes titleText="Examples of objects and arrays in state" titleId="examples-objects">
+<h4 id="form-object-form-object"><a class="header" href="#form-object-form-object">Form (object) {/<em>form-object</em>/}</a></h4>
+<p>In this example, the <code>form</code> state variable holds an object. Each input has a change handler that calls <code>setForm</code> with the next state of the entire form. The <code>{ ...form }</code> spread syntax ensures that the state object is replaced rather than mutated.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Form() {
+  const [form, setForm] = useState({
+    firstName: 'Barbara',
+    lastName: 'Hepworth',
+    email: 'bhepworth@sculpture.com',
+  });
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        First name:
+        &lt;input
+          value={form.firstName}
+          onChange={e =&gt; {
+            setForm({
+              ...form,
+              firstName: e.target.value
+            });
+          }}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Last name:
+        &lt;input
+          value={form.lastName}
+          onChange={e =&gt; {
+            setForm({
+              ...form,
+              lastName: e.target.value
+            });
+          }}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Email:
+        &lt;input
+          value={form.email}
+          onChange={e =&gt; {
+            setForm({
+              ...form,
+              email: e.target.value
+            });
+          }}
+        /&gt;
+      &lt;/label&gt;
+      &lt;p&gt;
+        {form.firstName}{' '}
+        {form.lastName}{' '}
+        ({form.email})
+      &lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label { display: block; }
+input { margin-left: 5px; }
+</code></pre>
+</Sandpack>
+<Solution />
+<h4 id="form-nested-object-form-nested-object"><a class="header" href="#form-nested-object-form-nested-object">Form (nested object) {/<em>form-nested-object</em>/}</a></h4>
+<p>In this example, the state is more nested. When you update nested state, you need to create a copy of the object you're updating, as well as any objects &quot;containing&quot; it on the way upwards. Read <a href="/learn/updating-objects-in-state#updating-a-nested-object">updating a nested object</a> to learn more.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Form() {
+  const [person, setPerson] = useState({
+    name: 'Niki de Saint Phalle',
+    artwork: {
+      title: 'Blue Nana',
+      city: 'Hamburg',
+      image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+    }
+  });
+
+  function handleNameChange(e) {
+    setPerson({
+      ...person,
+      name: e.target.value
+    });
+  }
+
+  function handleTitleChange(e) {
+    setPerson({
+      ...person,
+      artwork: {
+        ...person.artwork,
+        title: e.target.value
+      }
+    });
+  }
+
+  function handleCityChange(e) {
+    setPerson({
+      ...person,
+      artwork: {
+        ...person.artwork,
+        city: e.target.value
+      }
+    });
+  }
+
+  function handleImageChange(e) {
+    setPerson({
+      ...person,
+      artwork: {
+        ...person.artwork,
+        image: e.target.value
+      }
+    });
+  }
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Name:
+        &lt;input
+          value={person.name}
+          onChange={handleNameChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Title:
+        &lt;input
+          value={person.artwork.title}
+          onChange={handleTitleChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        City:
+        &lt;input
+          value={person.artwork.city}
+          onChange={handleCityChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Image:
+        &lt;input
+          value={person.artwork.image}
+          onChange={handleImageChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;p&gt;
+        &lt;i&gt;{person.artwork.title}&lt;/i&gt;
+        {' by '}
+        {person.name}
+        &lt;br /&gt;
+        (located in {person.artwork.city})
+      &lt;/p&gt;
+      &lt;img 
+        src={person.artwork.image} 
+        alt={person.artwork.title}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label { display: block; }
+input { margin-left: 5px; margin-bottom: 5px; }
+img { width: 200px; height: 200px; }
+</code></pre>
+</Sandpack>
+<Solution />
+<h4 id="list-array-list-array"><a class="header" href="#list-array-list-array">List (array) {/<em>list-array</em>/}</a></h4>
+<p>In this example, the <code>todos</code> state variable holds an array. Each button handler calls <code>setTodos</code> with the next version of that array. The <code>[...todos]</code> spread syntax, <code>todos.map()</code> and <code>todos.filter()</code> ensure the state array is replaced rather than mutated.</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import AddTodo from './AddTodo.js';
+import TaskList from './TaskList.js';
+
+let nextId = 3;
+const initialTodos = [
+  { id: 0, title: 'Buy milk', done: true },
+  { id: 1, title: 'Eat tacos', done: false },
+  { id: 2, title: 'Brew tea', done: false },
+];
+
+export default function TaskApp() {
+  const [todos, setTodos] = useState(initialTodos);
+
+  function handleAddTodo(title) {
+    setTodos([
+      ...todos,
+      {
+        id: nextId++,
+        title: title,
+        done: false
+      }
+    ]);
+  }
+
+  function handleChangeTodo(nextTodo) {
+    setTodos(todos.map(t =&gt; {
+      if (t.id === nextTodo.id) {
+        return nextTodo;
+      } else {
+        return t;
+      }
+    }));
+  }
+
+  function handleDeleteTodo(todoId) {
+    setTodos(
+      todos.filter(t =&gt; t.id !== todoId)
+    );
+  }
+
+  return (
+    &lt;&gt;
+      &lt;AddTodo
+        onAddTodo={handleAddTodo}
+      /&gt;
+      &lt;TaskList
+        todos={todos}
+        onChangeTodo={handleChangeTodo}
+        onDeleteTodo={handleDeleteTodo}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js AddTodo.js">import { useState } from 'react';
+
+export default function AddTodo({ onAddTodo }) {
+  const [title, setTitle] = useState('');
+  return (
+    &lt;&gt;
+      &lt;input
+        placeholder=&quot;Add todo&quot;
+        value={title}
+        onChange={e =&gt; setTitle(e.target.value)}
+      /&gt;
+      &lt;button onClick={() =&gt; {
+        setTitle('');
+        onAddTodo(title);
+      }}&gt;Add&lt;/button&gt;
+    &lt;/&gt;
+  )
+}
+</code></pre>
+<pre><code class="language-js TaskList.js">import { useState } from 'react';
+
+export default function TaskList({
+  todos,
+  onChangeTodo,
+  onDeleteTodo
+}) {
+  return (
+    &lt;ul&gt;
+      {todos.map(todo =&gt; (
+        &lt;li key={todo.id}&gt;
+          &lt;Task
+            todo={todo}
+            onChange={onChangeTodo}
+            onDelete={onDeleteTodo}
+          /&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function Task({ todo, onChange, onDelete }) {
+  const [isEditing, setIsEditing] = useState(false);
+  let todoContent;
+  if (isEditing) {
+    todoContent = (
+      &lt;&gt;
+        &lt;input
+          value={todo.title}
+          onChange={e =&gt; {
+            onChange({
+              ...todo,
+              title: e.target.value
+            });
+          }} /&gt;
+        &lt;button onClick={() =&gt; setIsEditing(false)}&gt;
+          Save
+        &lt;/button&gt;
+      &lt;/&gt;
+    );
+  } else {
+    todoContent = (
+      &lt;&gt;
+        {todo.title}
+        &lt;button onClick={() =&gt; setIsEditing(true)}&gt;
+          Edit
+        &lt;/button&gt;
+      &lt;/&gt;
+    );
+  }
+  return (
+    &lt;label&gt;
+      &lt;input
+        type=&quot;checkbox&quot;
+        checked={todo.done}
+        onChange={e =&gt; {
+          onChange({
+            ...todo,
+            done: e.target.checked
+          });
+        }}
+      /&gt;
+      {todoContent}
+      &lt;button onClick={() =&gt; onDelete(todo.id)}&gt;
+        Delete
+      &lt;/button&gt;
+    &lt;/label&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button { margin: 5px; }
+li { list-style-type: none; }
+ul, li { margin: 0; padding: 0; }
+</code></pre>
+</Sandpack>
+<Solution />
+<h4 id="writing-concise-update-logic-with-immer-writing-concise-update-logic-with-immer"><a class="header" href="#writing-concise-update-logic-with-immer-writing-concise-update-logic-with-immer">Writing concise update logic with Immer {/<em>writing-concise-update-logic-with-immer</em>/}</a></h4>
+<p>If updating arrays and objects without mutation feels tedious, you can use a library like <a href="https://github.com/immerjs/use-immer">Immer</a> to reduce repetitive code. Immer lets you write concise code as if you were mutating objects, but under the hood it performs immutable updates:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+import { useImmer } from 'use-immer';
+
+let nextId = 3;
+const initialList = [
+  { id: 0, title: 'Big Bellies', seen: false },
+  { id: 1, title: 'Lunar Landscape', seen: false },
+  { id: 2, title: 'Terracotta Army', seen: true },
+];
+
+export default function BucketList() {
+  const [list, updateList] = useImmer(initialList);
+
+  function handleToggle(artworkId, nextSeen) {
+    updateList(draft =&gt; {
+      const artwork = draft.find(a =&gt;
+        a.id === artworkId
+      );
+      artwork.seen = nextSeen;
+    });
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Art Bucket List&lt;/h1&gt;
+      &lt;h2&gt;My list of art to see:&lt;/h2&gt;
+      &lt;ItemList
+        artworks={list}
+        onToggle={handleToggle} /&gt;
+    &lt;/&gt;
+  );
+}
+
+function ItemList({ artworks, onToggle }) {
+  return (
+    &lt;ul&gt;
+      {artworks.map(artwork =&gt; (
+        &lt;li key={artwork.id}&gt;
+          &lt;label&gt;
+            &lt;input
+              type=&quot;checkbox&quot;
+              checked={artwork.seen}
+              onChange={e =&gt; {
+                onToggle(
+                  artwork.id,
+                  e.target.checked
+                );
+              }}
+            /&gt;
+            {artwork.title}
+          &lt;/label&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-json package.json">{
+  &quot;dependencies&quot;: {
+    &quot;immer&quot;: &quot;1.7.3&quot;,
+    &quot;react&quot;: &quot;latest&quot;,
+    &quot;react-dom&quot;: &quot;latest&quot;,
+    &quot;react-scripts&quot;: &quot;latest&quot;,
+    &quot;use-immer&quot;: &quot;0.5.1&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+</Sandpack>
+<Solution />
+</Recipes>
+<hr />
+<h3 id="avoiding-recreating-the-initial-state-avoiding-recreating-the-initial-state"><a class="header" href="#avoiding-recreating-the-initial-state-avoiding-recreating-the-initial-state">Avoiding recreating the initial state {/<em>avoiding-recreating-the-initial-state</em>/}</a></h3>
+<p>React saves the initial state once and ignores it on the next renders.</p>
+<pre><code class="language-js">function TodoList() {
+  const [todos, setTodos] = useState(createInitialTodos());
+  // ...
+</code></pre>
+<p>Although the result of <code>createInitialTodos()</code> is only used for the initial render, you're still calling this function on every render. This can be wasteful if it's creating large arrays or performing expensive calculations.</p>
+<p>To solve this, you may <strong>pass it as an <em>initializer</em> function</strong> to <code>useState</code> instead:</p>
+<pre><code class="language-js">function TodoList() {
+  const [todos, setTodos] = useState(createInitialTodos);
+  // ...
+</code></pre>
+<p>Notice that you’re passing <code>createInitialTodos</code>, which is the <em>function itself</em>, and not <code>createInitialTodos()</code>, which is the result of calling it. If you pass a function to <code>useState</code>, React will only call it during initialization.</p>
+<p>React may <a href="#my-initializer-or-updater-function-runs-twice">call your initializers twice</a> in development to verify that they are <a href="/learn/keeping-components-pure">pure.</a></p>
+<Recipes titleText="The difference between passing an initializer and passing the initial state directly" titleId="examples-initializer">
+<h4 id="passing-the-initializer-function-passing-the-initializer-function"><a class="header" href="#passing-the-initializer-function-passing-the-initializer-function">Passing the initializer function {/<em>passing-the-initializer-function</em>/}</a></h4>
+<p>This example passes the initializer function, so the <code>createInitialTodos</code> function only runs during initialization. It does not run when component re-renders, such as when you type into the input.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+function createInitialTodos() {
+  const initialTodos = [];
+  for (let i = 0; i &lt; 50; i++) {
+    initialTodos.push({
+      id: i,
+      text: 'Item ' + (i + 1)
+    });
+  }
+  return initialTodos;
+}
+
+export default function TodoList() {
+  const [todos, setTodos] = useState(createInitialTodos);
+  const [text, setText] = useState('');
+
+  return (
+    &lt;&gt;
+      &lt;input
+        value={text}
+        onChange={e =&gt; setText(e.target.value)}
+      /&gt;
+      &lt;button onClick={() =&gt; {
+        setText('');
+        setTodos([{
+          id: todos.length,
+          text: text
+        }, ...todos]);
+      }}&gt;Add&lt;/button&gt;
+      &lt;ul&gt;
+        {todos.map(item =&gt; (
+          &lt;li key={item.id}&gt;
+            {item.text}
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<Solution />
+<h4 id="passing-the-initial-state-directly-passing-the-initial-state-directly"><a class="header" href="#passing-the-initial-state-directly-passing-the-initial-state-directly">Passing the initial state directly {/<em>passing-the-initial-state-directly</em>/}</a></h4>
+<p>This example <strong>does not</strong> pass the initializer function, so the <code>createInitialTodos</code> function runs on every render, such as when you type into the input. There is no observable difference in behavior, but this code is less efficient.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+function createInitialTodos() {
+  const initialTodos = [];
+  for (let i = 0; i &lt; 50; i++) {
+    initialTodos.push({
+      id: i,
+      text: 'Item ' + (i + 1)
+    });
+  }
+  return initialTodos;
+}
+
+export default function TodoList() {
+  const [todos, setTodos] = useState(createInitialTodos());
+  const [text, setText] = useState('');
+
+  return (
+    &lt;&gt;
+      &lt;input
+        value={text}
+        onChange={e =&gt; setText(e.target.value)}
+      /&gt;
+      &lt;button onClick={() =&gt; {
+        setText('');
+        setTodos([{
+          id: todos.length,
+          text: text
+        }, ...todos]);
+      }}&gt;Add&lt;/button&gt;
+      &lt;ul&gt;
+        {todos.map(item =&gt; (
+          &lt;li key={item.id}&gt;
+            {item.text}
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<Solution />
+</Recipes>
+<hr />
+<h3 id="resetting-state-with-a-key-resetting-state-with-a-key"><a class="header" href="#resetting-state-with-a-key-resetting-state-with-a-key">Resetting state with a key {/<em>resetting-state-with-a-key</em>/}</a></h3>
+<p>Typically, you might encounter the <code>key</code> attribute when <a href="/learn/rendering-lists">rendering lists.</a> However, it also serves another purpose.</p>
+<p>You can <strong>reset a component's state by passing a different <code>key</code> to a component.</strong> In this example, the Reset button changes the <code>version</code> state variable, which we pass as a <code>key</code> to the <code>Form</code>. When the <code>key</code> changes, React re-creates the <code>Form</code> component (and all of its children) from scratch, so its state gets reset.</p>
+<p>Read <a href="/learn/preserving-and-resetting-state">preserving and resetting state</a> to learn more.</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+
+export default function App() {
+  const [version, setVersion] = useState(0);
+
+  function handleReset() {
+    setVersion(version + 1);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;button onClick={handleReset}&gt;Reset&lt;/button&gt;
+      &lt;Form key={version} /&gt;
+    &lt;/&gt;
+  );
+}
+
+function Form() {
+  const [name, setName] = useState('Taylor');
+
+  return (
+    &lt;&gt;
+      &lt;input
+        value={name}
+        onChange={e =&gt; setName(e.target.value)}
+      /&gt;
+      &lt;p&gt;Hello, {name}.&lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button { display: block; margin-bottom: 20px; }
+</code></pre>
+</Sandpack>
+<hr />
+<h3 id="storing-information-from-previous-renders-storing-information-from-previous-renders"><a class="header" href="#storing-information-from-previous-renders-storing-information-from-previous-renders">Storing information from previous renders {/<em>storing-information-from-previous-renders</em>/}</a></h3>
+<p>Usually, you will update state in event handlers. However, in rare cases you might want to adjust state in response to rendering -- for example, you might want to change a state variable when a prop changes.</p>
+<p>In most cases, you don't need this:</p>
+<ul>
+<li><strong>If the value you need can be computed entirely from the current props or other state, <a href="/learn/choosing-the-state-structure#avoid-redundant-state">remove that redundant state altogether.</a></strong> If you're worried about recomputing too often, the <a href="/reference/react/usememo"><code>useMemo</code> Hook</a> can help.</li>
+<li>If you want to reset the entire component tree's state, <a href="#resetting-state-with-a-key">pass a different <code>key</code> to your component.</a></li>
+<li>If you can, update all the relevant state in the event handlers.</li>
+</ul>
+<p>In the rare case that none of these apply, there is a pattern you can use to update state based on the values that have been rendered so far, by calling a <code>set</code> function while your component is rendering.</p>
+<p>Here's an example. This <code>CountLabel</code> component displays the <code>count</code> prop passed to it:</p>
+<pre><code class="language-js CountLabel.js">export default function CountLabel({ count }) {
+  return &lt;h1&gt;{count}&lt;/h1&gt;
+}
+</code></pre>
+<p>Say you want to show whether the counter has <em>increased or decreased</em> since the last change. The <code>count</code> prop doesn't tell you this -- you need to keep track of its previous value. Add the <code>prevCount</code> state variable to track it. Add another state variable called <code>trend</code> to hold whether the count has increased or decreased. Compare <code>prevCount</code> with <code>count</code>, and if they're not equal, update both <code>prevCount</code> and <code>trend</code>. Now you can show both the current count prop and <em>how it has changed since the last render</em>.</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import CountLabel from './CountLabel.js';
+
+export default function App() {
+  const [count, setCount] = useState(0);
+  return (
+    &lt;&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+        Increment
+      &lt;/button&gt;
+      &lt;button onClick={() =&gt; setCount(count - 1)}&gt;
+        Decrement
+      &lt;/button&gt;
+      &lt;CountLabel count={count} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js CountLabel.js active">import { useState } from 'react';
+
+export default function CountLabel({ count }) {
+  const [prevCount, setPrevCount] = useState(count);
+  const [trend, setTrend] = useState(null);
+  if (prevCount !== count) {
+    setPrevCount(count);
+    setTrend(count &gt; prevCount ? 'increasing' : 'decreasing');
+  }
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{count}&lt;/h1&gt;
+      {trend &amp;&amp; &lt;p&gt;The count is {trend}&lt;/p&gt;}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button { margin-bottom: 10px; }
+</code></pre>
+</Sandpack>
+<p>Note that if you call a <code>set</code> function while rendering, it must be inside a condition like <code>prevCount !== count</code>, and there must be a call like <code>setPrevCount(count)</code> inside of the condition. Otherwise, your component would re-render in a loop until it crashes. Also, you can only update the state of the <em>currently rendering</em> component like this. Calling the <code>set</code> function of <em>another</em> component during rendering is an error. Finally, your <code>set</code> call should still <a href="#updating-objects-and-arrays-in-state">update state without mutation</a> -- this special case doesn't mean you can break other rules of <a href="/learn/keeping-components-pure">pure functions.</a></p>
+<p>This pattern can be hard to understand and is usually best avoided. However, it's better than updating state in an effect. When you call the <code>set</code> function during render, React will re-render that component immediately after your component exits with a <code>return</code> statement, and before rendering the children. This way, children don't need to render twice. The rest of your component function will still execute (and the result will be thrown away), but if your condition is below all the calls to Hooks, you may add an early <code>return;</code> inside it to restart rendering earlier.</p>
+<hr />
+<h2 id="troubleshooting-troubleshooting"><a class="header" href="#troubleshooting-troubleshooting">Troubleshooting {/<em>troubleshooting</em>/}</a></h2>
+<h3 id="ive-updated-the-state-but-logging-gives-me-the-old-value-ive-updated-the-state-but-logging-gives-me-the-old-value"><a class="header" href="#ive-updated-the-state-but-logging-gives-me-the-old-value-ive-updated-the-state-but-logging-gives-me-the-old-value">I've updated the state, but logging gives me the old value {/<em>ive-updated-the-state-but-logging-gives-me-the-old-value</em>/}</a></h3>
+<p>Calling the <code>set</code> function <strong>does not change state in the running code</strong>:</p>
+<pre><code class="language-js {4 5 8}">function handleClick() {
+  console.log(count);  // 0
+
+  setCount(count + 1); // Request a re-render with 1
+  console.log(count);  // Still 0!
+
+  setTimeout(() =&gt; {
+    console.log(count); // Also 0!
+  }, 5000);
+}
+</code></pre>
+<p>This is because <a href="/learn/state-as-a-snapshot">states behaves like a snapshot.</a> Updating state requests another render with the new state value, but does not affect the <code>count</code> JavaScript variable in your already-running event handler.</p>
+<p>If you need to use the next state, you can save it in a variable before passing it to the <code>set</code> function:</p>
+<pre><code class="language-js">const nextCount = count + 1;
+setCount(nextCount);
+
+console.log(count);     // 0
+console.log(nextCount); // 1
+</code></pre>
+<hr />
+<h3 id="ive-updated-the-state-but-the-screen-doesnt-update-ive-updated-the-state-but-the-screen-doesnt-update"><a class="header" href="#ive-updated-the-state-but-the-screen-doesnt-update-ive-updated-the-state-but-the-screen-doesnt-update">I've updated the state, but the screen doesn't update {/<em>ive-updated-the-state-but-the-screen-doesnt-update</em>/}</a></h3>
+<p>React will <strong>ignore your update if the next state is equal to the previous state,</strong> as determined by an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is"><code>Object.is</code></a> comparison. This usually happens when you change an object or an array in state directly:</p>
+<pre><code class="language-js">obj.x = 10;  // 🚩 Wrong: mutating existing object
+setObj(obj); // 🚩 Doesn't do anything
+</code></pre>
+<p>You mutated an existing <code>obj</code> object and passed it back to <code>setObj</code>, so React ignored the update. To fix this, you need to ensure that you're always <a href="#updating-objects-and-arrays-in-state"><em>replacing</em> objects and arrays in state instead of <em>mutating</em> them</a>:</p>
+<pre><code class="language-js">// ✅ Correct: creating a new object
+setObj({
+  ...obj,
+  x: 10
+});
+</code></pre>
+<hr />
+<h3 id="im-getting-an-error-too-many-re-renders-im-getting-an-error-too-many-re-renders"><a class="header" href="#im-getting-an-error-too-many-re-renders-im-getting-an-error-too-many-re-renders">I'm getting an error: &quot;Too many re-renders&quot; {/<em>im-getting-an-error-too-many-re-renders</em>/}</a></h3>
+<p>You might get an error that says: <code>Too many re-renders. React limits the number of renders to prevent an infinite loop.</code> Typically, this means that you're unconditionally setting state <em>during render</em>, so your component enters a loop: render, set state (which causes a render), render, set state (which causes a render), and so on. Very often, this is caused by a mistake in specifying an event handler:</p>
+<pre><code class="language-js {1-2}">// 🚩 Wrong: calls the handler during render
+return &lt;button onClick={handleClick()}&gt;Click me&lt;/button&gt;
+
+// ✅ Correct: passes down the event handler
+return &lt;button onClick={handleClick}&gt;Click me&lt;/button&gt;
+
+// ✅ Correct: passes down an inline function
+return &lt;button onClick={(e) =&gt; handleClick(e)}&gt;Click me&lt;/button&gt;
+</code></pre>
+<p>If you can't find the cause of this error, click on the arrow next to the error in the console and look through the JavaScript stack to find the specific <code>set</code> function call responsible for the error.</p>
+<hr />
+<h3 id="my-initializer-or-updater-function-runs-twice-my-initializer-or-updater-function-runs-twice"><a class="header" href="#my-initializer-or-updater-function-runs-twice-my-initializer-or-updater-function-runs-twice">My initializer or updater function runs twice {/<em>my-initializer-or-updater-function-runs-twice</em>/}</a></h3>
+<p>In <a href="/reference/react/StrictMode">Strict Mode</a>, React will call some of your functions twice instead of once:</p>
+<pre><code class="language-js {2 5-6 11-12}">function TodoList() {
+  // This component function will run twice for every render.
+
+  const [todos, setTodos] = useState(() =&gt; {
+    // This initializer function will run twice during initialization.
+    return createTodos();
+  });
+
+  function handleClick() {
+    setTodos(prevTodos =&gt; {
+      // This updater function will run twice for every click.
+      return [...prevTodos, createTodo()];
+    });
+  }
+  // ...
+</code></pre>
+<p>This is expected and shouldn't break your code.</p>
+<p>This <strong>development-only</strong> behavior helps you <a href="/learn/keeping-components-pure">keep components pure.</a> React uses the result of one of the calls, and ignores the result of the other call. As long as your component, initializer, and updater functions are pure, this shouldn't affect your logic. However, if they are accidentally impure, this helps you notice the mistakes and fix it.</p>
+<p>For example, this impure updater function mutates an array in state:</p>
+<pre><code class="language-js {2 3}">setTodos(prevTodos =&gt; {
+  // 🚩 Mistake: mutating state
+  prevTodos.push(createTodo());
+});
+</code></pre>
+<p>Because React calls your updater function twice, you'll see the todo was added twice, so you'll know that there is a mistake. In this example, you can fix the mistake by <a href="#updating-objects-and-arrays-in-state">replacing the array instead of mutating it</a>:</p>
+<pre><code class="language-js {2 3}">setTodos(prevTodos =&gt; {
+  // ✅ Correct: replacing with new state
+  return [...prevTodos, createTodo()];
+});
+</code></pre>
+<p>Now that this updater function is pure, calling it an extra time doesn't make a difference in behavior. This is why React calling it twice helps you find mistakes. <strong>Only component, initializer, and updater functions need to be pure.</strong> Event handlers don't need to be pure, so React will never call your event handlers twice.</p>
+<p>Read <a href="/learn/keeping-components-pure">keeping components pure</a> to learn more.</p>
+<hr />
+<h3 id="im-trying-to-set-state-to-a-function-but-it-gets-called-instead-im-trying-to-set-state-to-a-function-but-it-gets-called-instead"><a class="header" href="#im-trying-to-set-state-to-a-function-but-it-gets-called-instead-im-trying-to-set-state-to-a-function-but-it-gets-called-instead">I'm trying to set state to a function, but it gets called instead {/<em>im-trying-to-set-state-to-a-function-but-it-gets-called-instead</em>/}</a></h3>
+<p>You can't put a function into state like this:</p>
+<pre><code class="language-js">const [fn, setFn] = useState(someFunction);
+
+function handleClick() {
+  setFn(someOtherFunction);
+}
+</code></pre>
+<p>Because you're passing a function, React assumes that <code>someFunction</code> is an <a href="#avoiding-recreating-the-initial-state">initializer function</a>, and that <code>someOtherFunction</code> is an <a href="#updating-state-based-on-the-previous-state">updater function</a>, so it tries to call them and store the result. To actually <em>store</em> a function, you have to put <code>() =&gt;</code> before them in both cases. Then React will store the functions you pass.</p>
+<pre><code class="language-js {1 4}">const [fn, setFn] = useState(() =&gt; someFunction);
+
+function handleClick() {
+  setFn(() =&gt; someOtherFunction);
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../reference/react/useRef.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../reference/react/useSyncExternalStore.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../reference/react/useRef.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../reference/react/useSyncExternalStore.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

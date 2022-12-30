@@ -1,0 +1,532 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>State as a Snapshot - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html" class="active"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-state-as-a-snapshot"><a class="header" href="#title-state-as-a-snapshot">title: State as a Snapshot</a></h2>
+<Intro>
+<p>State variables might look like regular JavaScript variables that you can read and write to. However, state behaves more like a snapshot. Setting it does not change the state variable you already have, but instead triggers a re-render.</p>
+</Intro>
+<YouWillLearn>
+<ul>
+<li>How setting state triggers re-renders</li>
+<li>When and how state updates</li>
+<li>Why state does not update immediately after you set it</li>
+<li>How event handlers access a &quot;snapshot&quot; of the state</li>
+</ul>
+</YouWillLearn>
+<h2 id="setting-state-triggers-renders-setting-state-triggers-renders"><a class="header" href="#setting-state-triggers-renders-setting-state-triggers-renders">Setting state triggers renders {/<em>setting-state-triggers-renders</em>/}</a></h2>
+<p>You might think of your user interface as changing directly in response to the user event like a click. In React, it works a little differently from this mental model. On the previous page, you saw that <a href="/learn/render-and-commit#step-1-trigger-a-render">setting state requests a re-render</a> from React. This means that for an interface to react to the event, you need to <em>update the state</em>.</p>
+<p>In this example, when you press &quot;send&quot;, <code>setIsSent(true)</code> tells React to re-render the UI:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Form() {
+  const [isSent, setIsSent] = useState(false);
+  const [message, setMessage] = useState('Hi!');
+  if (isSent) {
+    return &lt;h1&gt;Your message is on its way!&lt;/h1&gt;
+  }
+  return (
+    &lt;form onSubmit={(e) =&gt; {
+      e.preventDefault();
+      setIsSent(true);
+      sendMessage(message);
+    }}&gt;
+      &lt;textarea
+        placeholder=&quot;Message&quot;
+        value={message}
+        onChange={e =&gt; setMessage(e.target.value)}
+      /&gt;
+      &lt;button type=&quot;submit&quot;&gt;Send&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+
+function sendMessage(message) {
+  // ...
+}
+</code></pre>
+<pre><code class="language-css">label, textarea { margin-bottom: 10px; display: block; }
+</code></pre>
+</Sandpack>
+<p>Here's what happens when you click the button:</p>
+<ol>
+<li>The <code>onSubmit</code> event handler executes.</li>
+<li><code>setIsSent(true)</code> sets <code>isSent</code> to <code>true</code> and queues a new render.</li>
+<li>React re-renders the component according to the new <code>isSent</code> value.</li>
+</ol>
+<p>Let's take a closer look at the relationship between state and rendering.</p>
+<h2 id="rendering-takes-a-snapshot-in-time-rendering-takes-a-snapshot-in-time"><a class="header" href="#rendering-takes-a-snapshot-in-time-rendering-takes-a-snapshot-in-time">Rendering takes a snapshot in time {/<em>rendering-takes-a-snapshot-in-time</em>/}</a></h2>
+<p><a href="/learn/render-and-commit#step-2-react-renders-your-components">&quot;Rendering&quot;</a> means that React is calling your component, which is a function. The JSX you return from that function is like a snapshot of the UI in time. Its props, event handlers, and local variables were all calculated <strong>using its state at the time of the render.</strong></p>
+<p>Unlike a photograph or a movie frame, the UI &quot;snapshot&quot; you return is interactive. It includes logic like event handlers that specify what happens in response to inputs. React then updates the screen to match this snapshot and connects the event handlers. As a result, pressing a button will trigger the click handler from your JSX.</p>
+<p>When React re-renders a component:</p>
+<ol>
+<li>React calls your function again.</li>
+<li>Your function returns a new JSX snapshot.</li>
+<li>React then updates the screen to match the snapshot you've returned.</li>
+</ol>
+<IllustrationBlock sequential>
+    <Illustration caption="React executing the function" src="/images/docs/illustrations/i_render1.png" />
+    <Illustration caption="Calculating the snapshot" src="/images/docs/illustrations/i_render2.png" />
+    <Illustration caption="Updating the DOM tree" src="/images/docs/illustrations/i_render3.png" />
+</IllustrationBlock>
+<p>As a component's memory, state is not like a regular variable that disappears after your function returns. State actually &quot;lives&quot; in React itself--as if on a shelf!--outside of your function. When React calls your component, it gives you a snapshot of the state for that particular render. Your component returns a snapshot of the UI with a fresh set of props and event handlers in its JSX, all calculated <strong>using the state values from that render!</strong></p>
+<IllustrationBlock sequential>
+  <Illustration caption="You tell React to update the state" src="/images/docs/illustrations/i_state-snapshot1.png" />
+  <Illustration caption="React updates the state value" src="/images/docs/illustrations/i_state-snapshot2.png" />
+  <Illustration caption="React passes a snapshot of the state value into the component" src="/images/docs/illustrations/i_state-snapshot3.png" />
+</IllustrationBlock>
+<p>Here's a little experiment to show you how this works. In this example, you might expect that clicking the &quot;+3&quot; button would increment the counter three times because it calls <code>setNumber(number + 1)</code> three times.</p>
+<p>See what happens when you click the &quot;+3&quot; button:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Counter() {
+  const [number, setNumber] = useState(0);
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{number}&lt;/h1&gt;
+      &lt;button onClick={() =&gt; {
+        setNumber(number + 1);
+        setNumber(number + 1);
+        setNumber(number + 1);
+      }}&gt;+3&lt;/button&gt;
+    &lt;/&gt;
+  )
+}
+</code></pre>
+<pre><code class="language-css">button { display: inline-block; margin: 10px; font-size: 20px; }
+h1 { display: inline-block; margin: 10px; width: 30px; text-align: center; }
+</code></pre>
+</Sandpack>
+<p>Notice that <code>number</code> only increments once per click!</p>
+<p><strong>Setting state only changes it for the <em>next</em> render.</strong> During the first render, <code>number</code> was <code>0</code>. This is why, in <em>that render's</em> <code>onClick</code> handler, the value of <code>number</code> is still <code>0</code> even after <code>setNumber(number + 1)</code> was called:</p>
+<pre><code class="language-js">&lt;button onClick={() =&gt; {
+  setNumber(number + 1);
+  setNumber(number + 1);
+  setNumber(number + 1);
+}}&gt;+3&lt;/button&gt;
+</code></pre>
+<p>Here is what this button's click handler tells React to do:</p>
+<ol>
+<li><code>setNumber(number + 1)</code>: <code>number</code> is <code>0</code> so <code>setNumber(0 + 1)</code>.
+<ul>
+<li>React prepares to change <code>number</code> to <code>1</code> on the next render.</li>
+</ul>
+</li>
+<li><code>setNumber(number + 1)</code>: <code>number</code> is <code>0</code> so <code>setNumber(0 + 1)</code>.
+<ul>
+<li>React prepares to change <code>number</code> to <code>1</code> on the next render.</li>
+</ul>
+</li>
+<li><code>setNumber(number + 1)</code>: <code>number</code> is <code>0</code> so <code>setNumber(0 + 1)</code>.
+<ul>
+<li>React prepares to change <code>number</code> to <code>1</code> on the next render.</li>
+</ul>
+</li>
+</ol>
+<p>Even though you called <code>setNumber(number + 1)</code> three times, in <em>this render's</em> event handler <code>number</code> is always <code>0</code>, so you set the state to <code>1</code> three times. This is why, after your event handler finishes, React re-renders the component with <code>number</code> equal to <code>1</code> rather than <code>3</code>.</p>
+<p>You can also visualize this by mentally substituting state variables with their values in your code. Since the <code>number</code> state variable is <code>0</code> for <em>this render</em>, its event handler looks like this:</p>
+<pre><code class="language-js">&lt;button onClick={() =&gt; {
+  setNumber(0 + 1);
+  setNumber(0 + 1);
+  setNumber(0 + 1);
+}}&gt;+3&lt;/button&gt;
+</code></pre>
+<p>For the next render, <code>number</code> is <code>1</code>, so <em>that render's</em> click handler looks like this:</p>
+<pre><code class="language-js">&lt;button onClick={() =&gt; {
+  setNumber(1 + 1);
+  setNumber(1 + 1);
+  setNumber(1 + 1);
+}}&gt;+3&lt;/button&gt;
+</code></pre>
+<p>This is why clicking the button again will set the counter to <code>2</code>, then to <code>3</code> on the next click, and so on.</p>
+<h2 id="state-over-time-state-over-time"><a class="header" href="#state-over-time-state-over-time">State over time {/<em>state-over-time</em>/}</a></h2>
+<p>Well, that was fun. Try to guess what clicking this button will alert:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Counter() {
+  const [number, setNumber] = useState(0);
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{number}&lt;/h1&gt;
+      &lt;button onClick={() =&gt; {
+        setNumber(number + 5);
+        alert(number);
+      }}&gt;+5&lt;/button&gt;
+    &lt;/&gt;
+  )
+}
+</code></pre>
+<pre><code class="language-css">button { display: inline-block; margin: 10px; font-size: 20px; }
+h1 { display: inline-block; margin: 10px; width: 30px; text-align: center; }
+</code></pre>
+</Sandpack>
+<p>If you use the substitution method from before, you can guess that the alert shows &quot;0&quot;:</p>
+<pre><code class="language-js">setNumber(0 + 5);
+alert(0);
+</code></pre>
+<p>But what if you put a timer on the alert, so it only fires <em>after</em> the component re-rendered? Would it say &quot;0&quot; or &quot;5&quot;? Have a guess!</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Counter() {
+  const [number, setNumber] = useState(0);
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{number}&lt;/h1&gt;
+      &lt;button onClick={() =&gt; {
+        setNumber(number + 5);
+        setTimeout(() =&gt; {
+          alert(number);
+        }, 3000);
+      }}&gt;+5&lt;/button&gt;
+    &lt;/&gt;
+  )
+}
+</code></pre>
+<pre><code class="language-css">button { display: inline-block; margin: 10px; font-size: 20px; }
+h1 { display: inline-block; margin: 10px; width: 30px; text-align: center; }
+</code></pre>
+</Sandpack>
+<p>Surprised? If you use the substitution method, you can see the &quot;snapshot&quot; of the state passed to the alert.</p>
+<pre><code class="language-js">setNumber(0 + 5);
+setTimeout(() =&gt; {
+  alert(0);
+}, 3000);
+</code></pre>
+<p>The state stored in React may have changed by the time the alert runs, but it was scheduled using a snapshot of the state at the time the user interacted with it!</p>
+<p><strong>A state variable's value never changes within a render,</strong> even if its event handler's code is asynchronous. Inside <em>that render's</em> <code>onClick</code>, the value of <code>number</code> continues to be <code>0</code> even after <code>setNumber(number + 5)</code> was called. Its value was &quot;fixed&quot; when React &quot;took the snapshot&quot; of the UI by calling your component.</p>
+<p>Here is an example of how that makes your event handlers less prone to timing mistakes. Below is a form that sends a message with a five-second delay. Imagine this scenario:</p>
+<ol>
+<li>You press the &quot;Send&quot; button, sending &quot;Hello&quot; to Alice.</li>
+<li>Before the five-second delay ends, you change the value of the &quot;To&quot; field to &quot;Bob&quot;.</li>
+</ol>
+<p>What do you expect the <code>alert</code> to display? Would it display, &quot;You said Hello to Alice&quot;? Or would it display, &quot;You said Hello to Bob&quot;? Make a guess based on what you know, and then try it:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Form() {
+  const [to, setTo] = useState('Alice');
+  const [message, setMessage] = useState('Hello');
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setTimeout(() =&gt; {
+      alert(`You said ${message} to ${to}`);
+    }, 5000);
+  }
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;label&gt;
+        To:{' '}
+        &lt;select
+          value={to}
+          onChange={e =&gt; setTo(e.target.value)}&gt;
+          &lt;option value=&quot;Alice&quot;&gt;Alice&lt;/option&gt;
+          &lt;option value=&quot;Bob&quot;&gt;Bob&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;textarea
+        placeholder=&quot;Message&quot;
+        value={message}
+        onChange={e =&gt; setMessage(e.target.value)}
+      /&gt;
+      &lt;button type=&quot;submit&quot;&gt;Send&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label, textarea { margin-bottom: 10px; display: block; }
+</code></pre>
+</Sandpack>
+<p><strong>React keeps the state values &quot;fixed&quot; within one render's event handlers.</strong> You don't need to worry whether the state has changed while the code is running.</p>
+<p>But what if you wanted to read the latest state before a re-render? You'll want to use a <a href="/learn/queueing-a-series-of-state-updates">state updater function</a>, covered on the next page!</p>
+<Recap>
+<ul>
+<li>Setting state requests a new render.</li>
+<li>React stores state outside of your component, as if on a shelf.</li>
+<li>When you call <code>useState</code>, React gives you a snapshot of the state <em>for that render</em>.</li>
+<li>Variables and event handlers don't &quot;survive&quot; re-renders. Every render has its own event handlers.</li>
+<li>Every render (and functions inside it) will always &quot;see&quot; the snapshot of the state that React gave to <em>that</em> render.</li>
+<li>You can mentally substitute state in event handlers, similarly to how you think about the rendered JSX.</li>
+<li>Event handlers created in the past have the state values from the render in which they were created.</li>
+</ul>
+</Recap>
+<Challenges>
+<h4 id="implement-a-traffic-light-implement-a-traffic-light"><a class="header" href="#implement-a-traffic-light-implement-a-traffic-light">Implement a traffic light {/<em>implement-a-traffic-light</em>/}</a></h4>
+<p>Here is a crosswalk light component that toggles on when the button is pressed:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function TrafficLight() {
+  const [walk, setWalk] = useState(true);
+
+  function handleClick() {
+    setWalk(!walk);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;button onClick={handleClick}&gt;
+        Change to {walk ? 'Stop' : 'Walk'}
+      &lt;/button&gt;
+      &lt;h1 style={{
+        color: walk ? 'darkgreen' : 'darkred'
+      }}&gt;
+        {walk ? 'Walk' : 'Stop'}
+      &lt;/h1&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">h1 { margin-top: 20px; }
+</code></pre>
+</Sandpack>
+<p>Add an <code>alert</code> to the click handler. When the light is green and says &quot;Walk&quot;, clicking the button should say &quot;Stop is next&quot;. When the light is red and says &quot;Stop&quot;, clicking the button should say &quot;Walk is next&quot;.</p>
+<p>Does it make a difference whether you put the <code>alert</code> before or after the <code>setWalk</code> call?</p>
+<Solution>
+<p>Your <code>alert</code> should look like this:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function TrafficLight() {
+  const [walk, setWalk] = useState(true);
+
+  function handleClick() {
+    setWalk(!walk);
+    alert(walk ? 'Stop is next' : 'Walk is next');
+  }
+
+  return (
+    &lt;&gt;
+      &lt;button onClick={handleClick}&gt;
+        Change to {walk ? 'Stop' : 'Walk'}
+      &lt;/button&gt;
+      &lt;h1 style={{
+        color: walk ? 'darkgreen' : 'darkred'
+      }}&gt;
+        {walk ? 'Walk' : 'Stop'}
+      &lt;/h1&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">h1 { margin-top: 20px; }
+</code></pre>
+</Sandpack>
+<p>Whether you put it before or after the <code>setWalk</code> call makes no difference. That render's value of <code>walk</code> is fixed. Calling <code>setWalk</code> will only change it for the <em>next</em> render, but will not affect the event handler from the previous render.</p>
+<p>This line might seem counter-intuitive at first:</p>
+<pre><code class="language-js">alert(walk ? 'Stop is next' : 'Walk is next');
+</code></pre>
+<p>But it makes sense if you read it as: &quot;If the traffic light shows 'Walk now', the message should say 'Stop is next.'&quot; The <code>walk</code> variable inside your event handler matches that render's value of <code>walk</code> and does not change.</p>
+<p>You can verify that this is correct by applying the substitution method. When <code>walk</code> is <code>true</code>, you get:</p>
+<pre><code class="language-js">&lt;button onClick={() =&gt; {
+  setWalk(false);
+  alert('Stop is next');
+}}&gt;
+  Change to Stop
+&lt;/button&gt;
+&lt;h1 style={{color: 'darkgreen'}}&gt;
+  Walk
+&lt;/h1&gt;
+</code></pre>
+<p>So clicking &quot;Change to Stop&quot; queues a render with <code>walk</code> set to <code>false</code>, and alerts &quot;Stop is next&quot;.</p>
+</Solution>
+</Challenges>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/render-and-commit.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/queueing-a-series-of-state-updates.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/render-and-commit.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/queueing-a-series-of-state-updates.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

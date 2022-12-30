@@ -1,0 +1,807 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Conditional Rendering - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html" class="active"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-conditional-rendering"><a class="header" href="#title-conditional-rendering">title: Conditional Rendering</a></h2>
+<Intro>
+<p>Your components will often need to display different things depending on different conditions. In React, you can conditionally render JSX using JavaScript syntax like <code>if</code> statements, <code>&amp;&amp;</code>, and <code>? :</code> operators.</p>
+</Intro>
+<YouWillLearn>
+<ul>
+<li>How to return different JSX depending on a condition</li>
+<li>How to conditionally include or exclude a piece of JSX</li>
+<li>Common conditional syntax shortcuts you’ll encounter in React codebases</li>
+</ul>
+</YouWillLearn>
+<h2 id="conditionally-returning-jsx-conditionally-returning-jsx"><a class="header" href="#conditionally-returning-jsx-conditionally-returning-jsx">Conditionally returning JSX {/<em>conditionally-returning-jsx</em>/}</a></h2>
+<p>Let’s say you have a <code>PackingList</code> component rendering several <code>Item</code>s, which can be marked as packed or not:</p>
+<Sandpack>
+<pre><code class="language-js">function Item({ name, isPacked }) {
+  return &lt;li className=&quot;item&quot;&gt;{name}&lt;/li&gt;;
+}
+
+export default function PackingList() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Sally Ride's Packing List&lt;/h1&gt;
+      &lt;ul&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Space suit&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Helmet with a golden leaf&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={false} 
+          name=&quot;Photo of Tam&quot; 
+        /&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>Notice that some of the <code>Item</code> components have their <code>isPacked</code> prop set to <code>true</code> instead of <code>false</code>. You want to add a checkmark (✔) to packed items if <code>isPacked={true}</code>.</p>
+<p>You can write this as an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else"><code>if</code>/<code>else</code> statement</a> like so:</p>
+<pre><code class="language-js">if (isPacked) {
+  return &lt;li className=&quot;item&quot;&gt;{name} ✔&lt;/li&gt;;
+}
+return &lt;li className=&quot;item&quot;&gt;{name}&lt;/li&gt;;
+</code></pre>
+<p>If the <code>isPacked</code> prop is <code>true</code>, this code <strong>returns a different JSX tree.</strong> With this change, some of the items get a checkmark at the end:</p>
+<Sandpack>
+<pre><code class="language-js">function Item({ name, isPacked }) {
+  if (isPacked) {
+    return &lt;li className=&quot;item&quot;&gt;{name} ✔&lt;/li&gt;;
+  }
+  return &lt;li className=&quot;item&quot;&gt;{name}&lt;/li&gt;;
+}
+
+export default function PackingList() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Sally Ride's Packing List&lt;/h1&gt;
+      &lt;ul&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Space suit&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Helmet with a golden leaf&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={false} 
+          name=&quot;Photo of Tam&quot; 
+        /&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>Try editing what gets returned in either case, and see how the result changes!</p>
+<p>Notice how you're creating branching logic with JavaScript's <code>if</code> and <code>return</code> statements. In React, control flow (like conditions) is handled by JavaScript.</p>
+<h3 id="conditionally-returning-nothing-with-null-conditionally-returning-nothing-with-null"><a class="header" href="#conditionally-returning-nothing-with-null-conditionally-returning-nothing-with-null">Conditionally returning nothing with <code>null</code> {/<em>conditionally-returning-nothing-with-null</em>/}</a></h3>
+<p>In some situations, you won't want to render anything at all. For example, say you don't want to show packed items at all. A component must return something. In this case, you can return <code>null</code>:</p>
+<pre><code class="language-js">if (isPacked) {
+  return null;
+}
+return &lt;li className=&quot;item&quot;&gt;{name}&lt;/li&gt;;
+</code></pre>
+<p>If <code>isPacked</code> is true, the component will return nothing, <code>null</code>. Otherwise, it will return JSX to render.</p>
+<Sandpack>
+<pre><code class="language-js">function Item({ name, isPacked }) {
+  if (isPacked) {
+    return null;
+  }
+  return &lt;li className=&quot;item&quot;&gt;{name}&lt;/li&gt;;
+}
+
+export default function PackingList() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Sally Ride's Packing List&lt;/h1&gt;
+      &lt;ul&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Space suit&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Helmet with a golden leaf&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={false} 
+          name=&quot;Photo of Tam&quot; 
+        /&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>In practice, returning <code>null</code> from a component isn't common because it might surprise a developer trying to render it. More often, you would conditionally include or exclude the component in the parent component's JSX. Here's how to do that!</p>
+<h2 id="conditionally-including-jsx-conditionally-including-jsx"><a class="header" href="#conditionally-including-jsx-conditionally-including-jsx">Conditionally including JSX {/<em>conditionally-including-jsx</em>/}</a></h2>
+<p>In the previous example, you controlled which (if any!) JSX tree would be returned by the component. You may already have noticed some duplication in the render output:</p>
+<pre><code class="language-js">&lt;li className=&quot;item&quot;&gt;{name} ✔&lt;/li&gt;
+</code></pre>
+<p>is very similar to</p>
+<pre><code class="language-js">&lt;li className=&quot;item&quot;&gt;{name}&lt;/li&gt;
+</code></pre>
+<p>Both of the conditional branches return <code>&lt;li className=&quot;item&quot;&gt;...&lt;/li&gt;</code>:</p>
+<pre><code class="language-js">if (isPacked) {
+  return &lt;li className=&quot;item&quot;&gt;{name} ✔&lt;/li&gt;;
+}
+return &lt;li className=&quot;item&quot;&gt;{name}&lt;/li&gt;;
+</code></pre>
+<p>While this duplication isn't harmful, it could make your code harder to maintain. What if you want to change the <code>className</code>? You'd have to do it in two places in your code! In such a situation, you could conditionally include a little JSX to make your code more <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY.</a></p>
+<h3 id="conditional-ternary-operator---conditional-ternary-operator--"><a class="header" href="#conditional-ternary-operator---conditional-ternary-operator--">Conditional (ternary) operator (<code>? :</code>) {/<em>conditional-ternary-operator--</em>/}</a></h3>
+<p>JavaScript has a compact syntax for writing a conditional expression -- the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator">conditional operator</a> or &quot;ternary operator&quot;.</p>
+<p>Instead of this:</p>
+<pre><code class="language-js">if (isPacked) {
+  return &lt;li className=&quot;item&quot;&gt;{name} ✔&lt;/li&gt;;
+}
+return &lt;li className=&quot;item&quot;&gt;{name}&lt;/li&gt;;
+</code></pre>
+<p>You can write this:</p>
+<pre><code class="language-js">return (
+  &lt;li className=&quot;item&quot;&gt;
+    {isPacked ? name + ' ✔' : name}
+  &lt;/li&gt;
+);
+</code></pre>
+<p>You can read it as <em>&quot;if <code>isPacked</code> is true, then (<code>?</code>) render <code>name + ' ✔'</code>, otherwise (<code>:</code>) render <code>name</code>&quot;</em>.</p>
+<DeepDive>
+<h4 id="are-these-two-examples-fully-equivalent-are-these-two-examples-fully-equivalent"><a class="header" href="#are-these-two-examples-fully-equivalent-are-these-two-examples-fully-equivalent">Are these two examples fully equivalent? {/<em>are-these-two-examples-fully-equivalent</em>/}</a></h4>
+<p>If you're coming from an object-oriented programming background, you might assume that the two examples above are subtly different because one of them may create two different &quot;instances&quot; of <code>&lt;li&gt;</code>. But JSX elements aren't &quot;instances&quot; because they don't hold any internal state and aren't real DOM nodes. They're lightweight descriptions, like blueprints. So these two examples, in fact, <em>are</em> completely equivalent. <a href="/learn/preserving-and-resetting-state">Preserving and Resetting State</a> goes into detail about how this works.</p>
+</DeepDive>
+<p>Now let's say you want to wrap the completed item's text into another HTML tag, like <code>&lt;del&gt;</code> to strike it out. You can add even more newlines and parentheses so that it's easier to nest more JSX each of the cases:</p>
+<Sandpack>
+<pre><code class="language-js">function Item({ name, isPacked }) {
+  return (
+    &lt;li className=&quot;item&quot;&gt;
+      {isPacked ? (
+        &lt;del&gt;
+          {name + ' ✔'}
+        &lt;/del&gt;
+      ) : (
+        name
+      )}
+    &lt;/li&gt;
+  );
+}
+
+export default function PackingList() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Sally Ride's Packing List&lt;/h1&gt;
+      &lt;ul&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Space suit&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Helmet with a golden leaf&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={false} 
+          name=&quot;Photo of Tam&quot; 
+        /&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>This style works well for simple conditions, but use it in moderation. If your components get messy with too much nested conditional markup, consider extracting child components to clean things up. In React, markup is a part of your code, so you can use tools like variables and functions to tidy up complex expressions.</p>
+<h3 id="logical-and-operator--logical-and-operator-"><a class="header" href="#logical-and-operator--logical-and-operator-">Logical AND operator (<code>&amp;&amp;</code>) {/<em>logical-and-operator-</em>/}</a></h3>
+<p>Another common shortcut you'll encounter is the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#:~:text=The%20logical%20AND%20(%20%26%26%20)%20operator,it%20returns%20a%20Boolean%20value.">JavaScript logical AND (<code>&amp;&amp;</code>) operator.</a> Inside React components, it often comes up when you want to render some JSX when the condition is true, <strong>or render nothing otherwise.</strong> With <code>&amp;&amp;</code>, you could conditionally render the checkmark only if <code>isPacked</code> is <code>true</code>:</p>
+<pre><code class="language-js">return (
+  &lt;li className=&quot;item&quot;&gt;
+    {name} {isPacked &amp;&amp; '✔'}
+  &lt;/li&gt;
+);
+</code></pre>
+<p>You can read this as <em>&quot;if <code>isPacked</code>, then (<code>&amp;&amp;</code>) render the checkmark, otherwise, render nothing&quot;</em>.</p>
+<p>Here it is in action:</p>
+<Sandpack>
+<pre><code class="language-js">function Item({ name, isPacked }) {
+  return (
+    &lt;li className=&quot;item&quot;&gt;
+      {name} {isPacked &amp;&amp; '✔'}
+    &lt;/li&gt;
+  );
+}
+
+export default function PackingList() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Sally Ride's Packing List&lt;/h1&gt;
+      &lt;ul&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Space suit&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Helmet with a golden leaf&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={false} 
+          name=&quot;Photo of Tam&quot; 
+        /&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND">JavaScript &amp;&amp; expression</a> returns the value of its right side (in our case, the checkmark) if the left side (our condition) is <code>true</code>. But if the condition is <code>false</code>, the whole expression becomes <code>false</code>. React considers <code>false</code> as a &quot;hole&quot; in the JSX tree, just like <code>null</code> or <code>undefined</code>, and doesn't render anything in its place.</p>
+<Pitfall>
+<p><strong>Don't put numbers on the left side of <code>&amp;&amp;</code>.</strong></p>
+<p>To test the condition, JavaScript converts the left side to a boolean automatically. However, if the left side is <code>0</code>, then the whole expression gets that value (<code>0</code>), and React will happily render <code>0</code> rather than nothing.</p>
+<p>For example, a common mistake is to write code like <code>messageCount &amp;&amp; &lt;p&gt;New messages&lt;/p&gt;</code>. It's easy to assume that it renders nothing when <code>messageCount</code> is <code>0</code>, but it really renders the <code>0</code> itself!</p>
+<p>To fix it, make the left side a boolean: <code>messageCount &gt; 0 &amp;&amp; &lt;p&gt;New messages&lt;/p&gt;</code>.</p>
+</Pitfall>
+<h3 id="conditionally-assigning-jsx-to-a-variable-conditionally-assigning-jsx-to-a-variable"><a class="header" href="#conditionally-assigning-jsx-to-a-variable-conditionally-assigning-jsx-to-a-variable">Conditionally assigning JSX to a variable {/<em>conditionally-assigning-jsx-to-a-variable</em>/}</a></h3>
+<p>When the shortcuts get in the way of writing plain code, try using an <code>if</code> statement and a variable. You can reassign variables defined with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let"><code>let</code></a>, so start by providing the default content you want to display, the name:</p>
+<pre><code class="language-js">let itemContent = name;
+</code></pre>
+<p>Use an <code>if</code> statement to reassign a JSX expression to <code>itemContent</code> if <code>isPacked</code> is <code>true</code>:</p>
+<pre><code class="language-js">if (isPacked) {
+  itemContent = name + &quot; ✔&quot;;
+}
+</code></pre>
+<p><a href="/learn/javascript-in-jsx-with-curly-braces#using-curly-braces-a-window-into-the-javascript-world">Curly braces open the &quot;window into JavaScript&quot;.</a> Embed the variable with curly braces in the returned JSX tree, nesting the previously calculated expression inside of JSX:</p>
+<pre><code class="language-js">&lt;li className=&quot;item&quot;&gt;
+  {itemContent}
+&lt;/li&gt;
+</code></pre>
+<p>This style is the most verbose, but it's also the most flexible. Here it is in action:</p>
+<Sandpack>
+<pre><code class="language-js">function Item({ name, isPacked }) {
+  let itemContent = name;
+  if (isPacked) {
+    itemContent = name + &quot; ✔&quot;;
+  }
+  return (
+    &lt;li className=&quot;item&quot;&gt;
+      {itemContent}
+    &lt;/li&gt;
+  );
+}
+
+export default function PackingList() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Sally Ride's Packing List&lt;/h1&gt;
+      &lt;ul&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Space suit&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Helmet with a golden leaf&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={false} 
+          name=&quot;Photo of Tam&quot; 
+        /&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>Like before, this works not only for text, but for arbitrary JSX too:</p>
+<Sandpack>
+<pre><code class="language-js">function Item({ name, isPacked }) {
+  let itemContent = name;
+  if (isPacked) {
+    itemContent = (
+      &lt;del&gt;
+        {name + &quot; ✔&quot;}
+      &lt;/del&gt;
+    );
+  }
+  return (
+    &lt;li className=&quot;item&quot;&gt;
+      {itemContent}
+    &lt;/li&gt;
+  );
+}
+
+export default function PackingList() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Sally Ride's Packing List&lt;/h1&gt;
+      &lt;ul&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Space suit&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Helmet with a golden leaf&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={false} 
+          name=&quot;Photo of Tam&quot; 
+        /&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>If you're not familiar with JavaScript, this variety of styles might seem overwhelming at first. However, learning them will help you read and write any JavaScript code -- and not just React components! Pick the one you prefer for a start, and then consult this reference again if you forget how the other ones work.</p>
+<Recap>
+<ul>
+<li>In React, you control branching logic with JavaScript.</li>
+<li>You can return a JSX expression conditionally with an <code>if</code> statement.</li>
+<li>You can conditionally save some JSX to a variable and then include it inside other JSX by using the curly braces.</li>
+<li>In JSX, <code>{cond ? &lt;A /&gt; : &lt;B /&gt;}</code> means <em>&quot;if <code>cond</code>, render <code>&lt;A /&gt;</code>, otherwise <code>&lt;B /&gt;</code>&quot;</em>.</li>
+<li>In JSX, <code>{cond &amp;&amp; &lt;A /&gt;}</code> means <em>&quot;if <code>cond</code>, render <code>&lt;A /&gt;</code>, otherwise nothing&quot;</em>.</li>
+<li>The shortcuts are common, but you don't have to use them if you prefer plain <code>if</code>.</li>
+</ul>
+</Recap>
+<Challenges>
+<h4 id="show-an-icon-for-incomplete-items-with---show-an-icon-for-incomplete-items-with--"><a class="header" href="#show-an-icon-for-incomplete-items-with---show-an-icon-for-incomplete-items-with--">Show an icon for incomplete items with <code>? :</code> {/<em>show-an-icon-for-incomplete-items-with--</em>/}</a></h4>
+<p>Use the conditional operator (<code>cond ? a : b</code>) to render a ❌ if <code>isPacked</code> isn’t <code>true</code>.</p>
+<Sandpack>
+<pre><code class="language-js">function Item({ name, isPacked }) {
+  return (
+    &lt;li className=&quot;item&quot;&gt;
+      {name} {isPacked &amp;&amp; '✔'}
+    &lt;/li&gt;
+  );
+}
+
+export default function PackingList() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Sally Ride's Packing List&lt;/h1&gt;
+      &lt;ul&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Space suit&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Helmet with a golden leaf&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={false} 
+          name=&quot;Photo of Tam&quot; 
+        /&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<Solution>
+<Sandpack>
+<pre><code class="language-js">function Item({ name, isPacked }) {
+  return (
+    &lt;li className=&quot;item&quot;&gt;
+      {name} {isPacked ? '✔' : '❌'}
+    &lt;/li&gt;
+  );
+}
+
+export default function PackingList() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Sally Ride's Packing List&lt;/h1&gt;
+      &lt;ul&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Space suit&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={true} 
+          name=&quot;Helmet with a golden leaf&quot; 
+        /&gt;
+        &lt;Item 
+          isPacked={false} 
+          name=&quot;Photo of Tam&quot; 
+        /&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+</Solution>
+<h4 id="show-the-item-importance-with--show-the-item-importance-with-"><a class="header" href="#show-the-item-importance-with--show-the-item-importance-with-">Show the item importance with <code>&amp;&amp;</code> {/<em>show-the-item-importance-with-</em>/}</a></h4>
+<p>In this example, each <code>Item</code> receives a numerical <code>importance</code> prop. Use the <code>&amp;&amp;</code> operator to render &quot;<em>(Importance: X)</em>&quot; in italics, but only for items that have non-zero importance. Your item list should end up looking like this:</p>
+<ul>
+<li>Space suit <em>(Importance: 9)</em></li>
+<li>Helmet with a golden leaf</li>
+<li>Photo of Tam <em>(Importance: 6)</em></li>
+</ul>
+<p>Don't forget to add a space between the two labels!</p>
+<Sandpack>
+<pre><code class="language-js">function Item({ name, importance }) {
+  return (
+    &lt;li className=&quot;item&quot;&gt;
+      {name}
+    &lt;/li&gt;
+  );
+}
+
+export default function PackingList() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Sally Ride's Packing List&lt;/h1&gt;
+      &lt;ul&gt;
+        &lt;Item 
+          importance={9} 
+          name=&quot;Space suit&quot; 
+        /&gt;
+        &lt;Item 
+          importance={0} 
+          name=&quot;Helmet with a golden leaf&quot; 
+        /&gt;
+        &lt;Item 
+          importance={6} 
+          name=&quot;Photo of Tam&quot; 
+        /&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<Solution>
+<p>This should do the trick:</p>
+<Sandpack>
+<pre><code class="language-js">function Item({ name, importance }) {
+  return (
+    &lt;li className=&quot;item&quot;&gt;
+      {name}
+      {importance &gt; 0 &amp;&amp; ' '}
+      {importance &gt; 0 &amp;&amp;
+        &lt;i&gt;(Importance: {importance})&lt;/i&gt;
+      }
+    &lt;/li&gt;
+  );
+}
+
+export default function PackingList() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Sally Ride's Packing List&lt;/h1&gt;
+      &lt;ul&gt;
+        &lt;Item 
+          importance={9} 
+          name=&quot;Space suit&quot; 
+        /&gt;
+        &lt;Item 
+          importance={0} 
+          name=&quot;Helmet with a golden leaf&quot; 
+        /&gt;
+        &lt;Item 
+          importance={6} 
+          name=&quot;Photo of Tam&quot; 
+        /&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>Note that you must write <code>importance &gt; 0 &amp;&amp; ...</code> rather than <code>importance &amp;&amp; ...</code> so that if the <code>importance</code> is <code>0</code>, <code>0</code> isn't rendered as the result!</p>
+<p>In this solution, two separate conditions are used to insert a space between then name and the importance label. Alternatively, you could use a fragment with a leading space: <code>importance &gt; 0 &amp;&amp; &lt;&gt; &lt;i&gt;...&lt;/i&gt;&lt;/&gt;</code> or add a space immediately inside the <code>&lt;i&gt;</code>:  <code>importance &gt; 0 &amp;&amp; &lt;i&gt; ...&lt;/i&gt;</code>.</p>
+</Solution>
+<h4 id="refactor-a-series-of---to-if-and-variables-refactor-a-series-of---to-if-and-variables"><a class="header" href="#refactor-a-series-of---to-if-and-variables-refactor-a-series-of---to-if-and-variables">Refactor a series of <code>? :</code> to <code>if</code> and variables {/<em>refactor-a-series-of---to-if-and-variables</em>/}</a></h4>
+<p>This <code>Drink</code> component uses a series of <code>? :</code> conditions to show different information depending on whether the <code>name</code> prop is <code>&quot;tea&quot;</code> or <code>&quot;coffee&quot;</code>. The problem is that the information about each drink is spread across multiple conditions. Refactor this code to use a single <code>if</code> statement instead of three <code>? :</code> conditions.</p>
+<Sandpack>
+<pre><code class="language-js">function Drink({ name }) {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;{name}&lt;/h1&gt;
+      &lt;dl&gt;
+        &lt;dt&gt;Part of plant&lt;/dt&gt;
+        &lt;dd&gt;{name === 'tea' ? 'leaf' : 'bean'}&lt;/dd&gt;
+        &lt;dt&gt;Caffeine content&lt;/dt&gt;
+        &lt;dd&gt;{name === 'tea' ? '15–70 mg/cup' : '80–185 mg/cup'}&lt;/dd&gt;
+        &lt;dt&gt;Age&lt;/dt&gt;
+        &lt;dd&gt;{name === 'tea' ? '4,000+ years' : '1,000+ years'}&lt;/dd&gt;
+      &lt;/dl&gt;
+    &lt;/section&gt;
+  );
+}
+
+export default function DrinkList() {
+  return (
+    &lt;div&gt;
+      &lt;Drink name=&quot;tea&quot; /&gt;
+      &lt;Drink name=&quot;coffee&quot; /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>Once you've refactored the code to use <code>if</code>, do you have further ideas on how to simplify it?</p>
+<Solution>
+<p>There are multiple ways you could go about this, but here is one starting point:</p>
+<Sandpack>
+<pre><code class="language-js">function Drink({ name }) {
+  let part, caffeine, age;
+  if (name === 'tea') {
+    part = 'leaf';
+    caffeine = '15–70 mg/cup';
+    age = '4,000+ years';
+  } else if (name === 'coffee') {
+    part = 'bean';
+    caffeine = '80–185 mg/cup';
+    age = '1,000+ years';
+  }
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;{name}&lt;/h1&gt;
+      &lt;dl&gt;
+        &lt;dt&gt;Part of plant&lt;/dt&gt;
+        &lt;dd&gt;{part}&lt;/dd&gt;
+        &lt;dt&gt;Caffeine content&lt;/dt&gt;
+        &lt;dd&gt;{caffeine}&lt;/dd&gt;
+        &lt;dt&gt;Age&lt;/dt&gt;
+        &lt;dd&gt;{age}&lt;/dd&gt;
+      &lt;/dl&gt;
+    &lt;/section&gt;
+  );
+}
+
+export default function DrinkList() {
+  return (
+    &lt;div&gt;
+      &lt;Drink name=&quot;tea&quot; /&gt;
+      &lt;Drink name=&quot;coffee&quot; /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>Here the information about each drink is grouped together instead of being spread across multiple conditions. This makes it easier to add more drinks in the future.</p>
+<p>Another solution would be to remove the condition altogether by moving the information into objects:</p>
+<Sandpack>
+<pre><code class="language-js">const drinks = {
+  tea: {
+    part: 'leaf',
+    caffeine: '15–70 mg/cup',
+    age: '4,000+ years'
+  },
+  coffee: {
+    part: 'bean',
+    caffeine: '80–185 mg/cup',
+    age: '1,000+ years'
+  }
+};
+
+function Drink({ name }) {
+  const info = drinks[name];
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;{name}&lt;/h1&gt;
+      &lt;dl&gt;
+        &lt;dt&gt;Part of plant&lt;/dt&gt;
+        &lt;dd&gt;{info.part}&lt;/dd&gt;
+        &lt;dt&gt;Caffeine content&lt;/dt&gt;
+        &lt;dd&gt;{info.caffeine}&lt;/dd&gt;
+        &lt;dt&gt;Age&lt;/dt&gt;
+        &lt;dd&gt;{info.age}&lt;/dd&gt;
+      &lt;/dl&gt;
+    &lt;/section&gt;
+  );
+}
+
+export default function DrinkList() {
+  return (
+    &lt;div&gt;
+      &lt;Drink name=&quot;tea&quot; /&gt;
+      &lt;Drink name=&quot;coffee&quot; /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+</Solution>
+</Challenges>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/passing-props-to-a-component.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/rendering-lists.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/passing-props-to-a-component.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/rendering-lists.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

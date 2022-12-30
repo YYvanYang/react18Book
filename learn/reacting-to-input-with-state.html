@@ -1,0 +1,1248 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Reacting to Input with State - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html" class="active"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-reacting-to-input-with-state"><a class="header" href="#title-reacting-to-input-with-state">title: Reacting to Input with State</a></h2>
+<Intro>
+<p>React uses a declarative way to manipulate the UI. Instead of manipulating individual pieces of the UI directly, you describe the different states that your component can be in, and switch between them in response to the user input. This is similar to how designers think about the UI.</p>
+</Intro>
+<YouWillLearn>
+<ul>
+<li>How declarative UI programming differs from imperative UI programming</li>
+<li>How to enumerate the different visual states your component can be in</li>
+<li>How to trigger the changes between the different visual states from code</li>
+</ul>
+</YouWillLearn>
+<h2 id="how-declarative-ui-compares-to-imperative-how-declarative-ui-compares-to-imperative"><a class="header" href="#how-declarative-ui-compares-to-imperative-how-declarative-ui-compares-to-imperative">How declarative UI compares to imperative {/<em>how-declarative-ui-compares-to-imperative</em>/}</a></h2>
+<p>When you design UI interactions, you probably think about how the UI <em>changes</em> in response to user actions. Consider a form that lets the user submit an answer:</p>
+<ul>
+<li>When you type something into a form, the &quot;Submit&quot; button <strong>becomes enabled.</strong></li>
+<li>When you press &quot;Submit&quot;, both form and the button <strong>become disabled,</strong> and a spinner <strong>appears.</strong></li>
+<li>If the network request succeeds, the form <strong>gets hidden,</strong> and the &quot;Thank you&quot; message <strong>appears.</strong></li>
+<li>If the network request fails, an error message <strong>appears,</strong> and the form <strong>becomes enabled</strong> again.</li>
+</ul>
+<p>In <strong>imperative programming,</strong> the above corresponds directly to how you implement interaction. You have to write the exact instructions to manipulate the UI depending on what just happened. Here's another way to think about this: imagine riding next to someone in a car and telling them turn by turn where to go.</p>
+<Illustration src="/images/docs/illustrations/i_imperative-ui-programming.png"  alt="In a car driven by an anxious-looking person representing JavaScript, a passenger orders the driver to execute a sequence of complicated turn by turn navigations." />
+<p>They don't know where you want to go, they just follow your commands. (And if you get the directions wrong, you end up in the wrong place!) It's called <em>imperative</em> because you have to &quot;command&quot; each element, from the spinner to the button, telling the computer <em>how</em> to update the UI.</p>
+<p>In this example of imperative UI programming, the form is built <em>without</em> React. It uses the built-in browser <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model">DOM</a>:</p>
+<Sandpack>
+<pre><code class="language-js index.js active">async function handleFormSubmit(e) {
+  e.preventDefault();
+  disable(textarea);
+  disable(button);
+  show(loadingMessage);
+  hide(errorMessage);
+  try {
+    await submitForm(textarea.value);
+    show(successMessage);
+    hide(form);
+  } catch (err) {
+    show(errorMessage);
+    errorMessage.textContent = err.message;
+  } finally {
+    hide(loadingMessage);
+    enable(textarea);
+    enable(button);
+  }
+}
+
+function handleTextareaChange() {
+  if (textarea.value.length === 0) {
+    disable(button);
+  } else {
+    enable(button);
+  }
+}
+
+function hide(el) {
+  el.style.display = 'none';
+}
+
+function show(el) {
+  el.style.display = '';
+}
+
+function enable(el) {
+  el.disabled = false;
+}
+
+function disable(el) {
+  el.disabled = true;
+}
+
+function submitForm(answer) {
+  // Pretend it's hitting the network.
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      if (answer.toLowerCase() == 'istanbul') {
+        resolve();
+      } else {
+        reject(new Error('Good guess but a wrong answer. Try again!'));
+      }
+    }, 1500);
+  });
+}
+
+let form = document.getElementById('form');
+let textarea = document.getElementById('textarea');
+let button = document.getElementById('button');
+let loadingMessage = document.getElementById('loading');
+let errorMessage = document.getElementById('error');
+let successMessage = document.getElementById('success');
+form.onsubmit = handleFormSubmit;
+textarea.oninput = handleTextareaChange;
+</code></pre>
+<pre><code class="language-js sandbox.config.json hidden">{
+  &quot;hardReloadOnChange&quot;: true
+}
+</code></pre>
+<pre><code class="language-html public/index.html">&lt;form id=&quot;form&quot;&gt;
+  &lt;h2&gt;City quiz&lt;/h2&gt;
+  &lt;p&gt;
+    What city is located on two continents?
+  &lt;/p&gt;
+  &lt;textarea id=&quot;textarea&quot;&gt;&lt;/textarea&gt;
+  &lt;br /&gt;
+  &lt;button id=&quot;button&quot; disabled&gt;Submit&lt;/button&gt;
+  &lt;p id=&quot;loading&quot; style=&quot;display: none&quot;&gt;Loading...&lt;/p&gt;
+  &lt;p id=&quot;error&quot; style=&quot;display: none; color: red;&quot;&gt;&lt;/p&gt;
+&lt;/form&gt;
+&lt;h1 id=&quot;success&quot; style=&quot;display: none&quot;&gt;That's right!&lt;/h1&gt;
+
+&lt;style&gt;
+* { box-sizing: border-box; }
+body { font-family: sans-serif; margin: 20px; padding: 0; }
+&lt;/style&gt;
+</code></pre>
+</Sandpack>
+<p>Manipulating the UI imperatively works well enough for isolated examples, but it gets exponentially more difficult to manage in more complex systems. Imagine updating a page full of different forms like this one. Adding a new UI element or a new interaction would require carefully checking all existing code to make sure you haven't introduced a bug (for example, forgetting to show or hide something).</p>
+<p>React was built to solve this problem.</p>
+<p>In React, you don't directly manipulate the UI--meaning you don't enable, disable, show, or hide components directly. Instead, you <strong>declare what you want to show,</strong> and React figures out how to update the UI. Think of getting into a taxi and telling the driver where you want to go instead of telling them exactly where to turn. It's the driver's job to get you there, and they might even know some shortcuts you haven't considered!</p>
+<Illustration src="/images/docs/illustrations/i_declarative-ui-programming.png" alt="In a car driven by React, a passenger asks to be taken to a specific place on the map. React figures out how to do that." />
+<h2 id="thinking-about-ui-declaratively-thinking-about-ui-declaratively"><a class="header" href="#thinking-about-ui-declaratively-thinking-about-ui-declaratively">Thinking about UI declaratively {/<em>thinking-about-ui-declaratively</em>/}</a></h2>
+<p>You've seen how to implement a form imperatively above. To better understand how to think in React, you'll walk through reimplementing this UI in React below:</p>
+<ol>
+<li><strong>Identify</strong> your component's different visual states</li>
+<li><strong>Determine</strong> what triggers those state changes</li>
+<li><strong>Represent</strong> the state in memory using <code>useState</code></li>
+<li><strong>Remove</strong> any non-essential state variables</li>
+<li><strong>Connect</strong> the event handlers to set the state</li>
+</ol>
+<h3 id="step-1-identify-your-components-different-visual-states-step-1-identify-your-components-different-visual-states"><a class="header" href="#step-1-identify-your-components-different-visual-states-step-1-identify-your-components-different-visual-states">Step 1: Identify your component's different visual states {/<em>step-1-identify-your-components-different-visual-states</em>/}</a></h3>
+<p>In computer science, you may hear about a <a href="https://en.wikipedia.org/wiki/Finite-state_machine">&quot;state machine&quot;</a> being in one of several “states”. If you work with a designer, you may have seen mockups for different &quot;visual states&quot;. React stands at the intersection of design and computer science, so both of these ideas are sources of inspiration.</p>
+<p>First, you need to visualize all the different &quot;states&quot; of the UI the user might see:</p>
+<ul>
+<li><strong>Empty</strong>: Form has a disabled &quot;Submit&quot; button.</li>
+<li><strong>Typing</strong>: Form has an enabled &quot;Submit&quot; button.</li>
+<li><strong>Submitting</strong>: Form is completely disabled. Spinner is shown.</li>
+<li><strong>Success</strong>: &quot;Thank you&quot; message is shown instead of a form.</li>
+<li><strong>Error</strong>: Same as Typing state, but with an extra error message.</li>
+</ul>
+<p>Just like a designer, you'll want to &quot;mock up&quot; or create &quot;mocks&quot; for the different states before you add logic. For example, here is a mock for just the visual part of the form. This mock is controlled by a prop called <code>status</code> with a default value of <code>'empty'</code>:</p>
+<Sandpack>
+<pre><code class="language-js">export default function Form({
+  status = 'empty'
+}) {
+  if (status === 'success') {
+    return &lt;h1&gt;That's right!&lt;/h1&gt;
+  }
+  return (
+    &lt;&gt;
+      &lt;h2&gt;City quiz&lt;/h2&gt;
+      &lt;p&gt;
+        In which city is there a billboard that turns air into drinkable water?
+      &lt;/p&gt;
+      &lt;form&gt;
+        &lt;textarea /&gt;
+        &lt;br /&gt;
+        &lt;button&gt;
+          Submit
+        &lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/&gt;
+  )
+}
+</code></pre>
+</Sandpack>
+<p>You could call that prop anything you like, the naming is not important. Try editing <code>status = 'empty'</code> to <code>status = 'success'</code> to see the success message appear. Mocking lets you quickly iterate on the UI before you wire up any logic. Here is a more fleshed out prototype of the same component, still &quot;controlled&quot; by the <code>status</code> prop:</p>
+<Sandpack>
+<pre><code class="language-js">export default function Form({
+  // Try 'submitting', 'error', 'success':
+  status = 'empty'
+}) {
+  if (status === 'success') {
+    return &lt;h1&gt;That's right!&lt;/h1&gt;
+  }
+  return (
+    &lt;&gt;
+      &lt;h2&gt;City quiz&lt;/h2&gt;
+      &lt;p&gt;
+        In which city is there a billboard that turns air into drinkable water?
+      &lt;/p&gt;
+      &lt;form&gt;
+        &lt;textarea disabled={
+          status === 'submitting'
+        } /&gt;
+        &lt;br /&gt;
+        &lt;button disabled={
+          status === 'empty' ||
+          status === 'submitting'
+        }&gt;
+          Submit
+        &lt;/button&gt;
+        {status === 'error' &amp;&amp;
+          &lt;p className=&quot;Error&quot;&gt;
+            Good guess but a wrong answer. Try again!
+          &lt;/p&gt;
+        }
+      &lt;/form&gt;
+      &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.Error { color: red; }
+</code></pre>
+</Sandpack>
+<DeepDive>
+<h4 id="displaying-many-visual-states-at-once-displaying-many-visual-states-at-once"><a class="header" href="#displaying-many-visual-states-at-once-displaying-many-visual-states-at-once">Displaying many visual states at once {/<em>displaying-many-visual-states-at-once</em>/}</a></h4>
+<p>If a component has a lot of visual states, it can be convenient to show them all on one page:</p>
+<Sandpack>
+<pre><code class="language-js App.js active">import Form from './Form.js';
+
+let statuses = [
+  'empty',
+  'typing',
+  'submitting',
+  'success',
+  'error',
+];
+
+export default function App() {
+  return (
+    &lt;&gt;
+      {statuses.map(status =&gt; (
+        &lt;section key={status}&gt;
+          &lt;h4&gt;Form ({status}):&lt;/h4&gt;
+          &lt;Form status={status} /&gt;
+        &lt;/section&gt;
+      ))}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Form.js">export default function Form({ status }) {
+  if (status === 'success') {
+    return &lt;h1&gt;That's right!&lt;/h1&gt;
+  }
+  return (
+    &lt;form&gt;
+      &lt;textarea disabled={
+        status === 'submitting'
+      } /&gt;
+      &lt;br /&gt;
+      &lt;button disabled={
+        status === 'empty' ||
+        status === 'submitting'
+      }&gt;
+        Submit
+      &lt;/button&gt;
+      {status === 'error' &amp;&amp;
+        &lt;p className=&quot;Error&quot;&gt;
+          Good guess but a wrong answer. Try again!
+        &lt;/p&gt;
+      }
+    &lt;/form&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">section { border-bottom: 1px solid #aaa; padding: 20px; }
+h4 { color: #222; }
+body { margin: 0; }
+.Error { color: red; }
+</code></pre>
+</Sandpack>
+<p>Pages like this are often called &quot;living styleguides&quot; or &quot;storybooks&quot;.</p>
+</DeepDive>
+<h3 id="step-2-determine-what-triggers-those-state-changes-step-2-determine-what-triggers-those-state-changes"><a class="header" href="#step-2-determine-what-triggers-those-state-changes-step-2-determine-what-triggers-those-state-changes">Step 2: Determine what triggers those state changes {/<em>step-2-determine-what-triggers-those-state-changes</em>/}</a></h3>
+<p>You can trigger state updates in response to two kinds of inputs:</p>
+<ul>
+<li><strong>Human inputs,</strong> like clicking a button, typing in a field, navigating a link.</li>
+<li><strong>Computer inputs,</strong> like a network response arriving, a timeout completing, an image loading.</li>
+</ul>
+<IllustrationBlock>
+  <Illustration caption="Human inputs" alt="A finger." src="/images/docs/illustrations/i_inputs1.png" />
+  <Illustration caption="Computer inputs" alt="Ones and zeroes." src="/images/docs/illustrations/i_inputs2.png" />
+</IllustrationBlock>
+<p>In both cases, <strong>you must set <a href="/learn/state-a-components-memory#anatomy-of-usestate">state variables</a> to update the UI.</strong> For the form you're developing, you will need to change state in response to a few different inputs:</p>
+<ul>
+<li><strong>Changing the text input</strong> (human) should switch it from the <em>Empty</em> state to the <em>Typing</em> state or back, depending on whether the text box is empty or not.</li>
+<li><strong>Clicking the Submit button</strong> (human) should switch it to the <em>Submitting</em> state.</li>
+<li><strong>Successful network response</strong> (computer) should switch it to the <em>Success</em> state.</li>
+<li><strong>Failed network response</strong> (computer) should switch it to the <em>Error</em> state with the matching error message.</li>
+</ul>
+<blockquote>
+<p>Notice that human inputs often require <a href="/learn/responding-to-events">event handlers</a>!</p>
+</blockquote>
+<p>To help visualize this flow, try drawing each state on paper as a labeled circle, and each change between two states as an arrow. You can sketch out many flows this way and sort out bugs long before implementation.</p>
+<DiagramGroup>
+<Diagram name="responding_to_input_flow" height={350} width={688} alt="Flow chart moving left to right with 5 nodes. The first node labeled 'empty' has one edge labeled 'start typing' connected to a node labeled 'typing'. That node has one edge labeled 'press submit' connected to a node labeled 'submitting', which has two edges. The left edge is labeled 'network error' connecting to a node labeled 'error'. The right edge is labeled 'network success' connecting to a node labeled 'success'.">
+<p>Form states</p>
+</Diagram>
+</DiagramGroup>
+<h3 id="step-3-represent-the-state-in-memory-with-usestate-step-3-represent-the-state-in-memory-with-usestate"><a class="header" href="#step-3-represent-the-state-in-memory-with-usestate-step-3-represent-the-state-in-memory-with-usestate">Step 3: Represent the state in memory with <code>useState</code> {/<em>step-3-represent-the-state-in-memory-with-usestate</em>/}</a></h3>
+<p>Next you'll need to represent the visual states of your component in memory with <a href="/reference/react/useState"><code>useState</code>.</a> Simplicity is key: each piece of state is a &quot;moving piece&quot;, and <strong>you want as few &quot;moving pieces&quot; as possible.</strong> More complexity leads to more bugs!</p>
+<p>Start with the state that <em>absolutely must</em> be there. For example, you'll need to store the <code>answer</code> for the input, and the <code>error</code> (if it exists) to store the last error:</p>
+<pre><code class="language-js">const [answer, setAnswer] = useState('');
+const [error, setError] = useState(null);
+</code></pre>
+<p>Then, you'll need a state variable representing which one of the visual states described earlier you want to display. There's usually more than a single way to represent that in memory, so you'll need to experiment with it.</p>
+<p>If you struggle to think of the best way immediately, start by adding enough state that you're <em>definitely</em> sure that all the possible visual states are covered:</p>
+<pre><code class="language-js">const [isEmpty, setIsEmpty] = useState(true);
+const [isTyping, setIsTyping] = useState(false);
+const [isSubmitting, setIsSubmitting] = useState(false);
+const [isSuccess, setIsSuccess] = useState(false);
+const [isError, setIsError] = useState(false);
+</code></pre>
+<p>Your first idea likely won't be the best, but that's ok--refactoring state is a part of the process!</p>
+<h3 id="step-4-remove-any-non-essential-state-variables-step-4-remove-any-non-essential-state-variables"><a class="header" href="#step-4-remove-any-non-essential-state-variables-step-4-remove-any-non-essential-state-variables">Step 4: Remove any non-essential state variables {/<em>step-4-remove-any-non-essential-state-variables</em>/}</a></h3>
+<p>You want to avoid duplication in the state content so you're only tracking what is essential. Spending a little time on refactoring your state structure will make your components easier to understand, reduce duplication, and avoid unintended meanings. Your goal is to <strong>prevent the cases where the state in memory doesn't represent any valid UI that you'd want a user to see.</strong> (For example, you never want to show an error message and disable the input at the same time, or the user won't be able to correct the error!)</p>
+<p>Here are some questions you can ask about your state variables:</p>
+<ul>
+<li><strong>Does this state cause a paradox?</strong> For example, <code>isTyping</code> and <code>isSubmitting</code> can't both be <code>true</code>. A paradox usually means that the state is not constrained enough. There are four possible combinations of two booleans, but only three correspond to valid states. To remove the &quot;impossible&quot; state, you can combine these into a <code>status</code> that must be one of three values: <code>'typing'</code>, <code>'submitting'</code>, or <code>'success'</code>.</li>
+<li><strong>Is the same information available in another state variable already?</strong> Another paradox: <code>isEmpty</code> and <code>isTyping</code> can't be <code>true</code> at the same time. By making them separate state variables, you risk them going out of sync and causing bugs. Fortunately, you can remove <code>isEmpty</code> and instead check <code>answer.length === 0</code>.</li>
+<li><strong>Can you get the same information from the inverse of another state variable?</strong> <code>isError</code> is not needed because you can check <code>error !== null</code> instead.</li>
+</ul>
+<p>After this clean-up, you're left with 3 (down from 7!) <em>essential</em> state variables:</p>
+<pre><code class="language-js">const [answer, setAnswer] = useState('');
+const [error, setError] = useState(null);
+const [status, setStatus] = useState('typing'); // 'typing', 'submitting', or 'success'
+</code></pre>
+<p>You know they are essential, because you can't remove any of them without breaking the functionality.</p>
+<DeepDive>
+<h4 id="eliminating-impossible-states-with-a-reducer-eliminating-impossible-states-with-a-reducer"><a class="header" href="#eliminating-impossible-states-with-a-reducer-eliminating-impossible-states-with-a-reducer">Eliminating “impossible” states with a reducer {/<em>eliminating-impossible-states-with-a-reducer</em>/}</a></h4>
+<p>These three variables are a good enough representation of this form's state. However, there are still some intermediate states that don't fully make sense. For example, a non-null <code>error</code> doesn't make sense when <code>status</code> is <code>'success'</code>. To model the state more precisely, you can <a href="/learn/extracting-state-logic-into-a-reducer">extract it into a reducer.</a> Reducers let you unify multiple state variables into a single object and consolidate all the related logic!</p>
+</DeepDive>
+<h3 id="step-5-connect-the-event-handlers-to-set-state-step-5-connect-the-event-handlers-to-set-state"><a class="header" href="#step-5-connect-the-event-handlers-to-set-state-step-5-connect-the-event-handlers-to-set-state">Step 5: Connect the event handlers to set state {/<em>step-5-connect-the-event-handlers-to-set-state</em>/}</a></h3>
+<p>Lastly, create event handlers to set the state variables. Below is the final form, with all event handlers wired up:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Form() {
+  const [answer, setAnswer] = useState('');
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState('typing');
+
+  if (status === 'success') {
+    return &lt;h1&gt;That's right!&lt;/h1&gt;
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setStatus('submitting');
+    try {
+      await submitForm(answer);
+      setStatus('success');
+    } catch (err) {
+      setStatus('typing');
+      setError(err);
+    }
+  }
+
+  function handleTextareaChange(e) {
+    setAnswer(e.target.value);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h2&gt;City quiz&lt;/h2&gt;
+      &lt;p&gt;
+        In which city is there a billboard that turns air into drinkable water?
+      &lt;/p&gt;
+      &lt;form onSubmit={handleSubmit}&gt;
+        &lt;textarea
+          value={answer}
+          onChange={handleTextareaChange}
+          disabled={status === 'submitting'}
+        /&gt;
+        &lt;br /&gt;
+        &lt;button disabled={
+          answer.length === 0 ||
+          status === 'submitting'
+        }&gt;
+          Submit
+        &lt;/button&gt;
+        {error !== null &amp;&amp;
+          &lt;p className=&quot;Error&quot;&gt;
+            {error.message}
+          &lt;/p&gt;
+        }
+      &lt;/form&gt;
+    &lt;/&gt;
+  );
+}
+
+function submitForm(answer) {
+  // Pretend it's hitting the network.
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      let shouldError = answer.toLowerCase() !== 'lima'
+      if (shouldError) {
+        reject(new Error('Good guess but a wrong answer. Try again!'));
+      } else {
+        resolve();
+      }
+    }, 1500);
+  });
+}
+</code></pre>
+<pre><code class="language-css">.Error { color: red; }
+</code></pre>
+</Sandpack>
+<p>Although this code is longer than the original imperative example, it is much less fragile. Expressing all interactions as state changes lets you later introduce new visual states without breaking existing ones. It also lets you change what should be displayed in each state without changing the logic of the interaction itself.</p>
+<Recap>
+<ul>
+<li>Declarative programming means describing the UI for each visual state rather than micromanaging the UI (imperative).</li>
+<li>When developing a component:
+<ol>
+<li>Identify all its visual states.</li>
+<li>Determine the human and computer triggers for state changes.</li>
+<li>Model the state with <code>useState</code>.</li>
+<li>Remove non-essential state to avoid bugs and paradoxes.</li>
+<li>Connect the event handlers to set state.</li>
+</ol>
+</li>
+</ul>
+</Recap>
+<Challenges>
+<h4 id="add-and-remove-a-css-class-add-and-remove-a-css-class"><a class="header" href="#add-and-remove-a-css-class-add-and-remove-a-css-class">Add and remove a CSS class {/<em>add-and-remove-a-css-class</em>/}</a></h4>
+<p>Make it so that clicking on the picture <em>removes</em> the <code>background--active</code> CSS class from the outer <code>&lt;div&gt;</code>, but <em>adds</em> the <code>picture--active</code> class to the <code>&lt;img&gt;</code>. Clicking the background again should restore the original CSS classes.</p>
+<p>Visually, you should expect that clicking on the picture removes the purple background and highlights the picture border. Clicking outside the picture highlights the background, but removes the picture border highlight.</p>
+<Sandpack>
+<pre><code class="language-js">export default function Picture() {
+  return (
+    &lt;div className=&quot;background background--active&quot;&gt;
+      &lt;img
+        className=&quot;picture&quot;
+        alt=&quot;Rainbow houses in Kampung Pelangi, Indonesia&quot;
+        src=&quot;https://i.imgur.com/5qwVYb1.jpeg&quot;
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body { margin: 0; padding: 0; height: 250px; }
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eee;
+}
+
+.background--active {
+  background: #a6b5ff;
+}
+
+.picture {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+}
+
+.picture--active {
+  border: 5px solid #a6b5ff;
+}
+</code></pre>
+</Sandpack>
+<Solution>
+<p>This component has two visual states: when the image is active, and when the image is inactive:</p>
+<ul>
+<li>When the image is active, the CSS classes are <code>background</code> and <code>picture picture--active</code>.</li>
+<li>When the image is inactive, the CSS classes are <code>background background--active</code> and <code>picture</code>.</li>
+</ul>
+<p>A single boolean state variable is enough to remember whether the image is active. The original task was to remove or add CSS classes. However, in React you need to <em>describe</em> what you want to see rather than <em>manipulate</em> the UI elements. So you need to calculate both CSS classes based on the current state. You also need to <a href="/learn/responding-to-events#stopping-propagation">stop the propagation</a> so that clicking the image doesn't register as a click on the background.</p>
+<p>Verify that this version works by clicking the image and then outside of it:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Picture() {
+  const [isActive, setIsActive] = useState(false);
+
+  let backgroundClassName = 'background';
+  let pictureClassName = 'picture';
+  if (isActive) {
+    pictureClassName += ' picture--active';
+  } else {
+    backgroundClassName += ' background--active';
+  }
+
+  return (
+    &lt;div
+      className={backgroundClassName}
+      onClick={() =&gt; setIsActive(false)}
+    &gt;
+      &lt;img
+        onClick={e =&gt; {
+          e.stopPropagation();
+          setIsActive(true);
+        }}
+        className={pictureClassName}
+        alt=&quot;Rainbow houses in Kampung Pelangi, Indonesia&quot;
+        src=&quot;https://i.imgur.com/5qwVYb1.jpeg&quot;
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body { margin: 0; padding: 0; height: 250px; }
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eee;
+}
+
+.background--active {
+  background: #a6b5ff;
+}
+
+.picture {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  border: 5px solid transparent;
+}
+
+.picture--active {
+  border: 5px solid #a6b5ff;
+}
+</code></pre>
+</Sandpack>
+<p>Alternatively, you could return two separate chunks of JSX:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Picture() {
+  const [isActive, setIsActive] = useState(false);
+  if (isActive) {
+    return (
+      &lt;div
+        className=&quot;background&quot;
+        onClick={() =&gt; setIsActive(false)}
+      &gt;
+        &lt;img
+          className=&quot;picture picture--active&quot;
+          alt=&quot;Rainbow houses in Kampung Pelangi, Indonesia&quot;
+          src=&quot;https://i.imgur.com/5qwVYb1.jpeg&quot;
+          onClick={e =&gt; e.stopPropagation()}
+        /&gt;
+      &lt;/div&gt;
+    );
+  }
+  return (
+    &lt;div className=&quot;background background--active&quot;&gt;
+      &lt;img
+        className=&quot;picture&quot;
+        alt=&quot;Rainbow houses in Kampung Pelangi, Indonesia&quot;
+        src=&quot;https://i.imgur.com/5qwVYb1.jpeg&quot;
+        onClick={() =&gt; setIsActive(true)}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body { margin: 0; padding: 0; height: 250px; }
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eee;
+}
+
+.background--active {
+  background: #a6b5ff;
+}
+
+.picture {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  border: 5px solid transparent;
+}
+
+.picture--active {
+  border: 5px solid #a6b5ff;
+}
+</code></pre>
+</Sandpack>
+<p>Keep in mind that if two different JSX chunks describe the same tree, their nesting (first <code>&lt;div&gt;</code> → first <code>&lt;img&gt;</code>) has to line up. Otherwise, toggling <code>isActive</code> would recreate the whole tree below and <a href="/learn/preserving-and-resetting-state">reset its state.</a> This is why, if a similar JSX tree gets returned in both cases, it is better to write them as a single piece of JSX.</p>
+</Solution>
+<h4 id="profile-editor-profile-editor"><a class="header" href="#profile-editor-profile-editor">Profile editor {/<em>profile-editor</em>/}</a></h4>
+<p>Here is a small form implemented with plain JavaScript and DOM. Play with it to understand its behavior:</p>
+<Sandpack>
+<pre><code class="language-js index.js active">function handleFormSubmit(e) {
+  e.preventDefault();
+  if (editButton.textContent === 'Edit Profile') {
+    editButton.textContent = 'Save Profile';
+    hide(firstNameText);
+    hide(lastNameText);
+    show(firstNameInput);
+    show(lastNameInput);
+  } else {
+    editButton.textContent = 'Edit Profile';
+    hide(firstNameInput);
+    hide(lastNameInput);
+    show(firstNameText);
+    show(lastNameText);
+  }
+}
+
+function handleFirstNameChange() {
+  firstNameText.textContent = firstNameInput.value;
+  helloText.textContent = (
+    'Hello ' +
+    firstNameInput.value + ' ' +
+    lastNameInput.value + '!'
+  );
+}
+
+function handleLastNameChange() {
+  lastNameText.textContent = lastNameInput.value;
+  helloText.textContent = (
+    'Hello ' +
+    firstNameInput.value + ' ' +
+    lastNameInput.value + '!'
+  );
+}
+
+function hide(el) {
+  el.style.display = 'none';
+}
+
+function show(el) {
+  el.style.display = '';
+}
+
+let form = document.getElementById('form');
+let editButton = document.getElementById('editButton');
+let firstNameInput = document.getElementById('firstNameInput');
+let firstNameText = document.getElementById('firstNameText');
+let lastNameInput = document.getElementById('lastNameInput');
+let lastNameText = document.getElementById('lastNameText');
+let helloText = document.getElementById('helloText');
+form.onsubmit = handleFormSubmit;
+firstNameInput.oninput = handleFirstNameChange;
+lastNameInput.oninput = handleLastNameChange;
+</code></pre>
+<pre><code class="language-js sandbox.config.json hidden">{
+  &quot;hardReloadOnChange&quot;: true
+}
+</code></pre>
+<pre><code class="language-html public/index.html">&lt;form id=&quot;form&quot;&gt;
+  &lt;label&gt;
+    First name:
+    &lt;b id=&quot;firstNameText&quot;&gt;Jane&lt;/b&gt;
+    &lt;input
+      id=&quot;firstNameInput&quot;
+      value=&quot;Jane&quot;
+      style=&quot;display: none&quot;&gt;
+  &lt;/label&gt;
+  &lt;label&gt;
+    Last name:
+    &lt;b id=&quot;lastNameText&quot;&gt;Jacobs&lt;/b&gt;
+    &lt;input
+      id=&quot;lastNameInput&quot;
+      value=&quot;Jacobs&quot;
+      style=&quot;display: none&quot;&gt;
+  &lt;/label&gt;
+  &lt;button type=&quot;submit&quot; id=&quot;editButton&quot;&gt;Edit Profile&lt;/button&gt;
+  &lt;p&gt;&lt;i id=&quot;helloText&quot;&gt;Hello, Jane Jacobs!&lt;/i&gt;&lt;/p&gt;
+&lt;/form&gt;
+
+&lt;style&gt;
+* { box-sizing: border-box; }
+body { font-family: sans-serif; margin: 20px; padding: 0; }
+label { display: block; margin-bottom: 20px; }
+&lt;/style&gt;
+</code></pre>
+</Sandpack>
+<p>This form switches between two modes: in the editing mode, you see the inputs, and in the viewing mode, you only see the result. The button label changes between &quot;Edit&quot; and &quot;Save&quot; depending on the mode you're in. When you change the inputs, the welcome message at the bottom updates in real time.</p>
+<p>Your task is to reimplement it in React in the sandbox below. For your convenience, the markup was already converted to JSX, but you'll need to make it show and hide the inputs like the original does.</p>
+<p>Make sure that it updates the text at the bottom, too!</p>
+<Sandpack>
+<pre><code class="language-js">export default function EditProfile() {
+  return (
+    &lt;form&gt;
+      &lt;label&gt;
+        First name:{' '}
+        &lt;b&gt;Jane&lt;/b&gt;
+        &lt;input /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Last name:{' '}
+        &lt;b&gt;Jacobs&lt;/b&gt;
+        &lt;input /&gt;
+      &lt;/label&gt;
+      &lt;button type=&quot;submit&quot;&gt;
+        Edit Profile
+      &lt;/button&gt;
+      &lt;p&gt;&lt;i&gt;Hello, Jane Jacobs!&lt;/i&gt;&lt;/p&gt;
+    &lt;/form&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label { display: block; margin-bottom: 20px; }
+</code></pre>
+</Sandpack>
+<Solution>
+<p>You will need two state variables to hold the input values: <code>firstName</code> and <code>lastName</code>. You're also going to need an <code>isEditing</code> state variable that holds whether to display the inputs or not. You should <em>not</em> need a <code>fullName</code> variable because the full name can always be calculated from the <code>firstName</code> and the <code>lastName</code>.</p>
+<p>Finally, you should use <a href="/learn/conditional-rendering">conditional rendering</a> to show or hide the inputs depending on <code>isEditing</code>.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function EditProfile() {
+  const [isEditing, setIsEditing] = useState(false);
+  const [firstName, setFirstName] = useState('Jane');
+  const [lastName, setLastName] = useState('Jacobs');
+
+  return (
+    &lt;form onSubmit={e =&gt; {
+      e.preventDefault();
+      setIsEditing(!isEditing);
+    }}&gt;
+      &lt;label&gt;
+        First name:{' '}
+        {isEditing ? (
+          &lt;input
+            value={firstName}
+            onChange={e =&gt; {
+              setFirstName(e.target.value)
+            }}
+          /&gt;
+        ) : (
+          &lt;b&gt;{firstName}&lt;/b&gt;
+        )}
+      &lt;/label&gt;
+      &lt;label&gt;
+        Last name:{' '}
+        {isEditing ? (
+          &lt;input
+            value={lastName}
+            onChange={e =&gt; {
+              setLastName(e.target.value)
+            }}
+          /&gt;
+        ) : (
+          &lt;b&gt;{lastName}&lt;/b&gt;
+        )}
+      &lt;/label&gt;
+      &lt;button type=&quot;submit&quot;&gt;
+        {isEditing ? 'Save' : 'Edit'} Profile
+      &lt;/button&gt;
+      &lt;p&gt;&lt;i&gt;Hello, {firstName} {lastName}!&lt;/i&gt;&lt;/p&gt;
+    &lt;/form&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label { display: block; margin-bottom: 20px; }
+</code></pre>
+</Sandpack>
+<p>Compare this solution to the original imperative code. How are they different?</p>
+</Solution>
+<h4 id="refactor-the-imperative-solution-without-react-refactor-the-imperative-solution-without-react"><a class="header" href="#refactor-the-imperative-solution-without-react-refactor-the-imperative-solution-without-react">Refactor the imperative solution without React {/<em>refactor-the-imperative-solution-without-react</em>/}</a></h4>
+<p>Here is the original sandbox from the previous challenge, written imperatively without React:</p>
+<Sandpack>
+<pre><code class="language-js index.js active">function handleFormSubmit(e) {
+  e.preventDefault();
+  if (editButton.textContent === 'Edit Profile') {
+    editButton.textContent = 'Save Profile';
+    hide(firstNameText);
+    hide(lastNameText);
+    show(firstNameInput);
+    show(lastNameInput);
+  } else {
+    editButton.textContent = 'Edit Profile';
+    hide(firstNameInput);
+    hide(lastNameInput);
+    show(firstNameText);
+    show(lastNameText);
+  }
+}
+
+function handleFirstNameChange() {
+  firstNameText.textContent = firstNameInput.value;
+  helloText.textContent = (
+    'Hello ' +
+    firstNameInput.value + ' ' +
+    lastNameInput.value + '!'
+  );
+}
+
+function handleLastNameChange() {
+  lastNameText.textContent = lastNameInput.value;
+  helloText.textContent = (
+    'Hello ' +
+    firstNameInput.value + ' ' +
+    lastNameInput.value + '!'
+  );
+}
+
+function hide(el) {
+  el.style.display = 'none';
+}
+
+function show(el) {
+  el.style.display = '';
+}
+
+let form = document.getElementById('form');
+let editButton = document.getElementById('editButton');
+let firstNameInput = document.getElementById('firstNameInput');
+let firstNameText = document.getElementById('firstNameText');
+let lastNameInput = document.getElementById('lastNameInput');
+let lastNameText = document.getElementById('lastNameText');
+let helloText = document.getElementById('helloText');
+form.onsubmit = handleFormSubmit;
+firstNameInput.oninput = handleFirstNameChange;
+lastNameInput.oninput = handleLastNameChange;
+</code></pre>
+<pre><code class="language-js sandbox.config.json hidden">{
+  &quot;hardReloadOnChange&quot;: true
+}
+</code></pre>
+<pre><code class="language-html public/index.html">&lt;form id=&quot;form&quot;&gt;
+  &lt;label&gt;
+    First name:
+    &lt;b id=&quot;firstNameText&quot;&gt;Jane&lt;/b&gt;
+    &lt;input
+      id=&quot;firstNameInput&quot;
+      value=&quot;Jane&quot;
+      style=&quot;display: none&quot;&gt;
+  &lt;/label&gt;
+  &lt;label&gt;
+    Last name:
+    &lt;b id=&quot;lastNameText&quot;&gt;Jacobs&lt;/b&gt;
+    &lt;input
+      id=&quot;lastNameInput&quot;
+      value=&quot;Jacobs&quot;
+      style=&quot;display: none&quot;&gt;
+  &lt;/label&gt;
+  &lt;button type=&quot;submit&quot; id=&quot;editButton&quot;&gt;Edit Profile&lt;/button&gt;
+  &lt;p&gt;&lt;i id=&quot;helloText&quot;&gt;Hello, Jane Jacobs!&lt;/i&gt;&lt;/p&gt;
+&lt;/form&gt;
+
+&lt;style&gt;
+* { box-sizing: border-box; }
+body { font-family: sans-serif; margin: 20px; padding: 0; }
+label { display: block; margin-bottom: 20px; }
+&lt;/style&gt;
+</code></pre>
+</Sandpack>
+<p>Imagine React didn't exist. Can you refactor this code in a way that makes the logic less fragile and more similar to the React version? What would it look like if the state was explicit, like in React?</p>
+<p>If you're struggling to think where to start, the stub below already has most of the structure in place. If you start here, fill in the missing logic in the <code>updateDOM</code> function. (Refer to the original code where needed.)</p>
+<Sandpack>
+<pre><code class="language-js index.js active">let firstName = 'Jane';
+let lastName = 'Jacobs';
+let isEditing = false;
+
+function handleFormSubmit(e) {
+  e.preventDefault();
+  setIsEditing(!isEditing);
+}
+
+function handleFirstNameChange(e) {
+  setFirstName(e.target.value);
+}
+
+function handleLastNameChange(e) {
+  setLastName(e.target.value);
+}
+
+function setFirstName(value) {
+  firstName = value;
+  updateDOM();
+}
+
+function setLastName(value) {
+  lastName = value;
+  updateDOM();
+}
+
+function setIsEditing(value) {
+  isEditing = value;
+  updateDOM();
+}
+
+function updateDOM() {
+  if (isEditing) {
+    editButton.textContent = 'Save Profile';
+    // TODO: show inputs, hide content
+  } else {
+    editButton.textContent = 'Edit Profile';
+    // TODO: hide inputs, show content
+  }
+  // TODO: update text labels
+}
+
+function hide(el) {
+  el.style.display = 'none';
+}
+
+function show(el) {
+  el.style.display = '';
+}
+
+let form = document.getElementById('form');
+let editButton = document.getElementById('editButton');
+let firstNameInput = document.getElementById('firstNameInput');
+let firstNameText = document.getElementById('firstNameText');
+let lastNameInput = document.getElementById('lastNameInput');
+let lastNameText = document.getElementById('lastNameText');
+let helloText = document.getElementById('helloText');
+form.onsubmit = handleFormSubmit;
+firstNameInput.oninput = handleFirstNameChange;
+lastNameInput.oninput = handleLastNameChange;
+</code></pre>
+<pre><code class="language-js sandbox.config.json hidden">{
+  &quot;hardReloadOnChange&quot;: true
+}
+</code></pre>
+<pre><code class="language-html public/index.html">&lt;form id=&quot;form&quot;&gt;
+  &lt;label&gt;
+    First name:
+    &lt;b id=&quot;firstNameText&quot;&gt;Jane&lt;/b&gt;
+    &lt;input
+      id=&quot;firstNameInput&quot;
+      value=&quot;Jane&quot;
+      style=&quot;display: none&quot;&gt;
+  &lt;/label&gt;
+  &lt;label&gt;
+    Last name:
+    &lt;b id=&quot;lastNameText&quot;&gt;Jacobs&lt;/b&gt;
+    &lt;input
+      id=&quot;lastNameInput&quot;
+      value=&quot;Jacobs&quot;
+      style=&quot;display: none&quot;&gt;
+  &lt;/label&gt;
+  &lt;button type=&quot;submit&quot; id=&quot;editButton&quot;&gt;Edit Profile&lt;/button&gt;
+  &lt;p&gt;&lt;i id=&quot;helloText&quot;&gt;Hello, Jane Jacobs!&lt;/i&gt;&lt;/p&gt;
+&lt;/form&gt;
+
+&lt;style&gt;
+* { box-sizing: border-box; }
+body { font-family: sans-serif; margin: 20px; padding: 0; }
+label { display: block; margin-bottom: 20px; }
+&lt;/style&gt;
+</code></pre>
+</Sandpack>
+<Solution>
+<p>The missing logic included toggling the display of inputs and content, and updating the labels:</p>
+<Sandpack>
+<pre><code class="language-js index.js active">let firstName = 'Jane';
+let lastName = 'Jacobs';
+let isEditing = false;
+
+function handleFormSubmit(e) {
+  e.preventDefault();
+  setIsEditing(!isEditing);
+}
+
+function handleFirstNameChange(e) {
+  setFirstName(e.target.value);
+}
+
+function handleLastNameChange(e) {
+  setLastName(e.target.value);
+}
+
+function setFirstName(value) {
+  firstName = value;
+  updateDOM();
+}
+
+function setLastName(value) {
+  lastName = value;
+  updateDOM();
+}
+
+function setIsEditing(value) {
+  isEditing = value;
+  updateDOM();
+}
+
+function updateDOM() {
+  if (isEditing) {
+    editButton.textContent = 'Save Profile';
+    hide(firstNameText);
+    hide(lastNameText);
+    show(firstNameInput);
+    show(lastNameInput);
+  } else {
+    editButton.textContent = 'Edit Profile';
+    hide(firstNameInput);
+    hide(lastNameInput);
+    show(firstNameText);
+    show(lastNameText);
+  }
+  firstNameText.textContent = firstName;
+  lastNameText.textContent = lastName;
+  helloText.textContent = (
+    'Hello ' +
+    firstName + ' ' +
+    lastName + '!'
+  );
+}
+
+function hide(el) {
+  el.style.display = 'none';
+}
+
+function show(el) {
+  el.style.display = '';
+}
+
+let form = document.getElementById('form');
+let editButton = document.getElementById('editButton');
+let firstNameInput = document.getElementById('firstNameInput');
+let firstNameText = document.getElementById('firstNameText');
+let lastNameInput = document.getElementById('lastNameInput');
+let lastNameText = document.getElementById('lastNameText');
+let helloText = document.getElementById('helloText');
+form.onsubmit = handleFormSubmit;
+firstNameInput.oninput = handleFirstNameChange;
+lastNameInput.oninput = handleLastNameChange;
+</code></pre>
+<pre><code class="language-js sandbox.config.json hidden">{
+  &quot;hardReloadOnChange&quot;: true
+}
+</code></pre>
+<pre><code class="language-html public/index.html">&lt;form id=&quot;form&quot;&gt;
+  &lt;label&gt;
+    First name:
+    &lt;b id=&quot;firstNameText&quot;&gt;Jane&lt;/b&gt;
+    &lt;input
+      id=&quot;firstNameInput&quot;
+      value=&quot;Jane&quot;
+      style=&quot;display: none&quot;&gt;
+  &lt;/label&gt;
+  &lt;label&gt;
+    Last name:
+    &lt;b id=&quot;lastNameText&quot;&gt;Jacobs&lt;/b&gt;
+    &lt;input
+      id=&quot;lastNameInput&quot;
+      value=&quot;Jacobs&quot;
+      style=&quot;display: none&quot;&gt;
+  &lt;/label&gt;
+  &lt;button type=&quot;submit&quot; id=&quot;editButton&quot;&gt;Edit Profile&lt;/button&gt;
+  &lt;p&gt;&lt;i id=&quot;helloText&quot;&gt;Hello, Jane Jacobs!&lt;/i&gt;&lt;/p&gt;
+&lt;/form&gt;
+
+&lt;style&gt;
+* { box-sizing: border-box; }
+body { font-family: sans-serif; margin: 20px; padding: 0; }
+label { display: block; margin-bottom: 20px; }
+&lt;/style&gt;
+</code></pre>
+</Sandpack>
+<p>The <code>updateDOM</code> function you wrote shows what React does under the hood when you set the state. (However, React also avoids touching the DOM for properties that have not changed since the last time they were set.)</p>
+</Solution>
+</Challenges>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/managing-state.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/choosing-the-state-structure.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/managing-state.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/choosing-the-state-structure.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

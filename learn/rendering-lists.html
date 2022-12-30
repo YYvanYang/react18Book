@@ -1,0 +1,1232 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Rendering Lists - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html" class="active"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-rendering-lists"><a class="header" href="#title-rendering-lists">title: Rendering Lists</a></h2>
+<Intro>
+<p>You will often want to display multiple similar components from a collection of data. You can use the <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array#">JavaScript array methods</a> to manipulate an array of data. On this page, you'll use <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"><code>filter()</code></a> and <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>map()</code></a> with React to filter and transform your array of data into an array of components.</p>
+</Intro>
+<YouWillLearn>
+<ul>
+<li>How to render components from an array using JavaScript's <code>map()</code></li>
+<li>How to render only specific components using JavaScript's <code>filter()</code></li>
+<li>When and why to use React keys</li>
+</ul>
+</YouWillLearn>
+<h2 id="rendering-data-from-arrays-rendering-data-from-arrays"><a class="header" href="#rendering-data-from-arrays-rendering-data-from-arrays">Rendering data from arrays {/<em>rendering-data-from-arrays</em>/}</a></h2>
+<p>Say that you have a list of content.</p>
+<pre><code class="language-js">&lt;ul&gt;
+  &lt;li&gt;Creola Katherine Johnson: mathematician&lt;/li&gt;
+  &lt;li&gt;Mario José Molina-Pasquel Henríquez: chemist&lt;/li&gt;
+  &lt;li&gt;Mohammad Abdus Salam: physicist&lt;/li&gt;
+  &lt;li&gt;Percy Lavon Julian: chemist&lt;/li&gt;
+  &lt;li&gt;Subrahmanyan Chandrasekhar: astrophysicist&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>The only difference among those list items is their contents, their data. You will often need to show several instances of the same component using different data when building interfaces: from lists of comments to galleries of profile images. In these situations, you can store that data in JavaScript objects and arrays and use methods like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>map()</code></a> and <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"><code>filter()</code></a> to render lists of components from them.</p>
+<p>Here’s a short example of how to generate a list of items from an array:</p>
+<ol>
+<li><strong>Move</strong> the data into an array:</li>
+</ol>
+<pre><code class="language-js">const people = [
+  'Creola Katherine Johnson: mathematician',
+  'Mario José Molina-Pasquel Henríquez: chemist',
+  'Mohammad Abdus Salam: physicist',
+  'Percy Lavon Julian: chemist',
+  'Subrahmanyan Chandrasekhar: astrophysicist'
+];
+</code></pre>
+<ol start="2">
+<li><strong>Map</strong> the <code>people</code> members into a new array of JSX nodes, <code>listItems</code>:</li>
+</ol>
+<pre><code class="language-js">const listItems = people.map(person =&gt; &lt;li&gt;{person}&lt;/li&gt;);
+</code></pre>
+<ol start="3">
+<li><strong>Return</strong> <code>listItems</code> from your component wrapped in a <code>&lt;ul&gt;</code>:</li>
+</ol>
+<pre><code class="language-js">return &lt;ul&gt;{listItems}&lt;/ul&gt;;
+</code></pre>
+<p>Here is the result:</p>
+<Sandpack>
+<pre><code class="language-js">const people = [
+  'Creola Katherine Johnson: mathematician',
+  'Mario José Molina-Pasquel Henríquez: chemist',
+  'Mohammad Abdus Salam: physicist',
+  'Percy Lavon Julian: chemist',
+  'Subrahmanyan Chandrasekhar: astrophysicist'
+];
+
+export default function List() {
+  const listItems = people.map(person =&gt;
+    &lt;li&gt;{person}&lt;/li&gt;
+  );
+  return &lt;ul&gt;{listItems}&lt;/ul&gt;;
+}
+</code></pre>
+<pre><code class="language-css">li { margin-bottom: 10px; }
+</code></pre>
+</Sandpack>
+<p>Notice the sandbox above displays a console error:</p>
+<ConsoleBlock level="error">
+<p>Warning: Each child in a list should have a unique &quot;key&quot; prop.</p>
+</ConsoleBlock>
+<p>You'll learn how to fix this error later on this page. Before we get to that, let's add some structure to your data.</p>
+<h2 id="filtering-arrays-of-items-filtering-arrays-of-items"><a class="header" href="#filtering-arrays-of-items-filtering-arrays-of-items">Filtering arrays of items {/<em>filtering-arrays-of-items</em>/}</a></h2>
+<p>This data can be structured even more.</p>
+<pre><code class="language-js">const people = [{
+  id: 0,
+  name: 'Creola Katherine Johnson',
+  profession: 'mathematician',
+}, {
+  id: 1,
+  name: 'Mario José Molina-Pasquel Henríquez',
+  profession: 'chemist',
+}, {
+  id: 2,
+  name: 'Mohammad Abdus Salam',
+  profession: 'physicist',
+}, {
+  name: 'Percy Lavon Julian',
+  profession: 'chemist',  
+}, {
+  name: 'Subrahmanyan Chandrasekhar',
+  profession: 'astrophysicist',
+}];
+</code></pre>
+<p>Let's say you want a way to only show people whose profession is <code>'chemist'</code>. You can use JavaScript's <code>filter()</code> method to return just those people. This method takes an array of items, passes them through a “test” (a function that returns <code>true</code> or <code>false</code>), and returns a new array of only those items that passed the test (returned <code>true</code>).</p>
+<p>You only want the items where <code>profession</code> is <code>'chemist'</code>. The &quot;test&quot; function for this looks like <code>(person) =&gt; person.profession === 'chemist'</code>. Here's how to put it together:</p>
+<ol>
+<li><strong>Create</strong> a new array of just “chemist” people, <code>chemists</code>, by calling <code>filter()</code> on the <code>people</code> filtering by <code>person.profession === 'chemist'</code>:</li>
+</ol>
+<pre><code class="language-js">const chemists = people.filter(person =&gt;
+  person.profession === 'chemist'
+);
+</code></pre>
+<ol start="2">
+<li>Now <strong>map</strong> over <code>chemists</code>:</li>
+</ol>
+<pre><code class="language-js {1 13}">const listItems = chemists.map(person =&gt;
+  &lt;li&gt;
+     &lt;img
+       src={getImageUrl(person)}
+       alt={person.name}
+     /&gt;
+     &lt;p&gt;
+       &lt;b&gt;{person.name}:&lt;/b&gt;
+       {' ' + person.profession + ' '}
+       known for {person.accomplishment}
+     &lt;/p&gt;
+  &lt;/li&gt;
+);
+</code></pre>
+<ol start="3">
+<li>Lastly, <strong>return</strong> the <code>listItems</code> from your component:</li>
+</ol>
+<pre><code class="language-js">return &lt;ul&gt;{listItems}&lt;/ul&gt;;
+</code></pre>
+<Sandpack>
+<pre><code class="language-js App.js">import { people } from './data.js';
+import { getImageUrl } from './utils.js';
+
+export default function List() {
+  const chemists = people.filter(person =&gt;
+    person.profession === 'chemist'
+  );
+  const listItems = chemists.map(person =&gt;
+    &lt;li&gt;
+      &lt;img
+        src={getImageUrl(person)}
+        alt={person.name}
+      /&gt;
+      &lt;p&gt;
+        &lt;b&gt;{person.name}:&lt;/b&gt;
+        {' ' + person.profession + ' '}
+        known for {person.accomplishment}
+      &lt;/p&gt;
+    &lt;/li&gt;
+  );
+  return &lt;ul&gt;{listItems}&lt;/ul&gt;;
+}
+</code></pre>
+<pre><code class="language-js data.js">export const people = [{
+  id: 0,
+  name: 'Creola Katherine Johnson',
+  profession: 'mathematician',
+  accomplishment: 'spaceflight calculations',
+  imageId: 'MK3eW3A'
+}, {
+  id: 1,
+  name: 'Mario José Molina-Pasquel Henríquez',
+  profession: 'chemist',
+  accomplishment: 'discovery of Arctic ozone hole',
+  imageId: 'mynHUSa'
+}, {
+  id: 2,
+  name: 'Mohammad Abdus Salam',
+  profession: 'physicist',
+  accomplishment: 'electromagnetism theory',
+  imageId: 'bE7W1ji'
+}, {
+  id: 3,
+  name: 'Percy Lavon Julian',
+  profession: 'chemist',
+  accomplishment: 'pioneering cortisone drugs, steroids and birth control pills',
+  imageId: 'IOjWm71'
+}, {
+  id: 4,
+  name: 'Subrahmanyan Chandrasekhar',
+  profession: 'astrophysicist',
+  accomplishment: 'white dwarf star mass calculations',
+  imageId: 'lrWQx8l'
+}];
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(person) {
+  return (
+    'https://i.imgur.com/' +
+    person.imageId +
+    's.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">ul { list-style-type: none; padding: 0px 10px; }
+li { 
+  margin-bottom: 10px; 
+  display: grid; 
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: center;
+}
+img { width: 100px; height: 100px; border-radius: 50%; }
+</code></pre>
+</Sandpack>
+<Pitfall>
+<p>Arrow functions implicitly return the expression right after <code>=&gt;</code>, so you didn't need a <code>return</code> statement:</p>
+<pre><code class="language-js">const listItems = chemists.map(person =&gt;
+  &lt;li&gt;...&lt;/li&gt; // Implicit return!
+);
+</code></pre>
+<p>However, <strong>you must write <code>return</code> explicitly if your <code>=&gt;</code> is followed by a <code>{</code> curly brace!</strong></p>
+<pre><code class="language-js">const listItems = chemists.map(person =&gt; { // Curly brace
+  return &lt;li&gt;...&lt;/li&gt;;
+});
+</code></pre>
+<p>Arrow functions containing <code>=&gt; {</code> are said to have a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#function_body">&quot;block body&quot;.</a> They let you write more than a single line of code, but you <em>have to</em> write a <code>return</code> statement yourself. If you forget it, nothing gets returned!</p>
+</Pitfall>
+<h2 id="keeping-list-items-in-order-with-key-keeping-list-items-in-order-with-key"><a class="header" href="#keeping-list-items-in-order-with-key-keeping-list-items-in-order-with-key">Keeping list items in order with <code>key</code> {/<em>keeping-list-items-in-order-with-key</em>/}</a></h2>
+<p>Notice that all the sandboxes above show an error in the console:</p>
+<ConsoleBlock level="error">
+<p>Warning: Each child in a list should have a unique &quot;key&quot; prop.</p>
+</ConsoleBlock>
+<p>You need to give each array item a <code>key</code> -- a string or a number that uniquely identifies it among other items in that array:</p>
+<pre><code class="language-js">&lt;li key={person.id}&gt;...&lt;/li&gt;
+</code></pre>
+<Note>
+<p>JSX elements directly inside a <code>map()</code> call always need keys!</p>
+</Note>
+<p>Keys tell React which array item each component corresponds to, so that it can match them up later. This becomes important if your array items can move (e.g. due to sorting), get inserted, or get deleted. A well-chosen <code>key</code> helps React infer what exactly has happened, and make the correct updates to the DOM tree.</p>
+<p>Rather than generating keys on the fly, you should include them in your data:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { people } from './data.js';
+import { getImageUrl } from './utils.js';
+
+export default function List() {
+  const listItems = people.map(person =&gt;
+    &lt;li key={person.id}&gt;
+      &lt;img
+        src={getImageUrl(person)}
+        alt={person.name}
+      /&gt;
+      &lt;p&gt;
+        &lt;b&gt;{person.name}&lt;/b&gt;
+          {' ' + person.profession + ' '}
+          known for {person.accomplishment}
+      &lt;/p&gt;
+    &lt;/li&gt;
+  );
+  return &lt;ul&gt;{listItems}&lt;/ul&gt;;
+}
+</code></pre>
+<pre><code class="language-js data.js active">export const people = [{
+  id: 0, // Used in JSX as a key
+  name: 'Creola Katherine Johnson',
+  profession: 'mathematician',
+  accomplishment: 'spaceflight calculations',
+  imageId: 'MK3eW3A'
+}, {
+  id: 1, // Used in JSX as a key
+  name: 'Mario José Molina-Pasquel Henríquez',
+  profession: 'chemist',
+  accomplishment: 'discovery of Arctic ozone hole',
+  imageId: 'mynHUSa'
+}, {
+  id: 2, // Used in JSX as a key
+  name: 'Mohammad Abdus Salam',
+  profession: 'physicist',
+  accomplishment: 'electromagnetism theory',
+  imageId: 'bE7W1ji'
+}, {
+  id: 3, // Used in JSX as a key
+  name: 'Percy Lavon Julian',
+  profession: 'chemist',
+  accomplishment: 'pioneering cortisone drugs, steroids and birth control pills',
+  imageId: 'IOjWm71'
+}, {
+  id: 4, // Used in JSX as a key
+  name: 'Subrahmanyan Chandrasekhar',
+  profession: 'astrophysicist',
+  accomplishment: 'white dwarf star mass calculations',
+  imageId: 'lrWQx8l'
+}];
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(person) {
+  return (
+    'https://i.imgur.com/' +
+    person.imageId +
+    's.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">ul { list-style-type: none; padding: 0px 10px; }
+li { 
+  margin-bottom: 10px; 
+  display: grid; 
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: center;
+}
+img { width: 100px; height: 100px; border-radius: 50%; }
+</code></pre>
+</Sandpack>
+<DeepDive>
+<h4 id="displaying-several-dom-nodes-for-each-list-item-displaying-several-dom-nodes-for-each-list-item"><a class="header" href="#displaying-several-dom-nodes-for-each-list-item-displaying-several-dom-nodes-for-each-list-item">Displaying several DOM nodes for each list item {/<em>displaying-several-dom-nodes-for-each-list-item</em>/}</a></h4>
+<p>What do you do when each item needs to render not one, but several DOM nodes?</p>
+<p>The short <a href="/reference/react/Fragment"><code>&lt;&gt;...&lt;/&gt;</code> Fragment</a> syntax won't let you pass a key, so you need to either group them into a single <code>&lt;div&gt;</code>, or use the slightly longer and <a href="/reference/react/Fragment#rendering-a-list-of-fragments">more explicit <code>&lt;Fragment&gt;</code> syntax:</a></p>
+<pre><code class="language-js">import { Fragment } from 'react';
+
+// ...
+
+const listItems = people.map(person =&gt;
+  &lt;Fragment key={person.id}&gt;
+    &lt;h1&gt;{person.name}&lt;/h1&gt;
+    &lt;p&gt;{person.bio}&lt;/p&gt;
+  &lt;/Fragment&gt;
+);
+</code></pre>
+<p>Fragments disappear from the DOM, so this will produce a flat list of <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, and so on.</p>
+</DeepDive>
+<h3 id="where-to-get-your-key-where-to-get-your-key"><a class="header" href="#where-to-get-your-key-where-to-get-your-key">Where to get your <code>key</code> {/<em>where-to-get-your-key</em>/}</a></h3>
+<p>Different sources of data provide different sources of keys:</p>
+<ul>
+<li><strong>Data from a database:</strong> If your data is coming from a database, you can use the database keys/IDs, which are unique by nature.</li>
+<li><strong>Locally generated data:</strong> If your data is generated and persisted locally (e.g. notes in a note-taking app), use an incrementing counter, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID"><code>crypto.randomUUID()</code></a> or a package like <a href="https://www.npmjs.com/package/uuid"><code>uuid</code></a> when creating items.</li>
+</ul>
+<h3 id="rules-of-keys-rules-of-keys"><a class="header" href="#rules-of-keys-rules-of-keys">Rules of keys {/<em>rules-of-keys</em>/}</a></h3>
+<ul>
+<li><strong>Keys must be unique among siblings.</strong> However, it’s okay to use the same keys for JSX nodes in <em>different</em> arrays.</li>
+<li><strong>Keys must not change</strong> or that defeats their purpose! Don't generate them while rendering.</li>
+</ul>
+<h3 id="why-does-react-need-keys-why-does-react-need-keys"><a class="header" href="#why-does-react-need-keys-why-does-react-need-keys">Why does React need keys? {/<em>why-does-react-need-keys</em>/}</a></h3>
+<p>Imagine that files on your desktop didn't have names. Instead, you'd refer to them by their order -- the first file, the second file, and so on. You could get used to it, but once you delete a file, it would get confusing. The second file would become the first file, the third file would be the second file, and so on.</p>
+<p>File names in a folder and JSX keys in an array serve a similar purpose. They let us uniquely identify an item between its siblings. A well-chosen key provides more information than the position within the array. Even if the <em>position</em> changes due to reordering, the <code>key</code> lets React identify the item throughout its lifetime.</p>
+<Pitfall>
+<p>You might be tempted to use an item's index in the array as its key. In fact, that's what React will use if you don't specify a <code>key</code> at all. But the order in which you render items will change over time if an item is inserted, deleted, or if the array gets reordered. Index as a key often leads to subtle and confusing bugs.</p>
+<p>Similarly, do not generate keys on the fly, e.g. with <code>key={Math.random()}</code>. This will cause keys to never match up between renders, leading to all your components and DOM being recreated every time. Not only is this slow, but it will also lose any user input inside the list items. Instead, use a stable ID based on the data.</p>
+<p>Note that your components won't receive <code>key</code> as a prop. It's only used as a hint by React itself. If your component needs an ID, you have to pass it as a separate prop: <code>&lt;Profile key={id} userId={id} /&gt;</code>.</p>
+</Pitfall>
+<Recap>
+<p>On this page you learned:</p>
+<ul>
+<li>How to move data out of components and into data structures like arrays and objects.</li>
+<li>How to generate sets of similar components with JavaScript's <code>map()</code>.</li>
+<li>How to create arrays of filtered items with JavaScript's <code>filter()</code>.</li>
+<li>Why and how to set <code>key</code> on each component in a collection so React can keep track of each of them even if their position or data changes.</li>
+</ul>
+</Recap>
+<Challenges>
+<h4 id="splitting-a-list-in-two-splitting-a-list-in-two"><a class="header" href="#splitting-a-list-in-two-splitting-a-list-in-two">Splitting a list in two {/<em>splitting-a-list-in-two</em>/}</a></h4>
+<p>This example shows a list of all people.</p>
+<p>Change it to show two separate lists one after another: <strong>Chemists</strong> and <strong>Everyone Else.</strong> Like previously, you can determine whether a person is a chemist by checking if <code>person.profession === 'chemist'</code>.</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { people } from './data.js';
+import { getImageUrl } from './utils.js';
+
+export default function List() {
+  const listItems = people.map(person =&gt;
+    &lt;li key={person.id}&gt;
+      &lt;img
+        src={getImageUrl(person)}
+        alt={person.name}
+      /&gt;
+      &lt;p&gt;
+        &lt;b&gt;{person.name}:&lt;/b&gt;
+        {' ' + person.profession + ' '}
+        known for {person.accomplishment}
+      &lt;/p&gt;
+    &lt;/li&gt;
+  );
+  return (
+    &lt;article&gt;
+      &lt;h1&gt;Scientists&lt;/h1&gt;
+      &lt;ul&gt;{listItems}&lt;/ul&gt;
+    &lt;/article&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js data.js">export const people = [{
+  id: 0,
+  name: 'Creola Katherine Johnson',
+  profession: 'mathematician',
+  accomplishment: 'spaceflight calculations',
+  imageId: 'MK3eW3A'
+}, {
+  id: 1,
+  name: 'Mario José Molina-Pasquel Henríquez',
+  profession: 'chemist',
+  accomplishment: 'discovery of Arctic ozone hole',
+  imageId: 'mynHUSa'
+}, {
+  id: 2,
+  name: 'Mohammad Abdus Salam',
+  profession: 'physicist',
+  accomplishment: 'electromagnetism theory',
+  imageId: 'bE7W1ji'
+}, {
+  id: 3,
+  name: 'Percy Lavon Julian',
+  profession: 'chemist',
+  accomplishment: 'pioneering cortisone drugs, steroids and birth control pills',
+  imageId: 'IOjWm71'
+}, {
+  id: 4,
+  name: 'Subrahmanyan Chandrasekhar',
+  profession: 'astrophysicist',
+  accomplishment: 'white dwarf star mass calculations',
+  imageId: 'lrWQx8l'
+}];
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(person) {
+  return (
+    'https://i.imgur.com/' +
+    person.imageId +
+    's.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">ul { list-style-type: none; padding: 0px 10px; }
+li {
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: center;
+}
+img { width: 100px; height: 100px; border-radius: 50%; }
+</code></pre>
+</Sandpack>
+<Solution>
+<p>You could use <code>filter()</code> twice, creating two separate arrays, and then <code>map</code> over both of them:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { people } from './data.js';
+import { getImageUrl } from './utils.js';
+
+export default function List() {
+  const chemists = people.filter(person =&gt;
+    person.profession === 'chemist'
+  );
+  const everyoneElse = people.filter(person =&gt;
+    person.profession !== 'chemist'
+  );
+  return (
+    &lt;article&gt;
+      &lt;h1&gt;Scientists&lt;/h1&gt;
+      &lt;h2&gt;Chemists&lt;/h2&gt;
+      &lt;ul&gt;
+        {chemists.map(person =&gt;
+          &lt;li key={person.id}&gt;
+            &lt;img
+              src={getImageUrl(person)}
+              alt={person.name}
+            /&gt;
+            &lt;p&gt;
+              &lt;b&gt;{person.name}:&lt;/b&gt;
+              {' ' + person.profession + ' '}
+              known for {person.accomplishment}
+            &lt;/p&gt;
+          &lt;/li&gt;
+        )}
+      &lt;/ul&gt;
+      &lt;h2&gt;Everyone Else&lt;/h2&gt;
+      &lt;ul&gt;
+        {everyoneElse.map(person =&gt;
+          &lt;li key={person.id}&gt;
+            &lt;img
+              src={getImageUrl(person)}
+              alt={person.name}
+            /&gt;
+            &lt;p&gt;
+              &lt;b&gt;{person.name}:&lt;/b&gt;
+              {' ' + person.profession + ' '}
+              known for {person.accomplishment}
+            &lt;/p&gt;
+          &lt;/li&gt;
+        )}
+      &lt;/ul&gt;
+    &lt;/article&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js data.js">export const people = [{
+  id: 0,
+  name: 'Creola Katherine Johnson',
+  profession: 'mathematician',
+  accomplishment: 'spaceflight calculations',
+  imageId: 'MK3eW3A'
+}, {
+  id: 1,
+  name: 'Mario José Molina-Pasquel Henríquez',
+  profession: 'chemist',
+  accomplishment: 'discovery of Arctic ozone hole',
+  imageId: 'mynHUSa'
+}, {
+  id: 2,
+  name: 'Mohammad Abdus Salam',
+  profession: 'physicist',
+  accomplishment: 'electromagnetism theory',
+  imageId: 'bE7W1ji'
+}, {
+  id: 3,
+  name: 'Percy Lavon Julian',
+  profession: 'chemist',
+  accomplishment: 'pioneering cortisone drugs, steroids and birth control pills',
+  imageId: 'IOjWm71'
+}, {
+  id: 4,
+  name: 'Subrahmanyan Chandrasekhar',
+  profession: 'astrophysicist',
+  accomplishment: 'white dwarf star mass calculations',
+  imageId: 'lrWQx8l'
+}];
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(person) {
+  return (
+    'https://i.imgur.com/' +
+    person.imageId +
+    's.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">ul { list-style-type: none; padding: 0px 10px; }
+li {
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: center;
+}
+img { width: 100px; height: 100px; border-radius: 50%; }
+</code></pre>
+</Sandpack>
+<p>In this solution, the <code>map</code> calls are placed directly inline into the parent <code>&lt;ul&gt;</code> elements, but you could introduce variables for them if you find that more readable.</p>
+<p>There is still a bit duplication between the rendered lists. You can go further and extract the repetitive parts into a <code>&lt;ListSection&gt;</code> component:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { people } from './data.js';
+import { getImageUrl } from './utils.js';
+
+function ListSection({ title, people }) {
+  return (
+    &lt;&gt;
+      &lt;h2&gt;{title}&lt;/h2&gt;
+      &lt;ul&gt;
+        {people.map(person =&gt;
+          &lt;li key={person.id}&gt;
+            &lt;img
+              src={getImageUrl(person)}
+              alt={person.name}
+            /&gt;
+            &lt;p&gt;
+              &lt;b&gt;{person.name}:&lt;/b&gt;
+              {' ' + person.profession + ' '}
+              known for {person.accomplishment}
+            &lt;/p&gt;
+          &lt;/li&gt;
+        )}
+      &lt;/ul&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function List() {
+  const chemists = people.filter(person =&gt;
+    person.profession === 'chemist'
+  );
+  const everyoneElse = people.filter(person =&gt;
+    person.profession !== 'chemist'
+  );
+  return (
+    &lt;article&gt;
+      &lt;h1&gt;Scientists&lt;/h1&gt;
+      &lt;ListSection
+        title=&quot;Chemists&quot;
+        people={chemists}
+      /&gt;
+      &lt;ListSection
+        title=&quot;Everyone Else&quot;
+        people={everyoneElse}
+      /&gt;
+    &lt;/article&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js data.js">export const people = [{
+  id: 0,
+  name: 'Creola Katherine Johnson',
+  profession: 'mathematician',
+  accomplishment: 'spaceflight calculations',
+  imageId: 'MK3eW3A'
+}, {
+  id: 1,
+  name: 'Mario José Molina-Pasquel Henríquez',
+  profession: 'chemist',
+  accomplishment: 'discovery of Arctic ozone hole',
+  imageId: 'mynHUSa'
+}, {
+  id: 2,
+  name: 'Mohammad Abdus Salam',
+  profession: 'physicist',
+  accomplishment: 'electromagnetism theory',
+  imageId: 'bE7W1ji'
+}, {
+  id: 3,
+  name: 'Percy Lavon Julian',
+  profession: 'chemist',
+  accomplishment: 'pioneering cortisone drugs, steroids and birth control pills',
+  imageId: 'IOjWm71'
+}, {
+  id: 4,
+  name: 'Subrahmanyan Chandrasekhar',
+  profession: 'astrophysicist',
+  accomplishment: 'white dwarf star mass calculations',
+  imageId: 'lrWQx8l'
+}];
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(person) {
+  return (
+    'https://i.imgur.com/' +
+    person.imageId +
+    's.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">ul { list-style-type: none; padding: 0px 10px; }
+li {
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: center;
+}
+img { width: 100px; height: 100px; border-radius: 50%; }
+</code></pre>
+</Sandpack>
+<p>A very attentive reader might notice that with two <code>filter</code> calls, we check each person's profession twice. Checking a property is very fast, so in this example it's fine. If your logic was more expensive than that, you could replace the <code>filter</code> calls with a loop that manually constructs the arrays and checks each person once.</p>
+<p>In fact, if <code>people</code> never change, you could move this code out of your component. From React's perspective, all that matters is that you give it an array of JSX nodes in the end. It doesn't care how you produce that array:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { people } from './data.js';
+import { getImageUrl } from './utils.js';
+
+let chemists = [];
+let everyoneElse = [];
+people.forEach(person =&gt; {
+  if (person.profession === 'chemist') {
+    chemists.push(person);
+  } else {
+    everyoneElse.push(person);
+  }
+});
+
+function ListSection({ title, people }) {
+  return (
+    &lt;&gt;
+      &lt;h2&gt;{title}&lt;/h2&gt;
+      &lt;ul&gt;
+        {people.map(person =&gt;
+          &lt;li key={person.id}&gt;
+            &lt;img
+              src={getImageUrl(person)}
+              alt={person.name}
+            /&gt;
+            &lt;p&gt;
+              &lt;b&gt;{person.name}:&lt;/b&gt;
+              {' ' + person.profession + ' '}
+              known for {person.accomplishment}
+            &lt;/p&gt;
+          &lt;/li&gt;
+        )}
+      &lt;/ul&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function List() {
+  return (
+    &lt;article&gt;
+      &lt;h1&gt;Scientists&lt;/h1&gt;
+      &lt;ListSection
+        title=&quot;Chemists&quot;
+        people={chemists}
+      /&gt;
+      &lt;ListSection
+        title=&quot;Everyone Else&quot;
+        people={everyoneElse}
+      /&gt;
+    &lt;/article&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js data.js">export const people = [{
+  id: 0,
+  name: 'Creola Katherine Johnson',
+  profession: 'mathematician',
+  accomplishment: 'spaceflight calculations',
+  imageId: 'MK3eW3A'
+}, {
+  id: 1,
+  name: 'Mario José Molina-Pasquel Henríquez',
+  profession: 'chemist',
+  accomplishment: 'discovery of Arctic ozone hole',
+  imageId: 'mynHUSa'
+}, {
+  id: 2,
+  name: 'Mohammad Abdus Salam',
+  profession: 'physicist',
+  accomplishment: 'electromagnetism theory',
+  imageId: 'bE7W1ji'
+}, {
+  id: 3,
+  name: 'Percy Lavon Julian',
+  profession: 'chemist',
+  accomplishment: 'pioneering cortisone drugs, steroids and birth control pills',
+  imageId: 'IOjWm71'
+}, {
+  id: 4,
+  name: 'Subrahmanyan Chandrasekhar',
+  profession: 'astrophysicist',
+  accomplishment: 'white dwarf star mass calculations',
+  imageId: 'lrWQx8l'
+}];
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(person) {
+  return (
+    'https://i.imgur.com/' +
+    person.imageId +
+    's.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">ul { list-style-type: none; padding: 0px 10px; }
+li {
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: center;
+}
+img { width: 100px; height: 100px; border-radius: 50%; }
+</code></pre>
+</Sandpack>
+</Solution>
+<h4 id="nested-lists-in-one-component-nested-lists-in-one-component"><a class="header" href="#nested-lists-in-one-component-nested-lists-in-one-component">Nested lists in one component {/<em>nested-lists-in-one-component</em>/}</a></h4>
+<p>Make a list of recipes from this array! For each recipe in the array, display its name as an <code>&lt;h2&gt;</code> and list its ingredients in a <code>&lt;ul&gt;</code>.</p>
+<Hint>
+<p>This will require nesting two different <code>map</code> calls.</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-js App.js">import { recipes } from './data.js';
+
+export default function RecipeList() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Recipes&lt;/h1&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js data.js">export const recipes = [{
+  id: 'greek-salad',
+  name: 'Greek Salad',
+  ingredients: ['tomatoes', 'cucumber', 'onion', 'olives', 'feta']
+}, {
+  id: 'hawaiian-pizza',
+  name: 'Hawaiian Pizza',
+  ingredients: ['pizza crust', 'pizza sauce', 'mozzarella', 'ham', 'pineapple']
+}, {
+  id: 'hummus',
+  name: 'Hummus',
+  ingredients: ['chickpeas', 'olive oil', 'garlic cloves', 'lemon', 'tahini']
+}];
+</code></pre>
+</Sandpack>
+<Solution>
+<p>Here is one way you could go about it:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { recipes } from './data.js';
+
+export default function RecipeList() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Recipes&lt;/h1&gt;
+      {recipes.map(recipe =&gt;
+        &lt;div key={recipe.id}&gt;
+          &lt;h2&gt;{recipe.name}&lt;/h2&gt;
+          &lt;ul&gt;
+            {recipe.ingredients.map(ingredient =&gt;
+              &lt;li key={ingredient}&gt;
+                {ingredient}
+              &lt;/li&gt;
+            )}
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js data.js">export const recipes = [{
+  id: 'greek-salad',
+  name: 'Greek Salad',
+  ingredients: ['tomatoes', 'cucumber', 'onion', 'olives', 'feta']
+}, {
+  id: 'hawaiian-pizza',
+  name: 'Hawaiian Pizza',
+  ingredients: ['pizza crust', 'pizza sauce', 'mozzarella', 'ham', 'pineapple']
+}, {
+  id: 'hummus',
+  name: 'Hummus',
+  ingredients: ['chickpeas', 'olive oil', 'garlic cloves', 'lemon', 'tahini']
+}];
+</code></pre>
+</Sandpack>
+<p>Each of the <code>recipes</code> already includes an <code>id</code> field, so that's what the outer loop uses for its <code>key</code>. There is no ID you could use to loop over ingredients. However, it's reasonable to assume that the same ingredient won't be listed twice within the same recipe, so its name can serve as a <code>key</code>. Alternatively, you could change the data structure to add IDs, or use index as a <code>key</code> (with the caveat that you can't safely reorder ingredients).</p>
+</Solution>
+<h4 id="extracting-a-list-item-component-extracting-a-list-item-component"><a class="header" href="#extracting-a-list-item-component-extracting-a-list-item-component">Extracting a list item component {/<em>extracting-a-list-item-component</em>/}</a></h4>
+<p>This <code>RecipeList</code> component contains two nested <code>map</code> calls. To simplify it, extract a <code>Recipe</code> component from it which will accept <code>id</code>, <code>name</code>, and <code>ingredients</code> props. Where do you place the outer <code>key</code> and why?</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { recipes } from './data.js';
+
+export default function RecipeList() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Recipes&lt;/h1&gt;
+      {recipes.map(recipe =&gt;
+        &lt;div key={recipe.id}&gt;
+          &lt;h2&gt;{recipe.name}&lt;/h2&gt;
+          &lt;ul&gt;
+            {recipe.ingredients.map(ingredient =&gt;
+              &lt;li key={ingredient}&gt;
+                {ingredient}
+              &lt;/li&gt;
+            )}
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js data.js">export const recipes = [{
+  id: 'greek-salad',
+  name: 'Greek Salad',
+  ingredients: ['tomatoes', 'cucumber', 'onion', 'olives', 'feta']
+}, {
+  id: 'hawaiian-pizza',
+  name: 'Hawaiian Pizza',
+  ingredients: ['pizza crust', 'pizza sauce', 'mozzarella', 'ham', 'pineapple']
+}, {
+  id: 'hummus',
+  name: 'Hummus',
+  ingredients: ['chickpeas', 'olive oil', 'garlic cloves', 'lemon', 'tahini']
+}];
+</code></pre>
+</Sandpack>
+<Solution>
+<p>You can copy-paste the JSX from the outer <code>map</code> into a new <code>Recipe</code> component and return that JSX. Then you can change <code>recipe.name</code> to <code>name</code>, <code>recipe.id</code> to <code>id</code>, and so on, and pass them as props to the <code>Recipe</code>:</p>
+<Sandpack>
+<pre><code class="language-js">import { recipes } from './data.js';
+
+function Recipe({ id, name, ingredients }) {
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;{name}&lt;/h2&gt;
+      &lt;ul&gt;
+        {ingredients.map(ingredient =&gt;
+          &lt;li key={ingredient}&gt;
+            {ingredient}
+          &lt;/li&gt;
+        )}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default function RecipeList() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Recipes&lt;/h1&gt;
+      {recipes.map(recipe =&gt;
+        &lt;Recipe {...recipe} key={recipe.id} /&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js data.js">export const recipes = [{
+  id: 'greek-salad',
+  name: 'Greek Salad',
+  ingredients: ['tomatoes', 'cucumber', 'onion', 'olives', 'feta']
+}, {
+  id: 'hawaiian-pizza',
+  name: 'Hawaiian Pizza',
+  ingredients: ['pizza crust', 'pizza sauce', 'mozzarella', 'ham', 'pineapple']
+}, {
+  id: 'hummus',
+  name: 'Hummus',
+  ingredients: ['chickpeas', 'olive oil', 'garlic cloves', 'lemon', 'tahini']
+}];
+</code></pre>
+</Sandpack>
+<p>Here, <code>&lt;Recipe {...recipe} key={recipe.id} /&gt;</code> is a syntax shortcut saying &quot;pass all properties of the <code>recipe</code> object as props to the <code>Recipe</code> component&quot;. You could also write each prop explicitly: <code>&lt;Recipe id={recipe.id} name={recipe.name} ingredients={recipe.ingredients} key={recipe.id} /&gt;</code>.</p>
+<p><strong>Note that the <code>key</code> is specified on the <code>&lt;Recipe&gt;</code> itself rather than on the root <code>&lt;div&gt;</code> returned from <code>Recipe</code>.</strong> This is because this <code>key</code> is needed directly within the context of the surrounding array. Previously, you had an array of <code>&lt;div&gt;</code>s so each of them needed a <code>key</code>, but now you have an array of <code>&lt;Recipe&gt;</code>s. In other words, when you extract a component, don't forget to leave the <code>key</code> outside the JSX you copy and paste.</p>
+</Solution>
+<h4 id="list-with-a-separator-list-with-a-separator"><a class="header" href="#list-with-a-separator-list-with-a-separator">List with a separator {/<em>list-with-a-separator</em>/}</a></h4>
+<p>This example renders a famous haiku by Katsushika Hokusai, with each line wrapped in a <code>&lt;p&gt;</code> tag. Your job is to insert an <code>&lt;hr /&gt;</code> separator between each paragraph. Your resulting structure should look like this:</p>
+<pre><code class="language-js">&lt;article&gt;
+  &lt;p&gt;I write, erase, rewrite&lt;/p&gt;
+  &lt;hr /&gt;
+  &lt;p&gt;Erase again, and then&lt;/p&gt;
+  &lt;hr /&gt;
+  &lt;p&gt;A poppy blooms.&lt;/p&gt;
+&lt;/article&gt;
+</code></pre>
+<p>A haiku only contains three lines, but your solution should work with any number of lines. Note that <code>&lt;hr /&gt;</code> elements only appear <em>between</em> the <code>&lt;p&gt;</code> elements, not in the beginning or the end!</p>
+<Sandpack>
+<pre><code class="language-js">const poem = {
+  lines: [
+    'I write, erase, rewrite',
+    'Erase again, and then',
+    'A poppy blooms.'
+  ]
+};
+
+export default function Poem() {
+  return (
+    &lt;article&gt;
+      {poem.lines.map((line, index) =&gt;
+        &lt;p key={index}&gt;
+          {line}
+        &lt;/p&gt;
+      )}
+    &lt;/article&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body {
+  text-align: center;
+}
+p {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-style: italic;
+}
+hr {
+  margin: 0 120px 0 120px;
+  border: 1px dashed #45c3d8;
+}
+</code></pre>
+</Sandpack>
+<p>(This is a rare case where index as a key is acceptable because a poem's lines will never reorder.)</p>
+<Hint>
+<p>You'll either need to convert <code>map</code> to a manual loop, or use a fragment.</p>
+</Hint>
+<Solution>
+<p>You can write a manual loop, inserting <code>&lt;hr /&gt;</code> and <code>&lt;p&gt;...&lt;/p&gt;</code> into the output array as you go:</p>
+<Sandpack>
+<pre><code class="language-js">const poem = {
+  lines: [
+    'I write, erase, rewrite',
+    'Erase again, and then',
+    'A poppy blooms.'
+  ]
+};
+
+export default function Poem() {
+  let output = [];
+
+  // Fill the output array
+  poem.lines.forEach((line, i) =&gt; {
+    output.push(
+      &lt;hr key={i + '-separator'} /&gt;
+    );
+    output.push(
+      &lt;p key={i + '-text'}&gt;
+        {line}
+      &lt;/p&gt;
+    );
+  });
+  // Remove the first &lt;hr /&gt;
+  output.shift();
+
+  return (
+    &lt;article&gt;
+      {output}
+    &lt;/article&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body {
+  text-align: center;
+}
+p {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-style: italic;
+}
+hr {
+  margin: 0 120px 0 120px;
+  border: 1px dashed #45c3d8;
+}
+</code></pre>
+</Sandpack>
+<p>Using the original line index as a <code>key</code> doesn't work anymore because each separator and paragraph are now in the same array. However, you can give each of them a distinct key using a suffix, e.g. <code>key={i + '-text'}</code>.</p>
+<p>Alternatively, you could render a collection of fragments which contain <code>&lt;hr /&gt;</code> and <code>&lt;p&gt;...&lt;/p&gt;</code>. However, the <code>&lt;&gt;...&lt;/&gt;</code> shorthand syntax doesn't support passing keys, so you'd have to write <code>&lt;Fragment&gt;</code> explicitly:</p>
+<Sandpack>
+<pre><code class="language-js">import React, { Fragment } from 'react';
+
+const poem = {
+  lines: [
+    'I write, erase, rewrite',
+    'Erase again, and then',
+    'A poppy blooms.'
+  ]
+};
+
+export default function Poem() {
+  return (
+    &lt;article&gt;
+      {poem.lines.map((line, i) =&gt;
+        &lt;Fragment key={i}&gt;
+          {i &gt; 0 &amp;&amp; &lt;hr /&gt;}
+          &lt;p&gt;{line}&lt;/p&gt;
+        &lt;/Fragment&gt;
+      )}
+    &lt;/article&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body {
+  text-align: center;
+}
+p {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-style: italic;
+}
+hr {
+  margin: 0 120px 0 120px;
+  border: 1px dashed #45c3d8;
+}
+</code></pre>
+</Sandpack>
+<p>Remember, fragments (often written as <code>&lt;&gt; &lt;/&gt;</code>) let you group JSX nodes without adding extra <code>&lt;div&gt;</code>s!</p>
+</Solution>
+</Challenges>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/conditional-rendering.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/keeping-components-pure.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/conditional-rendering.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/keeping-components-pure.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

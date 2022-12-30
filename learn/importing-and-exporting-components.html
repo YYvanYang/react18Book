@@ -1,0 +1,517 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Importing and Exporting Components - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html" class="active"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-importing-and-exporting-components"><a class="header" href="#title-importing-and-exporting-components">title: Importing and Exporting Components</a></h2>
+<Intro>
+<p>The magic of components lies in their reusability: you can create components that are composed of other components. But as you nest more and more components, it often makes sense to start splitting them into different files. This lets you keep your files easy to scan and reuse components in more places.</p>
+</Intro>
+<YouWillLearn>
+<ul>
+<li>What a root component file is</li>
+<li>How to import and export a component</li>
+<li>When to use default and named imports and exports</li>
+<li>How to import and export multiple components from one file</li>
+<li>How to split components into multiple files</li>
+</ul>
+</YouWillLearn>
+<h2 id="the-root-component-file-the-root-component-file"><a class="header" href="#the-root-component-file-the-root-component-file">The root component file {/<em>the-root-component-file</em>/}</a></h2>
+<p>In <a href="/learn/your-first-component">Your First Component</a>, you made a <code>Profile</code> component and a <code>Gallery</code> component that renders it:</p>
+<Sandpack>
+<pre><code class="language-js">function Profile() {
+  return (
+    &lt;img
+      src=&quot;https://i.imgur.com/MK3eW3As.jpg&quot;
+      alt=&quot;Katherine Johnson&quot;
+    /&gt;
+  );
+}
+
+export default function Gallery() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Amazing scientists&lt;/h1&gt;
+      &lt;Profile /&gt;
+      &lt;Profile /&gt;
+      &lt;Profile /&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">img { margin: 0 10px 10px 0; height: 90px; }
+</code></pre>
+</Sandpack>
+<p>These currently live in a <strong>root component file,</strong> named <code>App.js</code> in this example. In <a href="https://create-react-app.dev/">Create React App</a>, your app lives in <code>src/App.js</code>. Depending on your setup, your root component could be in another file, though. If you use a framework with file-based routing, such as Next.js, your root component will be different for every page.</p>
+<h2 id="exporting-and-importing-a-component-exporting-and-importing-a-component"><a class="header" href="#exporting-and-importing-a-component-exporting-and-importing-a-component">Exporting and importing a component {/<em>exporting-and-importing-a-component</em>/}</a></h2>
+<p>What if you want to change the landing screen in the future and put a list of science books there? Or place all the profiles somewhere else? It makes sense to move <code>Gallery</code> and <code>Profile</code> out of the root component file. This will make them more modular and reusable in other files. You can move a component in three steps:</p>
+<ol>
+<li><strong>Make</strong> a new JS file to put the components in.</li>
+<li><strong>Export</strong> your function component from that file (using either <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/export#using_the_default_export">default</a> or <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/export#using_named_exports">named</a> exports).</li>
+<li><strong>Import</strong> it in the file where you’ll use the component (using the corresponding technique for importing <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/import#importing_defaults">default</a> or <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/import#import_a_single_export_from_a_module">named</a> exports).</li>
+</ol>
+<p>Here both <code>Profile</code> and <code>Gallery</code> have been moved out of <code>App.js</code> into a new file called <code>Gallery.js</code>. Now you can change <code>App.js</code> to import <code>Gallery</code> from <code>Gallery.js</code>:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import Gallery from './Gallery.js';
+
+export default function App() {
+  return (
+    &lt;Gallery /&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Gallery.js">function Profile() {
+  return (
+    &lt;img
+      src=&quot;https://i.imgur.com/QIrZWGIs.jpg&quot;
+      alt=&quot;Alan L. Hart&quot;
+    /&gt;
+  );
+}
+
+export default function Gallery() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Amazing scientists&lt;/h1&gt;
+      &lt;Profile /&gt;
+      &lt;Profile /&gt;
+      &lt;Profile /&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">img { margin: 0 10px 10px 0; height: 90px; }
+</code></pre>
+</Sandpack>
+<p>Notice how this example is broken down into two component files now:</p>
+<ol>
+<li><code>Gallery.js</code>:
+<ul>
+<li>Defines the <code>Profile</code> component which is only used within the same file and is not exported.</li>
+<li>Exports the <code>Gallery</code> component as a <strong>default export.</strong></li>
+</ul>
+</li>
+<li><code>App.js</code>:
+<ul>
+<li>Imports <code>Gallery</code> as a <strong>default import</strong> from <code>Gallery.js</code>.</li>
+<li>Exports the root <code>App</code> component as a <strong>default export.</strong></li>
+</ul>
+</li>
+</ol>
+<Note>
+<p>You may encounter files that leave off the <code>.js</code> file extension like so:</p>
+<pre><code class="language-js">import Gallery from './Gallery';
+</code></pre>
+<p>Either <code>'./Gallery.js'</code> or <code>'./Gallery'</code> will work with React, though the former is closer to how <a href="https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules">native ES Modules</a> work.</p>
+</Note>
+<DeepDive>
+<h4 id="default-vs-named-exports-default-vs-named-exports"><a class="header" href="#default-vs-named-exports-default-vs-named-exports">Default vs named exports {/<em>default-vs-named-exports</em>/}</a></h4>
+<p>There are two primary ways to export values with JavaScript: default exports and named exports. So far, our examples have only used default exports. But you can use one or both of them in the same file. <strong>A file can have no more than one <em>default</em> export, but it can have as many <em>named</em> exports as you like.</strong></p>
+<p><img src="/images/docs/illustrations/i_import-export.svg" alt="Default and named exports" /></p>
+<p>How you export your component dictates how you must import it. You will get an error if you try to import a default export the same way you would a named export! This chart can help you keep track:</p>
+<div class="table-wrapper"><table><thead><tr><th>Syntax</th><th>Export statement</th><th>Import statement</th></tr></thead><tbody>
+<tr><td>Default</td><td><code>export default function Button() {}</code></td><td><code>import Button from './button.js';</code></td></tr>
+<tr><td>Named</td><td><code>export function Button() {}</code></td><td><code>import { Button } from './button.js';</code></td></tr>
+</tbody></table>
+</div>
+<p>When you write a <em>default</em> import, you can put any name you want after <code>import</code>. For example, you could write <code>import Banana from './button.js'</code> instead and it would still provide you with the same default export. In contrast, with named imports, the name has to match on both sides. That's why they are called <em>named</em> imports!</p>
+<p><strong>People often use default exports if the file exports only one component, and use named exports if it exports multiple components and values.</strong> Regardless of which coding style you prefer, always give meaningful names to your component functions and the files that contain them. Components without names, like <code>export default () =&gt; {}</code>, are discouraged because they make debugging harder.</p>
+</DeepDive>
+<h2 id="exporting-and-importing-multiple-components-from-the-same-file-exporting-and-importing-multiple-components-from-the-same-file"><a class="header" href="#exporting-and-importing-multiple-components-from-the-same-file-exporting-and-importing-multiple-components-from-the-same-file">Exporting and importing multiple components from the same file {/<em>exporting-and-importing-multiple-components-from-the-same-file</em>/}</a></h2>
+<p>What if you want to show just one <code>Profile</code> instead of a gallery? You can export the <code>Profile</code> component, too. But <code>Gallery.js</code> already has a <em>default</em> export, and you can't have <em>two</em> default exports. You could create a new file with a default export, or you could add a <em>named</em> export for <code>Profile</code>. <strong>A file can only have one default export, but it can have numerous named exports!</strong></p>
+<blockquote>
+<p>To reduce the potential confusion between default and named exports, some teams choose to only stick to one style (default or named), or avoid mixing them in a single file. It's a matter of preference. Do what works best for you!</p>
+</blockquote>
+<p>First, <strong>export</strong> <code>Profile</code> from <code>Gallery.js</code> using a named export (no <code>default</code> keyword):</p>
+<pre><code class="language-js">export function Profile() {
+  // ...
+}
+</code></pre>
+<p>Then, <strong>import</strong> <code>Profile</code> from <code>Gallery.js</code> to <code>App.js</code> using a named import (with the curly braces):</p>
+<pre><code class="language-js">import { Profile } from './Gallery.js';
+</code></pre>
+<p>Finally, <strong>render</strong> <code>&lt;Profile /&gt;</code> from the <code>App</code> component:</p>
+<pre><code class="language-js">export default function App() {
+  return &lt;Profile /&gt;;
+}
+</code></pre>
+<p>Now <code>Gallery.js</code> contains two exports: a default <code>Gallery</code> export, and a named <code>Profile</code> export. <code>App.js</code> imports both of them. Try editing <code>&lt;Profile /&gt;</code> to <code>&lt;Gallery /&gt;</code> and back in this example:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import Gallery from './Gallery.js';
+import { Profile } from './Gallery.js';
+
+export default function App() {
+  return (
+    &lt;Profile /&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Gallery.js">export function Profile() {
+  return (
+    &lt;img
+      src=&quot;https://i.imgur.com/QIrZWGIs.jpg&quot;
+      alt=&quot;Alan L. Hart&quot;
+    /&gt;
+  );
+}
+
+export default function Gallery() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Amazing scientists&lt;/h1&gt;
+      &lt;Profile /&gt;
+      &lt;Profile /&gt;
+      &lt;Profile /&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">img { margin: 0 10px 10px 0; height: 90px; }
+</code></pre>
+</Sandpack>
+<p>Now you're using a mix of default and named exports:</p>
+<ul>
+<li><code>Gallery.js</code>:
+<ul>
+<li>Exports the <code>Profile</code> component as a <strong>named export called <code>Profile</code>.</strong></li>
+<li>Exports the <code>Gallery</code> component as a <strong>default export.</strong></li>
+</ul>
+</li>
+<li><code>App.js</code>:
+<ul>
+<li>Imports <code>Profile</code> as a <strong>named import called <code>Profile</code></strong> from <code>Gallery.js</code>.</li>
+<li>Imports <code>Gallery</code> as a <strong>default import</strong> from <code>Gallery.js</code>.</li>
+<li>Exports the root <code>App</code> component as a <strong>default export.</strong></li>
+</ul>
+</li>
+</ul>
+<Recap>
+<p>On this page you learned:</p>
+<ul>
+<li>What a root component file is</li>
+<li>How to import and export a component</li>
+<li>When and how to use default and named imports and exports</li>
+<li>How to export multiple components from the same file</li>
+</ul>
+</Recap>
+<Challenges>
+<h4 id="split-the-components-further-split-the-components-further"><a class="header" href="#split-the-components-further-split-the-components-further">Split the components further {/<em>split-the-components-further</em>/}</a></h4>
+<p>Currently, <code>Gallery.js</code> exports both <code>Profile</code> and <code>Gallery</code>, which is a bit confusing.</p>
+<p>Move the <code>Profile</code> component to its own <code>Profile.js</code>, and then change the <code>App</code> component to render both <code>&lt;Profile /&gt;</code> and <code>&lt;Gallery /&gt;</code> one after another.</p>
+<p>You may use either a default or a named export for <code>Profile</code>, but make sure that you use the corresponding import syntax in both <code>App.js</code> and <code>Gallery.js</code>! You can refer to the table from the deep dive above:</p>
+<div class="table-wrapper"><table><thead><tr><th>Syntax</th><th>Export statement</th><th>Import statement</th></tr></thead><tbody>
+<tr><td>Default</td><td><code>export default function Button() {}</code></td><td><code>import Button from './button.js';</code></td></tr>
+<tr><td>Named</td><td><code>export function Button() {}</code></td><td><code>import { Button } from './button.js';</code></td></tr>
+</tbody></table>
+</div><Hint>
+<p>Don't forget to import your components where they are called. Doesn't <code>Gallery</code> use <code>Profile</code>, too?</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-js App.js">import Gallery from './Gallery.js';
+import { Profile } from './Gallery.js';
+
+export default function App() {
+  return (
+    &lt;div&gt;
+      &lt;Profile /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Gallery.js active">// Move me to Profile.js!
+export function Profile() {
+  return (
+    &lt;img
+      src=&quot;https://i.imgur.com/QIrZWGIs.jpg&quot;
+      alt=&quot;Alan L. Hart&quot;
+    /&gt;
+  );
+}
+
+export default function Gallery() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Amazing scientists&lt;/h1&gt;
+      &lt;Profile /&gt;
+      &lt;Profile /&gt;
+      &lt;Profile /&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Profile.js"></code></pre>
+<pre><code class="language-css">img { margin: 0 10px 10px 0; height: 90px; }
+</code></pre>
+</Sandpack>
+<p>After you get it working with one kind of exports, make it work with the other kind.</p>
+<Solution>
+<p>This is the solution with named exports:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import Gallery from './Gallery.js';
+import { Profile } from './Profile.js';
+
+export default function App() {
+  return (
+    &lt;div&gt;
+      &lt;Profile /&gt;
+      &lt;Gallery /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Gallery.js">import { Profile } from './Profile.js';
+
+export default function Gallery() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Amazing scientists&lt;/h1&gt;
+      &lt;Profile /&gt;
+      &lt;Profile /&gt;
+      &lt;Profile /&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Profile.js">export function Profile() {
+  return (
+    &lt;img
+      src=&quot;https://i.imgur.com/QIrZWGIs.jpg&quot;
+      alt=&quot;Alan L. Hart&quot;
+    /&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">img { margin: 0 10px 10px 0; height: 90px; }
+</code></pre>
+</Sandpack>
+<p>This is the solution with default exports:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import Gallery from './Gallery.js';
+import Profile from './Profile.js';
+
+export default function App() {
+  return (
+    &lt;div&gt;
+      &lt;Profile /&gt;
+      &lt;Gallery /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Gallery.js">import Profile from './Profile.js';
+
+export default function Gallery() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Amazing scientists&lt;/h1&gt;
+      &lt;Profile /&gt;
+      &lt;Profile /&gt;
+      &lt;Profile /&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Profile.js">export default function Profile() {
+  return (
+    &lt;img
+      src=&quot;https://i.imgur.com/QIrZWGIs.jpg&quot;
+      alt=&quot;Alan L. Hart&quot;
+    /&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">img { margin: 0 10px 10px 0; height: 90px; }
+</code></pre>
+</Sandpack>
+</Solution>
+</Challenges>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/your-first-component.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/writing-markup-with-jsx.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/your-first-component.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/writing-markup-with-jsx.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

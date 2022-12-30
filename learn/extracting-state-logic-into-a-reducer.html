@@ -1,0 +1,2525 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Extracting State Logic into a Reducer - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html" class="active"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-extracting-state-logic-into-a-reducer"><a class="header" href="#title-extracting-state-logic-into-a-reducer">title: Extracting State Logic into a Reducer</a></h2>
+<Intro>
+<p>Components with many state updates spread across many event handlers can get overwhelming. For these cases, you can consolidate all the state update logic outside your component in a single function, called a <em>reducer.</em></p>
+</Intro>
+<YouWillLearn>
+<ul>
+<li>What a reducer function is</li>
+<li>How to refactor <code>useState</code> to <code>useReducer</code></li>
+<li>When to use a reducer</li>
+<li>How to write one well</li>
+</ul>
+</YouWillLearn>
+<h2 id="consolidate-state-logic-with-a-reducer-consolidate-state-logic-with-a-reducer"><a class="header" href="#consolidate-state-logic-with-a-reducer-consolidate-state-logic-with-a-reducer">Consolidate state logic with a reducer {/<em>consolidate-state-logic-with-a-reducer</em>/}</a></h2>
+<p>As your components grow in complexity, it can get harder to see at a glance all the different ways in which a component's state gets updated. For example, the <code>TaskApp</code> component below holds an array of <code>tasks</code> in state and uses three different event handlers to add, remove, and edit tasks:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import {useState} from 'react';
+import AddTask from './AddTask.js';
+import TaskList from './TaskList.js';
+
+export default function TaskApp() {
+  const [tasks, setTasks] = useState(initialTasks);
+
+  function handleAddTask(text) {
+    setTasks([
+      ...tasks,
+      {
+        id: nextId++,
+        text: text,
+        done: false,
+      },
+    ]);
+  }
+
+  function handleChangeTask(task) {
+    setTasks(
+      tasks.map((t) =&gt; {
+        if (t.id === task.id) {
+          return task;
+        } else {
+          return t;
+        }
+      })
+    );
+  }
+
+  function handleDeleteTask(taskId) {
+    setTasks(tasks.filter((t) =&gt; t.id !== taskId));
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Prague itinerary&lt;/h1&gt;
+      &lt;AddTask onAddTask={handleAddTask} /&gt;
+      &lt;TaskList
+        tasks={tasks}
+        onChangeTask={handleChangeTask}
+        onDeleteTask={handleDeleteTask}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+
+let nextId = 3;
+const initialTasks = [
+  {id: 0, text: 'Visit Kafka Museum', done: true},
+  {id: 1, text: 'Watch a puppet show', done: false},
+  {id: 2, text: 'Lennon Wall pic', done: false},
+];
+</code></pre>
+<pre><code class="language-js AddTask.js hidden">import {useState} from 'react';
+
+export default function AddTask({onAddTask}) {
+  const [text, setText] = useState('');
+  return (
+    &lt;&gt;
+      &lt;input
+        placeholder=&quot;Add task&quot;
+        value={text}
+        onChange={(e) =&gt; setText(e.target.value)}
+      /&gt;
+      &lt;button
+        onClick={() =&gt; {
+          setText('');
+          onAddTask(text);
+        }}&gt;
+        Add
+      &lt;/button&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js TaskList.js hidden">import {useState} from 'react';
+
+export default function TaskList({tasks, onChangeTask, onDeleteTask}) {
+  return (
+    &lt;ul&gt;
+      {tasks.map((task) =&gt; (
+        &lt;li key={task.id}&gt;
+          &lt;Task task={task} onChange={onChangeTask} onDelete={onDeleteTask} /&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function Task({task, onChange, onDelete}) {
+  const [isEditing, setIsEditing] = useState(false);
+  let taskContent;
+  if (isEditing) {
+    taskContent = (
+      &lt;&gt;
+        &lt;input
+          value={task.text}
+          onChange={(e) =&gt; {
+            onChange({
+              ...task,
+              text: e.target.value,
+            });
+          }}
+        /&gt;
+        &lt;button onClick={() =&gt; setIsEditing(false)}&gt;Save&lt;/button&gt;
+      &lt;/&gt;
+    );
+  } else {
+    taskContent = (
+      &lt;&gt;
+        {task.text}
+        &lt;button onClick={() =&gt; setIsEditing(true)}&gt;Edit&lt;/button&gt;
+      &lt;/&gt;
+    );
+  }
+  return (
+    &lt;label&gt;
+      &lt;input
+        type=&quot;checkbox&quot;
+        checked={task.done}
+        onChange={(e) =&gt; {
+          onChange({
+            ...task,
+            done: e.target.checked,
+          });
+        }}
+      /&gt;
+      {taskContent}
+      &lt;button onClick={() =&gt; onDelete(task.id)}&gt;Delete&lt;/button&gt;
+    &lt;/label&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button {
+  margin: 5px;
+}
+li {
+  list-style-type: none;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+</code></pre>
+</Sandpack>
+<p>Each of its event handlers calls <code>setTasks</code> in order to update the state. As this component grows, so does the amount of state logic sprinkled throughout it. To reduce this complexity and keep all your logic in one easy-to-access place, you can move that state logic into a single function outside your component, <strong>called a &quot;reducer&quot;.</strong></p>
+<p>Reducers are a different way to handle state. You can migrate from <code>useState</code> to <code>useReducer</code> in three steps:</p>
+<ol>
+<li><strong>Move</strong> from setting state to dispatching actions.</li>
+<li><strong>Write</strong> a reducer function.</li>
+<li><strong>Use</strong> the reducer from your component.</li>
+</ol>
+<h3 id="step-1-move-from-setting-state-to-dispatching-actions-step-1-move-from-setting-state-to-dispatching-actions"><a class="header" href="#step-1-move-from-setting-state-to-dispatching-actions-step-1-move-from-setting-state-to-dispatching-actions">Step 1: Move from setting state to dispatching actions {/<em>step-1-move-from-setting-state-to-dispatching-actions</em>/}</a></h3>
+<p>Your event handlers currently specify <em>what to do</em> by setting state:</p>
+<pre><code class="language-js">function handleAddTask(text) {
+  setTasks([
+    ...tasks,
+    {
+      id: nextId++,
+      text: text,
+      done: false,
+    },
+  ]);
+}
+
+function handleChangeTask(task) {
+  setTasks(
+    tasks.map((t) =&gt; {
+      if (t.id === task.id) {
+        return task;
+      } else {
+        return t;
+      }
+    })
+  );
+}
+
+function handleDeleteTask(taskId) {
+  setTasks(tasks.filter((t) =&gt; t.id !== taskId));
+}
+</code></pre>
+<p>Remove all the state setting logic. What you are left with are three event handlers:</p>
+<ul>
+<li><code>handleAddTask(text)</code> is called when the user presses &quot;Add&quot;.</li>
+<li><code>handleChangeTask(task)</code> is called when the user toggles a task or presses &quot;Save&quot;.</li>
+<li><code>handleDeleteTask(taskId)</code> is called when the user presses &quot;Delete&quot;.</li>
+</ul>
+<p>Managing state with reducers is slightly different from directly setting state. Instead of telling React &quot;what to do&quot; by setting state, you specify &quot;what the user just did&quot; by dispatching &quot;actions&quot; from your event handlers. (The state update logic will live elsewhere!) So instead of &quot;setting <code>tasks</code>&quot; via an event handler, you're dispatching an &quot;added/changed/deleted a task&quot; action. This is more descriptive of the user's intent.</p>
+<pre><code class="language-js">function handleAddTask(text) {
+  dispatch({
+    type: 'added',
+    id: nextId++,
+    text: text,
+  });
+}
+
+function handleChangeTask(task) {
+  dispatch({
+    type: 'changed',
+    task: task,
+  });
+}
+
+function handleDeleteTask(taskId) {
+  dispatch({
+    type: 'deleted',
+    id: taskId,
+  });
+}
+</code></pre>
+<p>The object you pass to <code>dispatch</code> is called an &quot;action&quot;:</p>
+<pre><code class="language-js {3-7}">function handleDeleteTask(taskId) {
+  dispatch(
+    // &quot;action&quot; object:
+    {
+      type: 'deleted',
+      id: taskId,
+    }
+  );
+}
+</code></pre>
+<p>It is a regular JavaScript object. You decide what to put in it, but generally it should contain the minimal information about <em>what happened</em>. (You will add the <code>dispatch</code> function itself in a later step.)</p>
+<Note>
+<p>An action object can have any shape.</p>
+<p>By convention, it is common to give it a string <code>type</code> that describes what happened, and pass any additional information in other fields. The <code>type</code> is specific to a component, so in this example either <code>'added'</code> or <code>'added_task'</code> would be fine. Choose a name that says what happened!</p>
+<pre><code class="language-js">dispatch({
+  // specific to component
+  type: 'what_happened',
+  // other fields go here
+});
+</code></pre>
+</Note>
+<h3 id="step-2-write-a-reducer-function-step-2-write-a-reducer-function"><a class="header" href="#step-2-write-a-reducer-function-step-2-write-a-reducer-function">Step 2: Write a reducer function {/<em>step-2-write-a-reducer-function</em>/}</a></h3>
+<p>A reducer function is where you will put your state logic. It takes two arguments, the current state and the action object, and it returns the next state:</p>
+<pre><code class="language-js">function yourReducer(state, action) {
+  // return next state for React to set
+}
+</code></pre>
+<p>React will set the state to what you return from the reducer.</p>
+<p>To move your state setting logic from your event handlers to a reducer function in this example, you will:</p>
+<ol>
+<li>Declare the current state (<code>tasks</code>) as the first argument.</li>
+<li>Declare the <code>action</code> object as the second argument.</li>
+<li>Return the <em>next</em> state from the reducer (which React will set the state to).</li>
+</ol>
+<p>Here is all the state setting logic migrated to a reducer function:</p>
+<pre><code class="language-js">function tasksReducer(tasks, action) {
+  if (action.type === 'added') {
+    return [
+      ...tasks,
+      {
+        id: action.id,
+        text: action.text,
+        done: false,
+      },
+    ];
+  } else if (action.type === 'changed') {
+    return tasks.map((t) =&gt; {
+      if (t.id === action.task.id) {
+        return action.task;
+      } else {
+        return t;
+      }
+    });
+  } else if (action.type === 'deleted') {
+    return tasks.filter((t) =&gt; t.id !== action.id);
+  } else {
+    throw Error('Unknown action: ' + action.type);
+  }
+}
+</code></pre>
+<blockquote>
+<p>Because the reducer function takes state (<code>tasks</code>) as an argument, you can <strong>declare it outside of your component.</strong> This decreases the indentation level and can make your code easier to read.</p>
+</blockquote>
+<Note>
+<p>The code above uses if/else statements, but it's a convention to use <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/switch">switch statements</a> inside reducers. The result is the same, but it can be easier to read switch statements at a glance.</p>
+<p>We'll be using them throughout the rest of this documentation like so:</p>
+<pre><code class="language-js">function tasksReducer(tasks, action) {
+  switch (action.type) {
+    case 'added': {
+      return [
+        ...tasks,
+        {
+          id: action.id,
+          text: action.text,
+          done: false,
+        },
+      ];
+    }
+    case 'changed': {
+      return tasks.map((t) =&gt; {
+        if (t.id === action.task.id) {
+          return action.task;
+        } else {
+          return t;
+        }
+      });
+    }
+    case 'deleted': {
+      return tasks.filter((t) =&gt; t.id !== action.id);
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+</code></pre>
+<p>We recommend to wrap each <code>case</code> block into the <code>{</code> and <code>}</code> curly braces so that variables declared inside of different <code>case</code>s don't clash with each other. Also, a <code>case</code> should usually end with a <code>return</code>. If you forget to <code>return</code>, the code will &quot;fall through&quot; to the next <code>case</code>, which can lead to mistakes!</p>
+<p>If you're not yet comfortable with switch statements, using if/else is completely fine.</p>
+</Note>
+<DeepDive>
+<h4 id="why-are-reducers-called-this-way-why-are-reducers-called-this-way"><a class="header" href="#why-are-reducers-called-this-way-why-are-reducers-called-this-way">Why are reducers called this way? {/<em>why-are-reducers-called-this-way</em>/}</a></h4>
+<p>Although reducers can &quot;reduce&quot; the amount of code inside your component, they are actually named after the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce"><code>reduce()</code></a> operation that you can perform on arrays.</p>
+<p>The <code>reduce()</code> operation lets you take an array and &quot;accumulate&quot; a single value out of many:</p>
+<pre><code>const arr = [1, 2, 3, 4, 5];
+const sum = arr.reduce(
+  (result, number) =&gt; result + number
+); // 1 + 2 + 3 + 4 + 5
+</code></pre>
+<p>The function you pass to <code>reduce</code> is known as a &quot;reducer&quot;. It takes the <em>result so far</em> and the <em>current item,</em> then it returns the <em>next result.</em> React reducers are an example of the same idea: they take the <em>state so far</em> and the <em>action</em>, and return the <em>next state.</em> In this way, they accumulate actions over time into state.</p>
+<p>You could even use the <code>reduce()</code> method with an <code>initialState</code> and an array of <code>actions</code> to calculate the final state by passing your reducer function to it:</p>
+<Sandpack>
+<pre><code class="language-js index.js active">import tasksReducer from './tasksReducer.js';
+
+let initialState = [];
+let actions = [
+  {type: 'added', id: 1, text: 'Visit Kafka Museum'},
+  {type: 'added', id: 2, text: 'Watch a puppet show'},
+  {type: 'deleted', id: 1},
+  {type: 'added', id: 3, text: 'Lennon Wall pic'},
+];
+
+let finalState = actions.reduce(tasksReducer, initialState);
+
+const output = document.getElementById('output');
+output.textContent = JSON.stringify(finalState, null, 2);
+</code></pre>
+<pre><code class="language-js tasksReducer.js">export default function tasksReducer(tasks, action) {
+  switch (action.type) {
+    case 'added': {
+      return [
+        ...tasks,
+        {
+          id: action.id,
+          text: action.text,
+          done: false,
+        },
+      ];
+    }
+    case 'changed': {
+      return tasks.map((t) =&gt; {
+        if (t.id === action.task.id) {
+          return action.task;
+        } else {
+          return t;
+        }
+      });
+    }
+    case 'deleted': {
+      return tasks.filter((t) =&gt; t.id !== action.id);
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+</code></pre>
+<pre><code class="language-html public/index.html">&lt;pre id=&quot;output&quot;&gt;&lt;/pre&gt;
+</code></pre>
+</Sandpack>
+<p>You probably won't need to do this yourself, but this is similar to what React does!</p>
+</DeepDive>
+<h3 id="step-3-use-the-reducer-from-your-component-step-3-use-the-reducer-from-your-component"><a class="header" href="#step-3-use-the-reducer-from-your-component-step-3-use-the-reducer-from-your-component">Step 3: Use the reducer from your component {/<em>step-3-use-the-reducer-from-your-component</em>/}</a></h3>
+<p>Finally, you need to hook up the <code>tasksReducer</code> to your component. Make sure to import the <code>useReducer</code> Hook from React:</p>
+<pre><code class="language-js">import {useReducer} from 'react';
+</code></pre>
+<p>Then you can replace <code>useState</code>:</p>
+<pre><code class="language-js">const [tasks, setTasks] = useState(initialTasks);
+</code></pre>
+<p>with <code>useReducer</code> like so:</p>
+<pre><code class="language-js">const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
+</code></pre>
+<p>The <code>useReducer</code> Hook is similar to <code>useState</code>—you must pass it an initial state and it returns a stateful value and a way to set state (in this case, the dispatch function). But it's a little different.</p>
+<p>The <code>useReducer</code> Hook takes two arguments:</p>
+<ol>
+<li>A reducer function</li>
+<li>An initial state</li>
+</ol>
+<p>And it returns:</p>
+<ol>
+<li>A stateful value</li>
+<li>A dispatch function (to &quot;dispatch&quot; user actions to the reducer)</li>
+</ol>
+<p>Now it's fully wired up! Here, the reducer is declared at the bottom of the component file:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import {useReducer} from 'react';
+import AddTask from './AddTask.js';
+import TaskList from './TaskList.js';
+
+export default function TaskApp() {
+  const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
+
+  function handleAddTask(text) {
+    dispatch({
+      type: 'added',
+      id: nextId++,
+      text: text,
+    });
+  }
+
+  function handleChangeTask(task) {
+    dispatch({
+      type: 'changed',
+      task: task,
+    });
+  }
+
+  function handleDeleteTask(taskId) {
+    dispatch({
+      type: 'deleted',
+      id: taskId,
+    });
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Prague itinerary&lt;/h1&gt;
+      &lt;AddTask onAddTask={handleAddTask} /&gt;
+      &lt;TaskList
+        tasks={tasks}
+        onChangeTask={handleChangeTask}
+        onDeleteTask={handleDeleteTask}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+
+function tasksReducer(tasks, action) {
+  switch (action.type) {
+    case 'added': {
+      return [
+        ...tasks,
+        {
+          id: action.id,
+          text: action.text,
+          done: false,
+        },
+      ];
+    }
+    case 'changed': {
+      return tasks.map((t) =&gt; {
+        if (t.id === action.task.id) {
+          return action.task;
+        } else {
+          return t;
+        }
+      });
+    }
+    case 'deleted': {
+      return tasks.filter((t) =&gt; t.id !== action.id);
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+
+let nextId = 3;
+const initialTasks = [
+  {id: 0, text: 'Visit Kafka Museum', done: true},
+  {id: 1, text: 'Watch a puppet show', done: false},
+  {id: 2, text: 'Lennon Wall pic', done: false},
+];
+</code></pre>
+<pre><code class="language-js AddTask.js hidden">import {useState} from 'react';
+
+export default function AddTask({onAddTask}) {
+  const [text, setText] = useState('');
+  return (
+    &lt;&gt;
+      &lt;input
+        placeholder=&quot;Add task&quot;
+        value={text}
+        onChange={(e) =&gt; setText(e.target.value)}
+      /&gt;
+      &lt;button
+        onClick={() =&gt; {
+          setText('');
+          onAddTask(text);
+        }}&gt;
+        Add
+      &lt;/button&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js TaskList.js hidden">import {useState} from 'react';
+
+export default function TaskList({tasks, onChangeTask, onDeleteTask}) {
+  return (
+    &lt;ul&gt;
+      {tasks.map((task) =&gt; (
+        &lt;li key={task.id}&gt;
+          &lt;Task task={task} onChange={onChangeTask} onDelete={onDeleteTask} /&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function Task({task, onChange, onDelete}) {
+  const [isEditing, setIsEditing] = useState(false);
+  let taskContent;
+  if (isEditing) {
+    taskContent = (
+      &lt;&gt;
+        &lt;input
+          value={task.text}
+          onChange={(e) =&gt; {
+            onChange({
+              ...task,
+              text: e.target.value,
+            });
+          }}
+        /&gt;
+        &lt;button onClick={() =&gt; setIsEditing(false)}&gt;Save&lt;/button&gt;
+      &lt;/&gt;
+    );
+  } else {
+    taskContent = (
+      &lt;&gt;
+        {task.text}
+        &lt;button onClick={() =&gt; setIsEditing(true)}&gt;Edit&lt;/button&gt;
+      &lt;/&gt;
+    );
+  }
+  return (
+    &lt;label&gt;
+      &lt;input
+        type=&quot;checkbox&quot;
+        checked={task.done}
+        onChange={(e) =&gt; {
+          onChange({
+            ...task,
+            done: e.target.checked,
+          });
+        }}
+      /&gt;
+      {taskContent}
+      &lt;button onClick={() =&gt; onDelete(task.id)}&gt;Delete&lt;/button&gt;
+    &lt;/label&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button {
+  margin: 5px;
+}
+li {
+  list-style-type: none;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+</code></pre>
+</Sandpack>
+<p>If you want, you can even move the reducer to a different file:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import {useReducer} from 'react';
+import AddTask from './AddTask.js';
+import TaskList from './TaskList.js';
+import tasksReducer from './tasksReducer.js';
+
+export default function TaskApp() {
+  const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
+
+  function handleAddTask(text) {
+    dispatch({
+      type: 'added',
+      id: nextId++,
+      text: text,
+    });
+  }
+
+  function handleChangeTask(task) {
+    dispatch({
+      type: 'changed',
+      task: task,
+    });
+  }
+
+  function handleDeleteTask(taskId) {
+    dispatch({
+      type: 'deleted',
+      id: taskId,
+    });
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Prague itinerary&lt;/h1&gt;
+      &lt;AddTask onAddTask={handleAddTask} /&gt;
+      &lt;TaskList
+        tasks={tasks}
+        onChangeTask={handleChangeTask}
+        onDeleteTask={handleDeleteTask}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+
+let nextId = 3;
+const initialTasks = [
+  {id: 0, text: 'Visit Kafka Museum', done: true},
+  {id: 1, text: 'Watch a puppet show', done: false},
+  {id: 2, text: 'Lennon Wall pic', done: false},
+];
+</code></pre>
+<pre><code class="language-js tasksReducer.js">export default function tasksReducer(tasks, action) {
+  switch (action.type) {
+    case 'added': {
+      return [
+        ...tasks,
+        {
+          id: action.id,
+          text: action.text,
+          done: false,
+        },
+      ];
+    }
+    case 'changed': {
+      return tasks.map((t) =&gt; {
+        if (t.id === action.task.id) {
+          return action.task;
+        } else {
+          return t;
+        }
+      });
+    }
+    case 'deleted': {
+      return tasks.filter((t) =&gt; t.id !== action.id);
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+</code></pre>
+<pre><code class="language-js AddTask.js hidden">import {useState} from 'react';
+
+export default function AddTask({onAddTask}) {
+  const [text, setText] = useState('');
+  return (
+    &lt;&gt;
+      &lt;input
+        placeholder=&quot;Add task&quot;
+        value={text}
+        onChange={(e) =&gt; setText(e.target.value)}
+      /&gt;
+      &lt;button
+        onClick={() =&gt; {
+          setText('');
+          onAddTask(text);
+        }}&gt;
+        Add
+      &lt;/button&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js TaskList.js hidden">import {useState} from 'react';
+
+export default function TaskList({tasks, onChangeTask, onDeleteTask}) {
+  return (
+    &lt;ul&gt;
+      {tasks.map((task) =&gt; (
+        &lt;li key={task.id}&gt;
+          &lt;Task task={task} onChange={onChangeTask} onDelete={onDeleteTask} /&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function Task({task, onChange, onDelete}) {
+  const [isEditing, setIsEditing] = useState(false);
+  let taskContent;
+  if (isEditing) {
+    taskContent = (
+      &lt;&gt;
+        &lt;input
+          value={task.text}
+          onChange={(e) =&gt; {
+            onChange({
+              ...task,
+              text: e.target.value,
+            });
+          }}
+        /&gt;
+        &lt;button onClick={() =&gt; setIsEditing(false)}&gt;Save&lt;/button&gt;
+      &lt;/&gt;
+    );
+  } else {
+    taskContent = (
+      &lt;&gt;
+        {task.text}
+        &lt;button onClick={() =&gt; setIsEditing(true)}&gt;Edit&lt;/button&gt;
+      &lt;/&gt;
+    );
+  }
+  return (
+    &lt;label&gt;
+      &lt;input
+        type=&quot;checkbox&quot;
+        checked={task.done}
+        onChange={(e) =&gt; {
+          onChange({
+            ...task,
+            done: e.target.checked,
+          });
+        }}
+      /&gt;
+      {taskContent}
+      &lt;button onClick={() =&gt; onDelete(task.id)}&gt;Delete&lt;/button&gt;
+    &lt;/label&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button {
+  margin: 5px;
+}
+li {
+  list-style-type: none;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+</code></pre>
+</Sandpack>
+<p>Component logic can be easier to read when you separate concerns like this. Now the event handlers only specify <em>what happened</em> by dispatching actions, and the reducer function determines <em>how the state updates</em> in response to them.</p>
+<h2 id="comparing-usestate-and-usereducer-comparing-usestate-and-usereducer"><a class="header" href="#comparing-usestate-and-usereducer-comparing-usestate-and-usereducer">Comparing <code>useState</code> and <code>useReducer</code> {/<em>comparing-usestate-and-usereducer</em>/}</a></h2>
+<p>Reducers are not without downsides! Here's a few ways you can compare them:</p>
+<ul>
+<li><strong>Code size:</strong> Generally, with <code>useState</code> you have to write less code upfront. With <code>useReducer</code>, you have to write both a reducer function <em>and</em> dispatch actions. However, <code>useReducer</code> can help cut down on the code if many event handlers modify state in a similar way.</li>
+<li><strong>Readability:</strong> <code>useState</code> is very easy to read when the state updates are simple. When they get more complex, they can bloat your component's code and make it difficult to scan. In this case, <code>useReducer</code> lets you cleanly separate the <em>how</em> of update logic from the <em>what happened</em> of event handlers.</li>
+<li><strong>Debugging:</strong> When you have a bug with <code>useState</code>, it can be difficult to tell <em>where</em> the state was set incorrectly, and <em>why</em>. With <code>useReducer</code>, you can add a console log into your reducer to see every state update, and <em>why</em> it happened (due to which <code>action</code>). If each <code>action</code> is correct, you'll know that the mistake is in the reducer logic itself. However, you have to step through more code than with <code>useState</code>.</li>
+<li><strong>Testing:</strong> A reducer is a pure function that doesn't depend on your component. This means that you can export and test it separately in isolation. While generally it's best to test components in a more realistic environment, for complex state update logic it can be useful to assert that your reducer returns a particular state for a particular initial state and action.</li>
+<li><strong>Personal preference:</strong> Some people like reducers, others don't. That's okay. It's a matter of preference. You can always convert between <code>useState</code> and <code>useReducer</code> back and forth: they are equivalent!</li>
+</ul>
+<p>We recommend using a reducer if you often encounter bugs due to incorrect state updates in some component, and want to introduce more structure to its code. You don't have to use reducers for everything: feel free to mix and match! You can even <code>useState</code> and <code>useReducer</code> in the same component.</p>
+<h2 id="writing-reducers-well-writing-reducers-well"><a class="header" href="#writing-reducers-well-writing-reducers-well">Writing reducers well {/<em>writing-reducers-well</em>/}</a></h2>
+<p>Keep these two tips in mind when writing reducers:</p>
+<ul>
+<li><strong>Reducers must be pure.</strong> Similar to <a href="/learn/queueing-a-series-of-state-updates">state updater functions</a>, reducers run during rendering! (Actions are queued until the next render.) This means that reducers <a href="/learn/keeping-components-pure">must be pure</a>—same inputs always result in the same output. They should not send requests, schedule timeouts, or perform any side effects (operations that impact things outside the component). They should update <a href="/learn/updating-objects-in-state">objects</a> and <a href="/learn/updating-arrays-in-state">arrays</a> without mutations.</li>
+<li><strong>Each action describes a single user interaction, even if that leads to multiple changes in the data.</strong> For example, if a user presses &quot;Reset&quot; on a form with five fields managed by a reducer, it makes more sense to dispatch one <code>reset_form</code> action rather than five separate <code>set_field</code> actions. If you log every action in a reducer, that log should be clear enough for you to reconstruct what interactions or responses happened in what order. This helps with debugging!</li>
+</ul>
+<h2 id="writing-concise-reducers-with-immer-writing-concise-reducers-with-immer"><a class="header" href="#writing-concise-reducers-with-immer-writing-concise-reducers-with-immer">Writing concise reducers with Immer {/<em>writing-concise-reducers-with-immer</em>/}</a></h2>
+<p>Just like with <a href="/learn/updating-objects-in-state#write-concise-update-logic-with-immer">updating objects</a> and <a href="/learn/updating-arrays-in-state#write-concise-update-logic-with-immer">arrays</a> in regular state, you can use the Immer library to make reducers more concise. Here, <a href="https://github.com/immerjs/use-immer#useimmerreducer"><code>useImmerReducer</code></a> lets you mutate the state with <code>push</code> or <code>arr[i] =</code> assignment:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import {useImmerReducer} from 'use-immer';
+import AddTask from './AddTask.js';
+import TaskList from './TaskList.js';
+
+function tasksReducer(draft, action) {
+  switch (action.type) {
+    case 'added': {
+      draft.push({
+        id: action.id,
+        text: action.text,
+        done: false,
+      });
+      break;
+    }
+    case 'changed': {
+      const index = draft.findIndex((t) =&gt; t.id === action.task.id);
+      draft[index] = action.task;
+      break;
+    }
+    case 'deleted': {
+      return draft.filter((t) =&gt; t.id !== action.id);
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+
+export default function TaskApp() {
+  const [tasks, dispatch] = useImmerReducer(tasksReducer, initialTasks);
+
+  function handleAddTask(text) {
+    dispatch({
+      type: 'added',
+      id: nextId++,
+      text: text,
+    });
+  }
+
+  function handleChangeTask(task) {
+    dispatch({
+      type: 'changed',
+      task: task,
+    });
+  }
+
+  function handleDeleteTask(taskId) {
+    dispatch({
+      type: 'deleted',
+      id: taskId,
+    });
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Prague itinerary&lt;/h1&gt;
+      &lt;AddTask onAddTask={handleAddTask} /&gt;
+      &lt;TaskList
+        tasks={tasks}
+        onChangeTask={handleChangeTask}
+        onDeleteTask={handleDeleteTask}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+
+let nextId = 3;
+const initialTasks = [
+  {id: 0, text: 'Visit Kafka Museum', done: true},
+  {id: 1, text: 'Watch a puppet show', done: false},
+  {id: 2, text: 'Lennon Wall pic', done: false},
+];
+</code></pre>
+<pre><code class="language-js AddTask.js hidden">import {useState} from 'react';
+
+export default function AddTask({onAddTask}) {
+  const [text, setText] = useState('');
+  return (
+    &lt;&gt;
+      &lt;input
+        placeholder=&quot;Add task&quot;
+        value={text}
+        onChange={(e) =&gt; setText(e.target.value)}
+      /&gt;
+      &lt;button
+        onClick={() =&gt; {
+          setText('');
+          onAddTask(text);
+        }}&gt;
+        Add
+      &lt;/button&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js TaskList.js hidden">import {useState} from 'react';
+
+export default function TaskList({tasks, onChangeTask, onDeleteTask}) {
+  return (
+    &lt;ul&gt;
+      {tasks.map((task) =&gt; (
+        &lt;li key={task.id}&gt;
+          &lt;Task task={task} onChange={onChangeTask} onDelete={onDeleteTask} /&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function Task({task, onChange, onDelete}) {
+  const [isEditing, setIsEditing] = useState(false);
+  let taskContent;
+  if (isEditing) {
+    taskContent = (
+      &lt;&gt;
+        &lt;input
+          value={task.text}
+          onChange={(e) =&gt; {
+            onChange({
+              ...task,
+              text: e.target.value,
+            });
+          }}
+        /&gt;
+        &lt;button onClick={() =&gt; setIsEditing(false)}&gt;Save&lt;/button&gt;
+      &lt;/&gt;
+    );
+  } else {
+    taskContent = (
+      &lt;&gt;
+        {task.text}
+        &lt;button onClick={() =&gt; setIsEditing(true)}&gt;Edit&lt;/button&gt;
+      &lt;/&gt;
+    );
+  }
+  return (
+    &lt;label&gt;
+      &lt;input
+        type=&quot;checkbox&quot;
+        checked={task.done}
+        onChange={(e) =&gt; {
+          onChange({
+            ...task,
+            done: e.target.checked,
+          });
+        }}
+      /&gt;
+      {taskContent}
+      &lt;button onClick={() =&gt; onDelete(task.id)}&gt;Delete&lt;/button&gt;
+    &lt;/label&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button {
+  margin: 5px;
+}
+li {
+  list-style-type: none;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+</code></pre>
+<pre><code class="language-json package.json">{
+  &quot;dependencies&quot;: {
+    &quot;immer&quot;: &quot;1.7.3&quot;,
+    &quot;react&quot;: &quot;latest&quot;,
+    &quot;react-dom&quot;: &quot;latest&quot;,
+    &quot;react-scripts&quot;: &quot;latest&quot;,
+    &quot;use-immer&quot;: &quot;0.5.1&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  }
+}
+</code></pre>
+</Sandpack>
+<p>Reducers must be pure, so they shouldn't mutate state. But Immer provides you with a special <code>draft</code> object which is safe to mutate. Under the hood, Immer will create a copy of your state with the changes you made to the <code>draft</code>. This is why reducers managed by <code>useImmerReducer</code> can mutate their first argument and don't need to return state.</p>
+<Recap>
+<ul>
+<li>To convert from <code>useState</code> to <code>useReducer</code>:
+<ol>
+<li>Dispatch actions from event handlers.</li>
+<li>Write a reducer function that returns the next state for a given state and action.</li>
+<li>Replace <code>useState</code> with <code>useReducer</code>.</li>
+</ol>
+</li>
+<li>Reducers require you to write a bit more code, but they help with debugging and testing.</li>
+<li>Reducers must be pure.</li>
+<li>Each action describes a single user interaction.</li>
+<li>Use Immer if you want to write reducers in a mutating style.</li>
+</ul>
+</Recap>
+<Challenges>
+<h4 id="dispatch-actions-from-event-handlers-dispatch-actions-from-event-handlers"><a class="header" href="#dispatch-actions-from-event-handlers-dispatch-actions-from-event-handlers">Dispatch actions from event handlers {/<em>dispatch-actions-from-event-handlers</em>/}</a></h4>
+<p>Currently, the event handlers in <code>ContactList.js</code> and <code>Chat.js</code> have <code>// TODO</code> comments. This is why typing into the input doesn't work, and clicking on the buttons doesn't change the selected recipient.</p>
+<p>Replace these two <code>// TODO</code>s with the code to <code>dispatch</code> the corresponding actions. To see the expected shape and the type of the actions, check the reducer in <code>messengerReducer.js</code>. The reducer is already written so you won't need to change it. You only need to dispatch the actions in <code>ContactList.js</code> and <code>Chat.js</code>.</p>
+<Hint>
+<p>The <code>dispatch</code> function is already available in both of these components because it was passed as a prop. So you need to call <code>dispatch</code> with the corresponding action object.</p>
+<p>To check the action object shape, you can look at the reducer and see which <code>action</code> fields it expects to see. For example, the <code>changed_selection</code> case in the reducer looks like this:</p>
+<pre><code class="language-js">case 'changed_selection': {
+  return {
+    ...state,
+    selectedId: action.contactId
+  };
+}
+</code></pre>
+<p>This means that your action object should have a <code>type: 'changed_selection'</code>. You also see the <code>action.contactId</code> being used, so you need to include a <code>contactId</code> property into your action.</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-js App.js">import {useReducer} from 'react';
+import Chat from './Chat.js';
+import ContactList from './ContactList.js';
+import {initialState, messengerReducer} from './messengerReducer';
+
+export default function Messenger() {
+  const [state, dispatch] = useReducer(messengerReducer, initialState);
+  const message = state.message;
+  const contact = contacts.find((c) =&gt; c.id === state.selectedId);
+  return (
+    &lt;div&gt;
+      &lt;ContactList
+        contacts={contacts}
+        selectedId={state.selectedId}
+        dispatch={dispatch}
+      /&gt;
+      &lt;Chat
+        key={contact.id}
+        message={message}
+        contact={contact}
+        dispatch={dispatch}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+const contacts = [
+  {id: 0, name: 'Taylor', email: 'taylor@mail.com'},
+  {id: 1, name: 'Alice', email: 'alice@mail.com'},
+  {id: 2, name: 'Bob', email: 'bob@mail.com'},
+];
+</code></pre>
+<pre><code class="language-js messengerReducer.js">export const initialState = {
+  selectedId: 0,
+  message: 'Hello',
+};
+
+export function messengerReducer(state, action) {
+  switch (action.type) {
+    case 'changed_selection': {
+      return {
+        ...state,
+        selectedId: action.contactId,
+        message: '',
+      };
+    }
+    case 'edited_message': {
+      return {
+        ...state,
+        message: action.message,
+      };
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+</code></pre>
+<pre><code class="language-js ContactList.js">export default function ContactList({contacts, selectedId, dispatch}) {
+  return (
+    &lt;section className=&quot;contact-list&quot;&gt;
+      &lt;ul&gt;
+        {contacts.map((contact) =&gt; (
+          &lt;li key={contact.id}&gt;
+            &lt;button
+              onClick={() =&gt; {
+                // TODO: dispatch changed_selection
+              }}&gt;
+              {selectedId === contact.id ? &lt;b&gt;{contact.name}&lt;/b&gt; : contact.name}
+            &lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Chat.js">import {useState} from 'react';
+
+export default function Chat({contact, message, dispatch}) {
+  return (
+    &lt;section className=&quot;chat&quot;&gt;
+      &lt;textarea
+        value={message}
+        placeholder={'Chat to ' + contact.name}
+        onChange={(e) =&gt; {
+          // TODO: dispatch edited_message
+          // (Read the input value from e.target.value)
+        }}
+      /&gt;
+      &lt;br /&gt;
+      &lt;button&gt;Send to {contact.email}&lt;/button&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.chat,
+.contact-list {
+  float: left;
+  margin-bottom: 20px;
+}
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li button {
+  width: 100px;
+  padding: 10px;
+  margin-right: 10px;
+}
+textarea {
+  height: 150px;
+}
+</code></pre>
+</Sandpack>
+<Solution>
+<p>From the reducer code, you can infer that actions need to look like this:</p>
+<pre><code class="language-js">// When the user presses &quot;Alice&quot;
+dispatch({
+  type: 'changed_selection',
+  contactId: 1,
+});
+
+// When user types &quot;Hello!&quot;
+dispatch({
+  type: 'edited_message',
+  message: 'Hello!',
+});
+</code></pre>
+<p>Here is the example updated to dispatch the corresponding messages:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import {useReducer} from 'react';
+import Chat from './Chat.js';
+import ContactList from './ContactList.js';
+import {initialState, messengerReducer} from './messengerReducer';
+
+export default function Messenger() {
+  const [state, dispatch] = useReducer(messengerReducer, initialState);
+  const message = state.message;
+  const contact = contacts.find((c) =&gt; c.id === state.selectedId);
+  return (
+    &lt;div&gt;
+      &lt;ContactList
+        contacts={contacts}
+        selectedId={state.selectedId}
+        dispatch={dispatch}
+      /&gt;
+      &lt;Chat
+        key={contact.id}
+        message={message}
+        contact={contact}
+        dispatch={dispatch}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+const contacts = [
+  {id: 0, name: 'Taylor', email: 'taylor@mail.com'},
+  {id: 1, name: 'Alice', email: 'alice@mail.com'},
+  {id: 2, name: 'Bob', email: 'bob@mail.com'},
+];
+</code></pre>
+<pre><code class="language-js messengerReducer.js">export const initialState = {
+  selectedId: 0,
+  message: 'Hello',
+};
+
+export function messengerReducer(state, action) {
+  switch (action.type) {
+    case 'changed_selection': {
+      return {
+        ...state,
+        selectedId: action.contactId,
+        message: '',
+      };
+    }
+    case 'edited_message': {
+      return {
+        ...state,
+        message: action.message,
+      };
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+</code></pre>
+<pre><code class="language-js ContactList.js">export default function ContactList({contacts, selectedId, dispatch}) {
+  return (
+    &lt;section className=&quot;contact-list&quot;&gt;
+      &lt;ul&gt;
+        {contacts.map((contact) =&gt; (
+          &lt;li key={contact.id}&gt;
+            &lt;button
+              onClick={() =&gt; {
+                dispatch({
+                  type: 'changed_selection',
+                  contactId: contact.id,
+                });
+              }}&gt;
+              {selectedId === contact.id ? &lt;b&gt;{contact.name}&lt;/b&gt; : contact.name}
+            &lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Chat.js">import {useState} from 'react';
+
+export default function Chat({contact, message, dispatch}) {
+  return (
+    &lt;section className=&quot;chat&quot;&gt;
+      &lt;textarea
+        value={message}
+        placeholder={'Chat to ' + contact.name}
+        onChange={(e) =&gt; {
+          dispatch({
+            type: 'edited_message',
+            message: e.target.value,
+          });
+        }}
+      /&gt;
+      &lt;br /&gt;
+      &lt;button&gt;Send to {contact.email}&lt;/button&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.chat,
+.contact-list {
+  float: left;
+  margin-bottom: 20px;
+}
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li button {
+  width: 100px;
+  padding: 10px;
+  margin-right: 10px;
+}
+textarea {
+  height: 150px;
+}
+</code></pre>
+</Sandpack>
+</Solution>
+<h4 id="clear-the-input-on-sending-a-message-clear-the-input-on-sending-a-message"><a class="header" href="#clear-the-input-on-sending-a-message-clear-the-input-on-sending-a-message">Clear the input on sending a message {/<em>clear-the-input-on-sending-a-message</em>/}</a></h4>
+<p>Currently, pressing &quot;Send&quot; doesn't do anything. Add an event handler to the &quot;Send&quot; button that will:</p>
+<ol>
+<li>Show an <code>alert</code> with the recipient's email and the message.</li>
+<li>Clear the message input.</li>
+</ol>
+<Sandpack>
+<pre><code class="language-js App.js">import {useReducer} from 'react';
+import Chat from './Chat.js';
+import ContactList from './ContactList.js';
+import {initialState, messengerReducer} from './messengerReducer';
+
+export default function Messenger() {
+  const [state, dispatch] = useReducer(messengerReducer, initialState);
+  const message = state.message;
+  const contact = contacts.find((c) =&gt; c.id === state.selectedId);
+  return (
+    &lt;div&gt;
+      &lt;ContactList
+        contacts={contacts}
+        selectedId={state.selectedId}
+        dispatch={dispatch}
+      /&gt;
+      &lt;Chat
+        key={contact.id}
+        message={message}
+        contact={contact}
+        dispatch={dispatch}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+const contacts = [
+  {id: 0, name: 'Taylor', email: 'taylor@mail.com'},
+  {id: 1, name: 'Alice', email: 'alice@mail.com'},
+  {id: 2, name: 'Bob', email: 'bob@mail.com'},
+];
+</code></pre>
+<pre><code class="language-js messengerReducer.js">export const initialState = {
+  selectedId: 0,
+  message: 'Hello',
+};
+
+export function messengerReducer(state, action) {
+  switch (action.type) {
+    case 'changed_selection': {
+      return {
+        ...state,
+        selectedId: action.contactId,
+        message: '',
+      };
+    }
+    case 'edited_message': {
+      return {
+        ...state,
+        message: action.message,
+      };
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+</code></pre>
+<pre><code class="language-js ContactList.js">export default function ContactList({contacts, selectedId, dispatch}) {
+  return (
+    &lt;section className=&quot;contact-list&quot;&gt;
+      &lt;ul&gt;
+        {contacts.map((contact) =&gt; (
+          &lt;li key={contact.id}&gt;
+            &lt;button
+              onClick={() =&gt; {
+                dispatch({
+                  type: 'changed_selection',
+                  contactId: contact.id,
+                });
+              }}&gt;
+              {selectedId === contact.id ? &lt;b&gt;{contact.name}&lt;/b&gt; : contact.name}
+            &lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Chat.js active">import {useState} from 'react';
+
+export default function Chat({contact, message, dispatch}) {
+  return (
+    &lt;section className=&quot;chat&quot;&gt;
+      &lt;textarea
+        value={message}
+        placeholder={'Chat to ' + contact.name}
+        onChange={(e) =&gt; {
+          dispatch({
+            type: 'edited_message',
+            message: e.target.value,
+          });
+        }}
+      /&gt;
+      &lt;br /&gt;
+      &lt;button&gt;Send to {contact.email}&lt;/button&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.chat,
+.contact-list {
+  float: left;
+  margin-bottom: 20px;
+}
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li button {
+  width: 100px;
+  padding: 10px;
+  margin-right: 10px;
+}
+textarea {
+  height: 150px;
+}
+</code></pre>
+</Sandpack>
+<Solution>
+<p>There are a couple of ways you could do it in the &quot;Send&quot; button event handler. One approach is to show an alert and then dispatch an <code>edited_message</code> action with an empty <code>message</code>:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import {useReducer} from 'react';
+import Chat from './Chat.js';
+import ContactList from './ContactList.js';
+import {initialState, messengerReducer} from './messengerReducer';
+
+export default function Messenger() {
+  const [state, dispatch] = useReducer(messengerReducer, initialState);
+  const message = state.message;
+  const contact = contacts.find((c) =&gt; c.id === state.selectedId);
+  return (
+    &lt;div&gt;
+      &lt;ContactList
+        contacts={contacts}
+        selectedId={state.selectedId}
+        dispatch={dispatch}
+      /&gt;
+      &lt;Chat
+        key={contact.id}
+        message={message}
+        contact={contact}
+        dispatch={dispatch}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+const contacts = [
+  {id: 0, name: 'Taylor', email: 'taylor@mail.com'},
+  {id: 1, name: 'Alice', email: 'alice@mail.com'},
+  {id: 2, name: 'Bob', email: 'bob@mail.com'},
+];
+</code></pre>
+<pre><code class="language-js messengerReducer.js">export const initialState = {
+  selectedId: 0,
+  message: 'Hello',
+};
+
+export function messengerReducer(state, action) {
+  switch (action.type) {
+    case 'changed_selection': {
+      return {
+        ...state,
+        selectedId: action.contactId,
+        message: '',
+      };
+    }
+    case 'edited_message': {
+      return {
+        ...state,
+        message: action.message,
+      };
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+</code></pre>
+<pre><code class="language-js ContactList.js">export default function ContactList({contacts, selectedId, dispatch}) {
+  return (
+    &lt;section className=&quot;contact-list&quot;&gt;
+      &lt;ul&gt;
+        {contacts.map((contact) =&gt; (
+          &lt;li key={contact.id}&gt;
+            &lt;button
+              onClick={() =&gt; {
+                dispatch({
+                  type: 'changed_selection',
+                  contactId: contact.id,
+                });
+              }}&gt;
+              {selectedId === contact.id ? &lt;b&gt;{contact.name}&lt;/b&gt; : contact.name}
+            &lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Chat.js active">import {useState} from 'react';
+
+export default function Chat({contact, message, dispatch}) {
+  return (
+    &lt;section className=&quot;chat&quot;&gt;
+      &lt;textarea
+        value={message}
+        placeholder={'Chat to ' + contact.name}
+        onChange={(e) =&gt; {
+          dispatch({
+            type: 'edited_message',
+            message: e.target.value,
+          });
+        }}
+      /&gt;
+      &lt;br /&gt;
+      &lt;button
+        onClick={() =&gt; {
+          alert(`Sending &quot;${message}&quot; to ${contact.email}`);
+          dispatch({
+            type: 'edited_message',
+            message: '',
+          });
+        }}&gt;
+        Send to {contact.email}
+      &lt;/button&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.chat,
+.contact-list {
+  float: left;
+  margin-bottom: 20px;
+}
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li button {
+  width: 100px;
+  padding: 10px;
+  margin-right: 10px;
+}
+textarea {
+  height: 150px;
+}
+</code></pre>
+</Sandpack>
+<p>This works and clears the input when you hit &quot;Send&quot;.</p>
+<p>However, <em>from the user's perspective</em>, sending a message is a different action than editing the field. To reflect that, you could instead create a <em>new</em> action called <code>sent_message</code>, and handle it separately in the reducer:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import {useReducer} from 'react';
+import Chat from './Chat.js';
+import ContactList from './ContactList.js';
+import {initialState, messengerReducer} from './messengerReducer';
+
+export default function Messenger() {
+  const [state, dispatch] = useReducer(messengerReducer, initialState);
+  const message = state.message;
+  const contact = contacts.find((c) =&gt; c.id === state.selectedId);
+  return (
+    &lt;div&gt;
+      &lt;ContactList
+        contacts={contacts}
+        selectedId={state.selectedId}
+        dispatch={dispatch}
+      /&gt;
+      &lt;Chat
+        key={contact.id}
+        message={message}
+        contact={contact}
+        dispatch={dispatch}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+const contacts = [
+  {id: 0, name: 'Taylor', email: 'taylor@mail.com'},
+  {id: 1, name: 'Alice', email: 'alice@mail.com'},
+  {id: 2, name: 'Bob', email: 'bob@mail.com'},
+];
+</code></pre>
+<pre><code class="language-js messengerReducer.js active">export const initialState = {
+  selectedId: 0,
+  message: 'Hello',
+};
+
+export function messengerReducer(state, action) {
+  switch (action.type) {
+    case 'changed_selection': {
+      return {
+        ...state,
+        selectedId: action.contactId,
+        message: '',
+      };
+    }
+    case 'edited_message': {
+      return {
+        ...state,
+        message: action.message,
+      };
+    }
+    case 'sent_message': {
+      return {
+        ...state,
+        message: '',
+      };
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+</code></pre>
+<pre><code class="language-js ContactList.js">export default function ContactList({contacts, selectedId, dispatch}) {
+  return (
+    &lt;section className=&quot;contact-list&quot;&gt;
+      &lt;ul&gt;
+        {contacts.map((contact) =&gt; (
+          &lt;li key={contact.id}&gt;
+            &lt;button
+              onClick={() =&gt; {
+                dispatch({
+                  type: 'changed_selection',
+                  contactId: contact.id,
+                });
+              }}&gt;
+              {selectedId === contact.id ? &lt;b&gt;{contact.name}&lt;/b&gt; : contact.name}
+            &lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Chat.js active">import {useState} from 'react';
+
+export default function Chat({contact, message, dispatch}) {
+  return (
+    &lt;section className=&quot;chat&quot;&gt;
+      &lt;textarea
+        value={message}
+        placeholder={'Chat to ' + contact.name}
+        onChange={(e) =&gt; {
+          dispatch({
+            type: 'edited_message',
+            message: e.target.value,
+          });
+        }}
+      /&gt;
+      &lt;br /&gt;
+      &lt;button
+        onClick={() =&gt; {
+          alert(`Sending &quot;${message}&quot; to ${contact.email}`);
+          dispatch({
+            type: 'sent_message',
+          });
+        }}&gt;
+        Send to {contact.email}
+      &lt;/button&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.chat,
+.contact-list {
+  float: left;
+  margin-bottom: 20px;
+}
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li button {
+  width: 100px;
+  padding: 10px;
+  margin-right: 10px;
+}
+textarea {
+  height: 150px;
+}
+</code></pre>
+</Sandpack>
+<p>The resulting behavior is the same. But keep in mind that action types should ideally describe &quot;what the user did&quot; rather than &quot;how you want the state to change&quot;. This makes it easier to later add more features.</p>
+<p>With either solution, it's important that you <strong>don't</strong> place the <code>alert</code> inside a reducer. The reducer should be a pure function--it should only calculate the next state. It should not &quot;do&quot; anything, including displaying messages to the user. That should happen in the event handler. (To help catch mistakes like this, React will call your reducers multiple times in Strict Mode. This is why, if you put an alert in a reducer, it fires twice.)</p>
+</Solution>
+<h4 id="restore-input-values-when-switching-between-tabs-restore-input-values-when-switching-between-tabs"><a class="header" href="#restore-input-values-when-switching-between-tabs-restore-input-values-when-switching-between-tabs">Restore input values when switching between tabs {/<em>restore-input-values-when-switching-between-tabs</em>/}</a></h4>
+<p>In this example, switching between different recipients always clears the text input:</p>
+<pre><code class="language-js">case 'changed_selection': {
+  return {
+    ...state,
+    selectedId: action.contactId,
+    message: '' // Clears the input
+  };
+</code></pre>
+<p>This is because you don't want to share a single message draft between several recipients. But it would be better if your app &quot;remembered&quot; a draft for each contact separately, restoring them when you switch contacts.</p>
+<p>Your task is to change the way the state is structured so that you remember a separate message draft <em>per contact</em>. You would need to make a few changes to the reducer, the initial state, and the components.</p>
+<Hint>
+<p>You can structure your state like this:</p>
+<pre><code class="language-js">export const initialState = {
+  selectedId: 0,
+  messages: {
+    0: 'Hello, Taylor', // Draft for contactId = 0
+    1: 'Hello, Alice', // Draft for contactId = 1
+  },
+};
+</code></pre>
+<p>The <code>[key]: value</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names">computed property</a> syntax can help you update the <code>messages</code> object:</p>
+<pre><code class="language-js">{
+  ...state.messages,
+  [id]: message
+}
+</code></pre>
+</Hint>
+<Sandpack>
+<pre><code class="language-js App.js">import {useReducer} from 'react';
+import Chat from './Chat.js';
+import ContactList from './ContactList.js';
+import {initialState, messengerReducer} from './messengerReducer';
+
+export default function Messenger() {
+  const [state, dispatch] = useReducer(messengerReducer, initialState);
+  const message = state.message;
+  const contact = contacts.find((c) =&gt; c.id === state.selectedId);
+  return (
+    &lt;div&gt;
+      &lt;ContactList
+        contacts={contacts}
+        selectedId={state.selectedId}
+        dispatch={dispatch}
+      /&gt;
+      &lt;Chat
+        key={contact.id}
+        message={message}
+        contact={contact}
+        dispatch={dispatch}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+const contacts = [
+  {id: 0, name: 'Taylor', email: 'taylor@mail.com'},
+  {id: 1, name: 'Alice', email: 'alice@mail.com'},
+  {id: 2, name: 'Bob', email: 'bob@mail.com'},
+];
+</code></pre>
+<pre><code class="language-js messengerReducer.js">export const initialState = {
+  selectedId: 0,
+  message: 'Hello',
+};
+
+export function messengerReducer(state, action) {
+  switch (action.type) {
+    case 'changed_selection': {
+      return {
+        ...state,
+        selectedId: action.contactId,
+        message: '',
+      };
+    }
+    case 'edited_message': {
+      return {
+        ...state,
+        message: action.message,
+      };
+    }
+    case 'sent_message': {
+      return {
+        ...state,
+        message: '',
+      };
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+</code></pre>
+<pre><code class="language-js ContactList.js">export default function ContactList({contacts, selectedId, dispatch}) {
+  return (
+    &lt;section className=&quot;contact-list&quot;&gt;
+      &lt;ul&gt;
+        {contacts.map((contact) =&gt; (
+          &lt;li key={contact.id}&gt;
+            &lt;button
+              onClick={() =&gt; {
+                dispatch({
+                  type: 'changed_selection',
+                  contactId: contact.id,
+                });
+              }}&gt;
+              {selectedId === contact.id ? &lt;b&gt;{contact.name}&lt;/b&gt; : contact.name}
+            &lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Chat.js">import {useState} from 'react';
+
+export default function Chat({contact, message, dispatch}) {
+  return (
+    &lt;section className=&quot;chat&quot;&gt;
+      &lt;textarea
+        value={message}
+        placeholder={'Chat to ' + contact.name}
+        onChange={(e) =&gt; {
+          dispatch({
+            type: 'edited_message',
+            message: e.target.value,
+          });
+        }}
+      /&gt;
+      &lt;br /&gt;
+      &lt;button
+        onClick={() =&gt; {
+          alert(`Sending &quot;${message}&quot; to ${contact.email}`);
+          dispatch({
+            type: 'sent_message',
+          });
+        }}&gt;
+        Send to {contact.email}
+      &lt;/button&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.chat,
+.contact-list {
+  float: left;
+  margin-bottom: 20px;
+}
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li button {
+  width: 100px;
+  padding: 10px;
+  margin-right: 10px;
+}
+textarea {
+  height: 150px;
+}
+</code></pre>
+</Sandpack>
+<Solution>
+<p>You'll need to update the reducer to store and update a separate message draft per contact:</p>
+<pre><code class="language-js">// When the input is edited
+case 'edited_message': {
+  return {
+    // Keep other state like selection
+    ...state,
+    messages: {
+      // Keep messages for other contacts
+      ...state.messages,
+      // But change the selected contact's message
+      [state.selectedId]: action.message
+    }
+  };
+}
+</code></pre>
+<p>You would also update the <code>Messenger</code> component to read the message for the currently selected contact:</p>
+<pre><code class="language-js">const message = state.messages[state.selectedId];
+</code></pre>
+<p>Here is the complete solution:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import {useReducer} from 'react';
+import Chat from './Chat.js';
+import ContactList from './ContactList.js';
+import {initialState, messengerReducer} from './messengerReducer';
+
+export default function Messenger() {
+  const [state, dispatch] = useReducer(messengerReducer, initialState);
+  const message = state.messages[state.selectedId];
+  const contact = contacts.find((c) =&gt; c.id === state.selectedId);
+  return (
+    &lt;div&gt;
+      &lt;ContactList
+        contacts={contacts}
+        selectedId={state.selectedId}
+        dispatch={dispatch}
+      /&gt;
+      &lt;Chat
+        key={contact.id}
+        message={message}
+        contact={contact}
+        dispatch={dispatch}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+const contacts = [
+  {id: 0, name: 'Taylor', email: 'taylor@mail.com'},
+  {id: 1, name: 'Alice', email: 'alice@mail.com'},
+  {id: 2, name: 'Bob', email: 'bob@mail.com'},
+];
+</code></pre>
+<pre><code class="language-js messengerReducer.js">export const initialState = {
+  selectedId: 0,
+  messages: {
+    0: 'Hello, Taylor',
+    1: 'Hello, Alice',
+    2: 'Hello, Bob',
+  },
+};
+
+export function messengerReducer(state, action) {
+  switch (action.type) {
+    case 'changed_selection': {
+      return {
+        ...state,
+        selectedId: action.contactId,
+      };
+    }
+    case 'edited_message': {
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          [state.selectedId]: action.message,
+        },
+      };
+    }
+    case 'sent_message': {
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          [state.selectedId]: '',
+        },
+      };
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+</code></pre>
+<pre><code class="language-js ContactList.js">export default function ContactList({contacts, selectedId, dispatch}) {
+  return (
+    &lt;section className=&quot;contact-list&quot;&gt;
+      &lt;ul&gt;
+        {contacts.map((contact) =&gt; (
+          &lt;li key={contact.id}&gt;
+            &lt;button
+              onClick={() =&gt; {
+                dispatch({
+                  type: 'changed_selection',
+                  contactId: contact.id,
+                });
+              }}&gt;
+              {selectedId === contact.id ? &lt;b&gt;{contact.name}&lt;/b&gt; : contact.name}
+            &lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Chat.js">import {useState} from 'react';
+
+export default function Chat({contact, message, dispatch}) {
+  return (
+    &lt;section className=&quot;chat&quot;&gt;
+      &lt;textarea
+        value={message}
+        placeholder={'Chat to ' + contact.name}
+        onChange={(e) =&gt; {
+          dispatch({
+            type: 'edited_message',
+            message: e.target.value,
+          });
+        }}
+      /&gt;
+      &lt;br /&gt;
+      &lt;button
+        onClick={() =&gt; {
+          alert(`Sending &quot;${message}&quot; to ${contact.email}`);
+          dispatch({
+            type: 'sent_message',
+          });
+        }}&gt;
+        Send to {contact.email}
+      &lt;/button&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.chat,
+.contact-list {
+  float: left;
+  margin-bottom: 20px;
+}
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li button {
+  width: 100px;
+  padding: 10px;
+  margin-right: 10px;
+}
+textarea {
+  height: 150px;
+}
+</code></pre>
+</Sandpack>
+<p>Notably, you didn't need to change any of the event handlers to implement this different behavior. Without a reducer, you would have to change every event handler that updates the state.</p>
+</Solution>
+<h4 id="implement-usereducer-from-scratch-implement-usereducer-from-scratch"><a class="header" href="#implement-usereducer-from-scratch-implement-usereducer-from-scratch">Implement <code>useReducer</code> from scratch {/<em>implement-usereducer-from-scratch</em>/}</a></h4>
+<p>In the earlier examples, you imported the <code>useReducer</code> Hook from React. This time, you will implement <em>the <code>useReducer</code> Hook itself!</em> Here is a stub to get you started. It shouldn't take more than 10 lines of code.</p>
+<p>To test your changes, try typing into the input or select a contact.</p>
+<Hint>
+<p>Here is a more detailed sketch of the implementation:</p>
+<pre><code class="language-js">export function useReducer(reducer, initialState) {
+  const [state, setState] = useState(initialState);
+
+  function dispatch(action) {
+    // ???
+  }
+
+  return [state, dispatch];
+}
+</code></pre>
+<p>Recall that a reducer function takes two arguments--the current state and the action object--and it returns the next state. What should your <code>dispatch</code> implementation do with it?</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-js App.js">import {useReducer} from './MyReact.js';
+import Chat from './Chat.js';
+import ContactList from './ContactList.js';
+import {initialState, messengerReducer} from './messengerReducer';
+
+export default function Messenger() {
+  const [state, dispatch] = useReducer(messengerReducer, initialState);
+  const message = state.messages[state.selectedId];
+  const contact = contacts.find((c) =&gt; c.id === state.selectedId);
+  return (
+    &lt;div&gt;
+      &lt;ContactList
+        contacts={contacts}
+        selectedId={state.selectedId}
+        dispatch={dispatch}
+      /&gt;
+      &lt;Chat
+        key={contact.id}
+        message={message}
+        contact={contact}
+        dispatch={dispatch}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+const contacts = [
+  {id: 0, name: 'Taylor', email: 'taylor@mail.com'},
+  {id: 1, name: 'Alice', email: 'alice@mail.com'},
+  {id: 2, name: 'Bob', email: 'bob@mail.com'},
+];
+</code></pre>
+<pre><code class="language-js messengerReducer.js">export const initialState = {
+  selectedId: 0,
+  messages: {
+    0: 'Hello, Taylor',
+    1: 'Hello, Alice',
+    2: 'Hello, Bob',
+  },
+};
+
+export function messengerReducer(state, action) {
+  switch (action.type) {
+    case 'changed_selection': {
+      return {
+        ...state,
+        selectedId: action.contactId,
+      };
+    }
+    case 'edited_message': {
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          [state.selectedId]: action.message,
+        },
+      };
+    }
+    case 'sent_message': {
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          [state.selectedId]: '',
+        },
+      };
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+</code></pre>
+<pre><code class="language-js MyReact.js active">import {useState} from 'react';
+
+export function useReducer(reducer, initialState) {
+  const [state, setState] = useState(initialState);
+
+  // ???
+
+  return [state, dispatch];
+}
+</code></pre>
+<pre><code class="language-js ContactList.js hidden">export default function ContactList({contacts, selectedId, dispatch}) {
+  return (
+    &lt;section className=&quot;contact-list&quot;&gt;
+      &lt;ul&gt;
+        {contacts.map((contact) =&gt; (
+          &lt;li key={contact.id}&gt;
+            &lt;button
+              onClick={() =&gt; {
+                dispatch({
+                  type: 'changed_selection',
+                  contactId: contact.id,
+                });
+              }}&gt;
+              {selectedId === contact.id ? &lt;b&gt;{contact.name}&lt;/b&gt; : contact.name}
+            &lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Chat.js hidden">import {useState} from 'react';
+
+export default function Chat({contact, message, dispatch}) {
+  return (
+    &lt;section className=&quot;chat&quot;&gt;
+      &lt;textarea
+        value={message}
+        placeholder={'Chat to ' + contact.name}
+        onChange={(e) =&gt; {
+          dispatch({
+            type: 'edited_message',
+            message: e.target.value,
+          });
+        }}
+      /&gt;
+      &lt;br /&gt;
+      &lt;button
+        onClick={() =&gt; {
+          alert(`Sending &quot;${message}&quot; to ${contact.email}`);
+          dispatch({
+            type: 'sent_message',
+          });
+        }}&gt;
+        Send to {contact.email}
+      &lt;/button&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.chat,
+.contact-list {
+  float: left;
+  margin-bottom: 20px;
+}
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li button {
+  width: 100px;
+  padding: 10px;
+  margin-right: 10px;
+}
+textarea {
+  height: 150px;
+}
+</code></pre>
+</Sandpack>
+<Solution>
+<p>Dispatching an action calls a reducer with the current state and the action, and stores the result as the next state. This is what it looks like in code:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import {useReducer} from './MyReact.js';
+import Chat from './Chat.js';
+import ContactList from './ContactList.js';
+import {initialState, messengerReducer} from './messengerReducer';
+
+export default function Messenger() {
+  const [state, dispatch] = useReducer(messengerReducer, initialState);
+  const message = state.messages[state.selectedId];
+  const contact = contacts.find((c) =&gt; c.id === state.selectedId);
+  return (
+    &lt;div&gt;
+      &lt;ContactList
+        contacts={contacts}
+        selectedId={state.selectedId}
+        dispatch={dispatch}
+      /&gt;
+      &lt;Chat
+        key={contact.id}
+        message={message}
+        contact={contact}
+        dispatch={dispatch}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+const contacts = [
+  {id: 0, name: 'Taylor', email: 'taylor@mail.com'},
+  {id: 1, name: 'Alice', email: 'alice@mail.com'},
+  {id: 2, name: 'Bob', email: 'bob@mail.com'},
+];
+</code></pre>
+<pre><code class="language-js messengerReducer.js">export const initialState = {
+  selectedId: 0,
+  messages: {
+    0: 'Hello, Taylor',
+    1: 'Hello, Alice',
+    2: 'Hello, Bob',
+  },
+};
+
+export function messengerReducer(state, action) {
+  switch (action.type) {
+    case 'changed_selection': {
+      return {
+        ...state,
+        selectedId: action.contactId,
+      };
+    }
+    case 'edited_message': {
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          [state.selectedId]: action.message,
+        },
+      };
+    }
+    case 'sent_message': {
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          [state.selectedId]: '',
+        },
+      };
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+</code></pre>
+<pre><code class="language-js MyReact.js active">import {useState} from 'react';
+
+export function useReducer(reducer, initialState) {
+  const [state, setState] = useState(initialState);
+
+  function dispatch(action) {
+    const nextState = reducer(state, action);
+    setState(nextState);
+  }
+
+  return [state, dispatch];
+}
+</code></pre>
+<pre><code class="language-js ContactList.js hidden">export default function ContactList({contacts, selectedId, dispatch}) {
+  return (
+    &lt;section className=&quot;contact-list&quot;&gt;
+      &lt;ul&gt;
+        {contacts.map((contact) =&gt; (
+          &lt;li key={contact.id}&gt;
+            &lt;button
+              onClick={() =&gt; {
+                dispatch({
+                  type: 'changed_selection',
+                  contactId: contact.id,
+                });
+              }}&gt;
+              {selectedId === contact.id ? &lt;b&gt;{contact.name}&lt;/b&gt; : contact.name}
+            &lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Chat.js hidden">import {useState} from 'react';
+
+export default function Chat({contact, message, dispatch}) {
+  return (
+    &lt;section className=&quot;chat&quot;&gt;
+      &lt;textarea
+        value={message}
+        placeholder={'Chat to ' + contact.name}
+        onChange={(e) =&gt; {
+          dispatch({
+            type: 'edited_message',
+            message: e.target.value,
+          });
+        }}
+      /&gt;
+      &lt;br /&gt;
+      &lt;button
+        onClick={() =&gt; {
+          alert(`Sending &quot;${message}&quot; to ${contact.email}`);
+          dispatch({
+            type: 'sent_message',
+          });
+        }}&gt;
+        Send to {contact.email}
+      &lt;/button&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.chat,
+.contact-list {
+  float: left;
+  margin-bottom: 20px;
+}
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li button {
+  width: 100px;
+  padding: 10px;
+  margin-right: 10px;
+}
+textarea {
+  height: 150px;
+}
+</code></pre>
+</Sandpack>
+<p>Though it doesn't matter in most cases, a slightly more accurate implementation looks like this:</p>
+<pre><code class="language-js">function dispatch(action) {
+  setState((s) =&gt; reducer(s, action));
+}
+</code></pre>
+<p>This is because the dispatched actions are queued until the next render, <a href="/learn/queueing-a-series-of-state-updates">similar to the updater functions.</a></p>
+</Solution>
+</Challenges>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/preserving-and-resetting-state.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/passing-data-deeply-with-context.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/preserving-and-resetting-state.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/passing-data-deeply-with-context.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

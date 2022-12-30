@@ -1,0 +1,1109 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Passing Props to a Component - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html" class="active"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-passing-props-to-a-component"><a class="header" href="#title-passing-props-to-a-component">title: Passing Props to a Component</a></h2>
+<Intro>
+<p>React components use <em>props</em> to communicate with each other. Every parent component can pass some information to its child components by giving them props. Props might remind you of HTML attributes, but you can pass any JavaScript value through them, including objects, arrays, and functions.</p>
+</Intro>
+<YouWillLearn>
+<ul>
+<li>How to pass props to a component</li>
+<li>How to read props from a component</li>
+<li>How to specify default values for props</li>
+<li>How to pass some JSX to a component</li>
+<li>How props change over time</li>
+</ul>
+</YouWillLearn>
+<h2 id="familiar-props-familiar-props"><a class="header" href="#familiar-props-familiar-props">Familiar props {/<em>familiar-props</em>/}</a></h2>
+<p>Props are the information that you pass to a JSX tag. For example, <code>className</code>, <code>src</code>, <code>alt</code>, <code>width</code>, and <code>height</code> are some of the props you can pass to an <code>&lt;img&gt;</code>:</p>
+<Sandpack>
+<pre><code class="language-js">function Avatar() {
+  return (
+    &lt;img
+      className=&quot;avatar&quot;
+      src=&quot;https://i.imgur.com/1bX5QH6.jpg&quot;
+      alt=&quot;Lin Lanying&quot;
+      width={100}
+      height={100}
+    /&gt;
+  );
+}
+
+export default function Profile() {
+  return (
+    &lt;Avatar /&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body { min-height: 120px; }
+.avatar { margin: 20px; border-radius: 50%; }
+</code></pre>
+</Sandpack>
+<p>The props you can pass to an <code>&lt;img&gt;</code> tag are predefined (ReactDOM conforms to <a href="https://www.w3.org/TR/html52/semantics-embedded-content.html#the-img-element">the HTML standard</a>). But you can pass any props to <em>your own</em> components, such as <code>&lt;Avatar&gt;</code>, to customize them. Here's how!</p>
+<h2 id="passing-props-to-a-component-passing-props-to-a-component"><a class="header" href="#passing-props-to-a-component-passing-props-to-a-component">Passing props to a component {/<em>passing-props-to-a-component</em>/}</a></h2>
+<p>In this code, the <code>Profile</code> component isn't passing any props to its child component, <code>Avatar</code>:</p>
+<pre><code class="language-js">export default function Profile() {
+  return (
+    &lt;Avatar /&gt;
+  );
+}
+</code></pre>
+<p>You can give <code>Avatar</code> some props in two steps.</p>
+<h3 id="step-1-pass-props-to-the-child-component-step-1-pass-props-to-the-child-component"><a class="header" href="#step-1-pass-props-to-the-child-component-step-1-pass-props-to-the-child-component">Step 1: Pass props to the child component {/<em>step-1-pass-props-to-the-child-component</em>/}</a></h3>
+<p>First, pass some props to <code>Avatar</code>. For example, let's pass two props: <code>person</code> (an object), and <code>size</code> (a number):</p>
+<pre><code class="language-js">export default function Profile() {
+  return (
+    &lt;Avatar
+      person={{ name: 'Lin Lanying', imageId: '1bX5QH6' }}
+      size={100}
+    /&gt;
+  );
+}
+</code></pre>
+<blockquote>
+<p>If double curly braces after <code>person=</code> confuse you, remember <a href="/learn/javascript-in-jsx-with-curly-braces#using-double-curlies-css-and-other-objects-in-jsx">they are merely an object</a> inside the JSX curlies.</p>
+</blockquote>
+<p>Now you can read these props inside the <code>Avatar</code> component.</p>
+<h3 id="step-2-read-props-inside-the-child-component-step-2-read-props-inside-the-child-component"><a class="header" href="#step-2-read-props-inside-the-child-component-step-2-read-props-inside-the-child-component">Step 2: Read props inside the child component {/<em>step-2-read-props-inside-the-child-component</em>/}</a></h3>
+<p>You can read these props by listing their names <code>person, size</code> separated by the commas inside <code>({</code> and <code>})</code> directly after <code>function Avatar</code>. This lets you use them inside the <code>Avatar</code> code, like you would with a variable.</p>
+<pre><code class="language-js">function Avatar({ person, size }) {
+  // person and size are available here
+}
+</code></pre>
+<p>Add some logic to <code>Avatar</code> that uses the <code>person</code> and <code>size</code> props for rendering, and you're done.</p>
+<p>Now you can configure <code>Avatar</code> to render in many different ways with different props. Try tweaking the values!</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { getImageUrl } from './utils.js';
+
+function Avatar({ person, size }) {
+  return (
+    &lt;img
+      className=&quot;avatar&quot;
+      src={getImageUrl(person)}
+      alt={person.name}
+      width={size}
+      height={size}
+    /&gt;
+  );
+}
+
+export default function Profile() {
+  return (
+    &lt;div&gt;
+      &lt;Avatar
+        size={100}
+        person={{ 
+          name: 'Katsuko Saruhashi', 
+          imageId: 'YfeOqp2'
+        }}
+      /&gt;
+      &lt;Avatar
+        size={80}
+        person={{
+          name: 'Aklilu Lemma', 
+          imageId: 'OKS67lh'
+        }}
+      /&gt;
+      &lt;Avatar
+        size={50}
+        person={{ 
+          name: 'Lin Lanying',
+          imageId: '1bX5QH6'
+        }}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(person, size = 's') {
+  return (
+    'https://i.imgur.com/' +
+    person.imageId +
+    size +
+    '.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">body { min-height: 120px; }
+.avatar { margin: 10px; border-radius: 50%; }
+</code></pre>
+</Sandpack>
+<p>Props let you think about parent and child components independently. For example, you can change the <code>person</code> or the <code>size</code> props inside <code>Profile</code> without having to think about how <code>Avatar</code> uses them. Similarly, you can change how the <code>Avatar</code> uses these props, without looking at the <code>Profile</code>.</p>
+<p>You can think of props like &quot;knobs&quot; that you can adjust. They serve the same role as arguments serve for functions—in fact, props <em>are</em> the only argument to your component! React component functions accept a single argument, a <code>props</code> object:</p>
+<pre><code class="language-js">function Avatar(props) {
+  let person = props.person;
+  let size = props.size;
+  // ...
+}
+</code></pre>
+<p>Usually you don't need the whole <code>props</code> object itself, so you destructure it into individual props.</p>
+<Pitfall>
+<p><strong>Don't miss the pair of <code>{</code> and <code>}</code> curlies</strong> inside of <code>(</code> and <code>)</code> when declaring props:</p>
+<pre><code class="language-js">function Avatar({ person, size }) {
+  // ...
+}
+</code></pre>
+<p>This syntax is called <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Unpacking_fields_from_objects_passed_as_a_function_parameter">&quot;destructuring&quot;</a> and is equivalent to reading properties from a function parameter:</p>
+<pre><code class="language-js">function Avatar(props) {
+  let person = props.person;
+  let size = props.size;
+  // ...
+}
+</code></pre>
+</Pitfall>
+<h2 id="specifying-a-default-value-for-a-prop-specifying-a-default-value-for-a-prop"><a class="header" href="#specifying-a-default-value-for-a-prop-specifying-a-default-value-for-a-prop">Specifying a default value for a prop {/<em>specifying-a-default-value-for-a-prop</em>/}</a></h2>
+<p>If you want to give a prop a default value to fall back on when no value is specified, you can do it with the destructuring by putting <code>=</code> and the default value right after the parameter:</p>
+<pre><code class="language-js">function Avatar({ person, size = 100 }) {
+  // ...
+}
+</code></pre>
+<p>Now, if <code>&lt;Avatar person={...} /&gt;</code> is rendered with no <code>size</code> prop, the <code>size</code> will be set to <code>100</code>.</p>
+<p>The default value is only used if the <code>size</code> prop is missing or if you pass <code>size={undefined}</code>. But if you pass <code>size={null}</code> or <code>size={0}</code>, the default value will <strong>not</strong> be used.</p>
+<h2 id="forwarding-props-with-the-jsx-spread-syntax-forwarding-props-with-the-jsx-spread-syntax"><a class="header" href="#forwarding-props-with-the-jsx-spread-syntax-forwarding-props-with-the-jsx-spread-syntax">Forwarding props with the JSX spread syntax {/<em>forwarding-props-with-the-jsx-spread-syntax</em>/}</a></h2>
+<p>Sometimes, passing props gets very repetitive:</p>
+<pre><code class="language-js">function Profile({ person, size, isSepia, thickBorder }) {
+  return (
+    &lt;div className=&quot;card&quot;&gt;
+      &lt;Avatar
+        person={person}
+        size={size}
+        isSepia={isSepia}
+        thickBorder={thickBorder}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p>There's nothing wrong with repetitive code—it can be more legible. But at times you may value conciseness. Some components forward all of their props to their children, like how this <code>Profile</code> does with <code>Avatar</code>. Because they don't use any of their props directly, it can make sense to use a more concise &quot;spread&quot; syntax:</p>
+<pre><code class="language-js">function Profile(props) {
+  return (
+    &lt;div className=&quot;card&quot;&gt;
+      &lt;Avatar {...props} /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p>This forwards all of <code>Profile</code>'s props to the <code>Avatar</code> without listing each of their names.</p>
+<p><strong>Use spread syntax with restraint.</strong> If you're using it in every other component, something is wrong. Often, it indicates that you should split your components and pass children as JSX. More on that next!</p>
+<h2 id="passing-jsx-as-children-passing-jsx-as-children"><a class="header" href="#passing-jsx-as-children-passing-jsx-as-children">Passing JSX as children {/<em>passing-jsx-as-children</em>/}</a></h2>
+<p>It is common to nest built-in browser tags:</p>
+<pre><code class="language-js">&lt;div&gt;
+  &lt;img /&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Sometimes you'll want to nest your own components the same way:</p>
+<pre><code class="language-js">&lt;Card&gt;
+  &lt;Avatar /&gt;
+&lt;/Card&gt;
+</code></pre>
+<p>When you nest content inside a JSX tag, the parent component will receive that content in a prop called <code>children</code>. For example, the <code>Card</code> component below will receive a <code>children</code> prop set to <code>&lt;Avatar /&gt;</code> and render it in a wrapper div:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import Avatar from './Avatar.js';
+
+function Card({ children }) {
+  return (
+    &lt;div className=&quot;card&quot;&gt;
+      {children}
+    &lt;/div&gt;
+  );
+}
+
+export default function Profile() {
+  return (
+    &lt;Card&gt;
+      &lt;Avatar
+        size={100}
+        person={{ 
+          name: 'Katsuko Saruhashi',
+          imageId: 'YfeOqp2'
+        }}
+      /&gt;
+    &lt;/Card&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Avatar.js">import { getImageUrl } from './utils.js';
+
+export default function Avatar({ person, size }) {
+  return (
+    &lt;img
+      className=&quot;avatar&quot;
+      src={getImageUrl(person)}
+      alt={person.name}
+      width={size}
+      height={size}
+    /&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(person, size = 's') {
+  return (
+    'https://i.imgur.com/' +
+    person.imageId +
+    size +
+    '.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">.card {
+  width: fit-content;
+  margin: 5px;
+  padding: 5px;
+  font-size: 20px;
+  text-align: center;
+  border: 1px solid #aaa;
+  border-radius: 20px;
+  background: #fff;
+}
+.avatar {
+  margin: 20px;
+  border-radius: 50%;
+}
+</code></pre>
+</Sandpack>
+<p>Try replacing the <code>&lt;Avatar&gt;</code> inside <code>&lt;Card&gt;</code> with some text to see how the <code>Card</code> component can wrap any nested content. It doesn't need to &quot;know&quot; what's being rendered inside of it. You will see this flexible pattern in many places.</p>
+<p>You can think of a component with a <code>children</code> prop as having a &quot;hole&quot; that can be &quot;filled in&quot; by its parent components with arbitrary JSX. You will often use the <code>children</code> prop for visual wrappers: panels, grids, and so on.</p>
+<Illustration src="/images/docs/illustrations/i_children-prop.png" alt='A puzzle-like Card tile with a slot for "children" pieces like text and Avatar' />
+<h2 id="how-props-change-over-time-how-props-change-over-time"><a class="header" href="#how-props-change-over-time-how-props-change-over-time">How props change over time {/<em>how-props-change-over-time</em>/}</a></h2>
+<p>The <code>Clock</code> component below receives two props from its parent component: <code>color</code> and <code>time</code>. (The parent component's code is omitted because it uses <a href="/learn/state-a-components-memory">state</a>, which we won't dive into just yet.)</p>
+<p>Try changing the color in the select box below:</p>
+<Sandpack>
+<pre><code class="language-js Clock.js active">export default function Clock({ color, time }) {
+  return (
+    &lt;h1 style={{ color: color }}&gt;
+      {time}
+    &lt;/h1&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js App.js hidden">import { useState, useEffect } from 'react';
+import Clock from './Clock.js';
+
+function useTime() {
+  const [time, setTime] = useState(() =&gt; new Date());
+  useEffect(() =&gt; {
+    const id = setInterval(() =&gt; {
+      setTime(new Date());
+    }, 1000);
+    return () =&gt; clearInterval(id);
+  }, []);
+  return time;
+}
+
+export default function App() {
+  const time = useTime();
+  const [color, setColor] = useState('lightcoral');
+  return (
+    &lt;div&gt;
+      &lt;p&gt;
+        Pick a color:{' '}
+        &lt;select value={color} onChange={e =&gt; setColor(e.target.value)}&gt;
+          &lt;option value=&quot;lightcoral&quot;&gt;lightcoral&lt;/option&gt;
+          &lt;option value=&quot;midnightblue&quot;&gt;midnightblue&lt;/option&gt;
+          &lt;option value=&quot;rebeccapurple&quot;&gt;rebeccapurple&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/p&gt;
+      &lt;Clock color={color} time={time.toLocaleTimeString()} /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>This example illustrates that <strong>a component may receive different props over time.</strong> Props are not always static! Here, the <code>time</code> prop changes every second, and the <code>color</code> prop changes when you select another color. Props reflect a component's data at any point in time, rather than only in the beginning.</p>
+<p>However, props are <a href="https://en.wikipedia.org/wiki/Immutable_object">immutable</a>—a term from computer science meaning &quot;unchangeable&quot;. When a component needs to change its props (for example, in response to a user interaction or new data), it will have to &quot;ask&quot; its parent component to pass it <em>different props</em>—a new object! Its old props will then be cast aside, and eventually the JavaScript engine will reclaim the memory taken by them.</p>
+<p><strong>Don't try to &quot;change props&quot;.</strong> When you need to respond to the user input (like changing the selected color), you will need to &quot;set state&quot;, which you can learn about in <a href="/learn/state-a-components-memory">State: A Component's Memory.</a></p>
+<Recap>
+<ul>
+<li>To pass props, add them to the JSX, just like you would with HTML attributes.</li>
+<li>To read props, use the <code>function Avatar({ person, size })</code> destructuring syntax.</li>
+<li>You can specify a default value like <code>size = 100</code>, which is used for missing and <code>undefined</code> props.</li>
+<li>You can forward all props with <code>&lt;Avatar {...props} /&gt;</code> JSX spread syntax, but don't overuse it!</li>
+<li>Nested JSX like <code>&lt;Card&gt;&lt;Avatar /&gt;&lt;/Card&gt;</code> will appear as <code>Card</code> component's <code>children</code> prop.</li>
+<li>Props are read-only snapshots in time: every render receives a new version of props.</li>
+<li>You can't change props. When you need interactivity, you'll need to set state.</li>
+</ul>
+</Recap>
+<Challenges>
+<h4 id="extract-a-component-extract-a-component"><a class="header" href="#extract-a-component-extract-a-component">Extract a component {/<em>extract-a-component</em>/}</a></h4>
+<p>This <code>Gallery</code> component contains some very similar markup for two profiles. Extract a <code>Profile</code> component out of it to reduce the duplication. You'll need to choose what props to pass to it.</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { getImageUrl } from './utils.js';
+
+export default function Gallery() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Notable Scientists&lt;/h1&gt;
+      &lt;section className=&quot;profile&quot;&gt;
+        &lt;h2&gt;Maria Skłodowska-Curie&lt;/h2&gt;
+        &lt;img
+          className=&quot;avatar&quot;
+          src={getImageUrl('szV5sdG')}
+          alt=&quot;Maria Skłodowska-Curie&quot;
+          width={70}
+          height={70}
+        /&gt;
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;b&gt;Profession: &lt;/b&gt; 
+            physicist and chemist
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;b&gt;Awards: 4 &lt;/b&gt; 
+            (Nobel Prize in Physics, Nobel Prize in Chemistry, Davy Medal, Matteucci Medal)
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;b&gt;Discovered: &lt;/b&gt;
+            polonium (element)
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/section&gt;
+      &lt;section className=&quot;profile&quot;&gt;
+        &lt;h2&gt;Katsuko Saruhashi&lt;/h2&gt;
+        &lt;img
+          className=&quot;avatar&quot;
+          src={getImageUrl('YfeOqp2')}
+          alt=&quot;Katsuko Saruhashi&quot;
+          width={70}
+          height={70}
+        /&gt;
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;b&gt;Profession: &lt;/b&gt; 
+            geochemist
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;b&gt;Awards: 2 &lt;/b&gt; 
+            (Miyake Prize for geochemistry, Tanaka Prize)
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;b&gt;Discovered: &lt;/b&gt;
+            a method for measuring carbon dioxide in seawater
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/section&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(imageId, size = 's') {
+  return (
+    'https://i.imgur.com/' +
+    imageId +
+    size +
+    '.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">.avatar { margin: 5px; border-radius: 50%; min-height: 70px; }
+.profile {
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 10px;
+}
+h1, h2 { margin: 5px; }
+h1 { margin-bottom: 10px; }
+ul { padding: 0px 10px 0px 20px; }
+li { margin: 5px; }
+</code></pre>
+</Sandpack>
+<Hint>
+<p>Start by extracting the markup for one of the scientists. Then find the pieces that don't match it in the second example, and make them configurable by props.</p>
+</Hint>
+<Solution>
+<p>In this solution, the <code>Profile</code> component accepts multiple props: <code>imageId</code> (a string), <code>name</code> (a string), <code>profession</code> (a string), <code>awards</code> (an array of strings), <code>discovery</code> (a string), and <code>imageSize</code> (a number).</p>
+<p>Note that the <code>imageSize</code> prop has a default value, which is why we don't pass it to the component.</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { getImageUrl } from './utils.js';
+
+function Profile({
+  imageId,
+  name,
+  profession,
+  awards,
+  discovery,
+  imageSize = 70
+}) {
+  return (
+    &lt;section className=&quot;profile&quot;&gt;
+      &lt;h2&gt;{name}&lt;/h2&gt;
+      &lt;img
+        className=&quot;avatar&quot;
+        src={getImageUrl(imageId)}
+        alt={name}
+        width={imageSize}
+        height={imageSize}
+      /&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;b&gt;Profession:&lt;/b&gt; {profession}&lt;/li&gt;
+        &lt;li&gt;
+          &lt;b&gt;Awards: {awards.length} &lt;/b&gt;
+          ({awards.join(', ')})
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;b&gt;Discovered: &lt;/b&gt;
+          {discovery}
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+
+export default function Gallery() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Notable Scientists&lt;/h1&gt;
+      &lt;Profile
+        imageId=&quot;szV5sdG&quot;
+        name=&quot;Maria Skłodowska-Curie&quot;
+        profession=&quot;physicist and chemist&quot;
+        discovery=&quot;polonium (chemical element)&quot;
+        awards={[
+          'Nobel Prize in Physics',
+          'Nobel Prize in Chemistry',
+          'Davy Medal',
+          'Matteucci Medal'
+        ]}
+      /&gt;
+      &lt;Profile
+        imageId='YfeOqp2'
+        name='Katsuko Saruhashi'
+        profession='geochemist'
+        discovery=&quot;a method for measuring carbon dioxide in seawater&quot;
+        awards={[
+          'Miyake Prize for geochemistry',
+          'Tanaka Prize'
+        ]}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(imageId, size = 's') {
+  return (
+    'https://i.imgur.com/' +
+    imageId +
+    size +
+    '.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">.avatar { margin: 5px; border-radius: 50%; min-height: 70px; }
+.profile {
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 10px;
+}
+h1, h2 { margin: 5px; }
+h1 { margin-bottom: 10px; }
+ul { padding: 0px 10px 0px 20px; }
+li { margin: 5px; }
+</code></pre>
+</Sandpack>
+<p>Note how you don't need a separate <code>awardCount</code> prop if <code>awards</code> is an array. Then you can use <code>awards.length</code> to count the number of awards. Remember that props can take any values, and that includes arrays too!</p>
+<p>Another solution, which is more similar to the earlier examples on this page, is to group all information about a person in a single object, and pass that object as one prop:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { getImageUrl } from './utils.js';
+
+function Profile({ person, imageSize = 70 }) {
+  const imageSrc = getImageUrl(person)
+
+  return (
+    &lt;section className=&quot;profile&quot;&gt;
+      &lt;h2&gt;{person.name}&lt;/h2&gt;
+      &lt;img
+        className=&quot;avatar&quot;
+        src={imageSrc}
+        alt={person.name}
+        width={imageSize}
+        height={imageSize}
+      /&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;b&gt;Profession:&lt;/b&gt; {person.profession}
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;b&gt;Awards: {person.awards.length} &lt;/b&gt;
+          ({person.awards.join(', ')})
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;b&gt;Discovered: &lt;/b&gt;
+          {person.discovery}
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  )
+}
+
+export default function Gallery() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Notable Scientists&lt;/h1&gt;
+      &lt;Profile person={{
+        imageId: 'szV5sdG',
+        name: 'Maria Skłodowska-Curie',
+        profession: 'physicist and chemist',
+        discovery: 'polonium (chemical element)',
+        awards: [
+          'Nobel Prize in Physics',
+          'Nobel Prize in Chemistry',
+          'Davy Medal',
+          'Matteucci Medal'
+        ],
+      }} /&gt;
+      &lt;Profile person={{
+        imageId: 'YfeOqp2',
+        name: 'Katsuko Saruhashi',
+        profession: 'geochemist',
+        discovery: 'a method for measuring carbon dioxide in seawater',
+        awards: [
+          'Miyake Prize for geochemistry',
+          'Tanaka Prize'
+        ],
+      }} /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(person, size = 's') {
+  return (
+    'https://i.imgur.com/' +
+    person.imageId +
+    size +
+    '.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">.avatar { margin: 5px; border-radius: 50%; min-height: 70px; }
+.profile {
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 10px;
+}
+h1, h2 { margin: 5px; }
+h1 { margin-bottom: 10px; }
+ul { padding: 0px 10px 0px 20px; }
+li { margin: 5px; }
+</code></pre>
+</Sandpack>
+<p>Although the syntax looks slightly different because you're describing properties of a JavaScript object rather than a collection of JSX attributes, these examples are mostly equivalent, and you can pick either approach.</p>
+</Solution>
+<h4 id="adjust-the-image-size-based-on-a-prop-adjust-the-image-size-based-on-a-prop"><a class="header" href="#adjust-the-image-size-based-on-a-prop-adjust-the-image-size-based-on-a-prop">Adjust the image size based on a prop {/<em>adjust-the-image-size-based-on-a-prop</em>/}</a></h4>
+<p>In this example, <code>Avatar</code> receives a numeric <code>size</code> prop which determines the <code>&lt;img&gt;</code> width and height. The <code>size</code> prop is set to <code>40</code> in this example. However, if you open the image in a new tab, you'll notice that the image itself is larger (<code>160</code> pixels). The real image size is determined by which thumbnail size you're requesting.</p>
+<p>Change the <code>Avatar</code> component to request the closest image size based on the <code>size</code> prop. Specifically, if the <code>size</code> is less than <code>90</code>, pass <code>'s'</code> (&quot;small&quot;) rather than <code>'b'</code> (&quot;big&quot;) to the <code>getImageUrl</code> function. Verify that your changes work by rendering avatars with different values of the <code>size</code> prop and opening images in a new tab.</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { getImageUrl } from './utils.js';
+
+function Avatar({ person, size }) {
+  return (
+    &lt;img
+      className=&quot;avatar&quot;
+      src={getImageUrl(person, 'b')}
+      alt={person.name}
+      width={size}
+      height={size}
+    /&gt;
+  );
+}
+
+export default function Profile() {
+  return (
+    &lt;Avatar
+      size={40}
+      person={{ 
+        name: 'Gregorio Y. Zara', 
+        imageId: '7vQD0fP'
+      }}
+    /&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(person, size) {
+  return (
+    'https://i.imgur.com/' +
+    person.imageId +
+    size +
+    '.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">.avatar { margin: 20px; border-radius: 50%; }
+</code></pre>
+</Sandpack>
+<Solution>
+<p>Here is how you could go about it:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { getImageUrl } from './utils.js';
+
+function Avatar({ person, size }) {
+  let thumbnailSize = 's';
+  if (size &gt; 90) {
+    thumbnailSize = 'b';
+  }
+  return (
+    &lt;img
+      className=&quot;avatar&quot;
+      src={getImageUrl(person, thumbnailSize)}
+      alt={person.name}
+      width={size}
+      height={size}
+    /&gt;
+  );
+}
+
+export default function Profile() {
+  return (
+    &lt;&gt;
+      &lt;Avatar
+        size={40}
+        person={{ 
+          name: 'Gregorio Y. Zara', 
+          imageId: '7vQD0fP'
+        }}
+      /&gt;
+      &lt;Avatar
+        size={120}
+        person={{ 
+          name: 'Gregorio Y. Zara', 
+          imageId: '7vQD0fP'
+        }}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(person, size) {
+  return (
+    'https://i.imgur.com/' +
+    person.imageId +
+    size +
+    '.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">.avatar { margin: 20px; border-radius: 50%; }
+</code></pre>
+</Sandpack>
+<p>You could also show a sharper image for high DPI screens by taking <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio"><code>window.devicePixelRatio</code></a> into account:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { getImageUrl } from './utils.js';
+
+const ratio = window.devicePixelRatio;
+
+function Avatar({ person, size }) {
+  let thumbnailSize = 's';
+  if (size * ratio &gt; 90) {
+    thumbnailSize = 'b';
+  }
+  return (
+    &lt;img
+      className=&quot;avatar&quot;
+      src={getImageUrl(person, thumbnailSize)}
+      alt={person.name}
+      width={size}
+      height={size}
+    /&gt;
+  );
+}
+
+export default function Profile() {
+  return (
+    &lt;&gt;
+      &lt;Avatar
+        size={40}
+        person={{ 
+          name: 'Gregorio Y. Zara', 
+          imageId: '7vQD0fP'
+        }}
+      /&gt;
+      &lt;Avatar
+        size={70}
+        person={{ 
+          name: 'Gregorio Y. Zara', 
+          imageId: '7vQD0fP'
+        }}
+      /&gt;
+      &lt;Avatar
+        size={120}
+        person={{ 
+          name: 'Gregorio Y. Zara', 
+          imageId: '7vQD0fP'
+        }}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js utils.js">export function getImageUrl(person, size) {
+  return (
+    'https://i.imgur.com/' +
+    person.imageId +
+    size +
+    '.jpg'
+  );
+}
+</code></pre>
+<pre><code class="language-css">.avatar { margin: 20px; border-radius: 50%; }
+</code></pre>
+</Sandpack>
+<p>Props let you encapsulate logic like this inside the <code>Avatar</code> component (and change it later if needed) so that everyone can use the <code>&lt;Avatar&gt;</code> component without thinking about how the images are requested and resized.</p>
+</Solution>
+<h4 id="passing-jsx-in-a-children-prop-passing-jsx-in-a-children-prop"><a class="header" href="#passing-jsx-in-a-children-prop-passing-jsx-in-a-children-prop">Passing JSX in a <code>children</code> prop {/<em>passing-jsx-in-a-children-prop</em>/}</a></h4>
+<p>Extract a <code>Card</code> component from the markup below, and use the <code>children</code> prop to pass different JSX to it:</p>
+<Sandpack>
+<pre><code class="language-js">export default function Profile() {
+  return (
+    &lt;div&gt;
+      &lt;div className=&quot;card&quot;&gt;
+        &lt;div className=&quot;card-content&quot;&gt;
+          &lt;h1&gt;Photo&lt;/h1&gt;
+          &lt;img
+            className=&quot;avatar&quot;
+            src=&quot;https://i.imgur.com/OKS67lhm.jpg&quot;
+            alt=&quot;Aklilu Lemma&quot;
+            width={70}
+            height={70}
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;card&quot;&gt;
+        &lt;div className=&quot;card-content&quot;&gt;
+          &lt;h1&gt;About&lt;/h1&gt;
+          &lt;p&gt;Aklilu Lemma was a distinguished Ethiopian scientist who discovered a natural treatment to schistosomiasis.&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.card {
+  width: fit-content;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #aaa;
+  border-radius: 20px;
+  background: #fff;
+}
+.card-content {
+  text-align: center;
+}
+.avatar {
+  margin: 10px;
+  border-radius: 50%;
+}
+h1 {
+  margin: 5px;
+  padding: 0;
+  font-size: 24px;
+}
+</code></pre>
+</Sandpack>
+<Hint>
+<p>Any JSX you put inside of a component's tag will be passed as the <code>children</code> prop to that component.</p>
+</Hint>
+<Solution>
+<p>This is how you can use the <code>Card</code> component in both places:</p>
+<Sandpack>
+<pre><code class="language-js">function Card({ children }) {
+  return (
+    &lt;div className=&quot;card&quot;&gt;
+      &lt;div className=&quot;card-content&quot;&gt;
+        {children}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default function Profile() {
+  return (
+    &lt;div&gt;
+      &lt;Card&gt;
+        &lt;h1&gt;Photo&lt;/h1&gt;
+        &lt;img
+          className=&quot;avatar&quot;
+          src=&quot;https://i.imgur.com/OKS67lhm.jpg&quot;
+          alt=&quot;Aklilu Lemma&quot;
+          width={100}
+          height={100}
+        /&gt;
+      &lt;/Card&gt;
+      &lt;Card&gt;
+        &lt;h1&gt;About&lt;/h1&gt;
+        &lt;p&gt;Aklilu Lemma was a distinguished Ethiopian scientist who discovered a natural treatment to schistosomiasis.&lt;/p&gt;
+      &lt;/Card&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.card {
+  width: fit-content;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #aaa;
+  border-radius: 20px;
+  background: #fff;
+}
+.card-content {
+  text-align: center;
+}
+.avatar {
+  margin: 10px;
+  border-radius: 50%;
+}
+h1 {
+  margin: 5px;
+  padding: 0;
+  font-size: 24px;
+}
+</code></pre>
+</Sandpack>
+<p>You can also make <code>title</code> a separate prop if you want every <code>Card</code> to always have a title:</p>
+<Sandpack>
+<pre><code class="language-js">function Card({ children, title }) {
+  return (
+    &lt;div className=&quot;card&quot;&gt;
+      &lt;div className=&quot;card-content&quot;&gt;
+        &lt;h1&gt;{title}&lt;/h1&gt;
+        {children}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default function Profile() {
+  return (
+    &lt;div&gt;
+      &lt;Card title=&quot;Photo&quot;&gt;
+        &lt;img
+          className=&quot;avatar&quot;
+          src=&quot;https://i.imgur.com/OKS67lhm.jpg&quot;
+          alt=&quot;Aklilu Lemma&quot;
+          width={100}
+          height={100}
+        /&gt;
+      &lt;/Card&gt;
+      &lt;Card title=&quot;About&quot;&gt;
+        &lt;p&gt;Aklilu Lemma was a distinguished Ethiopian scientist who discovered a natural treatment to schistosomiasis.&lt;/p&gt;
+      &lt;/Card&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.card {
+  width: fit-content;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #aaa;
+  border-radius: 20px;
+  background: #fff;
+}
+.card-content {
+  text-align: center;
+}
+.avatar {
+  margin: 10px;
+  border-radius: 50%;
+}
+h1 {
+  margin: 5px;
+  padding: 0;
+  font-size: 24px;
+}
+</code></pre>
+</Sandpack>
+</Solution>
+</Challenges>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/javascript-in-jsx-with-curly-braces.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/conditional-rendering.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/javascript-in-jsx-with-curly-braces.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/conditional-rendering.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

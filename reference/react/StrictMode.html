@@ -1,0 +1,865 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>&lt;StrictMode&gt; - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react/StrictMode.html" class="active"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title"><a class="header" href="#title">title: <StrictMode></a></h2>
+<Intro>
+<p><code>&lt;StrictMode&gt;</code> lets you find common bugs in your components early during development.</p>
+<pre><code class="language-js">&lt;StrictMode&gt;
+  &lt;App /&gt;
+&lt;/StrictMode&gt;
+</code></pre>
+</Intro>
+<InlineToc />
+<hr />
+<h2 id="reference-reference"><a class="header" href="#reference-reference">Reference {/<em>reference</em>/}</a></h2>
+<h3 id="strictmode-strictmode"><a class="header" href="#strictmode-strictmode"><code>&lt;StrictMode&gt;</code> {/<em>strictmode</em>/}</a></h3>
+<p>Use <code>StrictMode</code> to enable additional development behaviors and warnings for the entire component tree inside:</p>
+<pre><code class="language-js">import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+
+const root = createRoot(document.getElementById('root'));
+root.render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;
+);
+</code></pre>
+<p><a href="#usage">See more examples below.</a></p>
+<p>Strict Mode enables the following development-only behaviors:</p>
+<ul>
+<li>Your components will <a href="#fixing-bugs-found-by-double-rendering-in-development">re-render an extra time</a> to find bugs caused by impure rendering.</li>
+<li>Your components will <a href="#fixing-bugs-found-by-re-running-effects-in-development">re-run Effects an extra time</a> to find bugs caused by missing Effect cleanup.</li>
+<li>Your components will <a href="#fixing-deprecation-warnings-enabled-by-strict-mode">be checked for usage of deprecated APIs.</a></li>
+</ul>
+<h4 id="props-props"><a class="header" href="#props-props">Props {/<em>props</em>/}</a></h4>
+<p><code>StrictMode</code> accepts no props.</p>
+<h4 id="caveats-caveats"><a class="header" href="#caveats-caveats">Caveats {/<em>caveats</em>/}</a></h4>
+<ul>
+<li>There is no way to opt out of Strict Mode inside a tree wrapped in <code>&lt;StrictMode&gt;</code>. This gives you confidence that all components inside <code>&lt;StrictMode&gt;</code> are checked. If two teams working on a product disagree whether they find the checks valuable, they need to either reach consensus or move <code>&lt;StrictMode&gt;</code> down in the tree.</li>
+</ul>
+<hr />
+<h2 id="usage-usage"><a class="header" href="#usage-usage">Usage {/<em>usage</em>/}</a></h2>
+<h3 id="enabling-strict-mode-for-entire-app-enabling-strict-mode-for-entire-app"><a class="header" href="#enabling-strict-mode-for-entire-app-enabling-strict-mode-for-entire-app">Enabling Strict Mode for entire app {/<em>enabling-strict-mode-for-entire-app</em>/}</a></h3>
+<p>Strict Mode enables extra development-only checks for the entire component tree inside the <code>&lt;StrictMode&gt;</code> component. These checks help you find common bugs in your components early in the development process.</p>
+<p>To enable Strict Mode for your entire app, wrap your root component with <code>&lt;StrictMode&gt;</code> when you render it:</p>
+<pre><code class="language-js {6 8}">import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+
+const root = createRoot(document.getElementById('root'));
+root.render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;
+);
+</code></pre>
+<p>We recommend to wrap your entire app in Strict Mode, especially for newly created apps. If you use a framework that calls <a href="/reference/react/createRoot"><code>createRoot</code></a> for you, check its documentation for how to enable Strict Mode.</p>
+<p>Although the Strict Mode checks <strong>only run in development,</strong> they help you find bugs that already exist in your code but can be tricky to reliably reproduce in production. Strict Mode lets you fix bugs before your users report them.</p>
+<Note>
+<p>Strict Mode enables the following checks in development:</p>
+<ul>
+<li>Your components will <a href="#fixing-bugs-found-by-double-rendering-in-development">re-render an extra time</a> to find bugs caused by impure rendering.</li>
+<li>Your components will <a href="#fixing-bugs-found-by-re-running-effects-in-development">re-run Effects an extra time</a> to find bugs caused by missing Effect cleanup.</li>
+<li>Your components will <a href="#fixing-deprecation-warnings-enabled-by-strict-mode">be checked for usage of deprecated APIs.</a></li>
+</ul>
+<p><strong>All of these checks are development-only and do not impact the production build.</strong></p>
+</Note>
+<hr />
+<h3 id="enabling-strict-mode-for-a-part-of-the-app-enabling-strict-mode-for-a-part-of-the-app"><a class="header" href="#enabling-strict-mode-for-a-part-of-the-app-enabling-strict-mode-for-a-part-of-the-app">Enabling strict mode for a part of the app {/<em>enabling-strict-mode-for-a-part-of-the-app</em>/}</a></h3>
+<p>You can also enable Strict Mode for any part of your application:</p>
+<pre><code class="language-js {7 12}">import { StrictMode } from 'react';
+
+function App() {
+  return (
+    &lt;&gt;
+      &lt;Header /&gt;
+      &lt;StrictMode&gt;
+        &lt;main&gt;
+          &lt;Sidebar /&gt;
+          &lt;Content /&gt;
+        &lt;/main&gt;
+      &lt;/StrictMode&gt;
+      &lt;Footer /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<p>In this example, Strict Mode checks will not run against the <code>Header</code> and <code>Footer</code> components. However, they will run on <code>Sidebar</code> and <code>Content</code>, as well as all of the components inside them, no matter how deep.</p>
+<hr />
+<h3 id="fixing-bugs-found-by-double-rendering-in-development-fixing-bugs-found-by-double-rendering-in-development"><a class="header" href="#fixing-bugs-found-by-double-rendering-in-development-fixing-bugs-found-by-double-rendering-in-development">Fixing bugs found by double rendering in development {/<em>fixing-bugs-found-by-double-rendering-in-development</em>/}</a></h3>
+<p><a href="/learn/keeping-components-pure">React assumes that every component you write is a pure function.</a> This means that React components you write must always return the same JSX given the same inputs (props, state, and context).</p>
+<p>Components breaking this rule behave unpredictably and cause bugs. To help you find accidentally impure code, Strict Mode calls some of your functions (only the ones that should be pure) <strong>twice in development.</strong> This includes:</p>
+<ul>
+<li>Your component function body (only top-level logic, so this doesn't include code inside event handlers)</li>
+<li>Functions that you pass to <a href="/reference/react/useState"><code>useState</code></a>, <a href="/reference/react/useState#setstate"><code>set</code> functions</a>, <a href="/reference/react/useMemo"><code>useMemo</code></a>, or <a href="/reference/react/useReducer"><code>useReducer</code></a></li>
+<li>Some class component methods like <a href="/reference/react/Component#constructor"><code>constructor</code></a>, <a href="/reference/react/Component#render"><code>render</code></a>, <a href="/reference/react/Component#shouldcomponentupdate"><code>shouldComponentUpdate</code></a> (<a href="https://reactjs.org/docs/strict-mode.html#detecting-unexpected-side-effects">see the whole list</a>)</li>
+</ul>
+<p>If a function is pure, running it twice does not change its behavior because a pure function produces the same result every time. However, if a function is impure (for example, it mutates the data it receives), running that impure code twice tends to be noticeable (that's what makes it impure!) This helps you spot and fix the bug early.</p>
+<p><strong>Here is an example to illustrate how double rendering in Strict Mode helps you find bugs early.</strong></p>
+<p>This <code>StoryTray</code> component takes an array of <code>stories</code> and adds one last &quot;Create Story&quot; item at the end:</p>
+<Sandpack>
+<pre><code class="language-js index.js">import { createRoot } from 'react-dom/client';
+import './styles.css';
+
+import App from './App';
+
+const root = createRoot(document.getElementById(&quot;root&quot;));
+root.render(&lt;App /&gt;);
+</code></pre>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import StoryTray from './StoryTray.js';
+
+let initialStories = [
+  {id: 0, label: &quot;Ankit's Story&quot; },
+  {id: 1, label: &quot;Taylor's Story&quot; },
+];
+
+export default function App() {
+  let [stories, setStories] = useState(initialStories)
+  return (
+    &lt;div
+      style={{
+        width: '100%',
+        height: '100%',
+        textAlign: 'center',
+      }}
+    &gt;
+      &lt;StoryTray stories={stories} /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js StoryTray.js active">export default function StoryTray({ stories }) {
+  const items = stories;
+  items.push({ id: 'create', label: 'Create Story' });
+  return (
+    &lt;ul&gt;
+      {items.map(story =&gt; (
+        &lt;li key={story.id}&gt;
+          {story.label}
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">ul {
+  margin: 0;
+  list-style-type: none;
+  height: 100%;
+}
+
+li {
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  float: left;
+  margin: 5px;
+  margin-bottom: 20px;
+  padding: 5px;
+  width: 70px;
+  height: 100px;
+}
+</code></pre>
+</Sandpack>
+<p>There is a mistake in the code above. However, it is easy to miss because the initial output appears correct.</p>
+<p>This mistake will become more noticeable if the <code>StoryTray</code> component re-renders multiple times. For example, let's make the <code>StoryTray</code> re-render with a different background color whenever you hover the pointer over it: </p>
+<Sandpack>
+<pre><code class="language-js index.js">import { createRoot } from 'react-dom/client';
+import './styles.css';
+
+import App from './App';
+
+const root = createRoot(document.getElementById('root'));
+root.render(&lt;App /&gt;);
+</code></pre>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import StoryTray from './StoryTray.js';
+
+let initialStories = [
+  {id: 0, label: &quot;Ankit's Story&quot; },
+  {id: 1, label: &quot;Taylor's Story&quot; },
+];
+
+export default function App() {
+  let [stories, setStories] = useState(initialStories)
+  return (
+    &lt;div
+      style={{
+        width: '100%',
+        height: '100%',
+        textAlign: 'center',
+      }}
+    &gt;
+      &lt;StoryTray stories={stories} /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js StoryTray.js active">import { useState } from 'react';
+
+export default function StoryTray({ stories }) {
+  const [isHover, setIsHover] = useState(false);
+  const items = stories;
+  items.push({ id: 'create', label: 'Create Story' });
+  return (
+    &lt;ul
+      onPointerEnter={() =&gt; setIsHover(true)}
+      onPointerLeave={() =&gt; setIsHover(false)}
+      style={{
+        backgroundColor: isHover ? '#ddd' : '#fff'
+      }}
+    &gt;
+      {items.map(story =&gt; (
+        &lt;li key={story.id}&gt;
+          {story.label}
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">ul {
+  margin: 0;
+  list-style-type: none;
+  height: 100%;
+}
+
+li {
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  float: left;
+  margin: 5px;
+  margin-bottom: 20px;
+  padding: 5px;
+  width: 70px;
+  height: 100px;
+}
+</code></pre>
+</Sandpack>
+<p>Notice how every time you hover over the <code>StoryTray</code> component, &quot;Create Story&quot; gets added to the list again. The intention of the code was to add it once at the end. But <code>StoryTray</code> directly modifies the <code>stories</code> array from the props. Every time <code>StoryTray</code> renders, it adds &quot;Create Story&quot; again at the end of the same array. In other words, <code>StoryTray</code> is not a pure function--running it multiple times produces different results.</p>
+<p>To fix this problem, you can make a copy of the array, and modify that copy instead of the original one:</p>
+<pre><code class="language-js {2}">export default function StoryTray({ stories }) {
+  const items = stories.slice(); // Clone the array
+  // ✅ Good: Pushing into a new array
+  items.push({ id: 'create', label: 'Create Story' });
+</code></pre>
+<p>This would <a href="/learn/keeping-components-pure">make the <code>StoryTray</code> function pure.</a> Each time it is called, it would only modify a new copy of the array, and would not affect any external objects or variables. This solves the bug, but notice that you had to make the component re-render more often before it became obvious that something is wrong with its behavior.</p>
+<p><strong>In the original example, the bug wasn't obvious. Now let's wrap the original (buggy) code in <code>&lt;StrictMode&gt;</code>:</strong></p>
+<Sandpack>
+<pre><code class="language-js index.js">import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './styles.css';
+
+import App from './App';
+
+const root = createRoot(document.getElementById(&quot;root&quot;));
+root.render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;
+);
+</code></pre>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import StoryTray from './StoryTray.js';
+
+let initialStories = [
+  {id: 0, label: &quot;Ankit's Story&quot; },
+  {id: 1, label: &quot;Taylor's Story&quot; },
+];
+
+export default function App() {
+  let [stories, setStories] = useState(initialStories)
+  return (
+    &lt;div
+      style={{
+        width: '100%',
+        height: '100%',
+        textAlign: 'center',
+      }}
+    &gt;
+      &lt;StoryTray stories={stories} /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js StoryTray.js active">export default function StoryTray({ stories }) {
+  const items = stories;
+  items.push({ id: 'create', label: 'Create Story' });
+  return (
+    &lt;ul&gt;
+      {items.map(story =&gt; (
+        &lt;li key={story.id}&gt;
+          {story.label}
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">ul {
+  margin: 0;
+  list-style-type: none;
+  height: 100%;
+}
+
+li {
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  float: left;
+  margin: 5px;
+  margin-bottom: 20px;
+  padding: 5px;
+  width: 70px;
+  height: 100px;
+}
+</code></pre>
+</Sandpack>
+<p><strong>Strict Mode <em>always</em> calls your rendering function twice, so you can see the mistake right away</strong> (&quot;Create Story&quot; appears twice). Strict Mode lets you notice such mistakes early in the process. When you fix your component to render in Strict Mode, you <em>also</em> fix many possible future production bugs like the hover functionality from before:</p>
+<Sandpack>
+<pre><code class="language-js index.js">import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './styles.css';
+
+import App from './App';
+
+const root = createRoot(document.getElementById('root'));
+root.render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;
+);
+</code></pre>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import StoryTray from './StoryTray.js';
+
+let initialStories = [
+  {id: 0, label: &quot;Ankit's Story&quot; },
+  {id: 1, label: &quot;Taylor's Story&quot; },
+];
+
+export default function App() {
+  let [stories, setStories] = useState(initialStories)
+  return (
+    &lt;div
+      style={{
+        width: '100%',
+        height: '100%',
+        textAlign: 'center',
+      }}
+    &gt;
+      &lt;StoryTray stories={stories} /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js StoryTray.js active">import { useState } from 'react';
+
+export default function StoryTray({ stories }) {
+  const [isHover, setIsHover] = useState(false);
+  const items = stories.slice(); // Clone the array
+  items.push({ id: 'create', label: 'Create Story' });
+  return (
+    &lt;ul
+      onPointerEnter={() =&gt; setIsHover(true)}
+      onPointerLeave={() =&gt; setIsHover(false)}
+      style={{
+        backgroundColor: isHover ? '#ddd' : '#fff'
+      }}
+    &gt;
+      {items.map(story =&gt; (
+        &lt;li key={story.id}&gt;
+          {story.label}
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">ul {
+  margin: 0;
+  list-style-type: none;
+  height: 100%;
+}
+
+li {
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  float: left;
+  margin: 5px;
+  margin-bottom: 20px;
+  padding: 5px;
+  width: 70px;
+  height: 100px;
+}
+</code></pre>
+</Sandpack>
+<p>Without Strict Mode, it was easy to miss the bug until you added more re-renders. Strict Mode made the same bug appear right away. Strict Mode helps you find bugs before you push them to your team and to your users.</p>
+<p><a href="/learn/keeping-components-pure">Read more about keeping components pure.</a></p>
+<Note>
+<p>If you have <a href="/learn/react-developer-tools">React DevTools</a> installed, any <code>console.log</code> calls during the second render call will appear slightly dimmed. React DevTools also offers a setting (off by default) to suppress them completely.</p>
+</Note>
+<hr />
+<h3 id="fixing-bugs-found-by-re-running-effects-in-development-fixing-bugs-found-by-re-running-effects-in-development"><a class="header" href="#fixing-bugs-found-by-re-running-effects-in-development-fixing-bugs-found-by-re-running-effects-in-development">Fixing bugs found by re-running Effects in development {/<em>fixing-bugs-found-by-re-running-effects-in-development</em>/}</a></h3>
+<p>Strict Mode can also help find bugs in <a href="/learn/synchronizing-with-effects">Effects.</a></p>
+<p>Every Effect has some setup code and may have some cleanup code. Normally, React calls setup when the component <em>mounts</em> (is added to the screen) and calls cleanup when the component <em>unmounts</em> (is removed from the screen). Additionally, React calls cleanup and setup again if its dependencies changed since the last render.</p>
+<p>When Strict Mode is on, React will also run <strong>one extra setup+cleanup cycle in development for every Effect.</strong> This may feel surprising, but it helps reveal subtle bugs that are hard to catch manually.</p>
+<p><strong>Here is an example to illustrate how re-running Effects in Strict Mode helps you find bugs early.</strong></p>
+<p>Consider this example that connects a component to a chat:</p>
+<Sandpack>
+<pre><code class="language-js index.js">import { createRoot } from 'react-dom/client';
+import './styles.css';
+
+import App from './App';
+
+const root = createRoot(document.getElementById(&quot;root&quot;));
+root.render(&lt;App /&gt;);
+</code></pre>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+const serverUrl = 'https://localhost:1234';
+const roomId = 'general';
+
+export default function ChatRoom() {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+  }, []);
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js chat.js">let connections = 0;
+
+export function createConnection(serverUrl, roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+      connections++;
+      console.log('Active connections: ' + connections);
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+      connections--;
+      console.log('Active connections: ' + connections);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+<p>There is an issue with this code, but it might not be immediately clear.</p>
+<p>To make the issue more obvious, let's implement a feature. In the example below, <code>roomId</code> is not hardcoded. Instead, the user can select the <code>roomId</code> that they want to connect to from a dropdown. Click &quot;Open chat&quot; and then select different chat rooms one by one. Keep track of the number of active connections in the console:</p>
+<Sandpack>
+<pre><code class="language-js index.js">import { createRoot } from 'react-dom/client';
+import './styles.css';
+
+import App from './App';
+
+const root = createRoot(document.getElementById(&quot;root&quot;));
+root.render(&lt;App /&gt;);
+</code></pre>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+  }, [roomId]);
+
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  const [show, setShow] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;button onClick={() =&gt; setShow(!show)}&gt;
+        {show ? 'Close chat' : 'Open chat'}
+      &lt;/button&gt;
+      {show &amp;&amp; &lt;hr /&gt;}
+      {show &amp;&amp; &lt;ChatRoom roomId={roomId} /&gt;}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js chat.js">let connections = 0;
+
+export function createConnection(serverUrl, roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+      connections++;
+      console.log('Active connections: ' + connections);
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+      connections--;
+      console.log('Active connections: ' + connections);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+<p>You'll notice that the number of open connections always keeps growing. In a real app, this would cause performance and network problems. The issue is that <a href="/learn/synchronizing-with-effects#step-3-add-cleanup-if-needed">your Effect is missing a cleanup function:</a></p>
+<pre><code class="language-js {4}">  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId]);
+</code></pre>
+<p>Now that your Effect &quot;cleans up&quot; after itself and destroys the outdated connections, the leak is solved. However, notice that the problem did not become immediately visible until you've added more features (the select box).</p>
+<p><strong>In the original example, the bug wasn't obvious. Now let's wrap the original (buggy) code in <code>&lt;StrictMode&gt;</code>:</strong></p>
+<Sandpack>
+<pre><code class="language-js index.js">import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './styles.css';
+
+import App from './App';
+
+const root = createRoot(document.getElementById(&quot;root&quot;));
+root.render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;
+);
+</code></pre>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+const serverUrl = 'https://localhost:1234';
+const roomId = 'general';
+
+export default function ChatRoom() {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+  }, []);
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js chat.js">let connections = 0;
+
+export function createConnection(serverUrl, roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+      connections++;
+      console.log('Active connections: ' + connections);
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+      connections--;
+      console.log('Active connections: ' + connections);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+<p><strong>With Strict Mode, you immediately see that there is a problem</strong> (the number of active connections jumps to 2). This is because Strict Mode runs an extra setup+cleanup cycle for every Effect. This Effect has no cleanup logic, so it creates an extra connection but doesn't destroy it. This is a hint that you're missing a cleanup function.</p>
+<p>Strict Mode lets you notice such mistakes early in the process. When you fix your Effect by adding a cleanup function in Strict Mode, you <em>also</em> fix many possible future production bugs like the select box from before:</p>
+<Sandpack>
+<pre><code class="language-js index.js">import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './styles.css';
+
+import App from './App';
+
+const root = createRoot(document.getElementById(&quot;root&quot;));
+root.render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;
+);
+</code></pre>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId]);
+
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  const [show, setShow] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;button onClick={() =&gt; setShow(!show)}&gt;
+        {show ? 'Close chat' : 'Open chat'}
+      &lt;/button&gt;
+      {show &amp;&amp; &lt;hr /&gt;}
+      {show &amp;&amp; &lt;ChatRoom roomId={roomId} /&gt;}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js chat.js">let connections = 0;
+
+export function createConnection(serverUrl, roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+      connections++;
+      console.log('Active connections: ' + connections);
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+      connections--;
+      console.log('Active connections: ' + connections);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+<p>Notice how the active connection count in the console doesn't keep growing anymore.</p>
+<p>Without Strict Mode, it was easy to miss that your Effect needed cleanup. By running <em>setup → cleanup → setup</em> instead of <em>setup</em> for your Effect in development, Strict Mode made the missing cleanup logic more noticeable.</p>
+<p><a href="/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development">Read more about implementing Effect cleanup.</a></p>
+<hr />
+<h3 id="fixing-deprecation-warnings-enabled-by-strict-mode-fixing-deprecation-warnings-enabled-by-strict-mode"><a class="header" href="#fixing-deprecation-warnings-enabled-by-strict-mode-fixing-deprecation-warnings-enabled-by-strict-mode">Fixing deprecation warnings enabled by Strict Mode {/<em>fixing-deprecation-warnings-enabled-by-strict-mode</em>/}</a></h3>
+<p>React warns if some component anywhere inside a <code>&lt;StrictMode&gt;</code> tree uses one of these deprecated APIs:</p>
+<ul>
+<li><a href="/reference/react-dom/findDOMNode"><code>findDOMNode</code></a>. <a href="https://reactjs.org/docs/strict-mode.html#warning-about-deprecated-finddomnode-usage">See alternatives.</a></li>
+<li><code>UNSAFE_</code> class lifecycle methods like <a href="/reference/react/Component#unsafe_componentwillmount"><code>UNSAFE_componentWillMount</code></a>. <a href="https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#migrating-from-legacy-lifecycles">See alternatives.</a> </li>
+<li>Legacy context (<a href="/reference/react/Component#static-childcontexttypes"><code>childContextTypes</code></a>, <a href="/reference/react/Component#static-contexttypes"><code>contextTypes</code></a>, and <a href="/reference/react/Component#getchildcontext"><code>getChildContext</code></a>). <a href="/reference/react/createContext">See alternatives.</a></li>
+<li>Legacy string refs (<a href="/reference/react/Component#refs"><code>this.refs</code></a>). <a href="https://reactjs.org/docs/strict-mode.html#warning-about-legacy-string-ref-api-usage">See alternatives.</a></li>
+</ul>
+<p>These APIs are primarily used in older <a href="/reference/react/Component">class components</a> so they rarely appear in modern apps.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../reference/react/Profiler.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../reference/react/Suspense.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../reference/react/Profiler.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../reference/react/Suspense.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

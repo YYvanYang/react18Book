@@ -1,0 +1,1081 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Managing State - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html" class="active"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-managing-state"><a class="header" href="#title-managing-state">title: Managing State</a></h2>
+<Intro>
+<p>As your application grows, it helps to be more intentional about how your state is organized and how the data flows between your components. Redundant or duplicate state is a common source of bugs. In this chapter, you'll learn how to structure your state well, how to keep your state update logic maintainable, and how to share state between distant components.</p>
+</Intro>
+<YouWillLearn isChapter={true}>
+<ul>
+<li><a href="/learn/reacting-to-input-with-state">How to think about UI changes as state changes</a></li>
+<li><a href="/learn/choosing-the-state-structure">How to structure state well</a></li>
+<li><a href="/learn/sharing-state-between-components">How to &quot;lift state up&quot; to share it between components</a></li>
+<li><a href="/learn/preserving-and-resetting-state">How to control whether the state gets preserved or reset</a></li>
+<li><a href="/learn/extracting-state-logic-into-a-reducer">How to consolidate complex state logic in a function</a></li>
+<li><a href="/learn/passing-data-deeply-with-context">How to pass information without &quot;prop drilling&quot;</a></li>
+<li><a href="/learn/scaling-up-with-reducer-and-context">How to scale state management as your app grows</a></li>
+</ul>
+</YouWillLearn>
+<h2 id="reacting-to-input-with-state-reacting-to-input-with-state"><a class="header" href="#reacting-to-input-with-state-reacting-to-input-with-state">Reacting to input with state {/<em>reacting-to-input-with-state</em>/}</a></h2>
+<p>With React, you won't modify the UI from code directly. For example, you won't write commands like &quot;disable the button&quot;, &quot;enable the button&quot;, &quot;show the success message&quot;, etc. Instead, you will describe the UI you want to see for the different visual states of your component (&quot;initial state&quot;, &quot;typing state&quot;, &quot;success state&quot;), and then trigger the state changes in response to user input. This is similar to how designers think about UI.</p>
+<p>Here is a quiz form built using React. Note how it uses the <code>status</code> state variable to determine whether to enable or disable the submit button, and whether to show the success message instead.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Form() {
+  const [answer, setAnswer] = useState('');
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState('typing');
+
+  if (status === 'success') {
+    return &lt;h1&gt;That's right!&lt;/h1&gt;
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setStatus('submitting');
+    try {
+      await submitForm(answer);
+      setStatus('success');
+    } catch (err) {
+      setStatus('typing');
+      setError(err);
+    }
+  }
+
+  function handleTextareaChange(e) {
+    setAnswer(e.target.value);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h2&gt;City quiz&lt;/h2&gt;
+      &lt;p&gt;
+        In which city is there a billboard that turns air into drinkable water?
+      &lt;/p&gt;
+      &lt;form onSubmit={handleSubmit}&gt;
+        &lt;textarea
+          value={answer}
+          onChange={handleTextareaChange}
+          disabled={status === 'submitting'}
+        /&gt;
+        &lt;br /&gt;
+        &lt;button disabled={
+          answer.length === 0 ||
+          status === 'submitting'
+        }&gt;
+          Submit
+        &lt;/button&gt;
+        {error !== null &amp;&amp;
+          &lt;p className=&quot;Error&quot;&gt;
+            {error.message}
+          &lt;/p&gt;
+        }
+      &lt;/form&gt;
+    &lt;/&gt;
+  );
+}
+
+function submitForm(answer) {
+  // Pretend it's hitting the network.
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      let shouldError = answer.toLowerCase() !== 'lima'
+      if (shouldError) {
+        reject(new Error('Good guess but a wrong answer. Try again!'));
+      } else {
+        resolve();
+      }
+    }, 1500);
+  });
+}
+</code></pre>
+<pre><code class="language-css">.Error { color: red; }
+</code></pre>
+</Sandpack>
+<LearnMore path="/learn/reacting-to-input-with-state">
+<p>Read <strong><a href="/learn/reacting-to-input-with-state">Reacting to Input with State</a></strong> to learn how to approach interactions with a state-driven mindset.</p>
+</LearnMore>
+<h2 id="choosing-the-state-structure-choosing-the-state-structure"><a class="header" href="#choosing-the-state-structure-choosing-the-state-structure">Choosing the state structure {/<em>choosing-the-state-structure</em>/}</a></h2>
+<p>Structuring state well can make a difference between a component that is pleasant to modify and debug, and one that is a constant source of bugs. The most important principle is that state shouldn't contain redundant or duplicated information. If there's some unnecessary state, it's easy to forget to update it, and introduce bugs!</p>
+<p>For example, this form has a <strong>redundant</strong> <code>fullName</code> state variable:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Form() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [fullName, setFullName] = useState('');
+
+  function handleFirstNameChange(e) {
+    setFirstName(e.target.value);
+    setFullName(e.target.value + ' ' + lastName);
+  }
+
+  function handleLastNameChange(e) {
+    setLastName(e.target.value);
+    setFullName(firstName + ' ' + e.target.value);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h2&gt;Let’s check you in&lt;/h2&gt;
+      &lt;label&gt;
+        First name:{' '}
+        &lt;input
+          value={firstName}
+          onChange={handleFirstNameChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Last name:{' '}
+        &lt;input
+          value={lastName}
+          onChange={handleLastNameChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;p&gt;
+        Your ticket will be issued to: &lt;b&gt;{fullName}&lt;/b&gt;
+      &lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label { display: block; margin-bottom: 5px; }
+</code></pre>
+</Sandpack>
+<p>You can remove it and simplify the code by calculating <code>fullName</code> while the component is rendering:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Form() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+
+  const fullName = firstName + ' ' + lastName;
+
+  function handleFirstNameChange(e) {
+    setFirstName(e.target.value);
+  }
+
+  function handleLastNameChange(e) {
+    setLastName(e.target.value);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h2&gt;Let’s check you in&lt;/h2&gt;
+      &lt;label&gt;
+        First name:{' '}
+        &lt;input
+          value={firstName}
+          onChange={handleFirstNameChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Last name:{' '}
+        &lt;input
+          value={lastName}
+          onChange={handleLastNameChange}
+        /&gt;
+      &lt;/label&gt;
+      &lt;p&gt;
+        Your ticket will be issued to: &lt;b&gt;{fullName}&lt;/b&gt;
+      &lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label { display: block; margin-bottom: 5px; }
+</code></pre>
+</Sandpack>
+<p>This might seem like a small change, but many bugs in React apps are fixed this way.</p>
+<LearnMore path="/learn/choosing-the-state-structure">
+<p>Read <strong><a href="/learn/choosing-the-state-structure">Choosing the State Structure</a></strong> to learn how to design the state shape to avoid bugs.</p>
+</LearnMore>
+<h2 id="sharing-state-between-components-sharing-state-between-components"><a class="header" href="#sharing-state-between-components-sharing-state-between-components">Sharing state between components {/<em>sharing-state-between-components</em>/}</a></h2>
+<p>Sometimes, you want the state of two components to always change together. To do it, remove state from both of them, move it to their closest common parent, and then pass it down to them via props. This is known as &quot;lifting state up&quot;, and it's one of the most common things you will do writing React code.</p>
+<p>In this example, only one panel should be active at a time. To achieve this, instead of keeping the active state inside each individual panel, the parent component holds the state and specifies the props for its children.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState } from 'react';
+
+export default function Accordion() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  return (
+    &lt;&gt;
+      &lt;h2&gt;Almaty, Kazakhstan&lt;/h2&gt;
+      &lt;Panel
+        title=&quot;About&quot;
+        isActive={activeIndex === 0}
+        onShow={() =&gt; setActiveIndex(0)}
+      &gt;
+        With a population of about 2 million, Almaty is Kazakhstan's largest city. From 1929 to 1997, it was its capital city.
+      &lt;/Panel&gt;
+      &lt;Panel
+        title=&quot;Etymology&quot;
+        isActive={activeIndex === 1}
+        onShow={() =&gt; setActiveIndex(1)}
+      &gt;
+        The name comes from &lt;span lang=&quot;kk-KZ&quot;&gt;алма&lt;/span&gt;, the Kazakh word for &quot;apple&quot; and is often translated as &quot;full of apples&quot;. In fact, the region surrounding Almaty is thought to be the ancestral home of the apple, and the wild &lt;i lang=&quot;la&quot;&gt;Malus sieversii&lt;/i&gt; is considered a likely candidate for the ancestor of the modern domestic apple.
+      &lt;/Panel&gt;
+    &lt;/&gt;
+  );
+}
+
+function Panel({
+  title,
+  children,
+  isActive,
+  onShow
+}) {
+  return (
+    &lt;section className=&quot;panel&quot;&gt;
+      &lt;h3&gt;{title}&lt;/h3&gt;
+      {isActive ? (
+        &lt;p&gt;{children}&lt;/p&gt;
+      ) : (
+        &lt;button onClick={onShow}&gt;
+          Show
+        &lt;/button&gt;
+      )}
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">h3, p { margin: 5px 0px; }
+.panel {
+  padding: 10px;
+  border: 1px solid #aaa;
+}
+</code></pre>
+</Sandpack>
+<LearnMore path="/learn/sharing-state-between-components">
+<p>Read <strong><a href="/learn/sharing-state-between-components">Sharing State Between Components</a></strong> to learn how to lift state up and keep components in sync.</p>
+</LearnMore>
+<h2 id="preserving-and-resetting-state-preserving-and-resetting-state"><a class="header" href="#preserving-and-resetting-state-preserving-and-resetting-state">Preserving and resetting state {/<em>preserving-and-resetting-state</em>/}</a></h2>
+<p>When you re-render a component, React needs to decide which parts of the tree to keep (and update), and which parts to discard or re-create from scratch. In most cases, React's automatic behavior works well enough. By default, React preserves the parts of the tree that &quot;match up&quot; with the previously rendered component tree.</p>
+<p>However, sometimes this is not what you want. For example, in this app, typing a message and then switching the recipient does not reset the input. This can make the user accidentally send a message to the wrong person:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import Chat from './Chat.js';
+import ContactList from './ContactList.js';
+
+export default function Messenger() {
+  const [to, setTo] = useState(contacts[0]);
+  return (
+    &lt;div&gt;
+      &lt;ContactList
+        contacts={contacts}
+        selectedContact={to}
+        onSelect={contact =&gt; setTo(contact)}
+      /&gt;
+      &lt;Chat contact={to} /&gt;
+    &lt;/div&gt;
+  )
+}
+
+const contacts = [
+  { name: 'Taylor', email: 'taylor@mail.com' },
+  { name: 'Alice', email: 'alice@mail.com' },
+  { name: 'Bob', email: 'bob@mail.com' }
+];
+</code></pre>
+<pre><code class="language-js ContactList.js">export default function ContactList({
+  selectedContact,
+  contacts,
+  onSelect
+}) {
+  return (
+    &lt;section className=&quot;contact-list&quot;&gt;
+      &lt;ul&gt;
+        {contacts.map(contact =&gt;
+          &lt;li key={contact.email}&gt;
+            &lt;button onClick={() =&gt; {
+              onSelect(contact);
+            }}&gt;
+              {contact.name}
+            &lt;/button&gt;
+          &lt;/li&gt;
+        )}
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Chat.js">import { useState } from 'react';
+
+export default function Chat({ contact }) {
+  const [text, setText] = useState('');
+  return (
+    &lt;section className=&quot;chat&quot;&gt;
+      &lt;textarea
+        value={text}
+        placeholder={'Chat to ' + contact.name}
+        onChange={e =&gt; setText(e.target.value)}
+      /&gt;
+      &lt;br /&gt;
+      &lt;button&gt;Send to {contact.email}&lt;/button&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.chat, .contact-list {
+  float: left;
+  margin-bottom: 20px;
+}
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li button {
+  width: 100px;
+  padding: 10px;
+  margin-right: 10px;
+}
+textarea {
+  height: 150px;
+}
+</code></pre>
+</Sandpack>
+<p>React lets you override the default behavior, and <em>force</em> a component to reset its state by passing it a different <code>key</code>, like <code>&lt;Chat key={email} /&gt;</code>. This tells React that if the recipient is different, it should be considered a <em>different</em> <code>Chat</code> component that needs to be re-created from scratch with the new data (and UI like inputs). Now switching between the recipients always resets the input field--even though you render the same component.</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import Chat from './Chat.js';
+import ContactList from './ContactList.js';
+
+export default function Messenger() {
+  const [to, setTo] = useState(contacts[0]);
+  return (
+    &lt;div&gt;
+      &lt;ContactList
+        contacts={contacts}
+        selectedContact={to}
+        onSelect={contact =&gt; setTo(contact)}
+      /&gt;
+      &lt;Chat key={to.email} contact={to} /&gt;
+    &lt;/div&gt;
+  )
+}
+
+const contacts = [
+  { name: 'Taylor', email: 'taylor@mail.com' },
+  { name: 'Alice', email: 'alice@mail.com' },
+  { name: 'Bob', email: 'bob@mail.com' }
+];
+</code></pre>
+<pre><code class="language-js ContactList.js">export default function ContactList({
+  selectedContact,
+  contacts,
+  onSelect
+}) {
+  return (
+    &lt;section className=&quot;contact-list&quot;&gt;
+      &lt;ul&gt;
+        {contacts.map(contact =&gt;
+          &lt;li key={contact.email}&gt;
+            &lt;button onClick={() =&gt; {
+              onSelect(contact);
+            }}&gt;
+              {contact.name}
+            &lt;/button&gt;
+          &lt;/li&gt;
+        )}
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Chat.js">import { useState } from 'react';
+
+export default function Chat({ contact }) {
+  const [text, setText] = useState('');
+  return (
+    &lt;section className=&quot;chat&quot;&gt;
+      &lt;textarea
+        value={text}
+        placeholder={'Chat to ' + contact.name}
+        onChange={e =&gt; setText(e.target.value)}
+      /&gt;
+      &lt;br /&gt;
+      &lt;button&gt;Send to {contact.email}&lt;/button&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">.chat, .contact-list {
+  float: left;
+  margin-bottom: 20px;
+}
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li button {
+  width: 100px;
+  padding: 10px;
+  margin-right: 10px;
+}
+textarea {
+  height: 150px;
+}
+</code></pre>
+</Sandpack>
+<LearnMore path="/learn/preserving-and-resetting-state">
+<p>Read <strong><a href="/learn/preserving-and-resetting-state">Preserving and Resetting State</a></strong> to learn the lifetime of state and how to control it.</p>
+</LearnMore>
+<h2 id="extracting-state-logic-into-a-reducer-extracting-state-logic-into-a-reducer"><a class="header" href="#extracting-state-logic-into-a-reducer-extracting-state-logic-into-a-reducer">Extracting state logic into a reducer {/<em>extracting-state-logic-into-a-reducer</em>/}</a></h2>
+<p>Components with many state updates spread across many event handlers can get overwhelming. For these cases, you can consolidate all the state update logic outside your component in a single function, called &quot;reducer&quot;. Your event handlers become concise because they only specify the user &quot;actions&quot;. At the bottom of the file, the reducer function specifies how the state should update in response to each action!</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useReducer } from 'react';
+import AddTask from './AddTask.js';
+import TaskList from './TaskList.js';
+
+export default function TaskApp() {
+  const [tasks, dispatch] = useReducer(
+    tasksReducer,
+    initialTasks
+  );
+
+  function handleAddTask(text) {
+    dispatch({
+      type: 'added',
+      id: nextId++,
+      text: text,
+    });
+  }
+
+  function handleChangeTask(task) {
+    dispatch({
+      type: 'changed',
+      task: task
+    });
+  }
+
+  function handleDeleteTask(taskId) {
+    dispatch({
+      type: 'deleted',
+      id: taskId
+    });
+  }
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Prague itinerary&lt;/h1&gt;
+      &lt;AddTask
+        onAddTask={handleAddTask}
+      /&gt;
+      &lt;TaskList
+        tasks={tasks}
+        onChangeTask={handleChangeTask}
+        onDeleteTask={handleDeleteTask}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+
+function tasksReducer(tasks, action) {
+  switch (action.type) {
+    case 'added': {
+      return [...tasks, {
+        id: action.id,
+        text: action.text,
+        done: false
+      }];
+    }
+    case 'changed': {
+      return tasks.map(t =&gt; {
+        if (t.id === action.task.id) {
+          return action.task;
+        } else {
+          return t;
+        }
+      });
+    }
+    case 'deleted': {
+      return tasks.filter(t =&gt; t.id !== action.id);
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+
+let nextId = 3;
+const initialTasks = [
+  { id: 0, text: 'Visit Kafka Museum', done: true },
+  { id: 1, text: 'Watch a puppet show', done: false },
+  { id: 2, text: 'Lennon Wall pic', done: false }
+];
+</code></pre>
+<pre><code class="language-js AddTask.js hidden">import { useState } from 'react';
+
+export default function AddTask({ onAddTask }) {
+  const [text, setText] = useState('');
+  return (
+    &lt;&gt;
+      &lt;input
+        placeholder=&quot;Add task&quot;
+        value={text}
+        onChange={e =&gt; setText(e.target.value)}
+      /&gt;
+      &lt;button onClick={() =&gt; {
+        setText('');
+        onAddTask(text);
+      }}&gt;Add&lt;/button&gt;
+    &lt;/&gt;
+  )
+}
+</code></pre>
+<pre><code class="language-js TaskList.js hidden">import { useState } from 'react';
+
+export default function TaskList({
+  tasks,
+  onChangeTask,
+  onDeleteTask
+}) {
+  return (
+    &lt;ul&gt;
+      {tasks.map(task =&gt; (
+        &lt;li key={task.id}&gt;
+          &lt;Task
+            task={task}
+            onChange={onChangeTask}
+            onDelete={onDeleteTask}
+          /&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function Task({ task, onChange, onDelete }) {
+  const [isEditing, setIsEditing] = useState(false);
+  let taskContent;
+  if (isEditing) {
+    taskContent = (
+      &lt;&gt;
+        &lt;input
+          value={task.text}
+          onChange={e =&gt; {
+            onChange({
+              ...task,
+              text: e.target.value
+            });
+          }} /&gt;
+        &lt;button onClick={() =&gt; setIsEditing(false)}&gt;
+          Save
+        &lt;/button&gt;
+      &lt;/&gt;
+    );
+  } else {
+    taskContent = (
+      &lt;&gt;
+        {task.text}
+        &lt;button onClick={() =&gt; setIsEditing(true)}&gt;
+          Edit
+        &lt;/button&gt;
+      &lt;/&gt;
+    );
+  }
+  return (
+    &lt;label&gt;
+      &lt;input
+        type=&quot;checkbox&quot;
+        checked={task.done}
+        onChange={e =&gt; {
+          onChange({
+            ...task,
+            done: e.target.checked
+          });
+        }}
+      /&gt;
+      {taskContent}
+      &lt;button onClick={() =&gt; onDelete(task.id)}&gt;
+        Delete
+      &lt;/button&gt;
+    &lt;/label&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button { margin: 5px; }
+li { list-style-type: none; }
+ul, li { margin: 0; padding: 0; }
+</code></pre>
+</Sandpack>
+<LearnMore path="/learn/extracting-state-logic-into-a-reducer">
+<p>Read <strong><a href="/learn/extracting-state-logic-into-a-reducer">Extracting State Logic into a Reducer</a></strong> to learn how to consolidate logic in the reducer function.</p>
+</LearnMore>
+<h2 id="passing-data-deeply-with-context-passing-data-deeply-with-context"><a class="header" href="#passing-data-deeply-with-context-passing-data-deeply-with-context">Passing data deeply with context {/<em>passing-data-deeply-with-context</em>/}</a></h2>
+<p>Usually, you will pass information from a parent component to a child component via props. But passing props can become inconvenient if you need to pass some prop through many components, or if many components need the same information. Context lets the parent component make some information available to any component in the tree below it—no matter how deep it is—without passing it explicitly through props.</p>
+<p>Here, the <code>Heading</code> component determines its heading level by &quot;asking&quot; the closest <code>Section</code> for its level. Each <code>Section</code> tracks its own level by asking the parent <code>Section</code> and adding one to it. Every <code>Section</code> provides information to all components below it without passing props--it does that through context.</p>
+<Sandpack>
+<pre><code class="language-js">import Heading from './Heading.js';
+import Section from './Section.js';
+
+export default function Page() {
+  return (
+    &lt;Section&gt;
+      &lt;Heading&gt;Title&lt;/Heading&gt;
+      &lt;Section&gt;
+        &lt;Heading&gt;Heading&lt;/Heading&gt;
+        &lt;Heading&gt;Heading&lt;/Heading&gt;
+        &lt;Heading&gt;Heading&lt;/Heading&gt;
+        &lt;Section&gt;
+          &lt;Heading&gt;Sub-heading&lt;/Heading&gt;
+          &lt;Heading&gt;Sub-heading&lt;/Heading&gt;
+          &lt;Heading&gt;Sub-heading&lt;/Heading&gt;
+          &lt;Section&gt;
+            &lt;Heading&gt;Sub-sub-heading&lt;/Heading&gt;
+            &lt;Heading&gt;Sub-sub-heading&lt;/Heading&gt;
+            &lt;Heading&gt;Sub-sub-heading&lt;/Heading&gt;
+          &lt;/Section&gt;
+        &lt;/Section&gt;
+      &lt;/Section&gt;
+    &lt;/Section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Section.js">import { useContext } from 'react';
+import { LevelContext } from './LevelContext.js';
+
+export default function Section({ children }) {
+  const level = useContext(LevelContext);
+  return (
+    &lt;section className=&quot;section&quot;&gt;
+      &lt;LevelContext.Provider value={level + 1}&gt;
+        {children}
+      &lt;/LevelContext.Provider&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js Heading.js">import { useContext } from 'react';
+import { LevelContext } from './LevelContext.js';
+
+export default function Heading({ children }) {
+  const level = useContext(LevelContext);
+  switch (level) {
+    case 0:
+      throw Error('Heading must be inside a Section!');
+    case 1:
+      return &lt;h1&gt;{children}&lt;/h1&gt;;
+    case 2:
+      return &lt;h2&gt;{children}&lt;/h2&gt;;
+    case 3:
+      return &lt;h3&gt;{children}&lt;/h3&gt;;
+    case 4:
+      return &lt;h4&gt;{children}&lt;/h4&gt;;
+    case 5:
+      return &lt;h5&gt;{children}&lt;/h5&gt;;
+    case 6:
+      return &lt;h6&gt;{children}&lt;/h6&gt;;
+    default:
+      throw Error('Unknown level: ' + level);
+  }
+}
+</code></pre>
+<pre><code class="language-js LevelContext.js">import { createContext } from 'react';
+
+export const LevelContext = createContext(0);
+</code></pre>
+<pre><code class="language-css">.section {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+}
+</code></pre>
+</Sandpack>
+<LearnMore path="/learn/passing-data-deeply-with-context">
+<p>Read <strong><a href="/learn/passing-data-deeply-with-context">Passing Data Deeply with Context</a></strong> to learn about using context as an alternative to passing props.</p>
+</LearnMore>
+<h2 id="scaling-up-with-reducer-and-context-scaling-up-with-reducer-and-context"><a class="header" href="#scaling-up-with-reducer-and-context-scaling-up-with-reducer-and-context">Scaling up with reducer and context {/<em>scaling-up-with-reducer-and-context</em>/}</a></h2>
+<p>Reducers let you consolidate a component’s state update logic. Context lets you pass information deep down to other components. You can combine reducers and context together to manage state of a complex screen.</p>
+<p>With this approach, a parent component with complex state manages it with a reducer. Other components anywhere deep in the tree can read its state via context. They can also dispatch actions to update that state.</p>
+<Sandpack>
+<pre><code class="language-js App.js">import AddTask from './AddTask.js';
+import TaskList from './TaskList.js';
+import { TasksProvider } from './TasksContext.js';
+
+export default function TaskApp() {
+  return (
+    &lt;TasksProvider&gt;
+      &lt;h1&gt;Day off in Kyoto&lt;/h1&gt;
+      &lt;AddTask /&gt;
+      &lt;TaskList /&gt;
+    &lt;/TasksProvider&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js TasksContext.js">import { createContext, useContext, useReducer } from 'react';
+
+const TasksContext = createContext(null);
+const TasksDispatchContext = createContext(null);
+
+export function TasksProvider({ children }) {
+  const [tasks, dispatch] = useReducer(
+    tasksReducer,
+    initialTasks
+  );
+
+  return (
+    &lt;TasksContext.Provider value={tasks}&gt;
+      &lt;TasksDispatchContext.Provider
+        value={dispatch}
+      &gt;
+        {children}
+      &lt;/TasksDispatchContext.Provider&gt;
+    &lt;/TasksContext.Provider&gt;
+  );
+}
+
+export function useTasks() {
+  return useContext(TasksContext);
+}
+
+export function useTasksDispatch() {
+  return useContext(TasksDispatchContext);
+}
+
+function tasksReducer(tasks, action) {
+  switch (action.type) {
+    case 'added': {
+      return [...tasks, {
+        id: action.id,
+        text: action.text,
+        done: false
+      }];
+    }
+    case 'changed': {
+      return tasks.map(t =&gt; {
+        if (t.id === action.task.id) {
+          return action.task;
+        } else {
+          return t;
+        }
+      });
+    }
+    case 'deleted': {
+      return tasks.filter(t =&gt; t.id !== action.id);
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+
+const initialTasks = [
+  { id: 0, text: 'Philosopher’s Path', done: true },
+  { id: 1, text: 'Visit the temple', done: false },
+  { id: 2, text: 'Drink matcha', done: false }
+];
+</code></pre>
+<pre><code class="language-js AddTask.js">import { useState, useContext } from 'react';
+import { useTasksDispatch } from './TasksContext.js';
+
+export default function AddTask({ onAddTask }) {
+  const [text, setText] = useState('');
+  const dispatch = useTasksDispatch();
+  return (
+    &lt;&gt;
+      &lt;input
+        placeholder=&quot;Add task&quot;
+        value={text}
+        onChange={e =&gt; setText(e.target.value)}
+      /&gt;
+      &lt;button onClick={() =&gt; {
+        setText('');
+        dispatch({
+          type: 'added',
+          id: nextId++,
+          text: text,
+        });
+      }}&gt;Add&lt;/button&gt;
+    &lt;/&gt;
+  );
+}
+
+let nextId = 3;
+</code></pre>
+<pre><code class="language-js TaskList.js">import { useState, useContext } from 'react';
+import { useTasks, useTasksDispatch } from './TasksContext.js';
+
+export default function TaskList() {
+  const tasks = useTasks();
+  return (
+    &lt;ul&gt;
+      {tasks.map(task =&gt; (
+        &lt;li key={task.id}&gt;
+          &lt;Task task={task} /&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function Task({ task }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useTasksDispatch();
+  let taskContent;
+  if (isEditing) {
+    taskContent = (
+      &lt;&gt;
+        &lt;input
+          value={task.text}
+          onChange={e =&gt; {
+            dispatch({
+              type: 'changed',
+              task: {
+                ...task,
+                text: e.target.value
+              }
+            });
+          }} /&gt;
+        &lt;button onClick={() =&gt; setIsEditing(false)}&gt;
+          Save
+        &lt;/button&gt;
+      &lt;/&gt;
+    );
+  } else {
+    taskContent = (
+      &lt;&gt;
+        {task.text}
+        &lt;button onClick={() =&gt; setIsEditing(true)}&gt;
+          Edit
+        &lt;/button&gt;
+      &lt;/&gt;
+    );
+  }
+  return (
+    &lt;label&gt;
+      &lt;input
+        type=&quot;checkbox&quot;
+        checked={task.done}
+        onChange={e =&gt; {
+          dispatch({
+            type: 'changed',
+            task: {
+              ...task,
+              done: e.target.checked
+            }
+          });
+        }}
+      /&gt;
+      {taskContent}
+      &lt;button onClick={() =&gt; {
+        dispatch({
+          type: 'deleted',
+          id: task.id
+        });
+      }}&gt;
+        Delete
+      &lt;/button&gt;
+    &lt;/label&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button { margin: 5px; }
+li { list-style-type: none; }
+ul, li { margin: 0; padding: 0; }
+</code></pre>
+</Sandpack>
+<LearnMore path="/learn/scaling-up-with-reducer-and-context">
+<p>Read <strong><a href="/learn/scaling-up-with-reducer-and-context">Scaling Up with Reducer and Context</a></strong> to learn how state management scales in a growing app.</p>
+</LearnMore>
+<h2 id="whats-next-whats-next"><a class="header" href="#whats-next-whats-next">What's next? {/<em>whats-next</em>/}</a></h2>
+<p>Head over to <a href="/learn/reacting-to-input-with-state">Reacting to Input with State</a> to start reading this chapter page by page!</p>
+<p>Or, if you're already familiar with these topics, why not read about <a href="/learn/escape-hatches">Escape Hatches</a>?</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/updating-arrays-in-state.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/reacting-to-input-with-state.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/updating-arrays-in-state.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/reacting-to-input-with-state.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

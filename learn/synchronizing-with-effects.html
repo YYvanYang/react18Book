@@ -1,0 +1,1413 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Synchronizing with Effects - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html" class="active"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-synchronizing-with-effects"><a class="header" href="#title-synchronizing-with-effects">title: 'Synchronizing with Effects'</a></h2>
+<Intro>
+<p>Some components need to synchronize with external systems. For example, you might want to control a non-React component based on the React state, set up a server connection, or send an analytics log when a component appears on the screen. <em>Effects</em> let you run some code after rendering so that you can synchronize your component with some system outside of React.</p>
+</Intro>
+<YouWillLearn>
+<ul>
+<li>What Effects are</li>
+<li>How Effects are different from events</li>
+<li>How to declare an Effect in your component</li>
+<li>How to skip re-running an Effect unnecessarily</li>
+<li>Why Effects run twice in development and how to fix them</li>
+</ul>
+</YouWillLearn>
+<h2 id="what-are-effects-and-how-are-they-different-from-events-what-are-effects-and-how-are-they-different-from-events"><a class="header" href="#what-are-effects-and-how-are-they-different-from-events-what-are-effects-and-how-are-they-different-from-events">What are Effects and how are they different from events? {/<em>what-are-effects-and-how-are-they-different-from-events</em>/}</a></h2>
+<p>Before getting to Effects, you need to be familiar with two types of logic inside React components:</p>
+<ul>
+<li>
+<p><strong>Rendering code</strong> (introduced in <a href="/learn/describing-the-ui">Describing the UI</a>) lives at the top level of your component. This is where you take the props and state, transform them, and return the JSX you want to see on the screen. <a href="/learn/keeping-components-pure">Rendering code must be pure.</a> Like a math formula, it should only <em>calculate</em> the result, but not do anything else.</p>
+</li>
+<li>
+<p><strong>Event handlers</strong> (introduced in <a href="/learn/adding-interactivity">Adding Interactivity</a>) are nested functions inside your components that <em>do</em> things rather than just calculate them. An event handler might update an input field, submit an HTTP POST request to buy a product, or navigate the user to another screen. Event handlers contain <a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)">&quot;side effects&quot;</a> (they change the program's state) and are caused by a specific user action (for example, a button click or typing).</p>
+</li>
+</ul>
+<p>Sometimes this isn't enough. Consider a <code>ChatRoom</code> component that must connect to the chat server whenever it's visible on the screen. Connecting to a server is not a pure calculation (it's a side effect) so it can't happen during rendering. However, there is no single particular event like a click that causes <code>ChatRoom</code> to be displayed.</p>
+<p><strong><em>Effects</em> let you specify side effects that are caused by rendering itself, rather than by a particular event.</strong> Sending a message in the chat is an <em>event</em> because it is directly caused by the user clicking a specific button. However, setting up a server connection is an <em>Effect</em> because it needs to happen regardless of which interaction caused the component to appear. Effects run at the end of the <a href="/learn/render-and-commit">rendering process</a> after the screen updates. This is a good time to synchronize the React components with some external system (like network or a third-party library).</p>
+<Note>
+<p>Here and later in this text, capitalized &quot;Effect&quot; refers to the React-specific definition above, i.e. a side effect caused by rendering. To refer to the broader programming concept, we'll say &quot;side effect&quot;.</p>
+</Note>
+<h2 id="you-might-not-need-an-effect-you-might-not-need-an-effect"><a class="header" href="#you-might-not-need-an-effect-you-might-not-need-an-effect">You might not need an Effect {/<em>you-might-not-need-an-effect</em>/}</a></h2>
+<p><strong>Don't rush to add Effects to your components.</strong> Keep in mind that Effects are typically used to &quot;step out&quot; of your React code and synchronize with some <em>external</em> system. This includes browser APIs, third-party widgets, network, and so on. If your Effect only adjusts some state based on other state, <a href="/learn/you-might-not-need-an-effect">you might not need an Effect.</a></p>
+<h2 id="how-to-write-an-effect-how-to-write-an-effect"><a class="header" href="#how-to-write-an-effect-how-to-write-an-effect">How to write an Effect {/<em>how-to-write-an-effect</em>/}</a></h2>
+<p>To write an Effect, follow these three steps:</p>
+<ol>
+<li><strong>Declare an Effect.</strong> By default, your Effect will run after every render.</li>
+<li><strong>Specify the Effect dependencies.</strong> Most Effects should only re-run <em>when needed</em> rather than after every render. For example, a fade-in animation should only trigger when a component appears. Connecting and disconnecting to a chat room should only happen when the component appears and disappears, or when the chat room changes. You will learn how to control this by specifying <em>dependencies.</em></li>
+<li><strong>Add cleanup if needed.</strong> Some Effects need to specify how to stop, undo, or clean up whatever they were doing. For example, &quot;connect&quot; needs &quot;disconnect&quot;, &quot;subscribe&quot; needs &quot;unsubscribe&quot;, and &quot;fetch&quot; needs either &quot;cancel&quot; or &quot;ignore&quot;. You will learn how to do this by returning a <em>cleanup function</em>.</li>
+</ol>
+<p>Let's look at each of these steps in detail.</p>
+<h3 id="step-1-declare-an-effect-step-1-declare-an-effect"><a class="header" href="#step-1-declare-an-effect-step-1-declare-an-effect">Step 1: Declare an Effect {/<em>step-1-declare-an-effect</em>/}</a></h3>
+<p>To declare an Effect in your component, import the <a href="/reference/react/useEffect"><code>useEffect</code> Hook</a> from React:</p>
+<pre><code class="language-js">import { useEffect } from 'react';
+</code></pre>
+<p>Then, call it at the top level of your component and put some code inside your Effect:</p>
+<pre><code class="language-js {2-4}">function MyComponent() {
+  useEffect(() =&gt; {
+    // Code here will run after *every* render
+  });
+  return &lt;div /&gt;;
+}
+</code></pre>
+<p>Every time your component renders, React will update the screen <em>and then</em> run the code inside <code>useEffect</code>. In other words, <strong><code>useEffect</code> &quot;delays&quot; a piece of code from running until that render is reflected on the screen.</strong></p>
+<p>Let's see how you can use an Effect to synchronize with an external system. Consider a <code>&lt;VideoPlayer&gt;</code> React component. It would be nice to control whether it's playing or paused by passing an <code>isPlaying</code> prop to it:</p>
+<pre><code class="language-js">&lt;VideoPlayer isPlaying={isPlaying} /&gt;;
+</code></pre>
+<p>Your custom <code>VideoPlayer</code> component renders the built-in browser <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video"><code>&lt;video&gt;</code></a> tag:</p>
+<pre><code class="language-js">function VideoPlayer({ src, isPlaying }) {
+  // TODO: do something with isPlaying
+  return &lt;video src={src} /&gt;;
+}
+</code></pre>
+<p>However, the browser <code>&lt;video&gt;</code> tag does not have an <code>isPlaying</code> prop. The only way to control it is to manually call the <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play"><code>play()</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause"><code>pause()</code></a> methods on the DOM element. <strong>You need to synchronize the value of <code>isPlaying</code> prop, which tells whether the video <em>should</em> currently be playing, with imperative calls like <code>play()</code> and <code>pause()</code>.</strong></p>
+<p>We'll need to first <a href="/learn/manipulating-the-dom-with-refs">get a ref</a> to the <code>&lt;video&gt;</code> DOM node.</p>
+<p>You might be tempted to try to call <code>play()</code> or <code>pause()</code> during rendering, but that isn't correct:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useRef, useEffect } from 'react';
+
+function VideoPlayer({ src, isPlaying }) {
+  const ref = useRef(null);
+
+  if (isPlaying) {
+    ref.current.play();  // Calling these while rendering isn't allowed.
+  } else {
+    ref.current.pause(); // Also, this crashes.
+  }
+
+  return &lt;video ref={ref} src={src} loop playsInline /&gt;;
+}
+
+export default function App() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;button onClick={() =&gt; setIsPlaying(!isPlaying)}&gt;
+        {isPlaying ? 'Pause' : 'Play'}
+      &lt;/button&gt;
+      &lt;VideoPlayer
+        isPlaying={isPlaying}
+        src=&quot;https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4&quot;
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button { display: block; margin-bottom: 20px; }
+video { width: 250px; }
+</code></pre>
+</Sandpack>
+<p>The reason this code isn't correct is that it tries to do something with the DOM node during rendering. In React, <a href="/learn/keeping-components-pure">rendering should be a pure calculation</a> of JSX and should not contain side effects like modifying the DOM.</p>
+<p>Moreover, when <code>VideoPlayer</code> is called for the first time, its DOM does not exist yet! There isn't a DOM node yet to call <code>play()</code> or <code>pause()</code> on, because React doesn't know what DOM to create until after you return the JSX.</p>
+<p>The solution here is to <strong>wrap the side effect with <code>useEffect</code> to move it out of the rendering calculation:</strong></p>
+<pre><code class="language-js {6 12}">import { useEffect, useRef } from 'react';
+
+function VideoPlayer({ src, isPlaying }) {
+  const ref = useRef(null);
+
+  useEffect(() =&gt; {
+    if (isPlaying) {
+      ref.current.play();
+    } else {
+      ref.current.pause();
+    }
+  });
+
+  return &lt;video ref={ref} src={src} loop playsInline /&gt;;
+}
+</code></pre>
+<p>By wrapping the DOM update in an Effect, you let React update the screen first. Then your Effect runs.</p>
+<p>When your <code>VideoPlayer</code> component renders (either the first time or if it re-renders), a few things will happen. First, React will update the screen, ensuring the <code>&lt;video&gt;</code> tag is in the DOM with the right props. Then React will run your Effect. Finally, your Effect will call <code>play()</code> or <code>pause()</code> depending on the value of <code>isPlaying</code> prop.</p>
+<p>Press Play/Pause multiple times and see how the video player stays synchronized to the <code>isPlaying</code> value:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useRef, useEffect } from 'react';
+
+function VideoPlayer({ src, isPlaying }) {
+  const ref = useRef(null);
+
+  useEffect(() =&gt; {
+    if (isPlaying) {
+      ref.current.play();
+    } else {
+      ref.current.pause();
+    }
+  });
+
+  return &lt;video ref={ref} src={src} loop playsInline /&gt;;
+}
+
+export default function App() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;button onClick={() =&gt; setIsPlaying(!isPlaying)}&gt;
+        {isPlaying ? 'Pause' : 'Play'}
+      &lt;/button&gt;
+      &lt;VideoPlayer
+        isPlaying={isPlaying}
+        src=&quot;https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4&quot;
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">button { display: block; margin-bottom: 20px; }
+video { width: 250px; }
+</code></pre>
+</Sandpack>
+<p>In this example, the &quot;external system&quot; you synchronized to React state was the browser media API. You can use a similar approach to wrap legacy non-React code (like jQuery plugins) into declarative React components.</p>
+<p>Note that controlling a video player is much more complex in practice. Calling <code>play()</code> may fail, the user might play or pause using the built-in browser controls, and so on. This example is very simplified and incomplete.</p>
+<Pitfall>
+<p>By default, Effects run after <em>every</em> render. This is why code like this will <strong>produce an infinite loop:</strong></p>
+<pre><code class="language-js">const [count, setCount] = useState(0);
+useEffect(() =&gt; {
+  setCount(count + 1);
+});
+</code></pre>
+<p>Effects run as a <em>result</em> of rendering. Setting state <em>triggers</em> rendering. Setting state immediately in an Effect is like plugging a power outlet into itself. The Effect runs, it sets the state, which causes a re-render, which causes the Effect to run, it sets the state again, this causes another re-render, and so on.</p>
+<p>Effects should usually synchronize your components with an <em>external</em> system. If there's no external system and you only want to adjust some state based on other state, <a href="/learn/you-might-not-need-an-effect">you might not need an Effect.</a></p>
+</Pitfall>
+<h3 id="step-2-specify-the-effect-dependencies-step-2-specify-the-effect-dependencies"><a class="header" href="#step-2-specify-the-effect-dependencies-step-2-specify-the-effect-dependencies">Step 2: Specify the Effect dependencies {/<em>step-2-specify-the-effect-dependencies</em>/}</a></h3>
+<p>By default, Effects run after <em>every</em> render. Often, this is <strong>not what you want:</strong></p>
+<ul>
+<li>Sometimes, it's slow. Synchronizing with an external system is not always instant, so you might want to skip doing it unless it's necessary. For example, you don't want to reconnect to the chat server on every keystroke.</li>
+<li>Sometimes, it's wrong. For example, you don't want to trigger a component fade-in animation on every keystroke. The animation should only play once when the component appears for the first time.</li>
+</ul>
+<p>To demonstrate the issue, here is the previous example with a few <code>console.log</code> calls and a text input that updates the parent component's state. Notice how typing causes the Effect to re-run:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useRef, useEffect } from 'react';
+
+function VideoPlayer({ src, isPlaying }) {
+  const ref = useRef(null);
+
+  useEffect(() =&gt; {
+    if (isPlaying) {
+      console.log('Calling video.play()');
+      ref.current.play();
+    } else {
+      console.log('Calling video.pause()');
+      ref.current.pause();
+    }
+  });
+
+  return &lt;video ref={ref} src={src} loop playsInline /&gt;;
+}
+
+export default function App() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [text, setText] = useState('');
+  return (
+    &lt;&gt;
+      &lt;input value={text} onChange={e =&gt; setText(e.target.value)} /&gt;
+      &lt;button onClick={() =&gt; setIsPlaying(!isPlaying)}&gt;
+        {isPlaying ? 'Pause' : 'Play'}
+      &lt;/button&gt;
+      &lt;VideoPlayer
+        isPlaying={isPlaying}
+        src=&quot;https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4&quot;
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">input, button { display: block; margin-bottom: 20px; }
+video { width: 250px; }
+</code></pre>
+</Sandpack>
+<p>You can tell React to <strong>skip unnecessarily re-running the Effect</strong> by specifying an array of <em>dependencies</em> as the second argument to the <code>useEffect</code> call. Start by adding an empty <code>[]</code> array to the above example on line 14:</p>
+<pre><code class="language-js {3}">  useEffect(() =&gt; {
+    // ...
+  }, []);
+</code></pre>
+<p>You should see an error saying <code>React Hook useEffect has a missing dependency: 'isPlaying'</code>:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useRef, useEffect } from 'react';
+
+function VideoPlayer({ src, isPlaying }) {
+  const ref = useRef(null);
+
+  useEffect(() =&gt; {
+    if (isPlaying) {
+      console.log('Calling video.play()');
+      ref.current.play();
+    } else {
+      console.log('Calling video.pause()');
+      ref.current.pause();
+    }
+  }, []); // This causes an error
+
+  return &lt;video ref={ref} src={src} loop playsInline /&gt;;
+}
+
+export default function App() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [text, setText] = useState('');
+  return (
+    &lt;&gt;
+      &lt;input value={text} onChange={e =&gt; setText(e.target.value)} /&gt;
+      &lt;button onClick={() =&gt; setIsPlaying(!isPlaying)}&gt;
+        {isPlaying ? 'Pause' : 'Play'}
+      &lt;/button&gt;
+      &lt;VideoPlayer
+        isPlaying={isPlaying}
+        src=&quot;https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4&quot;
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">input, button { display: block; margin-bottom: 20px; }
+video { width: 250px; }
+</code></pre>
+</Sandpack>
+<p>The problem is that the code inside of your Effect <em>depends on</em> the <code>isPlaying</code> prop to decide what to do, but this dependency was not explicitly declared. To fix this issue, add <code>isPlaying</code> to the dependency array:</p>
+<pre><code class="language-js {2 7}">  useEffect(() =&gt; {
+    if (isPlaying) { // It's used here...
+      // ...
+    } else {
+      // ...
+    }
+  }, [isPlaying]); // ...so it must be declared here!
+</code></pre>
+<p>Now all dependencies are declared, so there is no error. Specifying <code>[isPlaying]</code> as the dependency array tells React that it should skip re-running your Effect if <code>isPlaying</code> is the same as it was during the previous render. With this change, typing into the input doesn't cause the Effect to re-run, but pressing Play/Pause does:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useRef, useEffect } from 'react';
+
+function VideoPlayer({ src, isPlaying }) {
+  const ref = useRef(null);
+
+  useEffect(() =&gt; {
+    if (isPlaying) {
+      console.log('Calling video.play()');
+      ref.current.play();
+    } else {
+      console.log('Calling video.pause()');
+      ref.current.pause();
+    }
+  }, [isPlaying]);
+
+  return &lt;video ref={ref} src={src} loop playsInline /&gt;;
+}
+
+export default function App() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [text, setText] = useState('');
+  return (
+    &lt;&gt;
+      &lt;input value={text} onChange={e =&gt; setText(e.target.value)} /&gt;
+      &lt;button onClick={() =&gt; setIsPlaying(!isPlaying)}&gt;
+        {isPlaying ? 'Pause' : 'Play'}
+      &lt;/button&gt;
+      &lt;VideoPlayer
+        isPlaying={isPlaying}
+        src=&quot;https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4&quot;
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">input, button { display: block; margin-bottom: 20px; }
+video { width: 250px; }
+</code></pre>
+</Sandpack>
+<p>The dependency array can contain multiple dependencies. React will only skip re-running the Effect if <em>all</em> of the dependencies you specify have exactly the same values as they had during the previous render. React compares the dependency values using the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is"><code>Object.is</code></a> comparison. See the <a href="/reference/react/useEffect#reference"><code>useEffect</code> API reference</a> for more details.</p>
+<p><strong>Notice that you can't &quot;choose&quot; your dependencies.</strong> You will get a lint error if the dependencies you specified don't match what React expects based on the code inside your Effect. This helps catch many bugs in your code. If your Effect uses some value but you <em>don't</em> want to re-run the Effect when it changes, you'll need to <a href="/learn/lifecycle-of-reactive-effects#what-to-do-when-you-dont-want-to-re-synchronize"><em>edit the Effect code itself</em> to not &quot;need&quot; that dependency.</a></p>
+<Pitfall>
+<p>The behaviors <em>without</em> the dependency array and with an <em>empty</em> <code>[]</code> dependency array are very different:</p>
+<pre><code class="language-js {3 7 11}">useEffect(() =&gt; {
+  // This runs after every render
+});
+
+useEffect(() =&gt; {
+  // This runs only on mount (when the component appears)
+}, []);
+
+useEffect(() =&gt; {
+  // This runs on mount *and also* if either a or b have changed since the last render
+}, [a, b]);
+</code></pre>
+<p>We'll take a close look at what &quot;mount&quot; means in the next step.</p>
+</Pitfall>
+<DeepDive>
+<h4 id="why-was-the-ref-omitted-from-the-dependency-array-why-was-the-ref-omitted-from-the-dependency-array"><a class="header" href="#why-was-the-ref-omitted-from-the-dependency-array-why-was-the-ref-omitted-from-the-dependency-array">Why was the ref omitted from the dependency array? {/<em>why-was-the-ref-omitted-from-the-dependency-array</em>/}</a></h4>
+<p>This Effect uses <em>both</em> <code>ref</code> and <code>isPlaying</code>, but only <code>isPlaying</code> is declared as a dependency:</p>
+<pre><code class="language-js {9}">function VideoPlayer({ src, isPlaying }) {
+  const ref = useRef(null);
+  useEffect(() =&gt; {
+    if (isPlaying) {
+      ref.current.play();
+    } else {
+      ref.current.pause();
+    }
+  }, [isPlaying]);
+</code></pre>
+<p>This is because the <code>ref</code> object has a <em>stable identity:</em> React guarantees <a href="/reference/react/useRef#returns">you'll always get the same object</a> from the same <code>useRef</code> call on every render. It never changes, so it will never by itself cause the Effect to re-run. Therefore, it does not matter whether you include it or not. Including it is fine too:</p>
+<pre><code class="language-js {9}">function VideoPlayer({ src, isPlaying }) {
+  const ref = useRef(null);
+  useEffect(() =&gt; {
+    if (isPlaying) {
+      ref.current.play();
+    } else {
+      ref.current.pause();
+    }
+  }, [isPlaying, ref]);
+</code></pre>
+<p>The <a href="/reference/react/useState#setstate"><code>set</code> functions</a> returned by <code>useState</code> also have stable identity, so you will often see them omitted from the dependencies too. If the linter lets you omit a dependency without errors, it is safe to do.</p>
+<p>Omitting always-stable dependencies only works when the linter can &quot;see&quot; that the object is stable. For example, if <code>ref</code> was passed from a parent component, you would have to specify it in the dependency array. However, this is good because you can't know whether the parent component always passes the same ref, or passes one of several refs conditionally. So your Effect <em>would</em> depend on which ref is passed.</p>
+</DeepDive>
+<h3 id="step-3-add-cleanup-if-needed-step-3-add-cleanup-if-needed"><a class="header" href="#step-3-add-cleanup-if-needed-step-3-add-cleanup-if-needed">Step 3: Add cleanup if needed {/<em>step-3-add-cleanup-if-needed</em>/}</a></h3>
+<p>Consider a different example. You're writing a <code>ChatRoom</code> component that needs to connect to the chat server when it appears. You are given a <code>createConnection()</code> API that returns an object with <code>connect()</code> and <code>disconnect()</code> methods. How do you keep the component connected while it is displayed to the user?</p>
+<p>Start by writing the Effect logic:</p>
+<pre><code class="language-js">useEffect(() =&gt; {
+  const connection = createConnection();
+  connection.connect();
+});
+</code></pre>
+<p>It would be slow to connect to the chat after every re-render, so you add the dependency array:</p>
+<pre><code class="language-js {4}">useEffect(() =&gt; {
+  const connection = createConnection();
+  connection.connect();
+}, []);
+</code></pre>
+<p><strong>The code inside the Effect does not use any props or state, so your dependency array is <code>[]</code> (empty). This tells React to only run this code when the component &quot;mounts&quot;, i.e. appears on the screen for the first time.</strong></p>
+<p>Let's try running this code:</p>
+<Sandpack>
+<pre><code class="language-js">import { useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+export default function ChatRoom() {
+  useEffect(() =&gt; {
+    const connection = createConnection();
+    connection.connect();
+  }, []);
+  return &lt;h1&gt;Welcome to the chat!&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection() {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected.');
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+</code></pre>
+</Sandpack>
+<p>This Effect only runs on mount, so you might expect <code>&quot;✅ Connecting...&quot;</code> to be printed once in the console. <strong>However, if you check the console, <code>&quot;✅ Connecting...&quot;</code> gets printed twice. Why does it happen?</strong></p>
+<p>Imagine the <code>ChatRoom</code> component is a part of a larger app with many different screens. The user starts their journey on the <code>ChatRoom</code> page. The component mounts and calls <code>connection.connect()</code>. Then imagine the user navigates to another screen--for example, to the Settings page. The <code>ChatRoom</code> component unmounts. Finally, the user clicks Back and <code>ChatRoom</code> mounts again. This would set up a second connection--but the first connection was never destroyed! As the user navigates across the app, the connections would keep piling up.</p>
+<p>Bugs like this are easy to miss without extensive manual testing. To help you spot them quickly, in development React remounts every component once immediately after its initial mount. <strong>Seeing the <code>&quot;✅ Connecting...&quot;</code> log twice helps you notice the real issue: your code doesn't close the connection when the component unmounts.</strong></p>
+<p>To fix the issue, return a <em>cleanup function</em> from your Effect:</p>
+<pre><code class="language-js {4-6}">  useEffect(() =&gt; {
+    const connection = createConnection();
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect();
+    };
+  }, []);
+</code></pre>
+<p>React will call your cleanup function each time before the Effect runs again, and one final time when the component unmounts (gets removed). Let's see what happens when the cleanup function is implemented:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+export default function ChatRoom() {
+  useEffect(() =&gt; {
+    const connection = createConnection();
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, []);
+  return &lt;h1&gt;Welcome to the chat!&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection() {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected.');
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+</code></pre>
+</Sandpack>
+<p>Now you get three console logs in development:</p>
+<ol>
+<li><code>&quot;✅ Connecting...&quot;</code></li>
+<li><code>&quot;❌ Disconnected.&quot;</code></li>
+<li><code>&quot;✅ Connecting...&quot;</code></li>
+</ol>
+<p><strong>This is the correct behavior in development.</strong> By remounting your component, React verifies that navigating away and back would not break your code. Disconnecting and then connecting again is exactly what should happen! When you implement the cleanup well, there should be no user-visible difference between running the Effect once vs running it, cleaning it up, and running it again. There's an extra connect/disconnect call pair because React is probing your code for bugs in development. This is normal and you shouldn't try to make it go away.</p>
+<p><strong>In production, you would only see <code>&quot;✅ Connecting...&quot;</code> printed once.</strong> Remounting components only happens in development to help you find Effects that need cleanup. You can turn off <a href="/reference/react/StrictMode">Strict Mode</a> to opt out of the development behavior, but we recommend keeping it on. This lets you find many bugs like the one above.</p>
+<h2 id="how-to-handle-the-effect-firing-twice-in-development-how-to-handle-the-effect-firing-twice-in-development"><a class="header" href="#how-to-handle-the-effect-firing-twice-in-development-how-to-handle-the-effect-firing-twice-in-development">How to handle the Effect firing twice in development? {/<em>how-to-handle-the-effect-firing-twice-in-development</em>/}</a></h2>
+<p>React intentionally remounts your components in development to help you find bugs like in the last example. <strong>The right question isn't &quot;how to run an Effect once&quot;, but &quot;how to fix my Effect so that it works after remounting&quot;.</strong></p>
+<p>Usually, the answer is to implement the cleanup function.  The cleanup function should stop or undo whatever the Effect was doing. The rule of thumb is that the user shouldn't be able to distinguish between the Effect running once (as in production) and a <em>setup → cleanup → setup</em> sequence (as you'd see in development).</p>
+<p>Most of the Effects you'll write will fit into one of the common patterns below.</p>
+<h3 id="controlling-non-react-widgets-controlling-non-react-widgets"><a class="header" href="#controlling-non-react-widgets-controlling-non-react-widgets">Controlling non-React widgets {/<em>controlling-non-react-widgets</em>/}</a></h3>
+<p>Sometimes you need to add UI widgets that aren't written to React. For example, let's say you're adding a map component to your page. It has a <code>setZoomLevel()</code> method, and you'd like to keep the zoom level in sync with a <code>zoomLevel</code> state variable in your React code. Your Effect would look like similar to this:</p>
+<pre><code class="language-js">useEffect(() =&gt; {
+  const map = mapRef.current;
+  map.setZoomLevel(zoomLevel);
+}, [zoomLevel]);
+</code></pre>
+<p>Note that there is no cleanup needed in this case. In development, React will call the Effect twice, but this is not a problem because calling <code>setZoomLevel</code> twice with the same value does not do anything. It may be slightly slower, but this doesn't matter because the remounting is development-only and won't happen in production.</p>
+<p>Some APIs may not allow you to call them twice in a row. For example, the <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal"><code>showModal</code></a> method of the built-in <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement"><code>&lt;dialog&gt;</code></a> element throws if you call it twice. Implement the cleanup function and make it close the dialog:</p>
+<pre><code class="language-js {4}">useEffect(() =&gt; {
+  const dialog = dialogRef.current;
+  dialog.showModal();
+  return () =&gt; dialog.close();
+}, []);
+</code></pre>
+<p>In development, your Effect will call <code>showModal()</code>, then immediately <code>close()</code>, and then <code>showModal()</code> again. This has the same user-visible behavior as calling <code>showModal()</code> once, as you would see in production.</p>
+<h3 id="subscribing-to-events-subscribing-to-events"><a class="header" href="#subscribing-to-events-subscribing-to-events">Subscribing to events {/<em>subscribing-to-events</em>/}</a></h3>
+<p>If your Effect subscribes to something, the cleanup function should unsubscribe:</p>
+<pre><code class="language-js {6}">useEffect(() =&gt; {
+  function handleScroll(e) {
+    console.log(e.clientX, e.clientY);
+  }
+  window.addEventListener('scroll', handleScroll);
+  return () =&gt; window.removeEventListener('scroll', handleScroll);
+}, []);
+</code></pre>
+<p>In development, your Effect will call <code>addEventListener()</code>, then immediately <code>removeEventListener()</code>, and then <code>addEventListener()</code> again with the same handler. So there would be only one active subscription at a time. This has the same user-visible behavior as calling <code>addEventListener()</code> once, as you would see in production.</p>
+<h3 id="triggering-animations-triggering-animations"><a class="header" href="#triggering-animations-triggering-animations">Triggering animations {/<em>triggering-animations</em>/}</a></h3>
+<p>If your Effect animates something in, the cleanup function should reset the animation to the initial values:</p>
+<pre><code class="language-js {4-6}">useEffect(() =&gt; {
+  const node = ref.current;
+  node.style.opacity = 1; // Trigger the animation
+  return () =&gt; {
+    node.style.opacity = 0; // Reset to the initial value
+  };
+}, []);
+</code></pre>
+<p>In development, opacity will be set to <code>1</code>, then to <code>0</code>, and then to <code>1</code> again. This should have the same user-visible behavior as setting it to <code>1</code> directly, which is what would happen in production. If you use a third-party animation library with support for tweening, your cleanup function should reset the tween's timeline to its initial state.</p>
+<h3 id="fetching-data-fetching-data"><a class="header" href="#fetching-data-fetching-data">Fetching data {/<em>fetching-data</em>/}</a></h3>
+<p>If your Effect fetches something, the cleanup function should either <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController">abort the fetch</a> or ignore its result:</p>
+<pre><code class="language-js {2 6 13-15}">useEffect(() =&gt; {
+  let ignore = false;
+
+  async function startFetching() {
+    const json = await fetchTodos(userId);
+    if (!ignore) {
+      setTodos(json);
+    }
+  }
+
+  startFetching();
+
+  return () =&gt; {
+    ignore = true;
+  };
+}, [userId]);
+</code></pre>
+<p>You can't &quot;undo&quot; a network request that already happened, but your cleanup function should ensure that the fetch that's <em>not relevant anymore</em> does not keep affecting your application. For example, if the <code>userId</code> changes from <code>'Alice'</code> to <code>'Bob'</code>, cleanup ensures that the <code>'Alice'</code> response is ignored even if it arrives after <code>'Bob'</code>.</p>
+<p><strong>In development, you will see two fetches in the Network tab.</strong> There is nothing wrong with that. With the approach above, the first Effect will immediately get cleaned up so its copy of the <code>ignore</code> variable will be set to <code>true</code>. So even though there is an extra request, it won't affect the state thanks to the <code>if (!ignore)</code> check.</p>
+<p><strong>In production, there will only be one request.</strong> If the second request in development is bothering you, the best approach is to use a solution that deduplicates requests and caches their responses between components:</p>
+<pre><code class="language-js">function TodoList() {
+  const todos = useSomeDataLibrary(`/api/user/${userId}/todos`);
+  // ...
+</code></pre>
+<p>This will not only improve the development experience, but also make your application feel faster. For example, the user pressing the Back button won't have to wait for some data to load again because it will be cached. You can either build such a cache yourself or use one of the many existing alternatives to manual fetching in Effects.</p>
+<DeepDive>
+<h4 id="what-are-good-alternatives-to-data-fetching-in-effects-what-are-good-alternatives-to-data-fetching-in-effects"><a class="header" href="#what-are-good-alternatives-to-data-fetching-in-effects-what-are-good-alternatives-to-data-fetching-in-effects">What are good alternatives to data fetching in Effects? {/<em>what-are-good-alternatives-to-data-fetching-in-effects</em>/}</a></h4>
+<p>Writing <code>fetch</code> calls inside Effects is a <a href="https://www.robinwieruch.de/react-hooks-fetch-data/">popular way to fetch data</a>, especially in fully client-side apps. This is, however, a very manual approach and it has significant downsides:</p>
+<ul>
+<li><strong>Effects don't run on the server.</strong> This means that the initial server-rendered HTML will only include a loading state with no data. The client computer will have to download all JavaScript and render your app only to discover that now it needs to load the data. This is not very efficient.</li>
+<li><strong>Fetching directly in Effects makes it easy to create &quot;network waterfalls&quot;.</strong> You render the parent component, it fetches some data, renders the child components, and then they start fetching their data. If the network is not very fast, this is significantly slower than fetching all data in parallel.</li>
+<li><strong>Fetching directly in Effects usually means you don't preload or cache data.</strong> For example, if the component unmounts and then mounts again, it would have to fetch the data again.</li>
+<li><strong>It's not very ergonomic.</strong> There's quite a bit of boilerplate code involved when writing <code>fetch</code> calls in a way that doesn't suffer from bugs like <a href="https://maxrozen.com/race-conditions-fetching-data-react-with-useeffect">race conditions.</a></li>
+</ul>
+<p>This list of downsides is not specific to React. It applies to fetching data on mount with any library. Like with routing, data fetching is not trivial to do well, so we recommend the following approaches:</p>
+<ul>
+<li><strong>If you use a <a href="/learn/start-a-new-react-project#building-with-a-full-featured-framework">framework</a>, use its built-in data fetching mechanism.</strong> Modern React frameworks have integrated data fetching mechanisms that are efficient and don't suffer from the above pitfalls.</li>
+<li><strong>Otherwise, consider using or building a client-side cache.</strong> Popular open source solutions include <a href="https://react-query.tanstack.com/">React Query</a>, <a href="https://swr.vercel.app/">useSWR</a>, and <a href="https://beta.reactrouter.com/en/main/start/overview">React Router 6.4+.</a> You can build your own solution too, in which case you would use Effects under the hood but also add logic for deduplicating requests, caching responses, and avoiding network waterfalls (by preloading data or hoisting data requirements to routes).</li>
+</ul>
+<p>You can continue fetching data directly in Effects if neither of these approaches suit you.</p>
+</DeepDive>
+<h3 id="sending-analytics-sending-analytics"><a class="header" href="#sending-analytics-sending-analytics">Sending analytics {/<em>sending-analytics</em>/}</a></h3>
+<p>Consider this code that sends an analytics event on the page visit:</p>
+<pre><code class="language-js">useEffect(() =&gt; {
+  logVisit(url); // Sends a POST request
+}, [url]);
+</code></pre>
+<p>In development, <code>logVisit</code> will be called twice for every URL, so you might be tempted to try to work around it. <strong>We recommend to keep this code as is.</strong> Like with earlier examples, there is no <em>user-visible</em> behavior difference between running it once and running it twice. From a practical point of view, <code>logVisit</code> should not do anything in development because you don't want the logs from the development machines to skew the production metrics. Your component remounts every time you save its file, so it would send extra visits during development anyway.</p>
+<p><strong>In production, there will be no duplicate visit logs.</strong></p>
+<p>To debug the analytics events you're sending, you can deploy your app to a staging environment (which runs in production mode) or temporarily opt out of <a href="/reference/react/StrictMode">Strict Mode</a> and its development-only remounting checks. You may also send analytics from the route change event handlers instead of Effects. For even more precise analytics, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API">intersection observers</a> can help track which components are in the viewport and how long they remain visible.</p>
+<h3 id="not-an-effect-initializing-the-application-not-an-effect-initializing-the-application"><a class="header" href="#not-an-effect-initializing-the-application-not-an-effect-initializing-the-application">Not an Effect: Initializing the application {/<em>not-an-effect-initializing-the-application</em>/}</a></h3>
+<p>Some logic should only run once when the application starts. You can put it outside your components:</p>
+<pre><code class="language-js {2-3}">if (typeof window !== 'undefined') { // Check if we're running in the browser.
+  checkAuthToken();
+  loadDataFromLocalStorage();
+}
+
+function App() {
+  // ...
+}
+</code></pre>
+<p>This guarantees that such logic only runs once after the browser loads the page.</p>
+<h3 id="not-an-effect-buying-a-product-not-an-effect-buying-a-product"><a class="header" href="#not-an-effect-buying-a-product-not-an-effect-buying-a-product">Not an Effect: Buying a product {/<em>not-an-effect-buying-a-product</em>/}</a></h3>
+<p>Sometimes, even if you write a cleanup function, there's no way to prevent user-visible consequences of running the Effect twice. For example, maybe your Effect sends a POST request like buying a product:</p>
+<pre><code class="language-js {2-3}">useEffect(() =&gt; {
+  // 🔴 Wrong: This Effect fires twice in development, exposing a problem in the code.
+  fetch('/api/buy', { method: 'POST' });
+}, []);
+</code></pre>
+<p>You wouldn't want to buy the product twice. However, this is also why you shouldn't put this logic in an Effect. What if the user goes to another page and then presses Back? Your Effect would run again. You don't want to buy the product when the user <em>visits</em> a page; you want to buy it when the user <em>clicks</em> the Buy button.</p>
+<p>Buying is not caused by rendering; it's caused by a specific interaction. It only runs once because the interaction (a click) happens once. <strong>Delete the Effect and move your <code>/api/buy</code> request into the Buy button event handler:</strong></p>
+<pre><code class="language-js {2-3}">  function handleClick() {
+    // ✅ Buying is an event because it is caused by a particular interaction.
+    fetch('/api/buy', { method: 'POST' });
+  }
+</code></pre>
+<p><strong>This illustrates that if remounting breaks the logic of your application, this usually uncovers existing bugs.</strong> From the user's perspective, visiting a page shouldn't be different from visiting it, clicking a link, and then pressing Back. React verifies that your components don't break this principle by remounting them once in development.</p>
+<h2 id="putting-it-all-together-putting-it-all-together"><a class="header" href="#putting-it-all-together-putting-it-all-together">Putting it all together {/<em>putting-it-all-together</em>/}</a></h2>
+<p>This playground can help you &quot;get a feel&quot; for how Effects work in practice.</p>
+<p>This example uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/setTimeout"><code>setTimeout</code></a> to schedule a console log with the input text to appear three seconds after the Effect runs. The cleanup function cancels the pending timeout. Start by pressing &quot;Mount the component&quot;:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+
+function Playground() {
+  const [text, setText] = useState('a');
+
+  useEffect(() =&gt; {
+    function onTimeout() {
+      console.log('⏰ ' + text);
+    }
+
+    console.log('🔵 Schedule &quot;' + text + '&quot; log');
+    const timeoutId = setTimeout(onTimeout, 3000);
+
+    return () =&gt; {
+      console.log('🟡 Cancel &quot;' + text + '&quot; log');
+      clearTimeout(timeoutId);
+    };
+  }, [text]);
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        What to log:{' '}
+        &lt;input
+          value={text}
+          onChange={e =&gt; setText(e.target.value)}
+        /&gt;
+      &lt;/label&gt;
+      &lt;h1&gt;{text}&lt;/h1&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function App() {
+  const [show, setShow] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;button onClick={() =&gt; setShow(!show)}&gt;
+        {show ? 'Unmount' : 'Mount'} the component
+      &lt;/button&gt;
+      {show &amp;&amp; &lt;hr /&gt;}
+      {show &amp;&amp; &lt;Playground /&gt;}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+</Sandpack>
+<p>You will see three logs at first: <code>Schedule &quot;a&quot; log</code>, <code>Cancel &quot;a&quot; log</code>, and <code>Schedule &quot;a&quot; log</code> again. Three second later there will also be a log saying <code>a</code>. As you learned earlier on this page, the extra schedule/cancel pair is because <strong>React remounts the component once in development to verify that you've implemented cleanup well.</strong></p>
+<p>Now edit the input to say <code>abc</code>. If you do it fast enough, you'll see <code>Schedule &quot;ab&quot; log</code> immediately followed by <code>Cancel &quot;ab&quot; log</code> and <code>Schedule &quot;abc&quot; log</code>. <strong>React always cleans up the previous render's Effect before the next render's Effect.</strong> This is why even if you type into the input fast, there is at most one timeout scheduled at a time. Edit the input a few times and watch the console to get a feel for how Effects get cleaned up.</p>
+<p>Type something into the input and then immediately press &quot;Unmount the component&quot;. <strong>Notice how unmounting cleans up the last render's Effect.</strong> In this example, it clears the last timeout before it has a chance to fire.</p>
+<p>Finally, edit the component above and <strong>comment out the cleanup function</strong> so that the timeouts don't get cancelled. Try typing <code>abcde</code> fast. What do you expect to happen in three seconds? Will <code>console.log(text)</code> inside the timeout print the <em>latest</em> <code>text</code> and produce five <code>abcde</code> logs? Give it a try to check your intuition!</p>
+<p>Three seconds later, you should see a sequence of logs (<code>a</code>, <code>ab</code>, <code>abc</code>, <code>abcd</code>, and <code>abcde</code>) rather than five <code>abcde</code> logs. <strong>Each Effect &quot;captures&quot; the <code>text</code> value from its corresponding render.</strong>  It doesn't matter that the <code>text</code> state changed: an Effect from the render with <code>text = 'ab'</code> will always see <code>'ab'</code>. In other words, Effects from each render are isolated from each other. If you're curious how this works, you can read about <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures">closures</a>.</p>
+<DeepDive>
+<h4 id="each-render-has-its-own-effects-each-render-has-its-own-effects"><a class="header" href="#each-render-has-its-own-effects-each-render-has-its-own-effects">Each render has its own Effects {/<em>each-render-has-its-own-effects</em>/}</a></h4>
+<p>You can think of <code>useEffect</code> as &quot;attaching&quot; a piece of behavior to the render output. Consider this Effect:</p>
+<pre><code class="language-js">export default function ChatRoom({ roomId }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId]);
+
+  return &lt;h1&gt;Welcome to {roomId}!&lt;/h1&gt;;
+}
+</code></pre>
+<p>Let's see what exactly happens as the user navigates around the app.</p>
+<h4 id="initial-render-initial-render"><a class="header" href="#initial-render-initial-render">Initial render {/<em>initial-render</em>/}</a></h4>
+<p>The user visits <code>&lt;ChatRoom roomId=&quot;general&quot; /&gt;</code>. Let's <a href="/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time">mentally substitute</a> <code>roomId</code> with <code>'general'</code>:</p>
+<pre><code class="language-js">  // JSX for the first render (roomId = &quot;general&quot;)
+  return &lt;h1&gt;Welcome to general!&lt;/h1&gt;;
+</code></pre>
+<p><strong>The Effect is <em>also</em> a part of the rendering output.</strong> The first render's Effect becomes:</p>
+<pre><code class="language-js">  // Effect for the first render (roomId = &quot;general&quot;)
+  () =&gt; {
+    const connection = createConnection('general');
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  },
+  // Dependencies for the first render (roomId = &quot;general&quot;)
+  ['general']
+</code></pre>
+<p>React runs this Effect, which connects to the <code>'general'</code> chat room.</p>
+<h4 id="re-render-with-same-dependencies-re-render-with-same-dependencies"><a class="header" href="#re-render-with-same-dependencies-re-render-with-same-dependencies">Re-render with same dependencies {/<em>re-render-with-same-dependencies</em>/}</a></h4>
+<p>Let's say <code>&lt;ChatRoom roomId=&quot;general&quot; /&gt;</code> re-renders. The JSX output is the same:</p>
+<pre><code class="language-js">  // JSX for the second render (roomId = &quot;general&quot;)
+  return &lt;h1&gt;Welcome to general!&lt;/h1&gt;;
+</code></pre>
+<p>React sees that the rendering output has not changed, so it doesn't update the DOM.</p>
+<p>The Effect from the second render looks like this:</p>
+<pre><code class="language-js">  // Effect for the second render (roomId = &quot;general&quot;)
+  () =&gt; {
+    const connection = createConnection('general');
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  },
+  // Dependencies for the second render (roomId = &quot;general&quot;)
+  ['general']
+</code></pre>
+<p>React compares <code>['general']</code> from the second render with <code>['general']</code> from the first render. <strong>Because all dependencies are the same, React <em>ignores</em> the Effect from the second render.</strong> It never gets called.</p>
+<h4 id="re-render-with-different-dependencies-re-render-with-different-dependencies"><a class="header" href="#re-render-with-different-dependencies-re-render-with-different-dependencies">Re-render with different dependencies {/<em>re-render-with-different-dependencies</em>/}</a></h4>
+<p>Then, the user visits <code>&lt;ChatRoom roomId=&quot;travel&quot; /&gt;</code>. This time, the component returns different JSX:</p>
+<pre><code class="language-js">  // JSX for the third render (roomId = &quot;travel&quot;)
+  return &lt;h1&gt;Welcome to travel!&lt;/h1&gt;;
+</code></pre>
+<p>React updates the DOM to change <code>&quot;Welcome to general&quot;</code> into <code>&quot;Welcome to travel&quot;</code>.</p>
+<p>The Effect from the third render looks like this:</p>
+<pre><code class="language-js">  // Effect for the third render (roomId = &quot;travel&quot;)
+  () =&gt; {
+    const connection = createConnection('travel');
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  },
+  // Dependencies for the third render (roomId = &quot;travel&quot;)
+  ['travel']
+</code></pre>
+<p>React compares <code>['travel']</code> from the third render with <code>['general']</code> from the second render. One dependency is different: <code>Object.is('travel', 'general')</code> is <code>false</code>. The Effect can't be skipped.</p>
+<p><strong>Before React can apply the Effect from the third render, it needs to clean up the last Effect that <em>did</em> run.</strong> The second render's Effect was skipped, so React needs to clean up the first render's Effect. If you scroll up to the first render, you'll see that its cleanup calls <code>disconnect()</code> on the connection that was created with <code>createConnection('general')</code>. This disconnects the app from the <code>'general'</code> chat room.</p>
+<p>After that, React runs the third render's Effect. It connects to the <code>'travel'</code> chat room.</p>
+<h4 id="unmount-unmount"><a class="header" href="#unmount-unmount">Unmount {/<em>unmount</em>/}</a></h4>
+<p>Finally, let's say the user navigates away, and the <code>ChatRoom</code> component unmounts. React runs the last Effect's cleanup function. The last Effect was from the third render. The third render's cleanup destroys the <code>createConnection('travel')</code> connection. So the app disconnects from the <code>'travel'</code> room.</p>
+<h4 id="development-only-behaviors-development-only-behaviors"><a class="header" href="#development-only-behaviors-development-only-behaviors">Development-only behaviors {/<em>development-only-behaviors</em>/}</a></h4>
+<p>When <a href="/reference/react/StrictMode">Strict Mode</a> is on, React remounts every component once after mount (state and DOM are preserved). This <a href="#step-3-add-cleanup-if-needed">helps you find Effects that need cleanup</a> and exposes bugs like race conditions early. Additionally, React will remount the Effects whenever you save a file in development. Both of these behaviors are development-only.</p>
+</DeepDive>
+<Recap>
+<ul>
+<li>Unlike events, Effects are caused by rendering itself rather than a particular interaction.</li>
+<li>Effects let you synchronize a component with some external system (third-party API, network, etc).</li>
+<li>By default, Effects run after every render (including the initial one).</li>
+<li>React will skip the Effect if all of its dependencies have the same values as during the last render.</li>
+<li>You can't &quot;choose&quot; your dependencies. They are determined by the code inside the Effect.</li>
+<li>An empty dependency array (<code>[]</code>) corresponds to the component &quot;mounting&quot;, i.e. being added to the screen.</li>
+<li>When Strict Mode is on, React mounts components twice (in development only!) to stress-test your Effects.</li>
+<li>If your Effect breaks because of remounting, you need to implement a cleanup function.</li>
+<li>React will call your cleanup function before the Effect runs next time, and during the unmount.</li>
+</ul>
+</Recap>
+<Challenges>
+<h4 id="focus-a-field-on-mount-focus-a-field-on-mount"><a class="header" href="#focus-a-field-on-mount-focus-a-field-on-mount">Focus a field on mount {/<em>focus-a-field-on-mount</em>/}</a></h4>
+<p>In this example, the form renders a <code>&lt;MyInput /&gt;</code> component.</p>
+<p>Use the input's <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus"><code>focus()</code></a> method to make <code>MyInput</code> automatically focus when it appears on the screen. There is already a commented out implementation, but it doesn't quite work. Figure out why it doesn't work, and fix it. (If you're familiar with the <code>autoFocus</code> attribute, pretend that it does not exist: we are reimplementing the same functionality from scratch.)</p>
+<Sandpack>
+<pre><code class="language-js MyInput.js active">import { useEffect, useRef } from 'react';
+
+export default function MyInput({ value, onChange }) {
+  const ref = useRef(null);
+
+  // TODO: This doesn't quite work. Fix it.
+  // ref.current.focus()    
+
+  return (
+    &lt;input
+      ref={ref}
+      value={value}
+      onChange={onChange}
+    /&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js App.js hidden">import { useState } from 'react';
+import MyInput from './MyInput.js';
+
+export default function Form() {
+  const [show, setShow] = useState(false);
+  const [name, setName] = useState('Taylor');
+  const [upper, setUpper] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;button onClick={() =&gt; setShow(s =&gt; !s)}&gt;{show ? 'Hide' : 'Show'} form&lt;/button&gt;
+      &lt;br /&gt;
+      &lt;hr /&gt;
+      {show &amp;&amp; (
+        &lt;&gt;
+          &lt;label&gt;
+            Enter your name:
+            &lt;MyInput
+              value={name}
+              onChange={e =&gt; setName(e.target.value)}
+            /&gt;
+          &lt;/label&gt;
+          &lt;label&gt;
+            &lt;input
+              type=&quot;checkbox&quot;
+              checked={upper}
+              onChange={e =&gt; setUpper(e.target.checked)}
+            /&gt;
+            Make it uppercase
+          &lt;/label&gt;
+          &lt;p&gt;Hello, &lt;b&gt;{upper ? name.toUpperCase() : name}&lt;/b&gt;&lt;/p&gt;
+        &lt;/&gt;
+      )}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+body {
+  min-height: 150px;
+}
+</code></pre>
+</Sandpack>
+<p>To verify that your solution works, press &quot;Show form&quot; and verify that the input receives focus (becomes highlighted and the cursor is placed inside). Press &quot;Hide form&quot; and &quot;Show form&quot; again. Verify the input is highlighted again.</p>
+<p><code>MyInput</code> should only focus <em>on mount</em> rather than after every render. To verify that the behavior is right, press &quot;Show form&quot; and then repeatedly press the &quot;Make it uppercase&quot; checkbox. Clicking the checkbox should <em>not</em> focus the input above it.</p>
+<Solution>
+<p>Calling <code>ref.current.focus()</code> during render is wrong because it is a <em>side effect</em>. Side effects should either be placed inside an event handler or be declared with <code>useEffect</code>. In this case, the side effect is <em>caused</em> by the component appearing rather than by any specific interaction, so it makes sense to put it in an Effect.</p>
+<p>To fix the mistake, wrap the <code>ref.current.focus()</code> call into an Effect declaration. Then, to ensure that this Effect runs only on mount rather than after every render, add the empty <code>[]</code> dependencies to it.</p>
+<Sandpack>
+<pre><code class="language-js MyInput.js active">import { useEffect, useRef } from 'react';
+
+export default function MyInput({ value, onChange }) {
+  const ref = useRef(null);
+
+  useEffect(() =&gt; {
+    ref.current.focus();
+  }, []);
+
+  return (
+    &lt;input
+      ref={ref}
+      value={value}
+      onChange={onChange}
+    /&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js App.js hidden">import { useState } from 'react';
+import MyInput from './MyInput.js';
+
+export default function Form() {
+  const [show, setShow] = useState(false);
+  const [name, setName] = useState('Taylor');
+  const [upper, setUpper] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;button onClick={() =&gt; setShow(s =&gt; !s)}&gt;{show ? 'Hide' : 'Show'} form&lt;/button&gt;
+      &lt;br /&gt;
+      &lt;hr /&gt;
+      {show &amp;&amp; (
+        &lt;&gt;
+          &lt;label&gt;
+            Enter your name:
+            &lt;MyInput
+              value={name}
+              onChange={e =&gt; setName(e.target.value)}
+            /&gt;
+          &lt;/label&gt;
+          &lt;label&gt;
+            &lt;input
+              type=&quot;checkbox&quot;
+              checked={upper}
+              onChange={e =&gt; setUpper(e.target.checked)}
+            /&gt;
+            Make it uppercase
+          &lt;/label&gt;
+          &lt;p&gt;Hello, &lt;b&gt;{upper ? name.toUpperCase() : name}&lt;/b&gt;&lt;/p&gt;
+        &lt;/&gt;
+      )}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+body {
+  min-height: 150px;
+}
+</code></pre>
+</Sandpack>
+</Solution>
+<h4 id="focus-a-field-conditionally-focus-a-field-conditionally"><a class="header" href="#focus-a-field-conditionally-focus-a-field-conditionally">Focus a field conditionally {/<em>focus-a-field-conditionally</em>/}</a></h4>
+<p>This form renders two <code>&lt;MyInput /&gt;</code> components.</p>
+<p>Press &quot;Show form&quot; and notice that the second field automatically gets focused. This is because both of the <code>&lt;MyInput /&gt;</code> components try to focus the field inside. When you call <code>focus()</code> for two input fields in a row, the last one always &quot;wins&quot;.</p>
+<p>Let's say you want to focus the first field. The first <code>MyInput</code> component now receives a boolean <code>shouldFocus</code> prop set to <code>true</code>. Change the logic so that <code>focus()</code> is only called if the <code>shouldFocus</code> prop received by <code>MyInput</code> is <code>true</code>.</p>
+<Sandpack>
+<pre><code class="language-js MyInput.js active">import { useEffect, useRef } from 'react';
+
+export default function MyInput({ shouldFocus, value, onChange }) {
+  const ref = useRef(null);
+
+  // TODO: call focus() only if shouldFocus is true.
+  useEffect(() =&gt; {
+    ref.current.focus();
+  }, []);
+
+  return (
+    &lt;input
+      ref={ref}
+      value={value}
+      onChange={onChange}
+    /&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js App.js hidden">import { useState } from 'react';
+import MyInput from './MyInput.js';
+
+export default function Form() {
+  const [show, setShow] = useState(false);
+  const [firstName, setFirstName] = useState('Taylor');
+  const [lastName, setLastName] = useState('Swift');
+  const [upper, setUpper] = useState(false);
+  const name = firstName + ' ' + lastName;
+  return (
+    &lt;&gt;
+      &lt;button onClick={() =&gt; setShow(s =&gt; !s)}&gt;{show ? 'Hide' : 'Show'} form&lt;/button&gt;
+      &lt;br /&gt;
+      &lt;hr /&gt;
+      {show &amp;&amp; (
+        &lt;&gt;
+          &lt;label&gt;
+            Enter your first name:
+            &lt;MyInput
+              value={firstName}
+              onChange={e =&gt; setFirstName(e.target.value)}
+              shouldFocus={true}
+            /&gt;
+          &lt;/label&gt;
+          &lt;label&gt;
+            Enter your last name:
+            &lt;MyInput
+              value={lastName}
+              onChange={e =&gt; setLastName(e.target.value)}
+              shouldFocus={false}
+            /&gt;
+          &lt;/label&gt;
+          &lt;p&gt;Hello, &lt;b&gt;{upper ? name.toUpperCase() : name}&lt;/b&gt;&lt;/p&gt;
+        &lt;/&gt;
+      )}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+body {
+  min-height: 150px;
+}
+</code></pre>
+</Sandpack>
+<p>To verify your solution, press &quot;Show form&quot; and &quot;Hide form&quot; repeatedly. When the form appears, only the <em>first</em> input should get focused. This is because the parent component renders the first input with <code>shouldFocus={true}</code> and the second input with <code>shouldFocus={false}</code>. Also check that both inputs still work and you can type into both of them.</p>
+<Hint>
+<p>You can't declare an Effect conditionally, but your Effect can include conditional logic.</p>
+</Hint>
+<Solution>
+<p>Put the conditional logic inside the Effect. You will need to specify <code>shouldFocus</code> as a dependency because you are using it inside the Effect. (This means that if some input's <code>shouldFocus</code> changes from <code>false</code> to <code>true</code>, it will focus after mount.)</p>
+<Sandpack>
+<pre><code class="language-js MyInput.js active">import { useEffect, useRef } from 'react';
+
+export default function MyInput({ shouldFocus, value, onChange }) {
+  const ref = useRef(null);
+
+  useEffect(() =&gt; {
+    if (shouldFocus) {
+      ref.current.focus();
+    }
+  }, [shouldFocus]);
+
+  return (
+    &lt;input
+      ref={ref}
+      value={value}
+      onChange={onChange}
+    /&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js App.js hidden">import { useState } from 'react';
+import MyInput from './MyInput.js';
+
+export default function Form() {
+  const [show, setShow] = useState(false);
+  const [firstName, setFirstName] = useState('Taylor');
+  const [lastName, setLastName] = useState('Swift');
+  const [upper, setUpper] = useState(false);
+  const name = firstName + ' ' + lastName;
+  return (
+    &lt;&gt;
+      &lt;button onClick={() =&gt; setShow(s =&gt; !s)}&gt;{show ? 'Hide' : 'Show'} form&lt;/button&gt;
+      &lt;br /&gt;
+      &lt;hr /&gt;
+      {show &amp;&amp; (
+        &lt;&gt;
+          &lt;label&gt;
+            Enter your first name:
+            &lt;MyInput
+              value={firstName}
+              onChange={e =&gt; setFirstName(e.target.value)}
+              shouldFocus={true}
+            /&gt;
+          &lt;/label&gt;
+          &lt;label&gt;
+            Enter your last name:
+            &lt;MyInput
+              value={lastName}
+              onChange={e =&gt; setLastName(e.target.value)}
+              shouldFocus={false}
+            /&gt;
+          &lt;/label&gt;
+          &lt;p&gt;Hello, &lt;b&gt;{upper ? name.toUpperCase() : name}&lt;/b&gt;&lt;/p&gt;
+        &lt;/&gt;
+      )}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+body {
+  min-height: 150px;
+}
+</code></pre>
+</Sandpack>
+</Solution>
+<h4 id="fix-an-interval-that-fires-twice-fix-an-interval-that-fires-twice"><a class="header" href="#fix-an-interval-that-fires-twice-fix-an-interval-that-fires-twice">Fix an interval that fires twice {/<em>fix-an-interval-that-fires-twice</em>/}</a></h4>
+<p>This <code>Counter</code> component displays a counter that should increment every second. On mount, it calls <a href="https://developer.mozilla.org/en-US/docs/Web/API/setInterval"><code>setInterval</code>.</a> This causes <code>onTick</code> to run every second. The <code>onTick</code> function increments the counter.</p>
+<p>However, instead of incrementing once per second, it increments twice. Why is that? Find the cause of the bug and fix it.</p>
+<Hint>
+<p>Keep in mind that <code>setInterval</code> returns an interval ID, which you can pass to <a href="https://developer.mozilla.org/en-US/docs/Web/API/clearInterval"><code>clearInterval</code></a> to stop the interval.</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-js Counter.js active">import { useState, useEffect } from 'react';
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() =&gt; {
+    function onTick() {
+      setCount(c =&gt; c + 1);
+    }
+
+    setInterval(onTick, 1000);
+  }, []);
+
+  return &lt;h1&gt;{count}&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js App.js hidden">import { useState } from 'react';
+import Counter from './Counter.js';
+
+export default function Form() {
+  const [show, setShow] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;button onClick={() =&gt; setShow(s =&gt; !s)}&gt;{show ? 'Hide' : 'Show'} counter&lt;/button&gt;
+      &lt;br /&gt;
+      &lt;hr /&gt;
+      {show &amp;&amp; &lt;Counter /&gt;}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+body {
+  min-height: 150px;
+}
+</code></pre>
+</Sandpack>
+<Solution>
+<p>When <a href="/reference/react/StrictMode">Strict Mode</a> is on (like in the sandboxes on this site), React remounts each component once in development. This causes the interval to be set up twice, and this is why each second the counter increments twice.</p>
+<p>However, React's behavior is not the <em>cause</em> of the bug: the bug already exists in the code. React's behavior makes the bug more noticeable. The real cause is that this Effect starts a process but doesn't provide a way to clean it up.</p>
+<p>To fix this code, save the interval ID returned by <code>setInterval</code>, and implement a cleanup function with <a href="https://developer.mozilla.org/en-US/docs/Web/API/clearInterval"><code>clearInterval</code></a>:</p>
+<Sandpack>
+<pre><code class="language-js Counter.js active">import { useState, useEffect } from 'react';
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() =&gt; {
+    function onTick() {
+      setCount(c =&gt; c + 1);
+    }
+
+    const intervalId = setInterval(onTick, 1000);
+    return () =&gt; clearInterval(intervalId);
+  }, []);
+
+  return &lt;h1&gt;{count}&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js App.js hidden">import { useState } from 'react';
+import Counter from './Counter.js';
+
+export default function App() {
+  const [show, setShow] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;button onClick={() =&gt; setShow(s =&gt; !s)}&gt;{show ? 'Hide' : 'Show'} counter&lt;/button&gt;
+      &lt;br /&gt;
+      &lt;hr /&gt;
+      {show &amp;&amp; &lt;Counter /&gt;}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+body {
+  min-height: 150px;
+}
+</code></pre>
+</Sandpack>
+<p>In development, React will still remount your component once to verify that you've implemented cleanup well. So there will be a <code>setInterval</code> call, immediately followed by <code>clearInterval</code>, and <code>setInterval</code> again. In production, there will be only one <code>setInterval</code> call. The user-visible behavior in both cases is the same: the counter increments once per second.</p>
+</Solution>
+<h4 id="fix-fetching-inside-an-effect-fix-fetching-inside-an-effect"><a class="header" href="#fix-fetching-inside-an-effect-fix-fetching-inside-an-effect">Fix fetching inside an Effect {/<em>fix-fetching-inside-an-effect</em>/}</a></h4>
+<p>This component shows the biography for the selected person. It loads the biography by calling an asynchronous function <code>fetchBio(person)</code> on mount and whenever <code>person</code> changes. That asynchronous function returns a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a> which eventually resolves to a string. When fetching is done, it calls <code>setBio</code> to display that string under the select box.</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState, useEffect } from 'react';
+import { fetchBio } from './api.js';
+
+export default function Page() {
+  const [person, setPerson] = useState('Alice');
+  const [bio, setBio] = useState(null);
+
+  useEffect(() =&gt; {
+    setBio(null);
+    fetchBio(person).then(result =&gt; {
+      setBio(result);
+    });
+  }, [person]);
+
+  return (
+    &lt;&gt;
+      &lt;select value={person} onChange={e =&gt; {
+        setPerson(e.target.value);
+      }}&gt;
+        &lt;option value=&quot;Alice&quot;&gt;Alice&lt;/option&gt;
+        &lt;option value=&quot;Bob&quot;&gt;Bob&lt;/option&gt;
+        &lt;option value=&quot;Taylor&quot;&gt;Taylor&lt;/option&gt;
+      &lt;/select&gt;
+      &lt;hr /&gt;
+      &lt;p&gt;&lt;i&gt;{bio ?? 'Loading...'}&lt;/i&gt;&lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js api.js hidden">export async function fetchBio(person) {
+  const delay = person === 'Bob' ? 2000 : 200;
+  return new Promise(resolve =&gt; {
+    setTimeout(() =&gt; {
+      resolve('This is ' + person + '’s bio.');
+    }, delay);
+  })
+}
+
+</code></pre>
+</Sandpack>
+<p>There is a bug in this code. Start by selecting &quot;Alice&quot;. Then select &quot;Bob&quot; and then immediately after that select &quot;Taylor&quot;. If you do this fast enough, you will notice that bug: Taylor is selected, but the paragraph below says &quot;This is Bob's bio.&quot;</p>
+<p>Why does this happen? Fix the bug inside this Effect.</p>
+<Hint>
+<p>If an Effect fetches something asynchronously, it usually needs cleanup.</p>
+</Hint>
+<Solution>
+<p>To trigger the bug, things need to happen in this order:</p>
+<ul>
+<li>Selecting <code>'Bob'</code> triggers <code>fetchBio('Bob')</code></li>
+<li>Selecting <code>'Taylor'</code> triggers <code>fetchBio('Taylor')</code></li>
+<li><strong>Fetching <code>'Taylor'</code> completes <em>before</em> fetching <code>'Bob'</code></strong></li>
+<li>The Effect from the <code>'Taylor'</code> render calls <code>setBio('This is Taylor’s bio')</code></li>
+<li>Fetching <code>'Bob'</code> completes</li>
+<li>The Effect from the <code>'Bob'</code> render calls <code>setBio('This is Bob’s bio')</code></li>
+</ul>
+<p>This is why you see Bob's bio even though Taylor is selected. Bugs like this are called <a href="https://en.wikipedia.org/wiki/Race_condition">race conditions</a> because two asynchronous operations are &quot;racing&quot; with each other, and they might arrive in an unexpected order.</p>
+<p>To fix this race condition, add a cleanup function:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState, useEffect } from 'react';
+import { fetchBio } from './api.js';
+
+export default function Page() {
+  const [person, setPerson] = useState('Alice');
+  const [bio, setBio] = useState(null);
+  useEffect(() =&gt; {
+    let ignore = false;
+    setBio(null);
+    fetchBio(person).then(result =&gt; {
+      if (!ignore) {
+        setBio(result);
+      }
+    });
+    return () =&gt; {
+      ignore = true;
+    }
+  }, [person]);
+
+  return (
+    &lt;&gt;
+      &lt;select value={person} onChange={e =&gt; {
+        setPerson(e.target.value);
+      }}&gt;
+        &lt;option value=&quot;Alice&quot;&gt;Alice&lt;/option&gt;
+        &lt;option value=&quot;Bob&quot;&gt;Bob&lt;/option&gt;
+        &lt;option value=&quot;Taylor&quot;&gt;Taylor&lt;/option&gt;
+      &lt;/select&gt;
+      &lt;hr /&gt;
+      &lt;p&gt;&lt;i&gt;{bio ?? 'Loading...'}&lt;/i&gt;&lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js api.js hidden">export async function fetchBio(person) {
+  const delay = person === 'Bob' ? 2000 : 200;
+  return new Promise(resolve =&gt; {
+    setTimeout(() =&gt; {
+      resolve('This is ' + person + '’s bio.');
+    }, delay);
+  })
+}
+
+</code></pre>
+</Sandpack>
+<p>Each render's Effect has its own <code>ignore</code> variable. Initially, the <code>ignore</code> variable is set to <code>false</code>. However, if an Effect gets cleaned up (such as when you select a different person), its <code>ignore</code> variable becomes <code>true</code>. So now it doesn't matter in which order the requests complete. Only the last person's Effect will have <code>ignore</code> set to <code>false</code>, so it will call <code>setBio(result)</code>. Past Effects have been cleaned up, so the <code>if (!ignore)</code> check will prevent them from calling <code>setBio</code>:</p>
+<ul>
+<li>Selecting <code>'Bob'</code> triggers <code>fetchBio('Bob')</code></li>
+<li>Selecting <code>'Taylor'</code> triggers <code>fetchBio('Taylor')</code> <strong>and cleans up the previous (Bob's) Effect</strong></li>
+<li>Fetching <code>'Taylor'</code> completes <em>before</em> fetching <code>'Bob'</code></li>
+<li>The Effect from the <code>'Taylor'</code> render calls <code>setBio('This is Taylor’s bio')</code></li>
+<li>Fetching <code>'Bob'</code> completes</li>
+<li>The Effect from the <code>'Bob'</code> render <strong>does not do anything because its <code>ignore</code> flag was set to <code>true</code></strong></li>
+</ul>
+<p>In addition to ignoring the result of an outdated API call, you can also use <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController"><code>AbortController</code></a> to cancel the requests that are no longer needed. However, by itself this is not enough to protect against race conditions. More asynchronous steps could be chained after the fetch, so using an explicit flag like <code>ignore</code> is the most reliable way to fix this type of problems.</p>
+</Solution>
+</Challenges>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/manipulating-the-dom-with-refs.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/you-might-not-need-an-effect.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/manipulating-the-dom-with-refs.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/you-might-not-need-an-effect.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

@@ -1,0 +1,1967 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Lifecycle of Reactive Effects - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html" class="active"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-lifecycle-of-reactive-effects"><a class="header" href="#title-lifecycle-of-reactive-effects">title: 'Lifecycle of Reactive Effects'</a></h2>
+<Intro>
+<p>Effects have a different lifecycle from components. Components may mount, update, or unmount. An Effect can only do two things: to start synchronizing something, and later to stop synchronizing it. This cycle can happen multiple times if your Effect depends on props and state that change over time. React provides a linter rule to check that you've specified your Effect's dependencies correctly. This keeps your Effect synchronized to the latest props and state.</p>
+</Intro>
+<YouWillLearn>
+<ul>
+<li>How an Effect's lifecycle is different from a component's lifecycle</li>
+<li>How to think about each individual Effect in isolation</li>
+<li>When your Effect needs to re-synchronize, and why</li>
+<li>How your Effect's dependencies are determined</li>
+<li>What it means for a value to be reactive</li>
+<li>What an empty dependency array means</li>
+<li>How React verifies your dependencies are correct with a linter</li>
+<li>What to do when you disagree with the linter</li>
+</ul>
+</YouWillLearn>
+<h2 id="the-lifecycle-of-an-effect-the-lifecycle-of-an-effect"><a class="header" href="#the-lifecycle-of-an-effect-the-lifecycle-of-an-effect">The lifecycle of an Effect {/<em>the-lifecycle-of-an-effect</em>/}</a></h2>
+<p>Every React component goes through the same lifecycle:</p>
+<ul>
+<li>A component <em>mounts</em> when it's added to the screen.</li>
+<li>A component <em>updates</em> when it receives new props or state. This usually happens in response to an interaction.</li>
+<li>A component <em>unmounts</em> when it's removed from the screen.</li>
+</ul>
+<p><strong>It's a good way to think about components, but <em>not</em> about Effects.</strong> Instead, try to think about each Effect independently from your component's lifecycle. An Effect describes how to <a href="/learn/synchronizing-with-effects">synchronize an external system</a> to the current props and state. As your code changes, this synchronization will need to happen more or less often.</p>
+<p>To illustrate this point, consider this Effect connecting your component to a chat server:</p>
+<pre><code class="language-js">const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect();
+    };
+  }, [roomId]);
+  // ...
+}
+</code></pre>
+<p>Your Effect's body specifies how to <strong>start synchronizing:</strong></p>
+<pre><code class="language-js {2-3}">    // ...
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect();
+    };
+    // ...
+</code></pre>
+<p>The cleanup function returned by your Effect specifies how to <strong>stop synchronizing:</strong></p>
+<pre><code class="language-js {5}">    // ...
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect();
+    };
+    // ...
+</code></pre>
+<p>Intuitively, you might think that React would <strong>start synchronizing</strong> when your component mounts and <strong>stop synchronizing</strong> when your component unmounts. However, this is not the end of the story! Sometimes, it may also be necessary to <strong>start and stop synchronizing multiple times</strong> while the component remains mounted.</p>
+<p>Let's look at <em>why</em> this is necessary, <em>when</em> it happens, and <em>how</em> you can control this behavior.</p>
+<Note>
+<p>Some Effects don't return a cleanup function at all. <a href="/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development">More often than not,</a> you'll want to return one--but if you don't, React will behave as if you returned an empty cleanup function that doesn't do anything.</p>
+</Note>
+<h3 id="why-synchronization-may-need-to-happen-more-than-once-why-synchronization-may-need-to-happen-more-than-once"><a class="header" href="#why-synchronization-may-need-to-happen-more-than-once-why-synchronization-may-need-to-happen-more-than-once">Why synchronization may need to happen more than once {/<em>why-synchronization-may-need-to-happen-more-than-once</em>/}</a></h3>
+<p>Imagine this <code>ChatRoom</code> component receives a <code>roomId</code> prop that the user picks in a dropdown. Let's say that initially the user picks the <code>&quot;general&quot;</code> room as the <code>roomId</code>. Your app displays the <code>&quot;general&quot;</code> chat room:</p>
+<pre><code class="language-js {3}">const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId /* &quot;general&quot; */ }) {
+  // ...
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+</code></pre>
+<p>After the UI is displayed, React will run your Effect to <strong>start synchronizing.</strong> It connects to the <code>&quot;general&quot;</code> room:</p>
+<pre><code class="language-js {3 4}">function ChatRoom({ roomId /* &quot;general&quot; */ }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId); // Connects to the &quot;general&quot; room
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect(); // Disconnects from the &quot;general&quot; room
+    };
+  }, [roomId]);
+  // ...
+</code></pre>
+<p>So far, so good.</p>
+<p>Later, the user picks a different room in the dropdown (for example, <code>&quot;travel&quot;</code>). First, React will update the UI:</p>
+<pre><code class="language-js {1}">function ChatRoom({ roomId /* &quot;travel&quot; */ }) {
+  // ...
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+</code></pre>
+<p>Pause to think about what should happen next. The user sees that <code>&quot;travel&quot;</code> is the selected chat room in the UI. However, the Effect that ran the last time is still connected to the <code>&quot;general&quot;</code> room. <strong>The <code>roomId</code> prop has changed, so whatever your Effect did back then (connecting to the <code>&quot;general&quot;</code> room) no longer matches the UI.</strong></p>
+<p>At this point, you want React to do two things:</p>
+<ol>
+<li>Stop synchronizing with the old <code>roomId</code> (disconnect from the <code>&quot;general&quot;</code> room)</li>
+<li>Start synchronizing with the new <code>roomId</code> (connect to the <code>&quot;travel&quot;</code> room)</li>
+</ol>
+<p><strong>Luckily, you've already taught React how to do both of these things!</strong> Your Effect's body specifies how to start synchronizing, and your cleanup function specifies how to stop synchronizing. All that React needs to do now is to call them in the correct order and with the correct props and state. Let's see how exactly that happens.</p>
+<h3 id="how-react-re-synchronizes-your-effect-how-react-re-synchronizes-your-effect"><a class="header" href="#how-react-re-synchronizes-your-effect-how-react-re-synchronizes-your-effect">How React re-synchronizes your Effect {/<em>how-react-re-synchronizes-your-effect</em>/}</a></h3>
+<p>Recall that your <code>ChatRoom</code> component has received a new value for its <code>roomId</code> prop. It used to be <code>&quot;general&quot;</code>, and now it is <code>&quot;travel&quot;</code>. React needs to re-synchronize your Effect to re-connect you to a different room.</p>
+<p>To <strong>stop synchronizing,</strong> React will call the cleanup function that your Effect returned after connecting to the <code>&quot;general&quot;</code> room. Since <code>roomId</code> was <code>&quot;general&quot;</code>, the cleanup function disconnects from the <code>&quot;general&quot;</code> room:</p>
+<pre><code class="language-js {6}">function ChatRoom({ roomId /* &quot;general&quot; */ }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId); // Connects to the &quot;general&quot; room
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect(); // Disconnects from the &quot;general&quot; room
+    };
+    // ...
+</code></pre>
+<p>Then React will run the Effect that you've provided during this render. This time, <code>roomId</code> is <code>&quot;travel&quot;</code> so it will <strong>start synchronizing</strong> to the <code>&quot;travel&quot;</code> chat room (until its cleanup function is eventually called too):</p>
+<pre><code class="language-js {3 4}">function ChatRoom({ roomId /* &quot;travel&quot; */ }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId); // Connects to the &quot;travel&quot; room
+    connection.connect();
+    // ...
+</code></pre>
+<p>Thanks to this, you're now connected to the same room that the user chose in the UI. Disaster averted!</p>
+<p>Every time after your component re-renders with a different <code>roomId</code>, your Effect will re-synchronize. For example, let's say the user changes <code>roomId</code> from <code>&quot;travel&quot;</code> to <code>&quot;music&quot;</code>. React will again <strong>stop synchronizing</strong> your Effect by calling its cleanup function (disconnecting you from the <code>&quot;travel&quot;</code> room). Then it will <strong>start synchronizing</strong> again by running its body with the new <code>roomId</code> prop (connecting you to the <code>&quot;music&quot;</code> room).</p>
+<p>Finally, when the user goes to a different screen, <code>ChatRoom</code> unmounts. Now there is no need to stay connected at all. React will <strong>stop synchronizing</strong> your Effect one last time and disconnect you from the <code>&quot;music&quot;</code> chat room.</p>
+<h3 id="thinking-from-the-effects-perspective-thinking-from-the-effects-perspective"><a class="header" href="#thinking-from-the-effects-perspective-thinking-from-the-effects-perspective">Thinking from the Effect's perspective {/<em>thinking-from-the-effects-perspective</em>/}</a></h3>
+<p>Let's recap everything that's happened from the <code>ChatRoom</code> component's perspective:</p>
+<ol>
+<li><code>ChatRoom</code> mounted with <code>roomId</code> set to <code>&quot;general&quot;</code></li>
+<li><code>ChatRoom</code> updated with <code>roomId</code> set to <code>&quot;travel&quot;</code></li>
+<li><code>ChatRoom</code> updated with <code>roomId</code> set to <code>&quot;music&quot;</code></li>
+<li><code>ChatRoom</code> unmounted</li>
+</ol>
+<p>During each of these points in the component's lifecycle, your Effect did different things:</p>
+<ol>
+<li>Your Effect connected to the <code>&quot;general&quot;</code> room</li>
+<li>Your Effect disconnected from the <code>&quot;general&quot;</code> room and connected to the <code>&quot;travel&quot;</code> room</li>
+<li>Your Effect disconnected from the <code>&quot;travel&quot;</code> room and connected to the <code>&quot;music&quot;</code> room</li>
+<li>Your Effect disconnected from the <code>&quot;music&quot;</code> room</li>
+</ol>
+<p>Now let's think about what happened from the perspective of the Effect itself:</p>
+<pre><code class="language-js">  useEffect(() =&gt; {
+    // Your Effect connected to the room specified with roomId...
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; {
+      // ...until it disconnected
+      connection.disconnect();
+    };
+  }, [roomId]);
+</code></pre>
+<p>This code's structure might inspire you to see what happened as a sequence of non-overlapping time periods:</p>
+<ol>
+<li>Your Effect connected to the <code>&quot;general&quot;</code> room (until it disconnected)</li>
+<li>Your Effect connected to the <code>&quot;travel&quot;</code> room (until it disconnected)</li>
+<li>Your Effect connected to the <code>&quot;music&quot;</code> room (until it disconnected)</li>
+</ol>
+<p>Previously, you were thinking from the component's perspective. When you looked from the component's perspective, it was tempting to think of Effects as &quot;callbacks&quot; or &quot;lifecycle events&quot; that fire at a specific time like &quot;after a render&quot; or &quot;before unmount&quot;. This way of thinking gets complicated very fast, so it's best to avoid it.</p>
+<p><strong>Instead, always focus on a single start/stop cycle at a time. It shouldn't matter whether a component is mounting, updating, or unmounting. All you need to do is to describe how to start synchronization and how to stop it. If you do it well, your Effect will be resilient to being started and stopped as many times as it's needed.</strong></p>
+<p>This might remind you how you don't think whether a component is mounting or updating when you write the rendering logic that creates JSX. You describe what should be on the screen, and React <a href="/learn/reacting-to-input-with-state">figures out the rest.</a></p>
+<h3 id="how-react-verifies-that-your-effect-can-re-synchronize-how-react-verifies-that-your-effect-can-re-synchronize"><a class="header" href="#how-react-verifies-that-your-effect-can-re-synchronize-how-react-verifies-that-your-effect-can-re-synchronize">How React verifies that your Effect can re-synchronize {/<em>how-react-verifies-that-your-effect-can-re-synchronize</em>/}</a></h3>
+<p>Here is a live example that you can play with. Press &quot;Open chat&quot; to mount the <code>ChatRoom</code> component:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId]);
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  const [show, setShow] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;button onClick={() =&gt; setShow(!show)}&gt;
+        {show ? 'Close chat' : 'Open chat'}
+      &lt;/button&gt;
+      {show &amp;&amp; &lt;hr /&gt;}
+      {show &amp;&amp; &lt;ChatRoom roomId={roomId} /&gt;}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection(serverUrl, roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+<p>Notice that when the component mounts for the first time, you see three logs:</p>
+<ol>
+<li><code>✅ Connecting to &quot;general&quot; room at https://localhost:1234...</code> <em>(development-only)</em></li>
+<li><code>❌ Disconnected from &quot;general&quot; room at https://localhost:1234.</code> <em>(development-only)</em></li>
+<li><code>✅ Connecting to &quot;general&quot; room at https://localhost:1234...</code></li>
+</ol>
+<p>The first two logs are development-only. In development, React always remounts each component once. <strong>In other words, React verifies that your Effect can re-synchronize by forcing it to do that immediately in development.</strong> This might remind you how you might open the door and close it an extra time to check that the door lock works. React starts and stops your Effect one extra time in development to check <a href="/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development">you've implemented its cleanup well.</a></p>
+<p>The main reason your Effect will re-synchronize in practice is if some data it uses has changed. In the sandbox above, change the selected chat room. Notice how, when the <code>roomId</code> changes, your Effect re-synchronizes.</p>
+<p>However, there are also more unusual cases in which re-synchronization is necessary. For example, try editing the <code>serverUrl</code> in the sandbox above while the chat is open. Notice how the Effect re-synchronizes in response to your edits to the code. In the future, React may add more features that take advantage of re-synchronization.</p>
+<h3 id="how-react-knows-that-it-needs-to-re-synchronize-the-effect-how-react-knows-that-it-needs-to-re-synchronize-the-effect"><a class="header" href="#how-react-knows-that-it-needs-to-re-synchronize-the-effect-how-react-knows-that-it-needs-to-re-synchronize-the-effect">How React knows that it needs to re-synchronize the Effect {/<em>how-react-knows-that-it-needs-to-re-synchronize-the-effect</em>/}</a></h3>
+<p>You might be wondering how React knew that your Effect needed to re-synchronize after <code>roomId</code> changes. It's because <em>you told React</em> that this Effect's code depends on <code>roomId</code> by including it in the <a href="/learn/synchronizing-with-effects#step-2-specify-the-effect-dependencies">list of dependencies:</a></p>
+<pre><code class="language-js {1 3 8}">function ChatRoom({ roomId }) { // The roomId prop may change over time
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId); // This Effect reads roomId 
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect();
+    };
+  }, [roomId]); // So you tell React that this Effect &quot;depends on&quot; roomId
+  // ...
+</code></pre>
+<p>Here's how this works:</p>
+<ol>
+<li>You knew <code>roomId</code> is a prop, which means it can change over time.</li>
+<li>You knew that your Effect reads <code>roomId</code> (so its logic depends on a value that may change later).</li>
+<li>This is why you specified it as your Effect's dependency (so that it re-synchronizes when <code>roomId</code> changes).</li>
+</ol>
+<p>Every time after your component re-renders, React will look at the array of dependencies that you have passed. If any of the values in the array is different from the value at the same spot that you passed during the previous render, React will re-synchronize your Effect. For example, if you passed <code>[&quot;general&quot;]</code> during the initial render, and later you passed <code>[&quot;travel&quot;]</code> during the next render, React will compare <code>&quot;general&quot;</code> and <code>&quot;travel&quot;</code>. These are different values (compared with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is"><code>Object.is</code></a>), so React will re-synchronize your Effect. On the other hand, if your component re-renders but <code>roomId</code> has not changed, your Effect will remain connected to the same room.</p>
+<h3 id="each-effect-represents-a-separate-synchronization-process-each-effect-represents-a-separate-synchronization-process"><a class="header" href="#each-effect-represents-a-separate-synchronization-process-each-effect-represents-a-separate-synchronization-process">Each Effect represents a separate synchronization process {/<em>each-effect-represents-a-separate-synchronization-process</em>/}</a></h3>
+<p>Resist adding unrelated logic to your Effect only because this logic needs to run at the same time as an Effect you already wrote. For example, let's say you want to send an analytics event when the user visits the room. You already have an Effect that depends on <code>roomId</code>, so you might feel tempted to add the analytics call right there:</p>
+<pre><code class="language-js {3}">function ChatRoom({ roomId }) {
+  useEffect(() =&gt; {
+    logVisit(roomId);
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect();
+    };
+  }, [roomId]);
+  // ...
+}
+</code></pre>
+<p>But imagine you later add another dependency to this Effect that needs to re-establish the connection. If this Effect re-synchronizes, it will also call <code>logVisit(roomId)</code> for the same room, which you did not intend. Logging the visit <strong>is a separate process</strong> from connecting. This is why they should be written as two separate Effects:</p>
+<pre><code class="language-js {2-4}">function ChatRoom({ roomId }) {
+  useEffect(() =&gt; {
+    logVisit(roomId);
+  }, [roomId]);
+
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    // ...
+  }, [roomId]);
+  // ...
+}
+</code></pre>
+<p><strong>Each Effect in your code should represent a separate and independent synchronization process.</strong></p>
+<p>In the above example, deleting one Effect wouldn’t break the other Effect's logic. This is a good indication that they synchronize different things, and so it made sense to split them up. On the other hand, if you split up a cohesive piece of logic into separate Effects, the code may look &quot;cleaner&quot; but will be <a href="/learn/you-might-not-need-an-effect#chains-of-computations">more difficult to maintain.</a> This is why you should think whether the processes are same or separate, not whether the code looks cleaner.</p>
+<h2 id="effects-react-to-reactive-values-effects-react-to-reactive-values"><a class="header" href="#effects-react-to-reactive-values-effects-react-to-reactive-values">Effects &quot;react&quot; to reactive values {/<em>effects-react-to-reactive-values</em>/}</a></h2>
+<p>Your Effect reads two variables (<code>serverUrl</code> and <code>roomId</code>), but you only specified <code>roomId</code> as a dependency:</p>
+<pre><code class="language-js {5 10}">const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect();
+    };
+  }, [roomId]);
+  // ...
+}
+</code></pre>
+<p>Why doesn't <code>serverUrl</code> need to be a dependency?</p>
+<p>This is because the <code>serverUrl</code> never changes due to a re-render. It's always the same no matter how many times and with which props and state the component re-renders. Since <code>serverUrl</code> never changes, it wouldn't make sense to specify it as a dependency. After all, dependencies only do something when they change over time!</p>
+<p>On the other hand, <code>roomId</code> may be different on a re-render. <strong>Props, state, and other values declared inside the component are <em>reactive</em> because they're calculated during rendering and participate in the React data flow.</strong></p>
+<p>If <code>serverUrl</code> was a state variable, it would be reactive. Reactive values must be included in dependencies:</p>
+<pre><code class="language-js {2 5 10}">function ChatRoom({ roomId }) { // Props change over time
+  const [serverUrl, setServerUrl] = useState('https://localhost:1234'); // State may change over time
+
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId); // Your Effect reads props and state
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect();
+    };
+  }, [roomId, serverUrl]); // So you tell React that this Effect &quot;depends on&quot; on props and state
+  // ...
+}
+</code></pre>
+<p>By including <code>serverUrl</code> as a dependency, you ensure that the Effect re-synchronizes after it changes.</p>
+<p>Try changing the selected chat room or edit the server URL in this sandbox:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+function ChatRoom({ roomId }) {
+  const [serverUrl, setServerUrl] = useState('https://localhost:1234');
+
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId, serverUrl]);
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Server URL:{' '}
+        &lt;input
+          value={serverUrl}
+          onChange={e =&gt; setServerUrl(e.target.value)}
+        /&gt;
+      &lt;/label&gt;
+      &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom roomId={roomId} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection(serverUrl, roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+<p>Whenever you change a reactive value like <code>roomId</code> or <code>serverUrl</code>, the Effect re-connects to the chat server.</p>
+<h3 id="what-an-effect-with-empty-dependencies-means-what-an-effect-with-empty-dependencies-means"><a class="header" href="#what-an-effect-with-empty-dependencies-means-what-an-effect-with-empty-dependencies-means">What an Effect with empty dependencies means {/<em>what-an-effect-with-empty-dependencies-means</em>/}</a></h3>
+<p>What happens if you move both <code>serverUrl</code> and <code>roomId</code> outside the component?</p>
+<pre><code class="language-js {1 2}">const serverUrl = 'https://localhost:1234';
+const roomId = 'general';
+
+function ChatRoom() {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect();
+    };
+  }, []); // ✅ All dependencies declared
+  // ...
+}
+</code></pre>
+<p>Now your Effect's code does not use <em>any</em> reactive values, so its dependencies can be empty (<code>[]</code>).</p>
+<p>If you think from the component's perspective, the empty <code>[]</code> dependency array means this Effect connects to the chat room only when the component mounts, and disconnects only when the component unmounts. (Keep in mind that React would still <a href="#how-react-verifies-that-your-effect-can-re-synchronize">re-synchronize it an extra time</a> in development to stress-test your Effect's logic.)</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+const serverUrl = 'https://localhost:1234';
+const roomId = 'general';
+
+function ChatRoom() {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, []);
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+
+export default function App() {
+  const [show, setShow] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;button onClick={() =&gt; setShow(!show)}&gt;
+        {show ? 'Close chat' : 'Open chat'}
+      &lt;/button&gt;
+      {show &amp;&amp; &lt;hr /&gt;}
+      {show &amp;&amp; &lt;ChatRoom /&gt;}
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection(serverUrl, roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+<p>However, if you <a href="#thinking-from-the-effects-perspective">think from the Effect's perspective,</a> you don't need to think about mounting and unmounting at all. What's important is you've specified what your Effect does to start and stop synchronizing. Today, it has no reactive dependencies. But if you ever want the user to change <code>roomId</code> or <code>serverUrl</code> over time (and so they'd have to become reactive), your Effect's code won't change. You will only need to add them to the dependencies.</p>
+<h3 id="all-variables-declared-in-the-component-body-are-reactive-all-variables-declared-in-the-component-body-are-reactive"><a class="header" href="#all-variables-declared-in-the-component-body-are-reactive-all-variables-declared-in-the-component-body-are-reactive">All variables declared in the component body are reactive {/<em>all-variables-declared-in-the-component-body-are-reactive</em>/}</a></h3>
+<p>Props and state aren't the only reactive values. Values that you calculate from them are also reactive. If the props or state change, your component will re-render, and the values calculated from them will also change. This is why all variables from the component body used by the Effect should also be in the Effect dependency list.</p>
+<p>Let's say that the user can pick a chat server in the dropdown, but they can also configure a default server in settings. Suppose you've already put the settings state in a <a href="/learn/scaling-up-with-reducer-and-context">context</a> so you read the <code>settings</code> from that context. Now you calculate the <code>serverUrl</code> based on the selected server from props and the default server from context:</p>
+<pre><code class="language-js {3 5 10}">function ChatRoom({ roomId, selectedServerUrl }) { // roomId is reactive
+  const settings = useContext(SettingsContext); // settings is reactive
+  const serverUrl = selectedServerUrl ?? settings.defaultServerUrl; // serverUrl is reactive
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId); // Your Effect reads roomId and serverUrl
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect();
+    };
+  }, [roomId, serverUrl]); // So it needs to re-synchronize when either of them changes!
+  // ...
+}
+</code></pre>
+<p>In this example, <code>serverUrl</code> is not a prop or a state variable. It's a regular variable that you calculate during rendering. But it's calculated during rendering, so it can change due to a re-render. This is why it's reactive.</p>
+<p><strong>All values inside the component (including props, state, and variables in your component's body) are reactive. Any reactive value can change on a re-render, so you need to include reactive values as Effect's dependencies.</strong></p>
+<p>In other words, Effects &quot;react&quot; to all values from the component body.</p>
+<DeepDive>
+<h4 id="can-global-or-mutable-values-be-dependencies-can-global-or-mutable-values-be-dependencies"><a class="header" href="#can-global-or-mutable-values-be-dependencies-can-global-or-mutable-values-be-dependencies">Can global or mutable values be dependencies? {/<em>can-global-or-mutable-values-be-dependencies</em>/}</a></h4>
+<p>Mutable values (including global variables) aren't reactive.</p>
+<p><strong>A mutable value like <a href="https://developer.mozilla.org/en-US/docs/Web/API/Location/pathname"><code>location.pathname</code></a> can't be a dependency.</strong> It's mutable, so it can change at any time completely outside of the React rendering data flow. Changing it wouldn't trigger a re-render of your component. Therefore, even if you specified it in the dependencies, React <em>wouldn't know</em> to re-synchronize the Effect when it changes. This also breaks the rules of React because reading mutable data during rendering (which is when you calculate the dependencies) breaks <a href="/learn/keeping-components-pure">purity of rendering.</a> Instead, you should read and subscribe to an external mutable value with <a href="/learn/you-might-not-need-an-effect#subscribing-to-an-external-store"><code>useSyncExternalStore</code>.</a></p>
+<p><strong>A mutable value like <a href="/reference/react/useRef#reference"><code>ref.current</code></a> or things you read from it also can't be a dependency.</strong> The ref object returned by <code>useRef</code> itself can be a dependency, but its <code>current</code> property is intentionally mutable. It lets you <a href="/learn/referencing-values-with-refs">keep track of something without triggering a re-render.</a> But since changing it doesn't trigger a re-render, it's not a reactive value, and React won't know to re-run your Effect when it changes.</p>
+<p>As you'll learn below on this page, a linter will check for these issues automatically.</p>
+</DeepDive>
+<h3 id="react-verifies-that-you-specified-every-reactive-value-as-a-dependency-react-verifies-that-you-specified-every-reactive-value-as-a-dependency"><a class="header" href="#react-verifies-that-you-specified-every-reactive-value-as-a-dependency-react-verifies-that-you-specified-every-reactive-value-as-a-dependency">React verifies that you specified every reactive value as a dependency {/<em>react-verifies-that-you-specified-every-reactive-value-as-a-dependency</em>/}</a></h3>
+<p>If your linter is <a href="/learn/editor-setup#linting">configured for React,</a> it will check that every reactive value used by your Effect's code is declared as its dependency. For example, this is a lint error because both <code>roomId</code> and <code>serverUrl</code> are reactive:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+function ChatRoom({ roomId }) { // roomId is reactive
+  const [serverUrl, setServerUrl] = useState('https://localhost:1234'); // serverUrl is reactive
+
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, []); // &lt;-- Something's wrong here!
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Server URL:{' '}
+        &lt;input
+          value={serverUrl}
+          onChange={e =&gt; setServerUrl(e.target.value)}
+        /&gt;
+      &lt;/label&gt;
+      &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom roomId={roomId} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection(serverUrl, roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+<p>This may look like a React error, but really React is pointing out a bug in your code. Both <code>roomId</code> and <code>serverUrl</code> may change over time, but you're forgetting to re-synchronize your Effect when they change. As a result, you will remain connected to the initial <code>roomId</code> and <code>serverUrl</code> even after the user picks different values in the UI.</p>
+<p>To fix the bug, follow the linter's suggestion to specify <code>roomId</code> and <code>serverUrl</code> as dependencies of your Effect:</p>
+<pre><code class="language-js {9}">function ChatRoom({ roomId, serverUrl }) {
+  const [serverUrl, setServerUrl] = useState('https://localhost:1234'); // serverUrl is reactive
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect();
+    };
+  }, [serverUrl, roomId]); // ✅ All dependencies declared
+  // ...
+}
+</code></pre>
+<p>Try this fix in the sandbox above. Verify that the linter error is gone, and that the chat re-connects when needed.</p>
+<Note>
+<p>In some cases, React <em>knows</em> that a value never changes even though it's declared inside the component. For example, the <a href="/reference/react/useState#setstate"><code>set</code> function</a> returned from <code>useState</code> and the ref object returned by <a href="/reference/react/useRef"><code>useRef</code></a> are <em>stable</em>--they are guaranteed to not change on a re-render. Stable values aren't reactive, so the linter lets you omit them from the list. However, including them is allowed: they won't change, so it doesn't matter.</p>
+</Note>
+<h3 id="what-to-do-when-you-dont-want-to-re-synchronize-what-to-do-when-you-dont-want-to-re-synchronize"><a class="header" href="#what-to-do-when-you-dont-want-to-re-synchronize-what-to-do-when-you-dont-want-to-re-synchronize">What to do when you don't want to re-synchronize {/<em>what-to-do-when-you-dont-want-to-re-synchronize</em>/}</a></h3>
+<p>In the previous example, you've fixed the lint error by listing <code>roomId</code> and <code>serverUrl</code> as dependencies.</p>
+<p><strong>However, you could instead &quot;prove&quot; to the linter that these values aren't reactive values,</strong> i.e. that they <em>can't</em> change as a result of a re-render. For example, if <code>serverUrl</code> and <code>roomId</code> don't depend on rendering and always have the same values, you can move them outside the component. Now they don't need to be dependencies:</p>
+<pre><code class="language-js {1 2 11}">const serverUrl = 'https://localhost:1234'; // serverUrl is not reactive
+const roomId = 'general'; // roomId is not reactive
+
+function ChatRoom() {
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect();
+    };
+  }, []); // ✅ All dependencies declared
+  // ...
+}
+</code></pre>
+<p>You can also move them <em>inside the Effect.</em> They aren't calculated during rendering, so they're not reactive:</p>
+<pre><code class="language-js {3 4 10}">function ChatRoom() {
+  useEffect(() =&gt; {
+    const serverUrl = 'https://localhost:1234'; // serverUrl is not reactive
+    const roomId = 'general'; // roomId is not reactive
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; {
+      connection.disconnect();
+    };
+  }, []); // ✅ All dependencies declared
+  // ...
+}
+</code></pre>
+<p><strong>Effects are reactive blocks of code.</strong> They re-synchronize when the values you read inside of them change. Unlike event handlers, which only run once per interaction, Effects run whenever synchronization is necessary.</p>
+<p><strong>You can't &quot;choose&quot; your dependencies.</strong> Your dependencies must include every <a href="#all-variables-declared-in-the-component-body-are-reactive">reactive value</a> you read in the Effect. The linter enforces this. Sometimes this may lead to problems like infinite loops and to your Effect re-synchronizing too often. Don't fix these problems by suppressing the linter! Here's what to try instead:</p>
+<ul>
+<li>
+<p><strong>Check that your Effect represents an independent synchronization process.</strong> If your Effect doesn't synchronize anything, <a href="/learn/you-might-not-need-an-effect">it might be unnecessary.</a> If it synchronizes several independent things, <a href="#each-effect-represents-a-separate-synchronization-process">split it up.</a></p>
+</li>
+<li>
+<p><strong>If you want to read the latest value of props or state without &quot;reacting&quot; to it and re-synchronizing the Effect,</strong> you can split your Effect into a reactive part (which you'll keep in the Effect) and a non-reactive part (which you'll extract into something called an <em>Event function</em>). <a href="/learn/separating-events-from-effects">Read more about separating Events from Effects.</a></p>
+</li>
+<li>
+<p><strong>Avoid relying on objects and functions as dependencies.</strong> If you create objects and functions during rendering and then read them from an Effect, they will be different on every render. This will cause your Effect to re-synchronize every time. <a href="/learn/removing-effect-dependencies">Read more about removing unnecessary dependencies from your Effects.</a></p>
+</li>
+</ul>
+<Pitfall>
+<p>The linter is your friend, but its powers are limited. The linter only knows when the dependencies are <em>wrong</em>. It doesn't know <em>the best</em> way to solve each case. If the linter suggests a dependency, but adding it causes a loop, it doesn't mean the linter should be ignored. It means you need to change the code inside (or outside) the Effect so that that value isn't reactive and doesn't <em>need</em> to be a dependency.</p>
+<p>If you have an existing codebase, you might have some Effects that suppress the linter like this:</p>
+<pre><code class="language-js {3-4}">useEffect(() =&gt; {
+  // ...
+  // 🔴 Avoid suppressing the linter like this:
+  // eslint-ignore-next-line react-hooks/exhaustive-dependencies
+}, []);
+</code></pre>
+<p>On the <a href="/learn/separating-events-from-effects">next</a> <a href="/learn/removing-effect-dependencies">pages</a>, you'll learn how to fix this code without breaking the rules. It's always worth fixing!</p>
+</Pitfall>
+<Recap>
+<ul>
+<li>Components can mount, update, and unmount.</li>
+<li>Each Effect has a separate lifecycle from the surrounding component.</li>
+<li>Each Effect describes a separate synchronization process that can <em>start</em> and <em>stop</em>.</li>
+<li>When you write and read Effects, you should think from each individual Effect's perspective (how to start and stop synchronization) rather than from the component's perspective (how it mounts, updates, or unmounts).</li>
+<li>Values declared inside the component body are &quot;reactive&quot;.</li>
+<li>Reactive values should re-synchronize the Effect because they can change over time.</li>
+<li>The linter verifies that all reactive values used inside the Effect are specified as dependencies.</li>
+<li>All errors flagged by the linter are legitimate. There's always a way to fix the code that doesn't break the rules.</li>
+</ul>
+</Recap>
+<Challenges>
+<h4 id="fix-reconnecting-on-every-keystroke-fix-reconnecting-on-every-keystroke"><a class="header" href="#fix-reconnecting-on-every-keystroke-fix-reconnecting-on-every-keystroke">Fix reconnecting on every keystroke {/<em>fix-reconnecting-on-every-keystroke</em>/}</a></h4>
+<p>In this example, the <code>ChatRoom</code> component connects to the chat room when the component mounts, disconnects when it unmounts, and reconnects when you select a different chat room. This behavior is correct, so you need to keep it working.</p>
+<p>However, there is a problem. Whenever you type into the message box input at the bottom, <code>ChatRoom</code> <em>also</em> reconnects to the chat. (You can notice this by clearing the console and typing into the input.) Fix the issue so that this doesn't happen.</p>
+<Hint>
+<p>You might need to add a dependency array for this Effect. What dependencies should be there?</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  const [message, setMessage] = useState('');
+
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  });
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;
+      &lt;input
+        value={message}
+        onChange={e =&gt; setMessage(e.target.value)}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom roomId={roomId} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection(serverUrl, roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+<Solution>
+<p>This Effect didn't have a dependency array at all, so it re-synchronized after every re-render. First, add a dependency array. Then, make sure that every reactive value used by the Effect is specified in the array. For example, <code>roomId</code> is reactive (because it's a prop), so it should be included in the array. This ensures that when the user selects a different room, the chat reconnects. On the other hand, <code>serverUrl</code> is defined outside the component. This is why it doesn't need to be in the array.</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+const serverUrl = 'https://localhost:1234';
+
+function ChatRoom({ roomId }) {
+  const [message, setMessage] = useState('');
+
+  useEffect(() =&gt; {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId]);
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;
+      &lt;input
+        value={message}
+        onChange={e =&gt; setMessage(e.target.value)}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom roomId={roomId} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createConnection(serverUrl, roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '&quot; room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room at ' + serverUrl);
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">input { display: block; margin-bottom: 20px; }
+button { margin-left: 10px; }
+</code></pre>
+</Sandpack>
+</Solution>
+<h4 id="switch-synchronization-on-and-off-switch-synchronization-on-and-off"><a class="header" href="#switch-synchronization-on-and-off-switch-synchronization-on-and-off">Switch synchronization on and off {/<em>switch-synchronization-on-and-off</em>/}</a></h4>
+<p>In this example, an Effect subscribes to the window <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/pointermove_event"><code>pointermove</code></a> event to move a pink dot on the screen. Try hovering over the preview area (or touching the screen if you're on a mobile device), and see how the pink dot follows your movement.</p>
+<p>There is also a checkbox. Ticking the checkbox toggles the <code>canMove</code> state variable, but this state variable is not used anywhere in the code. Your task is to change the code so that when <code>canMove</code> is <code>false</code> (the checkbox is ticked off), the dot should stop moving. After you toggle the checkbox back on (and set <code>canMove</code> to <code>true</code>), the box should follow the movement again. In other words, whether the dot can move or not should stay synchronized to whether the checkbox is checked.</p>
+<Hint>
+<p>You can't declare an Effect conditionally. However, the code inside the Effect can use conditions!</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+
+export default function App() {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [canMove, setCanMove] = useState(true);
+
+  useEffect(() =&gt; {
+    function handleMove(e) {
+      setPosition({ x: e.clientX, y: e.clientY });
+    }
+    window.addEventListener('pointermove', handleMove);
+    return () =&gt; window.removeEventListener('pointermove', handleMove);
+  }, []);
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        &lt;input type=&quot;checkbox&quot;
+          checked={canMove}
+          onChange={e =&gt; setCanMove(e.target.checked)} 
+        /&gt;
+        The dot is allowed to move
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;div style={{
+        position: 'absolute',
+        backgroundColor: 'pink',
+        borderRadius: '50%',
+        opacity: 0.6,
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        pointerEvents: 'none',
+        left: -20,
+        top: -20,
+        width: 40,
+        height: 40,
+      }} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body {
+  height: 200px;
+}
+</code></pre>
+</Sandpack>
+<Solution>
+<p>One solution is to wrap the <code>setPosition</code> call into an <code>if (canMove) { ... }</code> condition:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+
+export default function App() {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [canMove, setCanMove] = useState(true);
+
+  useEffect(() =&gt; {
+    function handleMove(e) {
+      if (canMove) {
+        setPosition({ x: e.clientX, y: e.clientY });
+      }
+    }
+    window.addEventListener('pointermove', handleMove);
+    return () =&gt; window.removeEventListener('pointermove', handleMove);
+  }, [canMove]);
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        &lt;input type=&quot;checkbox&quot;
+          checked={canMove}
+          onChange={e =&gt; setCanMove(e.target.checked)} 
+        /&gt;
+        The dot is allowed to move
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;div style={{
+        position: 'absolute',
+        backgroundColor: 'pink',
+        borderRadius: '50%',
+        opacity: 0.6,
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        pointerEvents: 'none',
+        left: -20,
+        top: -20,
+        width: 40,
+        height: 40,
+      }} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body {
+  height: 200px;
+}
+</code></pre>
+</Sandpack>
+<p>Alternatively, you could wrap the <em>event subscription</em> logic into an <code>if (canMove) { ... }</code> condition:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+
+export default function App() {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [canMove, setCanMove] = useState(true);
+
+  useEffect(() =&gt; {
+    function handleMove(e) {
+      setPosition({ x: e.clientX, y: e.clientY });
+    }
+    if (canMove) {
+      window.addEventListener('pointermove', handleMove);
+      return () =&gt; window.removeEventListener('pointermove', handleMove);
+    }
+  }, [canMove]);
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        &lt;input type=&quot;checkbox&quot;
+          checked={canMove}
+          onChange={e =&gt; setCanMove(e.target.checked)} 
+        /&gt;
+        The dot is allowed to move
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;div style={{
+        position: 'absolute',
+        backgroundColor: 'pink',
+        borderRadius: '50%',
+        opacity: 0.6,
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        pointerEvents: 'none',
+        left: -20,
+        top: -20,
+        width: 40,
+        height: 40,
+      }} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body {
+  height: 200px;
+}
+</code></pre>
+</Sandpack>
+<p>In both of these cases, <code>canMove</code> is a reactive variable that you read inside the Effect. This is why it must be specified in the list of Effect dependencies. This ensures that the Effect re-synchronizes after every change to its value.</p>
+</Solution>
+<h4 id="investigate-a-stale-value-bug-investigate-a-stale-value-bug"><a class="header" href="#investigate-a-stale-value-bug-investigate-a-stale-value-bug">Investigate a stale value bug {/<em>investigate-a-stale-value-bug</em>/}</a></h4>
+<p>In this example, the pink dot should move when the checkbox is on, and should stop moving when the checkbox is off. The logic for this has already been implemented: the <code>handleMove</code> event handler checks the <code>canMove</code> state variable.</p>
+<p>However, for some reason, the <code>canMove</code> state variable inside <code>handleMove</code> appears to be &quot;stale&quot;: it's always <code>true</code>, even after you tick off the checkbox. How is this possible? Find the mistake in the code and fix it.</p>
+<Hint>
+<p>If you see a linter rule being suppressed, remove the suppression! That's where the mistakes usually are.</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+
+export default function App() {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [canMove, setCanMove] = useState(true);
+
+  function handleMove(e) {
+    if (canMove) {
+      setPosition({ x: e.clientX, y: e.clientY });
+    }
+  }
+
+  useEffect(() =&gt; {
+    window.addEventListener('pointermove', handleMove);
+    return () =&gt; window.removeEventListener('pointermove', handleMove);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        &lt;input type=&quot;checkbox&quot;
+          checked={canMove}
+          onChange={e =&gt; setCanMove(e.target.checked)} 
+        /&gt;
+        The dot is allowed to move
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;div style={{
+        position: 'absolute',
+        backgroundColor: 'pink',
+        borderRadius: '50%',
+        opacity: 0.6,
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        pointerEvents: 'none',
+        left: -20,
+        top: -20,
+        width: 40,
+        height: 40,
+      }} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body {
+  height: 200px;
+}
+</code></pre>
+</Sandpack>
+<Solution>
+<p>The problem with the original code was suppressing the dependency linter. If you remove the suppression, you'll see that this Effect depends on the <code>handleMove</code> function. This makes sense: <code>handleMove</code> is declared inside the component body, which makes it a reactive value. Every reactive value must be specified as a depedency, or it can potentially get stale over time!</p>
+<p>The author of the original code has &quot;lied&quot; to React by saying that the Effect does not depend (<code>[]</code>) on any reactive values. This is why React did not re-synchronize the Effect after <code>canMove</code> has changed (and <code>handleMove</code> with it). Because React did not re-synchronize the Effect, the <code>handleMove</code> attached as a listener is the <code>handleMove</code> function created during the initial render. During the initial render, <code>canMove</code> was <code>true</code>, which is why <code>handleMove</code> from the initial render will forever see that value.</p>
+<p><strong>If you never suppress the linter, you will never see problems with stale values.</strong> There are a few different ways to solve this bug, but you should always start by removing the linter suppression. Then change the code to fix the lint error.</p>
+<p>You can change the Effect dependencies to <code>[handleMove]</code>, but since it's going to be a newly defined function for every render, you might as well remove dependencies array altogether. Then the Effect <em>will</em> re-synchronize after every re-render:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+
+export default function App() {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [canMove, setCanMove] = useState(true);
+
+  function handleMove(e) {
+    if (canMove) {
+      setPosition({ x: e.clientX, y: e.clientY });
+    }
+  }
+
+  useEffect(() =&gt; {
+    window.addEventListener('pointermove', handleMove);
+    return () =&gt; window.removeEventListener('pointermove', handleMove);
+  });
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        &lt;input type=&quot;checkbox&quot;
+          checked={canMove}
+          onChange={e =&gt; setCanMove(e.target.checked)} 
+        /&gt;
+        The dot is allowed to move
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;div style={{
+        position: 'absolute',
+        backgroundColor: 'pink',
+        borderRadius: '50%',
+        opacity: 0.6,
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        pointerEvents: 'none',
+        left: -20,
+        top: -20,
+        width: 40,
+        height: 40,
+      }} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body {
+  height: 200px;
+}
+</code></pre>
+</Sandpack>
+<p>This solution works, but it's not ideal. If you put <code>console.log('Resubscribing')</code> inside the Effect, you'll notice that it resubscribes after every re-render. Resubscribing is fast, but it would still be nice to avoid doing it so often.</p>
+<p>A better fix would be to move the <code>handleMove</code> function <em>inside</em> the Effect. Then <code>handleMove</code> won't be a reactive value, and so your Effect won't depend on a function. Instead, it will need to depend on <code>canMove</code> which your code now reads from inside the Effect. This matches the behavior you wanted, since your Effect will now stay synchronized with the value of <code>canMove</code>:</p>
+<Sandpack>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+
+export default function App() {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [canMove, setCanMove] = useState(true);
+
+  useEffect(() =&gt; {
+    function handleMove(e) {
+      if (canMove) {
+        setPosition({ x: e.clientX, y: e.clientY });
+      }
+    }
+
+    window.addEventListener('pointermove', handleMove);
+    return () =&gt; window.removeEventListener('pointermove', handleMove);
+  }, [canMove]);
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        &lt;input type=&quot;checkbox&quot;
+          checked={canMove}
+          onChange={e =&gt; setCanMove(e.target.checked)} 
+        /&gt;
+        The dot is allowed to move
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;div style={{
+        position: 'absolute',
+        backgroundColor: 'pink',
+        borderRadius: '50%',
+        opacity: 0.6,
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        pointerEvents: 'none',
+        left: -20,
+        top: -20,
+        width: 40,
+        height: 40,
+      }} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css">body {
+  height: 200px;
+}
+</code></pre>
+</Sandpack>
+<p>Try adding <code>console.log('Resubscribing')</code> inside the Effect body and notice that now it only resubscribes when you toggle the checkbox (<code>canMove</code> changes) or edit the code. This makes it better than the previous approach that always resubscribed.</p>
+<p>You'll learn a more general approach to this type of problem in <a href="/learn/separating-events-from-effects">Separating Events from Effects.</a></p>
+</Solution>
+<h4 id="fix-a-connection-switch-fix-a-connection-switch"><a class="header" href="#fix-a-connection-switch-fix-a-connection-switch">Fix a connection switch {/<em>fix-a-connection-switch</em>/}</a></h4>
+<p>In this example, the chat service in <code>chat.js</code> exposes two different APIs: <code>createEncryptedConnection</code> and <code>createUnencryptedConnection</code>. The root <code>App</code> component lets the user choose whether to use encryption or not, and then passes down the corresponding API method to the child <code>ChatRoom</code> component as the <code>createConnection</code> prop.</p>
+<p>Notice that initially, the console logs say the connection is not encrypted. Try toggling the checkbox on: nothing will happen. However, if you change the selected room after that, then the chat will reconnect <em>and</em> enable encryption (as you'll see from the console messages). This is a bug. Fix the bug so that toggling the checkbox <em>also</em> causes the chat to reconnect.</p>
+<Hint>
+<p>Suppressing the linter is always suspicious. Could this be a bug?</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import ChatRoom from './ChatRoom.js';
+import {
+  createEncryptedConnection,
+  createUnencryptedConnection,
+} from './chat.js';
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  const [isEncrypted, setIsEncrypted] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        &lt;input
+          type=&quot;checkbox&quot;
+          checked={isEncrypted}
+          onChange={e =&gt; setIsEncrypted(e.target.checked)}
+        /&gt;
+        Enable encryption
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom
+        roomId={roomId}
+        createConnection={isEncrypted ?
+          createEncryptedConnection :
+          createUnencryptedConnection
+        }
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js ChatRoom.js active">import { useState, useEffect } from 'react';
+
+export default function ChatRoom({ roomId, createConnection }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roomId]);
+
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createEncryptedConnection(roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ 🔐 Connecting to &quot;' + roomId + '... (encrypted)');
+    },
+    disconnect() {
+      console.log('❌ 🔐 Disconnected from &quot;' + roomId + '&quot; room (encrypted)');
+    }
+  };
+}
+
+export function createUnencryptedConnection(roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '... (unencrypted)');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room (unencrypted)');
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">label { display: block; margin-bottom: 10px; }
+</code></pre>
+</Sandpack>
+<Solution>
+<p>If you remove the linter suppression, you will see a lint error. The problem is that <code>createConnection</code> is a prop, so it's a reactive value. It can change over time! (And indeed, it should--when the user ticks the checkbox, the parent component passes a different value of the <code>createConnection</code> prop.) This is why it should be a dependency. Include it in the list to fix the bug:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import ChatRoom from './ChatRoom.js';
+import {
+  createEncryptedConnection,
+  createUnencryptedConnection,
+} from './chat.js';
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  const [isEncrypted, setIsEncrypted] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        &lt;input
+          type=&quot;checkbox&quot;
+          checked={isEncrypted}
+          onChange={e =&gt; setIsEncrypted(e.target.checked)}
+        /&gt;
+        Enable encryption
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom
+        roomId={roomId}
+        createConnection={isEncrypted ?
+          createEncryptedConnection :
+          createUnencryptedConnection
+        }
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js ChatRoom.js active">import { useState, useEffect } from 'react';
+
+export default function ChatRoom({ roomId, createConnection }) {
+  useEffect(() =&gt; {
+    const connection = createConnection(roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId, createConnection]);
+
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createEncryptedConnection(roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ 🔐 Connecting to &quot;' + roomId + '... (encrypted)');
+    },
+    disconnect() {
+      console.log('❌ 🔐 Disconnected from &quot;' + roomId + '&quot; room (encrypted)');
+    }
+  };
+}
+
+export function createUnencryptedConnection(roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '... (unencrypted)');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room (unencrypted)');
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">label { display: block; margin-bottom: 10px; }
+</code></pre>
+</Sandpack>
+<p>It is correct that <code>createConnection</code> is a dependency. However, this code is a bit fragile because someone could edit the <code>App</code> component to pass an inline function as the value of this prop. In that case, its value would be different every time the <code>App</code> component re-renders, so the Effect might re-synchronize too often. To avoid this, you can pass <code>isEncrypted</code> down instead:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import ChatRoom from './ChatRoom.js';
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  const [isEncrypted, setIsEncrypted] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Choose the chat room:{' '}
+        &lt;select
+          value={roomId}
+          onChange={e =&gt; setRoomId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;general&quot;&gt;general&lt;/option&gt;
+          &lt;option value=&quot;travel&quot;&gt;travel&lt;/option&gt;
+          &lt;option value=&quot;music&quot;&gt;music&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        &lt;input
+          type=&quot;checkbox&quot;
+          checked={isEncrypted}
+          onChange={e =&gt; setIsEncrypted(e.target.checked)}
+        /&gt;
+        Enable encryption
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;ChatRoom
+        roomId={roomId}
+        isEncrypted={isEncrypted}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js ChatRoom.js active">import { useState, useEffect } from 'react';
+import {
+  createEncryptedConnection,
+  createUnencryptedConnection,
+} from './chat.js';
+
+export default function ChatRoom({ roomId, isEncrypted }) {
+  useEffect(() =&gt; {
+    const createConnection = isEncrypted ?
+      createEncryptedConnection :
+      createUnencryptedConnection;
+    const connection = createConnection(roomId);
+    connection.connect();
+    return () =&gt; connection.disconnect();
+  }, [roomId, isEncrypted]);
+
+  return &lt;h1&gt;Welcome to the {roomId} room!&lt;/h1&gt;;
+}
+</code></pre>
+<pre><code class="language-js chat.js">export function createEncryptedConnection(roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ 🔐 Connecting to &quot;' + roomId + '... (encrypted)');
+    },
+    disconnect() {
+      console.log('❌ 🔐 Disconnected from &quot;' + roomId + '&quot; room (encrypted)');
+    }
+  };
+}
+
+export function createUnencryptedConnection(roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to &quot;' + roomId + '... (unencrypted)');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from &quot;' + roomId + '&quot; room (unencrypted)');
+    }
+  };
+}
+</code></pre>
+<pre><code class="language-css">label { display: block; margin-bottom: 10px; }
+</code></pre>
+</Sandpack>
+<p>In this version, the <code>App</code> component passes a boolean prop instead of a function. Inside the Effect, you decide which function to use. Since both <code>createEncryptedConnection</code> and <code>createUnencryptedConnection</code> are declared outside the component, they aren't reactive, and don't need to be dependencies. You'll learn more about this in <a href="/learn/removing-effect-dependencies">Removing Effect Dependencies.</a></p>
+</Solution>
+<h4 id="populate-a-chain-of-select-boxes-populate-a-chain-of-select-boxes"><a class="header" href="#populate-a-chain-of-select-boxes-populate-a-chain-of-select-boxes">Populate a chain of select boxes {/<em>populate-a-chain-of-select-boxes</em>/}</a></h4>
+<p>In this example, there are two select boxes. One select box lets the user pick a planet. Another select box lets the user pick a place <em>on that planet.</em> The second box doesn't work yet. Your task is to make it show the places on the chosen planet.</p>
+<p>Look at how the first select box works. It populates the <code>planetList</code> state with the result from the <code>&quot;/planets&quot;</code> API call. The currently selected planet's ID is kept in the <code>planetId</code> state variable. You need to find where to add some additional code so that the <code>placeList</code> state variable is populated with the result of the <code>&quot;/planets/&quot; + planetId + &quot;/places&quot;</code> API call.</p>
+<p>If you implement this right, selecting a planet should populate the place list. Changing a planet should change the place list.</p>
+<Hint>
+<p>If you have two independent synchronization processes, you need to write two separate Effects.</p>
+</Hint>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState, useEffect } from 'react';
+import { fetchData } from './api.js';
+
+export default function Page() {
+  const [planetList, setPlanetList] = useState([])
+  const [planetId, setPlanetId] = useState('');
+
+  const [placeList, setPlaceList] = useState([]);
+  const [placeId, setPlaceId] = useState('');
+
+  useEffect(() =&gt; {
+    let ignore = false;
+    fetchData('/planets').then(result =&gt; {
+      if (!ignore) {
+        console.log('Fetched a list of planets.');
+        setPlanetList(result);
+        setPlanetId(result[0].id); // Select the first planet
+      }
+    });
+    return () =&gt; {
+      ignore = true;
+    }
+  }, []);
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Pick a planet:{' '}
+        &lt;select value={planetId} onChange={e =&gt; {
+          setPlanetId(e.target.value);
+        }}&gt;
+          {planetList.map(planet =&gt;
+            &lt;option key={planet.id} value={planet.id}&gt;{planet.name}&lt;/option&gt;
+          )}
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Pick a place:{' '}
+        &lt;select value={placeId} onChange={e =&gt; {
+          setPlaceId(e.target.value);
+        }}&gt;
+          {placeList.map(place =&gt;
+            &lt;option key={place.id} value={place.id}&gt;{place.name}&lt;/option&gt;
+          )}
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;p&gt;You are going to: {placeId || '???'} on {planetId || '???'} &lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js api.js hidden">export function fetchData(url) {
+  if (url === '/planets') {
+    return fetchPlanets();
+  } else if (url.startsWith('/planets/')) {
+    const match = url.match(/^\/planets\/([\w-]+)\/places(\/)?$/);
+    if (!match || !match[1] || !match[1].length) {
+      throw Error('Expected URL like &quot;/planets/earth/places&quot;. Received: &quot;' + url + '&quot;.');
+    }
+    return fetchPlaces(match[1]);
+  } else throw Error('Expected URL like &quot;/planets&quot; or &quot;/planets/earth/places&quot;. Received: &quot;' + url + '&quot;.');
+}
+
+async function fetchPlanets() {
+  return new Promise(resolve =&gt; {
+    setTimeout(() =&gt; {
+      resolve([{
+        id: 'earth',
+        name: 'Earth'
+      }, {
+        id: 'venus',
+        name: 'Venus'
+      }, {
+        id: 'mars',
+        name: 'Mars'        
+      }]);
+    }, 1000);
+  });
+}
+
+async function fetchPlaces(planetId) {
+  if (typeof planetId !== 'string') {
+    throw Error(
+      'fetchPlaces(planetId) expects a string argument. ' +
+      'Instead received: ' + planetId + '.'
+    );
+  }
+  return new Promise(resolve =&gt; {
+    setTimeout(() =&gt; {
+      if (planetId === 'earth') {
+        resolve([{
+          id: 'laos',
+          name: 'Laos'
+        }, {
+          id: 'spain',
+          name: 'Spain'
+        }, {
+          id: 'vietnam',
+          name: 'Vietnam'        
+        }]);
+      } else if (planetId === 'venus') {
+        resolve([{
+          id: 'aurelia',
+          name: 'Aurelia'
+        }, {
+          id: 'diana-chasma',
+          name: 'Diana Chasma'
+        }, {
+          id: 'kumsong-vallis',
+          name: 'Kŭmsŏng Vallis'        
+        }]);
+      } else if (planetId === 'mars') {
+        resolve([{
+          id: 'aluminum-city',
+          name: 'Aluminum City'
+        }, {
+          id: 'new-new-york',
+          name: 'New New York'
+        }, {
+          id: 'vishniac',
+          name: 'Vishniac'
+        }]);
+      } else throw Error('Uknown planet ID: ' + planetId);
+    }, 1000);
+  });
+}
+</code></pre>
+<pre><code class="language-css">label { display: block; margin-bottom: 10px; }
+</code></pre>
+</Sandpack>
+<Solution>
+<p>There are two independent synchronization processes:</p>
+<ul>
+<li>The first select box is synchronized to the remote list of planets.</li>
+<li>The second select box is synchronized to the remote list of places for the current <code>planetId</code>.</li>
+</ul>
+<p>This is why it makes sense to describe them as two separate Effects. Here's an example of how you could do this:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState, useEffect } from 'react';
+import { fetchData } from './api.js';
+
+export default function Page() {
+  const [planetList, setPlanetList] = useState([])
+  const [planetId, setPlanetId] = useState('');
+
+  const [placeList, setPlaceList] = useState([]);
+  const [placeId, setPlaceId] = useState('');
+
+  useEffect(() =&gt; {
+    let ignore = false;
+    fetchData('/planets').then(result =&gt; {
+      if (!ignore) {
+        console.log('Fetched a list of planets.');
+        setPlanetList(result);
+        setPlanetId(result[0].id); // Select the first planet
+      }
+    });
+    return () =&gt; {
+      ignore = true;
+    }
+  }, []);
+
+  useEffect(() =&gt; {
+    if (planetId === '') {
+      // Nothing is selected in the first box yet
+      return;
+    }
+
+    let ignore = false;
+    fetchData('/planets/' + planetId + '/places').then(result =&gt; {
+      if (!ignore) {
+        console.log('Fetched a list of places on &quot;' + planetId + '&quot;.');
+        setPlaceList(result);
+        setPlaceId(result[0].id); // Select the first place
+      }
+    });
+    return () =&gt; {
+      ignore = true;
+    }
+  }, [planetId]);
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Pick a planet:{' '}
+        &lt;select value={planetId} onChange={e =&gt; {
+          setPlanetId(e.target.value);
+        }}&gt;
+          {planetList.map(planet =&gt;
+            &lt;option key={planet.id} value={planet.id}&gt;{planet.name}&lt;/option&gt;
+          )}
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Pick a place:{' '}
+        &lt;select value={placeId} onChange={e =&gt; {
+          setPlaceId(e.target.value);
+        }}&gt;
+          {placeList.map(place =&gt;
+            &lt;option key={place.id} value={place.id}&gt;{place.name}&lt;/option&gt;
+          )}
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;p&gt;You are going to: {placeId || '???'} on {planetId || '???'} &lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js api.js hidden">export function fetchData(url) {
+  if (url === '/planets') {
+    return fetchPlanets();
+  } else if (url.startsWith('/planets/')) {
+    const match = url.match(/^\/planets\/([\w-]+)\/places(\/)?$/);
+    if (!match || !match[1] || !match[1].length) {
+      throw Error('Expected URL like &quot;/planets/earth/places&quot;. Received: &quot;' + url + '&quot;.');
+    }
+    return fetchPlaces(match[1]);
+  } else throw Error('Expected URL like &quot;/planets&quot; or &quot;/planets/earth/places&quot;. Received: &quot;' + url + '&quot;.');
+}
+
+async function fetchPlanets() {
+  return new Promise(resolve =&gt; {
+    setTimeout(() =&gt; {
+      resolve([{
+        id: 'earth',
+        name: 'Earth'
+      }, {
+        id: 'venus',
+        name: 'Venus'
+      }, {
+        id: 'mars',
+        name: 'Mars'        
+      }]);
+    }, 1000);
+  });
+}
+
+async function fetchPlaces(planetId) {
+  if (typeof planetId !== 'string') {
+    throw Error(
+      'fetchPlaces(planetId) expects a string argument. ' +
+      'Instead received: ' + planetId + '.'
+    );
+  }
+  return new Promise(resolve =&gt; {
+    setTimeout(() =&gt; {
+      if (planetId === 'earth') {
+        resolve([{
+          id: 'laos',
+          name: 'Laos'
+        }, {
+          id: 'spain',
+          name: 'Spain'
+        }, {
+          id: 'vietnam',
+          name: 'Vietnam'        
+        }]);
+      } else if (planetId === 'venus') {
+        resolve([{
+          id: 'aurelia',
+          name: 'Aurelia'
+        }, {
+          id: 'diana-chasma',
+          name: 'Diana Chasma'
+        }, {
+          id: 'kumsong-vallis',
+          name: 'Kŭmsŏng Vallis'        
+        }]);
+      } else if (planetId === 'mars') {
+        resolve([{
+          id: 'aluminum-city',
+          name: 'Aluminum City'
+        }, {
+          id: 'new-new-york',
+          name: 'New New York'
+        }, {
+          id: 'vishniac',
+          name: 'Vishniac'
+        }]);
+      } else throw Error('Uknown planet ID: ' + planetId);
+    }, 1000);
+  });
+}
+</code></pre>
+<pre><code class="language-css">label { display: block; margin-bottom: 10px; }
+</code></pre>
+</Sandpack>
+<p>This code is a bit repetitive. However, that's not a good reason to combine it into a single Effect! If you did this, you'd have to combine both Effect's dependencies into one list, and then changing the planet would refetch the list of all planets. Effects are not a tool for code reuse.</p>
+<p>Instead, to reduce repetition, you can extract some logic into a custom Hook like <code>useSelectOptions</code> below:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+import { useSelectOptions } from './useSelectOptions.js';
+
+export default function Page() {
+  const [
+    planetList,
+    planetId,
+    setPlanetId
+  ] = useSelectOptions('/planets');
+
+  const [
+    placeList,
+    placeId,
+    setPlaceId
+  ] = useSelectOptions(planetId ? `/planets/${planetId}/places` : null);
+
+  return (
+    &lt;&gt;
+      &lt;label&gt;
+        Pick a planet:{' '}
+        &lt;select value={planetId} onChange={e =&gt; {
+          setPlanetId(e.target.value);
+        }}&gt;
+          {planetList?.map(planet =&gt;
+            &lt;option key={planet.id} value={planet.id}&gt;{planet.name}&lt;/option&gt;
+          )}
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Pick a place:{' '}
+        &lt;select value={placeId} onChange={e =&gt; {
+          setPlaceId(e.target.value);
+        }}&gt;
+          {placeList?.map(place =&gt;
+            &lt;option key={place.id} value={place.id}&gt;{place.name}&lt;/option&gt;
+          )}
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;hr /&gt;
+      &lt;p&gt;You are going to: {placeId || '...'} on {planetId || '...'} &lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-js useSelectOptions.js">import { useState, useEffect } from 'react';
+import { fetchData } from './api.js';
+
+export function useSelectOptions(url) {
+  const [list, setList] = useState(null);
+  const [selectedId, setSelectedId] = useState('');
+  useEffect(() =&gt; {
+    if (url === null) {
+      return;
+    }
+
+    let ignore = false;
+    fetchData(url).then(result =&gt; {
+      if (!ignore) {
+        setList(result);
+        setSelectedId(result[0].id);
+      }
+    });
+    return () =&gt; {
+      ignore = true;
+    }
+  }, [url]);
+  return [list, selectedId, setSelectedId];
+}
+</code></pre>
+<pre><code class="language-js api.js hidden">export function fetchData(url) {
+  if (url === '/planets') {
+    return fetchPlanets();
+  } else if (url.startsWith('/planets/')) {
+    const match = url.match(/^\/planets\/([\w-]+)\/places(\/)?$/);
+    if (!match || !match[1] || !match[1].length) {
+      throw Error('Expected URL like &quot;/planets/earth/places&quot;. Received: &quot;' + url + '&quot;.');
+    }
+    return fetchPlaces(match[1]);
+  } else throw Error('Expected URL like &quot;/planets&quot; or &quot;/planets/earth/places&quot;. Received: &quot;' + url + '&quot;.');
+}
+
+async function fetchPlanets() {
+  return new Promise(resolve =&gt; {
+    setTimeout(() =&gt; {
+      resolve([{
+        id: 'earth',
+        name: 'Earth'
+      }, {
+        id: 'venus',
+        name: 'Venus'
+      }, {
+        id: 'mars',
+        name: 'Mars'        
+      }]);
+    }, 1000);
+  });
+}
+
+async function fetchPlaces(planetId) {
+  if (typeof planetId !== 'string') {
+    throw Error(
+      'fetchPlaces(planetId) expects a string argument. ' +
+      'Instead received: ' + planetId + '.'
+    );
+  }
+  return new Promise(resolve =&gt; {
+    setTimeout(() =&gt; {
+      if (planetId === 'earth') {
+        resolve([{
+          id: 'laos',
+          name: 'Laos'
+        }, {
+          id: 'spain',
+          name: 'Spain'
+        }, {
+          id: 'vietnam',
+          name: 'Vietnam'        
+        }]);
+      } else if (planetId === 'venus') {
+        resolve([{
+          id: 'aurelia',
+          name: 'Aurelia'
+        }, {
+          id: 'diana-chasma',
+          name: 'Diana Chasma'
+        }, {
+          id: 'kumsong-vallis',
+          name: 'Kŭmsŏng Vallis'        
+        }]);
+      } else if (planetId === 'mars') {
+        resolve([{
+          id: 'aluminum-city',
+          name: 'Aluminum City'
+        }, {
+          id: 'new-new-york',
+          name: 'New New York'
+        }, {
+          id: 'vishniac',
+          name: 'Vishniac'
+        }]);
+      } else throw Error('Uknown planet ID: ' + planetId);
+    }, 1000);
+  });
+}
+</code></pre>
+<pre><code class="language-css">label { display: block; margin-bottom: 10px; }
+</code></pre>
+</Sandpack>
+<p>Check the <code>useSelectOptions.js</code> tab in the sandbox to see how it works. Ideally, most Effects in your application should eventually be replaced by custom Hooks, whether written by you or by the community. Custom Hooks hide the synchronization logic, so the calling component doesn't know about the Effect. As you keep working on your app, you'll develop a palette of Hooks to choose from, and eventually you won't need to write Effects in your components very often.</p>
+</Solution>
+</Challenges>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/you-might-not-need-an-effect.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/separating-events-from-effects.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/you-might-not-need-an-effect.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/separating-events-from-effects.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

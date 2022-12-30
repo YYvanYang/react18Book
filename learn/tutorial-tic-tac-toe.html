@@ -1,0 +1,2682 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Tutorial: Tic-Tac-Toe - React 18 Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Get Started</li><li class="chapter-item expanded "><a href="../learn/index.html"><strong aria-hidden="true">1.</strong> Quick Start</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/tutorial-tic-tac-toe.html" class="active"><strong aria-hidden="true">1.1.</strong> Tutorial: Tic-Tac-Toe</a></li><li class="chapter-item expanded "><a href="../learn/thinking-in-react.html"><strong aria-hidden="true">1.2.</strong> Thinking in React</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Learn React</li><li class="chapter-item expanded "><a href="../learn/describing-the-ui.html"><strong aria-hidden="true">2.</strong> Describing the UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/your-first-component.html"><strong aria-hidden="true">2.1.</strong> Your First Component</a></li><li class="chapter-item expanded "><a href="../learn/importing-and-exporting-components.html"><strong aria-hidden="true">2.2.</strong> Importing and Exporting Components</a></li><li class="chapter-item expanded "><a href="../learn/writing-markup-with-jsx.html"><strong aria-hidden="true">2.3.</strong> WritiPng Markup with JSX</a></li><li class="chapter-item expanded "><a href="../learn/javascript-in-jsx-with-curly-braces.html"><strong aria-hidden="true">2.4.</strong> JavaScript in JSX with Curly Braces</a></li><li class="chapter-item expanded "><a href="../learn/passing-props-to-a-component.html"><strong aria-hidden="true">2.5.</strong> Passing Props to a Component</a></li><li class="chapter-item expanded "><a href="../learn/conditional-rendering.html"><strong aria-hidden="true">2.6.</strong> Conditional Rendering</a></li><li class="chapter-item expanded "><a href="../learn/rendering-lists.html"><strong aria-hidden="true">2.7.</strong> Rendering Lists</a></li><li class="chapter-item expanded "><a href="../learn/keeping-components-pure.html"><strong aria-hidden="true">2.8.</strong> Keeping Components Pure</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/adding-interactivity.html"><strong aria-hidden="true">3.</strong> Adding Interactivity</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/responding-to-events.html"><strong aria-hidden="true">3.1.</strong> Responding to Events</a></li><li class="chapter-item expanded "><a href="../learn/state-a-components-memory.html"><strong aria-hidden="true">3.2.</strong> State: A Component's Memory</a></li><li class="chapter-item expanded "><a href="../learn/render-and-commit.html"><strong aria-hidden="true">3.3.</strong> Render and Commit</a></li><li class="chapter-item expanded "><a href="../learn/state-as-a-snapshot.html"><strong aria-hidden="true">3.4.</strong> State as a Snapshot</a></li><li class="chapter-item expanded "><a href="../learn/queueing-a-series-of-state-updates.html"><strong aria-hidden="true">3.5.</strong> Queueing a Series of State Updates</a></li><li class="chapter-item expanded "><a href="../learn/updating-objects-in-state.html"><strong aria-hidden="true">3.6.</strong> Updating Objects in State</a></li><li class="chapter-item expanded "><a href="../learn/updating-arrays-in-state.html"><strong aria-hidden="true">3.7.</strong> Updating Arrays in State</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/managing-state.html"><strong aria-hidden="true">4.</strong> Managing State</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/reacting-to-input-with-state.html"><strong aria-hidden="true">4.1.</strong> Reacting to Input with State</a></li><li class="chapter-item expanded "><a href="../learn/choosing-the-state-structure.html"><strong aria-hidden="true">4.2.</strong> Choosing the State Structure</a></li><li class="chapter-item expanded "><a href="../learn/sharing-state-between-components.html"><strong aria-hidden="true">4.3.</strong> Sharing State Between Components</a></li><li class="chapter-item expanded "><a href="../learn/preserving-and-resetting-state.html"><strong aria-hidden="true">4.4.</strong> Preserving and Resetting State</a></li><li class="chapter-item expanded "><a href="../learn/extracting-state-logic-into-a-reducer.html"><strong aria-hidden="true">4.5.</strong> Extracting State Logic into a Reducer</a></li><li class="chapter-item expanded "><a href="../learn/passing-data-deeply-with-context.html"><strong aria-hidden="true">4.6.</strong> Passing Data Deeply with Context</a></li><li class="chapter-item expanded "><a href="../learn/scaling-up-with-reducer-and-context.html"><strong aria-hidden="true">4.7.</strong> Scaling Up with Reducer and Context</a></li></ol></li><li class="chapter-item expanded "><a href="../learn/escape-hatches.html"><strong aria-hidden="true">5.</strong> Escape Hatches</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/referencing-values-with-refs.html"><strong aria-hidden="true">5.1.</strong> Referencing Values with Refs</a></li><li class="chapter-item expanded "><a href="../learn/manipulating-the-dom-with-refs.html"><strong aria-hidden="true">5.2.</strong> Manipulating the DOM with Refs</a></li><li class="chapter-item expanded "><a href="../learn/synchronizing-with-effects.html"><strong aria-hidden="true">5.3.</strong> Synchronizing with Effects</a></li><li class="chapter-item expanded "><a href="../learn/you-might-not-need-an-effect.html"><strong aria-hidden="true">5.4.</strong> You Might Not Need an Effect</a></li><li class="chapter-item expanded "><a href="../learn/lifecycle-of-reactive-effects.html"><strong aria-hidden="true">5.5.</strong> Lifecycle of Reactive Effects</a></li><li class="chapter-item expanded "><a href="../learn/separating-events-from-effects.html"><strong aria-hidden="true">5.6.</strong> Separating Events from Effects</a></li><li class="chapter-item expanded "><a href="../learn/removing-effect-dependencies.html"><strong aria-hidden="true">5.7.</strong> Removing Effect Dependencies</a></li><li class="chapter-item expanded "><a href="../learn/reusing-logic-with-custom-hooks.html"><strong aria-hidden="true">5.8.</strong> Reusing Logic with Custom Hooks</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference</li><li class="chapter-item expanded affix "><li class="part-title">'react' package</li><li class="chapter-item expanded "><a href="../reference/react/components.html"><strong aria-hidden="true">6.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Fragment.html"><strong aria-hidden="true">6.1.</strong> &lt;Fragment&gt; (&lt;&gt;...&lt;/&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react/Profiler.html"><strong aria-hidden="true">6.2.</strong> &lt;Profiler&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/StrictMode.html"><strong aria-hidden="true">6.3.</strong> &lt;StrictMode&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react/Suspense.html"><strong aria-hidden="true">6.4.</strong> &lt;Suspense&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/index.html"><strong aria-hidden="true">7.</strong> Hooks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/useCallback.html"><strong aria-hidden="true">7.1.</strong> useCallback</a></li><li class="chapter-item expanded "><a href="../reference/react/useContext.html"><strong aria-hidden="true">7.2.</strong> useContext</a></li><li class="chapter-item expanded "><a href="../reference/react/useDebugValue.html"><strong aria-hidden="true">7.3.</strong> useDebugValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useDeferredValue.html"><strong aria-hidden="true">7.4.</strong> useDeferredValue</a></li><li class="chapter-item expanded "><a href="../reference/react/useEffect.html"><strong aria-hidden="true">7.5.</strong> useEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useId.html"><strong aria-hidden="true">7.6.</strong> useId</a></li><li class="chapter-item expanded "><a href="../reference/react/useImperativeHandle.html"><strong aria-hidden="true">7.7.</strong> useImperativeHandle</a></li><li class="chapter-item expanded "><a href="../reference/react/useInsertionEffect.html"><strong aria-hidden="true">7.8.</strong> useInsertionEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useLayoutEffect.html"><strong aria-hidden="true">7.9.</strong> useLayoutEffect</a></li><li class="chapter-item expanded "><a href="../reference/react/useMemo.html"><strong aria-hidden="true">7.10.</strong> useMemo</a></li><li class="chapter-item expanded "><a href="../reference/react/useReducer.html"><strong aria-hidden="true">7.11.</strong> useReducer</a></li><li class="chapter-item expanded "><a href="../reference/react/useRef.html"><strong aria-hidden="true">7.12.</strong> useRef</a></li><li class="chapter-item expanded "><a href="../reference/react/useState.html"><strong aria-hidden="true">7.13.</strong> useState</a></li><li class="chapter-item expanded "><a href="../reference/react/useSyncExternalStore.html"><strong aria-hidden="true">7.14.</strong> useSyncExternalStore</a></li><li class="chapter-item expanded "><a href="../reference/react/useTransition.html"><strong aria-hidden="true">7.15.</strong> useTransition</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react/apis.html"><strong aria-hidden="true">8.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/createContext.html"><strong aria-hidden="true">8.1.</strong> createContext</a></li><li class="chapter-item expanded "><a href="../reference/react/forwardRef.html"><strong aria-hidden="true">8.2.</strong> forwardRef</a></li><li class="chapter-item expanded "><a href="../reference/react/lazy.html"><strong aria-hidden="true">8.3.</strong> lazy</a></li><li class="chapter-item expanded "><a href="../reference/react/memo.html"><strong aria-hidden="true">8.4.</strong> memo</a></li><li class="chapter-item expanded "><a href="../reference/react/startTransition.html"><strong aria-hidden="true">8.5.</strong> startTransition</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">'react-dom' package</li><li class="chapter-item expanded "><a href="../reference/react-dom/components/index.html"><strong aria-hidden="true">9.</strong> Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/components/common.html"><strong aria-hidden="true">9.1.</strong> Common components (e.g. &lt;div&gt;)</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/input.html"><strong aria-hidden="true">9.2.</strong> &lt;input&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/option.html"><strong aria-hidden="true">9.3.</strong> &lt;option&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/progress.html"><strong aria-hidden="true">9.4.</strong> &lt;progress&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/select.html"><strong aria-hidden="true">9.5.</strong> &lt;select&gt;</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/components/textarea.html"><strong aria-hidden="true">9.6.</strong> &lt;textarea&gt;</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/index.html"><strong aria-hidden="true">10.</strong> APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/createPortal.html"><strong aria-hidden="true">10.1.</strong> createPortal</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/flushSync.html"><strong aria-hidden="true">10.2.</strong> flushSync</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/findDOMNode.html"><strong aria-hidden="true">10.3.</strong> findDOMNode</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/hydrate.html"><strong aria-hidden="true">10.4.</strong> hydrate</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/render.html"><strong aria-hidden="true">10.5.</strong> render</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/unmountComponentAtNode.html"><strong aria-hidden="true">10.6.</strong> unmountComponentAtNode</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/index.html"><strong aria-hidden="true">11.</strong> Client APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/client/createRoot.html"><strong aria-hidden="true">11.1.</strong> createRoot</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/client/hydrateRoot.html"><strong aria-hidden="true">11.2.</strong> hydrateRoot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/index.html"><strong aria-hidden="true">12.</strong> Server APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToNodeStream.html"><strong aria-hidden="true">12.1.</strong> renderToNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToPipeableStream.html"><strong aria-hidden="true">12.2.</strong> renderToPipeableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToReadableStream.html"><strong aria-hidden="true">12.3.</strong> renderToReadableStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticMarkup.html"><strong aria-hidden="true">12.4.</strong> renderToStaticMarkup</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToStaticNodeStream.html"><strong aria-hidden="true">12.5.</strong> renderToStaticNodeStream</a></li><li class="chapter-item expanded "><a href="../reference/react-dom/server/renderToString.html"><strong aria-hidden="true">12.6.</strong> renderToString</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Legacy APIs</li><li class="chapter-item expanded "><a href="../reference/react/legacy.html"><strong aria-hidden="true">13.</strong> Legacy React APIs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/react/Children.html"><strong aria-hidden="true">13.1.</strong> Children</a></li><li class="chapter-item expanded "><a href="../reference/react/cloneElement.html"><strong aria-hidden="true">13.2.</strong> cloneElement</a></li><li class="chapter-item expanded "><a href="../reference/react/Component.html"><strong aria-hidden="true">13.3.</strong> Component</a></li><li class="chapter-item expanded "><a href="../reference/react/createElement.html"><strong aria-hidden="true">13.4.</strong> createElement</a></li><li class="chapter-item expanded "><a href="../reference/react/createFactory.html"><strong aria-hidden="true">13.5.</strong> createFactory</a></li><li class="chapter-item expanded "><a href="../reference/react/createRef.html"><strong aria-hidden="true">13.6.</strong> createRef</a></li><li class="chapter-item expanded "><a href="../reference/react/isValidElement.html"><strong aria-hidden="true">13.7.</strong> isValidElement</a></li><li class="chapter-item expanded "><a href="../reference/react/PureComponent.html"><strong aria-hidden="true">13.8.</strong> PureComponent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React 18 Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<h2 id="title-tutorial-tic-tac-toe"><a class="header" href="#title-tutorial-tic-tac-toe">title: 'Tutorial: Tic-Tac-Toe'</a></h2>
+<Intro>
+<p>You will build a small tic-tac-toe game during this tutorial. This tutorial does not assume any existing React knowledge. The techniques you'll learn in the tutorial are fundamental to building any React app, and fully understanding it will give you a deep understanding of React.</p>
+</Intro>
+<Note>
+<p>This tutorial is designed for people who prefer to <strong>learn by doing</strong> and want to quickly try making something tangible. If you prefer learning each concept step by step, start with <a href="/learn/describing-the-ui">Describing the UI.</a></p>
+</Note>
+<p>The tutorial is divided into several sections:</p>
+<ul>
+<li><a href="#setup-for-the-tutorial">Setup for the tutorial</a> will give you <strong>a starting point</strong> to follow the tutorial.</li>
+<li><a href="#overview">Overview</a> will teach you <strong>the fundamentals</strong> of React: components, props, and state.</li>
+<li><a href="#completing-the-game">Completing the game</a> will teach you <strong>the most common techniques</strong> in React development.</li>
+<li><a href="#adding-time-travel">Adding time travel</a> will give you <strong>a deeper insight</strong> into the unique strengths of React.</li>
+</ul>
+<h3 id="what-are-you-building-what-are-you-building"><a class="header" href="#what-are-you-building-what-are-you-building">What are you building? {/<em>what-are-you-building</em>/}</a></h3>
+<p>In this tutorial, you'll build an interactive tic-tac-toe game with React.</p>
+<p>You can see what it will look like when you're finished here:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+
+function Square({ value, onSquareClick }) {
+  return (
+    &lt;button className=&quot;square&quot; onClick={onSquareClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+
+function Board({ xIsNext, squares, onPlay }) {
+  function handleClick(i) {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = 'X';
+    } else {
+      nextSquares[i] = 'O';
+    }
+    onPlay(nextSquares);
+  }
+
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = 'Winner: ' + winner;
+  } else {
+    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+  }
+
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;status&quot;&gt;{status}&lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[0]} onSquareClick={() =&gt; handleClick(0)} /&gt;
+        &lt;Square value={squares[1]} onSquareClick={() =&gt; handleClick(1)} /&gt;
+        &lt;Square value={squares[2]} onSquareClick={() =&gt; handleClick(2)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[3]} onSquareClick={() =&gt; handleClick(3)} /&gt;
+        &lt;Square value={squares[4]} onSquareClick={() =&gt; handleClick(4)} /&gt;
+        &lt;Square value={squares[5]} onSquareClick={() =&gt; handleClick(5)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[6]} onSquareClick={() =&gt; handleClick(6)} /&gt;
+        &lt;Square value={squares[7]} onSquareClick={() =&gt; handleClick(7)} /&gt;
+        &lt;Square value={squares[8]} onSquareClick={() =&gt; handleClick(8)} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function Game() {
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
+
+  function handlePlay(nextSquares) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+  }
+
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove);
+  }
+
+  const moves = history.map((squares, move) =&gt; {
+    let description;
+    if (move &gt; 0) {
+      description = 'Go to move #' + move;
+    } else {
+      description = 'Go to game start';
+    }
+    return (
+      &lt;li key={move}&gt;
+        &lt;button onClick={() =&gt; jumpTo(move)}&gt;{description}&lt;/button&gt;
+      &lt;/li&gt;
+    );
+  });
+
+  return (
+    &lt;div className=&quot;game&quot;&gt;
+      &lt;div className=&quot;game-board&quot;&gt;
+        &lt;Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;game-info&quot;&gt;
+        &lt;ol&gt;{moves}&lt;/ol&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i &lt; lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+</code></pre>
+<pre><code class="language-css styles.css">* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+</code></pre>
+</Sandpack>
+<p>If the code doesn't make sense to you yet, or if you are unfamiliar with the code's syntax, don't worry! The goal of this tutorial is to help you understand React and its syntax.</p>
+<p>We recommend that you check out the tic-tac-toe game above before continuing with the tutorial. One of the features that you'll notice is that there is a numbered list to the right of the game's board. This list gives you a history of all of the moves that have occurred in the game, and it is updated as the game progresses.</p>
+<p>Once you've played around with the finished tic-tac-toe game, keep scrolling. You'll start with a simpler template in this tutorial. Our next step is to set you up so that you can start building the game.</p>
+<h2 id="setup-for-the-tutorial-setup-for-the-tutorial"><a class="header" href="#setup-for-the-tutorial-setup-for-the-tutorial">Setup for the tutorial {/<em>setup-for-the-tutorial</em>/}</a></h2>
+<p>In the live code editor below, click <strong>Fork</strong> in the top-right corner to open the editor in a new tab using the website CodeSandbox. CodeSandbox allows you to write code in your browser and immediately view how your users will see the app you've created. The new tab should display an empty square and the starter code for this tutorial.</p>
+<Sandpack>
+<pre><code class="language-js App.js">export default function Square() {
+  return &lt;button className=&quot;square&quot;&gt;X&lt;/button&gt;;
+}
+</code></pre>
+<pre><code class="language-css styles.css">* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+</code></pre>
+</Sandpack>
+<Note>
+<p>You can also follow this tutorial using your local development environment. To do this, you need to:</p>
+<ol>
+<li>Install <a href="https://nodejs.org/en/">Node.js</a></li>
+<li>In the CodeSandbox tab you opened earlier, press the top-left corner button to open the menu, and then choose <strong>File &gt; Export to ZIP</strong> in that menu to download an archive of the files locally</li>
+<li>Unzip the archive, then open a terminal and <code>cd</code> to the directory you unzipped</li>
+<li>Install the dependencies with <code>npm install</code></li>
+<li>Run <code>npm start</code> start a locally server and follow the prompts to view the code running in a browser</li>
+</ol>
+<p>If you get stuck, don't let this stop you! Follow along online instead and try a local setup again later.</p>
+</Note>
+<h2 id="overview-overview"><a class="header" href="#overview-overview">Overview {/<em>overview</em>/}</a></h2>
+<p>Now that you're set up, let's get an overview of React!</p>
+<h3 id="inspecting-the-starter-code-inspecting-the-starter-code"><a class="header" href="#inspecting-the-starter-code-inspecting-the-starter-code">Inspecting the starter code {/<em>inspecting-the-starter-code</em>/}</a></h3>
+<p>In CodeSandbox you'll see three main sections:</p>
+<p><img src="../images/tutorial/react-starter-code-codesandbox.png" alt="CodeSandbox with starter code" /></p>
+<ol>
+<li>The <em>Files</em> section with a list of files like <code>App.js</code>, <code>index.js</code>, <code>styles.css</code> and a folder called <code>public</code></li>
+<li>The <em>code editor</em> where you'll see the source code of your selected file</li>
+<li>The <em>browser</em> section where you'll see how the code you've written will be displayed</li>
+</ol>
+<p>The <code>App.js</code> file should be selected in the <em>Files</em> section. The contents of that file in the <em>code editor</em> should be:</p>
+<pre><code class="language-jsx">export default function Square() {
+  return &lt;button className=&quot;square&quot;&gt;&lt;/button&gt;;
+}
+</code></pre>
+<p>The <em>browser</em> section should be displaying a square with a X in it like this:</p>
+<p><img src="../images/tutorial/x-filled-square.png" alt="x-filled square" /></p>
+<p>Now let's have a look at the files in the starter code.</p>
+<h4 id="appjs-appjs"><a class="header" href="#appjs-appjs"><code>App.js</code> {/<em>appjs</em>/}</a></h4>
+<p>The code in <code>App.js</code> creates a <em>component</em>. In React, a component is a piece of reusable code that represents a part of a user interface. Components are used to render, manage, and update the UI elements in your application. Let's look at the component line by line to see what's going on:</p>
+<pre><code class="language-js {1}">export default function Square() {
+  return &lt;button className=&quot;square&quot;&gt;X&lt;/button&gt;;
+}
+</code></pre>
+<p>The first line defines a function called <code>Square</code>. The <code>export</code> JavaScript keyword makes this function accessible outside of this file. The <code>default</code> keyword tells other files using your code that it's the main function in your file.</p>
+<pre><code class="language-js {2}">export default function Square() {
+  return &lt;button className=&quot;square&quot;&gt;X&lt;/button&gt;;
+}
+</code></pre>
+<p>The second line returns a button. The <code>return</code> JavaScript keyword means whatever comes after is returned as a value to the caller of the function. <code>&lt;button&gt;</code> is a <em>JSX element</em>. A JSX element is a combination of JavaScript code and HTML tags that describes what you'd like to display. <code>className=&quot;square&quot;</code> is a button property or <em>prop</em> that tells CSS how to style the button. <code>X</code> is the text displayed inside of the button and <code>&lt;/button&gt;</code> closes the JSX element to indicate that any following content shouldn't be placed inside the button.</p>
+<h4 id="stylescss-stylescss"><a class="header" href="#stylescss-stylescss"><code>styles.css</code> {/<em>stylescss</em>/}</a></h4>
+<p>Click on the file labeled <code>styles.css</code> in the <em>Files</em> section of CodeSandbox. This file defines the styles for your React app. The first two <em>CSS selectors</em> (<code>*</code> and <code>body</code>) define the style of large parts of your app while the <code>.square</code> selector defines the style of any component where the <code>className</code> property is set to <code>square</code>. In your code, that would match the button from your Square component in the <code>App.js</code> file.</p>
+<h4 id="indexjs-indexjs"><a class="header" href="#indexjs-indexjs"><code>index.js</code> {/<em>indexjs</em>/}</a></h4>
+<p>Click on the file labeled <code>index.js</code> in the <em>Files</em> section of CodeSandbox. You won't be editing this file during the tutorial but it is the bridge between the component you created in the <code>App.js</code> file and the web browser.</p>
+<pre><code class="language-jsx">import {StrictMode} from 'react';
+import {createRoot} from 'react-dom/client';
+import './styles.css';
+
+import App from './App';
+</code></pre>
+<p>Lines 1-5 brings all the necessary pieces together: </p>
+<ul>
+<li>React</li>
+<li>React's library to talk to web browsers (React DOM)</li>
+<li>the styles for your components</li>
+<li>the component you created in <code>App.js</code>.</li>
+</ul>
+<p>The remainder of the file brings all the pieces together and injects the final product into <code>index.html</code> in the <code>public</code> folder.</p>
+<h3 id="building-the-board-building-the-board"><a class="header" href="#building-the-board-building-the-board">Building the board {/<em>building-the-board</em>/}</a></h3>
+<p>Let's get back to <code>App.js</code>. This is where you'll spend the rest of the tutorial.</p>
+<p>Currently the board is only a single square, but you need nine! If you just try and copy paste your square to make two squares like this:</p>
+<pre><code class="language-js {2}">export default function Square() {
+  return &lt;button className=&quot;square&quot;&gt;X&lt;/button&gt;&lt;button className=&quot;square&quot;&gt;X&lt;/button&gt;;
+}
+</code></pre>
+<p>You'll get this error:</p>
+<ConsoleBlock level="error">
+<p>/src/App.js: Adjacent JSX elements must be wrapped in an enclosing tag. Did you want a JSX fragment <code>&lt;&gt;...&lt;/&gt;</code>?</p>
+</ConsoleBlock>
+<p>React components need to return a single JSX element and not multiple adjacent JSX elements like two buttons. To fix this you can use <em>fragments</em> (<code>&lt;&gt;</code> and <code>&lt;/&gt;</code>) to wrap multiple adjacent JSX elements like this:</p>
+<pre><code class="language-js {3-6}">export default function Square() {
+  return (
+    &lt;&gt;
+      &lt;button className=&quot;square&quot;&gt;X&lt;/button&gt;
+      &lt;button className=&quot;square&quot;&gt;X&lt;/button&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<p>Now you should see:</p>
+<p><img src="../images/tutorial/two-x-filled-squares.png" alt="two x-filled squares" /></p>
+<p>Great! Now you just need to copy-paste a few times to add nine squares and...</p>
+<p><img src="../images/tutorial/nine-x-filled-squares.png" alt="nine x-filled squares in a line" /></p>
+<p>Oh no! The squares are all in a single line, not in a grid like you need for our board. To fix this you'll need to group your squares into rows with <code>div</code>s and add some CSS classes. While you're at it, you'll give each square a number to make sure you know where each square is displayed.</p>
+<p>In the <code>App.js</code> file, update the <code>Square</code> component to look like this:</p>
+<pre><code class="language-js {3-19}">export default function Square() {
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;button className=&quot;square&quot;&gt;1&lt;/button&gt;
+        &lt;button className=&quot;square&quot;&gt;2&lt;/button&gt;
+        &lt;button className=&quot;square&quot;&gt;3&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;button className=&quot;square&quot;&gt;4&lt;/button&gt;
+        &lt;button className=&quot;square&quot;&gt;5&lt;/button&gt;
+        &lt;button className=&quot;square&quot;&gt;6&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;button className=&quot;square&quot;&gt;7&lt;/button&gt;
+        &lt;button className=&quot;square&quot;&gt;8&lt;/button&gt;
+        &lt;button className=&quot;square&quot;&gt;9&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<p>The CSS defined in <code>styles.css</code> styles the divs with the <code>className</code> of <code>board-row</code>. Now that you've grouped your components into rows with the styled <code>div</code>s you have your tic-tac-toe board:</p>
+<p><img src="../images/tutorial/number-filled-board.png" alt="tic-tac-toe board filled with numbers 1 through 9" /></p>
+<p>But you now have a problem. Your component named <code>Square</code>, really isn't a square anymore. Let's fix that by changing the name to <code>Board</code>:</p>
+<pre><code class="language-js {1}">export default function Board() {
+  //...
+}
+</code></pre>
+<p>At this point your code should look something like this:</p>
+<Sandpack>
+<pre><code class="language-js">export default function Board() {
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;button className=&quot;square&quot;&gt;1&lt;/button&gt;
+        &lt;button className=&quot;square&quot;&gt;2&lt;/button&gt;
+        &lt;button className=&quot;square&quot;&gt;3&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;button className=&quot;square&quot;&gt;4&lt;/button&gt;
+        &lt;button className=&quot;square&quot;&gt;5&lt;/button&gt;
+        &lt;button className=&quot;square&quot;&gt;6&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;button className=&quot;square&quot;&gt;7&lt;/button&gt;
+        &lt;button className=&quot;square&quot;&gt;8&lt;/button&gt;
+        &lt;button className=&quot;square&quot;&gt;9&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css styles.css">* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+</code></pre>
+</Sandpack>
+<Note>
+<p>Psssst... That's a lot to type! It's okay to copy and paste code from this page. However, if you're up for a little challenge, we recommend to only copy the code that you've manually typed at least once yourself.</p>
+</Note>
+<h3 id="passing-data-through-props-passing-data-through-props"><a class="header" href="#passing-data-through-props-passing-data-through-props">Passing data through props {/<em>passing-data-through-props</em>/}</a></h3>
+<p>Next, you'll want to change the value of a square from empty to &quot;X&quot; when the user clicks on the square. With how you've built the board so far you would need to copy-paste the code that updates the square nine times (once for each square you have)! Instead of copy-pasting, React's component architecture allows you to create a reusable component to avoid messy, duplicated code.</p>
+<p>First, you are going to copy the line defining your first square (<code>&lt;button className=&quot;square&quot;&gt;1&lt;/button&gt;</code>) from your <code>Board</code> component into a new <code>Square</code> component:</p>
+<pre><code class="language-js {1-3}">function Square() {
+  return &lt;button className=&quot;square&quot;&gt;1&lt;/button&gt;;
+}
+
+export default function Board() {
+  // ...
+}
+</code></pre>
+<p>Then you'll update the Board component to render that <code>Square</code> component using JSX syntax:</p>
+<pre><code class="language-js {5-19}">// ...
+export default function Board() {
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<p>Notice how unlike the browser <code>div</code>s, your own components <code>Board</code> and <code>Square</code> must start with a capital letter. </p>
+<p>Let's take a look:</p>
+<p><img src="../images/tutorial/board-filled-with-ones.png" alt="one-filled board" /></p>
+<p>Oh no! You lost the numbered squares you had before. Now each square says &quot;1&quot;. To fix this, you will use <em>props</em> to pass the value each square should have from the parent component (<code>Board</code>) to the child component (<code>Square</code>).</p>
+<p>Update the <code>Square</code> component to read the <code>value</code> prop that you'll pass from the <code>Board</code>:</p>
+<pre><code class="language-js {1}">function Square({ value }) {
+  return &lt;button className=&quot;square&quot;&gt;1&lt;/button&gt;;
+}
+</code></pre>
+<p><code>function Square({ value })</code> indicates the Square component can be passed a prop called <code>value</code>.</p>
+<p>Now you want to display that <code>value</code> instead of <code>1</code> inside every square. Try doing it like this:</p>
+<pre><code class="language-js {2}">function Square({ value }) {
+  return &lt;button className=&quot;square&quot;&gt;value&lt;/button&gt;;
+}
+</code></pre>
+<p>Oops, this is not what you wanted:</p>
+<p><img src="../images/tutorial/board-filled-with-value.png" alt="value-filled board" /></p>
+<p>You wanted to render the JavaScript variable called <code>value</code> from your component, not the word &quot;value&quot;. To &quot;escape into JavaScript&quot; from JSX, you need curly braces. Add curly braces around <code>value</code> in JSX like so:</p>
+<pre><code class="language-js {2}">function Square({ value }) {
+  return &lt;button className=&quot;square&quot;&gt;{value}&lt;/button&gt;;
+}
+</code></pre>
+<p>For now, you should see a empty board:</p>
+<p><img src="../images/tutorial/empty-board.png" alt="empty board" /></p>
+<p>This is because the <code>Board</code> component hasn't passed the <code>value</code> prop to each <code>Square</code> component it renders yet. To fix it you'll add the <code>value</code> prop to each <code>Square</code> component rendered by the <code>Board</code> component:</p>
+<pre><code class="language-js {5-7 10-12 15-17}">export default function Board() {
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value=&quot;1&quot; /&gt;
+        &lt;Square value=&quot;2&quot; /&gt;
+        &lt;Square value=&quot;3&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value=&quot;4&quot; /&gt;
+        &lt;Square value=&quot;5&quot; /&gt;
+        &lt;Square value=&quot;6&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value=&quot;7&quot; /&gt;
+        &lt;Square value=&quot;8&quot; /&gt;
+        &lt;Square value=&quot;9&quot; /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<p>Now you should see a grid of numbers again:</p>
+<p><img src="../images/tutorial/number-filled-board.png" alt="tic-tac-toe board filled with numbers 1 through 9" /></p>
+<p>Your updated code should look like this:</p>
+<Sandpack>
+<pre><code class="language-js App.js">function Square({ value }) {
+  return &lt;button className=&quot;square&quot;&gt;{value}&lt;/button&gt;;
+}
+
+export default function Board() {
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value=&quot;1&quot; /&gt;
+        &lt;Square value=&quot;2&quot; /&gt;
+        &lt;Square value=&quot;3&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value=&quot;4&quot; /&gt;
+        &lt;Square value=&quot;5&quot; /&gt;
+        &lt;Square value=&quot;6&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value=&quot;7&quot; /&gt;
+        &lt;Square value=&quot;8&quot; /&gt;
+        &lt;Square value=&quot;9&quot; /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css styles.css">* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+</code></pre>
+</Sandpack>
+<h3 id="making-an-interactive-component-making-an-interactive-component"><a class="header" href="#making-an-interactive-component-making-an-interactive-component">Making an interactive component {/<em>making-an-interactive-component</em>/}</a></h3>
+<p>Let's fill the <code>Square</code> component with an <code>X</code> when you click it. Declare a function called <code>handleClick</code> inside of the <code>Square</code>. Then, add <code>onClick</code> to the props of the button JSX element returned from the <code>Square</code> component:</p>
+<pre><code class="language-js {2-4 9}">function Square({ value }) {
+  function handleClick() {
+    console.log('clicked!');
+  }
+
+  return (
+    &lt;button
+      className=&quot;square&quot;
+      onClick={handleClick}
+    &gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+</code></pre>
+<p>If you click on a square now, you should see a log saying <code>&quot;clicked!&quot;</code> in the <em>Console</em> tab at the bottom of the <em>Browser</em> section in CodeSandbox. Clicking the square more than once will log <code>&quot;clicked!&quot;</code> again. Repeated console logs with the same message will not create more lines in the console. Instead, you will see an incrementing counter next to your first <code>&quot;clicked!&quot;</code> log.</p>
+<Note>
+<p>If you are following this tutorial using your local development environment, you need to open your browser's Console. For example, if you use the Chrome browser, you can view the Console with the keyboard shortcut <strong>Shift + Ctrl + J</strong> (on Windows/Linux) or <strong>Option + ⌘ + J</strong> (on macOS).</p>
+</Note>
+<p>As a next step, you want the Square component to &quot;remember&quot; that it got clicked, and fill it with an &quot;X&quot; mark. To &quot;remember&quot; things, components use <em>state</em>.</p>
+<p>React provides a special function called <code>useState</code> that you can call from your component to let it &quot;remember&quot; things. Let's store the current value of the <code>Square</code> in state, and change it when the <code>Square</code> is clicked.</p>
+<p>Import <code>useState</code> at the top of the file. Remove the <code>value</code> prop from the Square component. Instead, add a new line at the start of the <code>Square</code> component that calls <code>useState</code>. Have it return a state variable called <code>value</code>:</p>
+<pre><code class="language-js {1 3 4}">import { useState } from 'react';
+
+function Square() {
+  const [value, setValue] = useState(null);
+
+  function handleClick() {
+    //...
+</code></pre>
+<p><code>value</code> stores the value and <code>setValue</code> is a function that can be used to change the value. The <code>null</code> passed to <code>useState</code> is used as the initial value for this state variable, so <code>value</code> here starts off equal to <code>null</code>.</p>
+<p>Since the <code>Square</code> component no longer accepts props anymore, you'll remove the <code>value</code> prop from all nine of the Square components created by the Board component:</p>
+<pre><code class="language-js {6-8 11-13 16-18}">// ...
+export default function Board() {
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<p>Now you'll change <code>Square</code> to display an &quot;X&quot; when clicked. Replace the <code>console.log(&quot;clicked!&quot;);</code> event handler with <code>setValue('X');</code>. Now your <code>Square</code> component looks like this:</p>
+<pre><code class="language-js {5}">function Square() {
+  const [value, setValue] = useState(null);
+
+  function handleClick() {
+    setValue('X');
+  }
+
+  return (
+    &lt;button
+      className=&quot;square&quot;
+      onClick={handleClick}
+    &gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+</code></pre>
+<p>By calling this <code>set</code> function from an <code>onClick</code> handler, you're telling React to re-render that <code>Square</code> whenever its <code>&lt;button&gt;</code> is clicked. After the update, the <code>Square</code>'s <code>value</code> will be <code>'X'</code>, so you'll see the &quot;X&quot; on the game board.</p>
+<p>If you click on any Square, an &quot;X&quot; should show up:</p>
+<p><img src="../images/tutorial/tictac-adding-x-s.gif" alt="adding xes to board" /></p>
+<p>Note that each Square has its own state: the <code>value</code> stored in each Square is completely independent of the others. When you call a <code>set</code> function in a component, React automatically updates the child components inside of it too.</p>
+<p>After your made the above changes, your code will look like this:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+
+function Square() {
+  const [value, setValue] = useState(null);
+
+  function handleClick() {
+    setValue('X');
+  }
+
+  return (
+    &lt;button
+      className=&quot;square&quot;
+      onClick={handleClick}
+    &gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+
+export default function Board() {
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+        &lt;Square /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css styles.css">* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+</code></pre>
+</Sandpack>
+<h3 id="react-developer-tools-react-developer-tools"><a class="header" href="#react-developer-tools-react-developer-tools">React Developer Tools {/<em>react-developer-tools</em>/}</a></h3>
+<p>React DevTools let you check the props and the state of your React components. You can find the React DevTools tab at the bottom of the <em>browser</em> section in CodeSandbox:</p>
+<p><img src="../images/tutorial/codesandbox-devtools.png" alt="React DevTools in CodeSandbox" /></p>
+<p>To inspect a particular component on the screen, use the button in the top left corner of React DevTools:</p>
+<p><img src="../images/tutorial/devtools-select.gif" alt="Selecting components on the page with React DevTools" /></p>
+<Note>
+<p>For local development, React DevTools is available as a <a href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en">Chrome</a>, <a href="https://addons.mozilla.org/en-US/firefox/addon/react-devtools/">Firefox</a>, and <a href="https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil">Edge</a> browser extension. After installing it, the <em>Components</em> tab will appear in your browser Developer Tools for sites using React.</p>
+</Note>
+<h2 id="completing-the-game-completing-the-game"><a class="header" href="#completing-the-game-completing-the-game">Completing the game {/<em>completing-the-game</em>/}</a></h2>
+<p>By this point, you have all the basic building blocks for your tic-tac-toe game. To have a complete game, you now need to alternate placing &quot;X&quot;s and &quot;O&quot;s on the board, and you need a way to determine a winner.</p>
+<h3 id="lifting-state-up-lifting-state-up"><a class="header" href="#lifting-state-up-lifting-state-up">Lifting state up {/<em>lifting-state-up</em>/}</a></h3>
+<p>Currently, each <code>Square</code> component maintains a part of the game's state. To check for a winner in a tic-tac-toe game, the <code>Board</code> would need to somehow know the state of each of the 9 <code>Square</code> components.</p>
+<p>How would you approach that? At first, you might guess that the <code>Board</code> needs to &quot;ask&quot; each <code>Square</code> for that <code>Square</code>'s state. Although this approach is technically possible in React, we discourage it because the code becomes difficult to understand, susceptible to bugs, and hard to refactor. Instead, the best approach is to store the game's state in the parent <code>Board</code> component instead of in each <code>Square</code>. The <code>Board</code> component can tell each <code>Square</code> what to display by passing a prop, like you did when you passed a number to each Square.</p>
+<p><strong>To collect data from multiple children, or to have two child components communicate with each other, declare the shared state in their parent component instead. The parent component can pass that state back down to the children via props. This keeps the child components in sync with each other and with the parent component.</strong></p>
+<p>Lifting state into a parent component is common when React components are refactored.</p>
+<p>Let's take this opportunity to try it out. Edit the <code>Board</code> component so that it declares a state variable named <code>squares</code> that defaults to an array of 9 nulls corresponding to the 9 squares:</p>
+<pre><code class="language-js {3}">// ...
+export default function Board() {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+  return (
+    // ...
+  );
+}
+</code></pre>
+<p><code>Array(9).fill(null)</code> creates an array with nine elements and sets each of them to <code>null</code>. The <code>useState()</code> call around it declares a <code>squares</code> state variable that's initially set to that array. Each entry in the array corresponds to the value of a square. When you fill the board in later, the <code>squares</code> array will look something like this:</p>
+<pre><code class="language-jsx">['O', null, 'X', 'X', 'X', 'O', 'O', null, null]
+</code></pre>
+<p>Now your <code>Board</code> component needs to pass the <code>value</code> prop down to each of the <code>Square</code> components it renders:</p>
+<pre><code class="language-js {6-8 11-13 16-18}">export default function Board() {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[0]} /&gt;
+        &lt;Square value={squares[1]} /&gt;
+        &lt;Square value={squares[2]} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[3]} /&gt;
+        &lt;Square value={squares[4]} /&gt;
+        &lt;Square value={squares[5]} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[6]} /&gt;
+        &lt;Square value={squares[7]} /&gt;
+        &lt;Square value={squares[8]} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<p>Next, you'll edit the <code>Square</code> component to receive the <code>value</code> prop from the Board component. This will require removing the Square component's own stateful tracking of <code>value</code> and the button's <code>onClick</code> prop:</p>
+<pre><code class="language-js {1 2}">function Square({value}) {
+  return &lt;button className=&quot;square&quot;&gt;{value}&lt;/button&gt;;
+}
+</code></pre>
+<p>At this point you should see a empty tic-tac-toe board:</p>
+<p><img src="../images/tutorial/empty-board.png" alt="empty board" /></p>
+<p>And you code should look like this:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+
+function Square({ value }) {
+  return &lt;button className=&quot;square&quot;&gt;{value}&lt;/button&gt;;
+}
+
+export default function Board() {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[0]} /&gt;
+        &lt;Square value={squares[1]} /&gt;
+        &lt;Square value={squares[2]} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[3]} /&gt;
+        &lt;Square value={squares[4]} /&gt;
+        &lt;Square value={squares[5]} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[6]} /&gt;
+        &lt;Square value={squares[7]} /&gt;
+        &lt;Square value={squares[8]} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css styles.css">* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+</code></pre>
+</Sandpack>
+<p>Each Square will now receive a <code>value</code> prop that will either be <code>'X'</code>, <code>'O'</code>, or <code>null</code> for empty squares.</p>
+<p>Next, you need to change what happens when a <code>Square</code> is clicked. The <code>Board</code> component now maintains which squares are filled. You'll need to create a way for the <code>Square</code> to update the <code>Board</code>'s state. Since state is private to a component that defines it, you cannot update the <code>Board</code>'s state directly from <code>Square</code>.</p>
+<p>Instead, you'll pass down a function from the <code>Board</code> component to the <code>Square</code> component, and you'll have <code>Square</code> call that function when a square is clicked. You'll start with the function that the <code>Square</code> component will call when it is clicked. You'll call that function <code>onSquareClick</code>:</p>
+<pre><code class="language-js {3}">function Square({ value }) {
+  return (
+    &lt;button className=&quot;square&quot; onClick={onSquareClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+</code></pre>
+<p>Next, you'll add the <code>onSquareClick</code> function to the <code>Square</code> component's props:</p>
+<pre><code class="language-js {1}">function Square({ value, onSquareClick }) {
+  return (
+    &lt;button className=&quot;square&quot; onClick={onSquareClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+</code></pre>
+<p>Now you'll connect the <code>onSquareClick</code> prop to a function in the <code>Board</code> component that you'll name <code>handleClick</code>. To connect <code>onSquareClick</code> to <code>handleClick</code> you'll pass a function to the <code>onSquareClick</code> prop of the first <code>Square</code> component: </p>
+<pre><code class="language-js {7}">export default function Board() {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[0]} onSquareClick={handleClick} /&gt;
+        //...
+  );
+}
+</code></pre>
+<p>Lastly, you will define the <code>handleClick</code> function inside the Board component to update the <code>squares</code> array holding your board's state:</p>
+<pre><code class="language-js {4-8}">export default function Board() {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick() {
+    const nextSquares = squares.slice();
+    nextSquares[0] = &quot;X&quot;;
+    setSquares(nextSquares);
+  }
+
+  return (
+    // ...
+  )
+}
+</code></pre>
+<p>The <code>handleClick</code> function creates a copy of the <code>squares</code> array (<code>nextSquares</code>) with the JavaScript <code>slice()</code> Array method. Then, <code>handleClick</code> updates the <code>nextSquares</code> array to add <code>X</code> to the first (<code>[0]</code> index) square.</p>
+<p>Calling the <code>setSquares</code> function lets React know the state of the component has changed. This will trigger a re-render of the components that use the <code>squares</code> state (<code>Board</code>) as well as its child components (the <code>Square</code> components that make up the board).</p>
+<Note>
+<p>JavaScript supports <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures">closures</a> which means an inner function (e.g. <code>handleClick</code>) has access to variables and functions defined in a outer function (e.g. <code>Board</code>). The <code>handleClick</code> function can read the <code>squares</code> state and call the <code>setSquares</code> method because they are both defined inside of the <code>Board</code> function.</p>
+</Note>
+<p>Now you can add X's to the board...  but only to the upper left square. Your <code>handleClick</code> function is hardcoded to update the index for the upper left square (<code>0</code>). Let's update <code>handleClick</code> to be able to update any square. Add a argument <code>i</code> to the <code>handleClick</code> function that takes the index of the square that should be updated:</p>
+<pre><code class="language-js {4 6}">export default function Board() {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick(i) {
+    const nextSquares = squares.slice();
+    nextSquares[i] = &quot;X&quot;;
+    setSquares(nextSquares);
+  }
+
+  return (
+    // ...
+  )
+}
+</code></pre>
+<p>Now there is a new problem!</p>
+<p>Try setting the <code>onSquareClick</code> prop of square to be <code>handleClick(0)</code> directly in the JSX like this:</p>
+<pre><code class="language-jsx">&lt;Square value={squares[0]} onSquareClick={handleClick(0)} /&gt;
+</code></pre>
+<p>The <code>handleClick(0)</code> call will be a part of rendering the board component. Because <code>handleClick(0)</code> alters the state of the board component by calling <code>setSquares</code>, your entire board component will be re-rendered again. But <code>handleClick(0)</code> is now a part of rendering of the board component, and so you've created an infinite loop:</p>
+<ConsoleBlock level="error">
+<p>Too many re-renders. React limits the number of renders to prevent an infinite loop.</p>
+</ConsoleBlock>
+<p>Why didn't this problem happen earlier?</p>
+<p>When you were passing <code>onSquareClick={handleClick}</code>, you were passing the <code>handleClick</code> function down as a prop. You were not calling it! But now you are <em>calling</em> that function right away--notice the parentheses in <code>handleClick(0)</code>--and that's why it runs too early. You don't <em>want</em> to call <code>handleClick</code> until the user clicks!</p>
+<p>To fix this, you could create a function like <code>handleFirstSquareClick</code> that calls <code>handleClick(0)</code>, a function like <code>handleSecondSquareClick</code> that calls <code>handleClick(1)</code>, and so on. Instead of calling them, you would pass these functions down as props like <code>onSquareClick={handleFirstSquareClick}</code>. This would solve the infinite loop.</p>
+<p>However, defining nine different functions and giving each of them a name is too verbose. Instead, let's do this:</p>
+<pre><code class="language-js {6}">export default function Board() {
+  // ...
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[0]} onSquareClick={() =&gt; handleClick(0)} /&gt;
+        // ...
+  );
+}
+</code></pre>
+<p>Notice the new <code>() =&gt;</code> syntax. Here, <code>() =&gt; handleClick(0)</code> is an <em>arrow function,</em> which is a shorter way to define functions. When the square is clicked, the code after the <code>=&gt;</code> &quot;arrow&quot; will run, calling <code>handleClick(0)</code>.</p>
+<p>Now you need to update the other eight squares to call <code>handleClick</code> from the arrow functions you pass. Make sure that the argument for each call the <code>handleClick</code> corresponds to the index of the correct square:</p>
+<pre><code class="language-js {6-8 11-13 16-18}">export default function Board() {
+  // ...
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[0]} onSquareClick={() =&gt; handleClick(0)} /&gt;
+        &lt;Square value={squares[1]} onSquareClick={() =&gt; handleClick(1)} /&gt;
+        &lt;Square value={squares[2]} onSquareClick={() =&gt; handleClick(2)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[3]} onSquareClick={() =&gt; handleClick(3)} /&gt;
+        &lt;Square value={squares[4]} onSquareClick={() =&gt; handleClick(4)} /&gt;
+        &lt;Square value={squares[5]} onSquareClick={() =&gt; handleClick(5)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[6]} onSquareClick={() =&gt; handleClick(6)} /&gt;
+        &lt;Square value={squares[7]} onSquareClick={() =&gt; handleClick(7)} /&gt;
+        &lt;Square value={squares[8]} onSquareClick={() =&gt; handleClick(8)} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};
+</code></pre>
+<p>Now you can again add X's to any square on the board by clicking on them:</p>
+<p><img src="../images/tutorial/tictac-adding-x-s.gif" alt="filling the board with X" /></p>
+<p>But this time all the state management is handled by the <code>Board</code> component!</p>
+<p>This is what your code should look like:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+
+function Square({ value, onSquareClick }) {
+  return (
+    &lt;button className=&quot;square&quot; onClick={onSquareClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+
+export default function Board() {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick(i) {
+    const nextSquares = squares.slice();
+    nextSquares[i] = 'X';
+    setSquares(nextSquares);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[0]} onSquareClick={() =&gt; handleClick(0)} /&gt;
+        &lt;Square value={squares[1]} onSquareClick={() =&gt; handleClick(1)} /&gt;
+        &lt;Square value={squares[2]} onSquareClick={() =&gt; handleClick(2)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[3]} onSquareClick={() =&gt; handleClick(3)} /&gt;
+        &lt;Square value={squares[4]} onSquareClick={() =&gt; handleClick(4)} /&gt;
+        &lt;Square value={squares[5]} onSquareClick={() =&gt; handleClick(5)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[6]} onSquareClick={() =&gt; handleClick(6)} /&gt;
+        &lt;Square value={squares[7]} onSquareClick={() =&gt; handleClick(7)} /&gt;
+        &lt;Square value={squares[8]} onSquareClick={() =&gt; handleClick(8)} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css styles.css">* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+</code></pre>
+</Sandpack>
+<p>Now that your state handling is in the <code>Board</code> component, the parent <code>Board</code> component passes props to the child <code>Square</code> components so that they can be displayed correctly. When clicking on a <code>Square</code>, the child <code>Square</code> component now asks the parent <code>Board</code> component to update the state of the board. When the <code>Board</code>'s state changes, both the <code>Board</code> component and every child <code>Square</code> component re-renders automatically. Keeping the state of all squares in the <code>Board</code> component will allow it to determine the winner in the future.</p>
+<p>Let's recap what happens when a user clicks the top left square on your board to add an <code>X</code> to it:</p>
+<ol>
+<li>Clicking on the upper left square runs the function that the <code>button</code> received as its <code>onClick</code> prop from the <code>Square</code>. The <code>Square</code> component received that function as its <code>onSquareClick</code> prop from the <code>Board</code>. The <code>Board</code> component defined that function directly in the JSX. It calls <code>handleClick</code> with an argument of <code>0</code>.</li>
+<li><code>handleClick</code> uses the argument (<code>0</code>) to update the first element of the <code>squares</code> array from <code>null</code> to <code>X</code>.</li>
+<li>The <code>squares</code> state of the <code>Board</code> component was updated, so the <code>Board</code> and all of its children re-render. This causes the <code>value</code> prop of the <code>Square</code> component with index <code>0</code> to change from <code>null</code> to <code>X</code>.</li>
+</ol>
+<p>In the end the user sees that the upper left square has changed from empty to having a <code>X</code> after clicking it.</p>
+<Note>
+<p>The DOM <code>&lt;button&gt;</code> element's <code>onClick</code> attribute has a special meaning to React because it is a built-in component. For custom components like Square, the naming is up to you. You could give any name to the <code>Square</code>'s <code>onSquareClick</code> prop or <code>Board</code>'s <code>handleClick</code> function, and the code would work the same. In React, it's conventional to use <code>on[Event]</code> names for props which represent events and <code>handle[Event]</code> for the function definitions which handle the events.</p>
+</Note>
+<h3 id="why-immutability-is-important-why-immutability-is-important"><a class="header" href="#why-immutability-is-important-why-immutability-is-important">Why immutability is important {/<em>why-immutability-is-important</em>/}</a></h3>
+<p>Note how in <code>handleClick</code>, you call <code>.slice()</code> to create a copy of the <code>squares</code> array instead of modifying the existing array. To explain why, we need to discuss immutability and why immutability is important to learn.</p>
+<p>There are generally two approaches to changing data. The first approach is to <em>mutate</em> the data by directly changing the data's values. The second approach is to replace the data with a new copy which has the desired changes. Here is what it would look like if you mutated the <code>squares</code> array:</p>
+<pre><code class="language-jsx">const squares = [null, null, null, null, null, null, null, null, null];
+squares[0] = 'X';
+// Now `squares` is [&quot;X&quot;, null, null, null, null, null, null, null, null];
+</code></pre>
+<p>And here is what it would look like if you changed data without mutating the <code>squares</code> array:</p>
+<pre><code class="language-jsx">const squares = [null, null, null, null, null, null, null, null, null];
+const nextSquares = ['X', null, null, null, null, null, null, null, null];
+// Now `squares` is unchanged, but `nextSquares` first element is 'X' rather than `null`
+</code></pre>
+<p>The end result is the same but by not mutating (changing the underlying data) directly, you gain several benefits.</p>
+<p>Immutability makes complex features much easier to implement. Later in this tutorial, you will implement a &quot;time travel&quot; feature that lets you review the game's history and &quot;jump back&quot; to past moves. This functionality isn't specific to games--an ability to undo and redo certain actions is a common requirement for apps. Avoiding direct data mutation lets you keep previous versions of the data intact, and reuse them (or reset to them) later.</p>
+<p>There is also another benefit of immutability. By default, all child components re-render automatically when the state of a parent component changes. This includes even the child components that weren't affected by the change. Although re-rendering is not by itself noticeable to the user (you shouldn't actively try to avoid it!), you might want to skip re-rendering a part of the tree that clearly wasn't affected by it for performance reasons. Immutability makes it very cheap for components to compare whether their data has changed or not. You can learn more about how React chooses when to re-render a component in <a href="/reference/react/memo">the <code>memo</code> API reference</a> documentation.</p>
+<h3 id="taking-turns-taking-turns"><a class="header" href="#taking-turns-taking-turns">Taking turns {/<em>taking-turns</em>/}</a></h3>
+<p>It's now time to fix a major defect in this tic-tac-toe game: the &quot;O&quot;s cannot be marked on the board.</p>
+<p>You'll set the first move to be &quot;X&quot; by default. Let's keep track of this by adding another piece of state to the Board component:</p>
+<pre><code class="language-js {2}">function Board() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  // ...
+}
+</code></pre>
+<p>Each time a player moves, <code>xIsNext</code> (a boolean) will be flipped to determine which player goes next and the game's state will be saved. You'll update the <code>Board</code>'s <code>handleClick</code> function to flip the value of <code>xIsNext</code>:</p>
+<pre><code class="language-js {7 8 9 10 11 13}">export default function Board() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick(i) {
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = &quot;X&quot;;
+    } else {
+      nextSquares[i] = &quot;O&quot;;
+    }
+    setSquares(nextSquares);
+    setXIsNext(!xIsNext);
+  }
+
+  return (
+    //...
+  );
+}
+</code></pre>
+<p>Now, as you click on different squares, they will alternate between <code>X</code> and <code>O</code>, as they should!</p>
+<p>But wait, there's a problem. Try clicking on the same square multiple times:</p>
+<p><img src="../images/tutorial/o-replaces-x.gif" alt="O overwriting an X" /></p>
+<p>The <code>X</code> is overwritten by an <code>O</code>! While this would add a very interesting twist to the game, we're going to stick to the original rules for now.</p>
+<p>When you mark a square with a <code>X</code> or a <code>O</code> you aren't first checking to see if the square already has a <code>X</code> or <code>O</code> value. You can fix this by <em>returning early</em>. You'll check to see if the square already has a <code>X</code> or and <code>O</code>. If the square is already filled, you will <code>return</code> in the <code>handleClick</code> function early--before it tries to update the board state.</p>
+<pre><code class="language-js {2 3 4}">function handleClick(i) {
+  if (squares[i]) {
+    return;
+  }
+  let nextSquares = squares.slice();
+  //...
+}
+</code></pre>
+<p>Now you can only add <code>X</code>'s or <code>O</code>'s to empty squares! Here is what your code should look like at this point:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+
+function Square({value, onSquareClick}) {
+  return (
+    &lt;button className=&quot;square&quot; onClick={onSquareClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+
+export default function Board() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick(i) {
+    if (squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = 'X';
+    } else {
+      nextSquares[i] = 'O';
+    }
+    setSquares(nextSquares);
+    setXIsNext(!xIsNext);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[0]} onSquareClick={() =&gt; handleClick(0)} /&gt;
+        &lt;Square value={squares[1]} onSquareClick={() =&gt; handleClick(1)} /&gt;
+        &lt;Square value={squares[2]} onSquareClick={() =&gt; handleClick(2)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[3]} onSquareClick={() =&gt; handleClick(3)} /&gt;
+        &lt;Square value={squares[4]} onSquareClick={() =&gt; handleClick(4)} /&gt;
+        &lt;Square value={squares[5]} onSquareClick={() =&gt; handleClick(5)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[6]} onSquareClick={() =&gt; handleClick(6)} /&gt;
+        &lt;Square value={squares[7]} onSquareClick={() =&gt; handleClick(7)} /&gt;
+        &lt;Square value={squares[8]} onSquareClick={() =&gt; handleClick(8)} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-css styles.css">* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+</code></pre>
+</Sandpack>
+<h3 id="declaring-a-winner-declaring-a-winner"><a class="header" href="#declaring-a-winner-declaring-a-winner">Declaring a winner {/<em>declaring-a-winner</em>/}</a></h3>
+<p>Now that you show which player's turn is next, you should also show when the game is won and there are no more turns to make. To do this you'll add a helper function called <code>calculateWinner</code> that takes an array of 9 squares, checks for a winner and returns <code>'X'</code>, <code>'O'</code>, or <code>null</code> as appropriate. Don't worry too much about the <code>calculateWinner</code> function; it's not specific to React:</p>
+<pre><code class="language-js App.js">export default function Board() {
+  //...
+}
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+  for (let i = 0; i &lt; lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+</code></pre>
+<Note>
+<p>It does not matter whether you define <code>calculateWinner</code> before or after the <code>Board</code>. Let's put it at the end so that you don't have to scroll past it every time you edit your components.</p>
+</Note>
+<p>You will call <code>calculateWinner(squares)</code> in the <code>Board</code> component's <code>handleClick</code> function to check if a player has won. You can perform this check at the same time you check if a user has clicked a square that already has a <code>X</code> or and <code>O</code>. We'd like to return early in both cases:</p>
+<pre><code class="language-js {2}">function handleClick(i) {
+  if (squares[i] || calculateWinner(squares)) {
+    return;
+  }
+  const nextSquares = squares.slice();
+  //...
+}
+</code></pre>
+<p>To let the players know when the game is over, you can display text such as &quot;Winner: X&quot; or &quot;Winner: O&quot;. To do that you'll add a <code>status</code> section to the <code>Board</code> component. The status will display the winner if the game is over and if the game is ongoing you'll display which player's turn is next:</p>
+<pre><code class="language-js {3-9 13}">export default function Board() {
+  // ...
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = &quot;Winner: &quot; + winner;
+  } else {
+    status = &quot;Next player: &quot; + (xIsNext ? &quot;X&quot; : &quot;O&quot;);
+  }
+
+  return (
+    &lt;div&gt;
+      &lt;div className=&quot;status&quot;&gt;{status}&lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        // ...
+  )
+}
+</code></pre>
+<p>Congratulations! You now have a working tic-tac-toe game. And you've just learned the basics of React too. So <em>you</em> are the real winner here. Here is what the code should look like:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+
+function Square({value, onSquareClick}) {
+  return (
+    &lt;button className=&quot;square&quot; onClick={onSquareClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+
+export default function Board() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick(i) {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = 'X';
+    } else {
+      nextSquares[i] = 'O';
+    }
+    setSquares(nextSquares);
+    setXIsNext(!xIsNext);
+  }
+
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = 'Winner: ' + winner;
+  } else {
+    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+  }
+
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;status&quot;&gt;{status}&lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[0]} onSquareClick={() =&gt; handleClick(0)} /&gt;
+        &lt;Square value={squares[1]} onSquareClick={() =&gt; handleClick(1)} /&gt;
+        &lt;Square value={squares[2]} onSquareClick={() =&gt; handleClick(2)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[3]} onSquareClick={() =&gt; handleClick(3)} /&gt;
+        &lt;Square value={squares[4]} onSquareClick={() =&gt; handleClick(4)} /&gt;
+        &lt;Square value={squares[5]} onSquareClick={() =&gt; handleClick(5)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[6]} onSquareClick={() =&gt; handleClick(6)} /&gt;
+        &lt;Square value={squares[7]} onSquareClick={() =&gt; handleClick(7)} /&gt;
+        &lt;Square value={squares[8]} onSquareClick={() =&gt; handleClick(8)} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i &lt; lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+</code></pre>
+<pre><code class="language-css styles.css">* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+</code></pre>
+</Sandpack>
+<h2 id="adding-time-travel-adding-time-travel"><a class="header" href="#adding-time-travel-adding-time-travel">Adding time travel {/<em>adding-time-travel</em>/}</a></h2>
+<p>As a final exercise, let's make it possible to &quot;go back in time&quot; to the previous moves in the game.</p>
+<h3 id="storing-a-history-of-moves-storing-a-history-of-moves"><a class="header" href="#storing-a-history-of-moves-storing-a-history-of-moves">Storing a history of moves {/<em>storing-a-history-of-moves</em>/}</a></h3>
+<p>If you mutated the <code>squares</code> array, implementing time travel would be very difficult.</p>
+<p>However, you used <code>slice()</code> to create a new copy of the <code>squares</code> array after every move, and treated it as immutable. This will allow you to store every past version of the <code>squares</code> array, and navigate between the turns that have already happened.</p>
+<p>You'll store the past <code>squares</code> arrays in another array called <code>history</code>, which you'll store as a new state variable. The <code>history</code> array represents all board states, from the first to the last move, and has a shape like this:</p>
+<pre><code class="language-jsx">[
+  // Before first move
+  [null, null, null, null, null, null, null, null, null],
+  // After first move
+  [null, null, null, null, 'X', null, null, null, null],
+  // After second move
+  [null, null, null, null, 'X', null, null, null, 'O'],
+  // ...
+]
+</code></pre>
+<h3 id="lifting-state-up-again-lifting-state-up-again"><a class="header" href="#lifting-state-up-again-lifting-state-up-again">Lifting state up, again {/<em>lifting-state-up-again</em>/}</a></h3>
+<p>You will now write a new top-level component called <code>Game</code> to display a list of past moves. That's where you will place the <code>history</code> state that contains the entire game history.</p>
+<p>Placing the <code>history</code> state into the <code>Game</code> component will let you remove the <code>squares</code> state from its child <code>Board</code> component. Just like you &quot;lifted state up&quot; from the <code>Square</code> component into the <code>Board</code> component, you will now lift it up from the <code>Board</code> into the top-level <code>Game</code> component. This gives the <code>Game</code> component full control over the <code>Board</code>'s data and lets it instruct the <code>Board</code> to render previous turns from the <code>history</code>.</p>
+<p>First, add a <code>Game</code> component with <code>export default</code>. Have it render the <code>Board</code> component inside some markup:</p>
+<pre><code class="language-js {1 5-16}">function Board() {
+  // ...
+}
+
+export default function Game() {
+  return (
+    &lt;div className=&quot;game&quot;&gt;
+      &lt;div className=&quot;game-board&quot;&gt;
+        &lt;Board /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;game-info&quot;&gt;
+        &lt;ol&gt;{/*TODO*/}&lt;/ol&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p>Note that you are removing the <code>export default</code> keywords before the <code>function Board() {</code> declaration and adding them before the <code>function Game() {</code> declaration. This tells your <code>index.js</code> file to use the <code>Game</code> component as the top-level component instead of your <code>Board</code> component. The additional <code>div</code>s returned by the <code>Game</code> component are making room for the game information you'll add to the board later.</p>
+<p>Add some state to the <code>Game</code> component to track which player is next and the history of moves:</p>
+<pre><code class="language-js {2-3}">export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  // ...
+</code></pre>
+<p>Notice how <code>[Array(9).fill(null)]</code> is an array with a single item, which itself is an array of 9 <code>null</code>s.</p>
+<p>To render the squares for the current move, you'll want to read the last squares array from the <code>history</code>. You don't need <code>useState</code> for this--you already have enough information to calculate it during rendering:</p>
+<pre><code class="language-js {4}">export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1];
+  // ...
+</code></pre>
+<p>Next, create a <code>handlePlay</code> function inside the <code>Game</code> component that will be called by the <code>Board</code> component to update the game. Pass <code>xIsNext</code>, <code>currentSquares</code> and <code>handlePlay</code> as props to the <code>Board</code> component:</p>
+<pre><code class="language-js {6-8 13}">export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquares) {
+    // TODO
+  }
+
+  return (
+    &lt;div className=&quot;game&quot;&gt;
+      &lt;div className=&quot;game-board&quot;&gt;
+        &lt;Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} /&gt;
+        //...
+  )
+}
+</code></pre>
+<p>Let's make the <code>Board</code> component fully controlled by the props it receives. Change the <code>Board</code> component to take three props: <code>xIsNext</code>, <code>squares</code>, and a new <code>onPlay</code> function that <code>Board</code> can call with the updated squares array whenever a player makes a move. Next, remove the first two lines of the <code>Board</code> function that call <code>useState</code>:</p>
+<pre><code class="language-js {1}">function Board({ xIsNext, squares, onPlay }) {
+  function handleClick(i) {
+    //...
+  }
+  // ...
+}
+</code></pre>
+<p>Now you'll replace the <code>setSquares</code> and <code>setXIsNext</code> calls in <code>handleClick</code> in the <code>Board</code> component with a single call to your new <code>onPlay</code> function so the <code>Game</code> component can update the <code>Board</code> when the user clicks a square:</p>
+<pre><code class="language-js {12}">function Board({ xIsNext, squares, onPlay }) {
+  function handleClick(i) {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = &quot;X&quot;;
+    } else {
+      nextSquares[i] = &quot;O&quot;;
+    }
+    onPlay(nextSquares);
+  }
+  //...
+}
+</code></pre>
+<p>The <code>Board</code> component is fully controlled by the props passed to it by the <code>Game</code> component. You need to implement the <code>handlePlay</code> function in the <code>Game</code> component to get the game working again.</p>
+<p>What should <code>handlePlay</code> do when called? Remember that Board used to call <code>setSquares</code> with an updated array; now it passes the updated <code>squares</code> array to <code>onPlay</code>.</p>
+<p>The <code>handlePlay</code> function needs to update <code>Game</code>'s state to trigger a re-render, but you don't have a <code>setSquares</code> function that you can call any more--you're now using the <code>history</code> state variable to store this information. You'll want to update <code>history</code> by appending the updated <code>squares</code> array as a new history entry. You also want to toggle <code>xIsNext</code>, just as Board used to do:</p>
+<pre><code class="language-js {4-5}">export default function Game() {
+  //...
+  function handlePlay(nextSquares) {
+    setHistory([...history, nextSquares]);
+    setXIsNext(!xIsNext);
+  }
+  //...
+}
+</code></pre>
+<p>Here, <code>[...history, nextSquares]</code> creates a new array that contains all the items in <code>history</code>, followed by <code>nextSquares</code>. (You can read the <code>...history</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax"><em>spread syntax</em></a> as &quot;enumerate all the items in <code>history</code>&quot;.)</p>
+<p>For example, if <code>history</code> is <code>[[null,null,null], [&quot;X&quot;,null,null]]</code> and <code>nextSquares</code> is <code>[&quot;X&quot;,null,&quot;O&quot;]</code>, then the new <code>[...history, nextSquares]</code> array will be <code>[[null,null,null], [&quot;X&quot;,null,null], [&quot;X&quot;,null,&quot;O&quot;]]</code>.</p>
+<p>At this point, you've moved the state to live in the <code>Game</code> component, and the UI should be fully working, just as it was before the refactor. Here is what the code should look like at this point:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+
+function Square({ value, onSquareClick }) {
+  return (
+    &lt;button className=&quot;square&quot; onClick={onSquareClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+
+function Board({ xIsNext, squares, onPlay }) {
+  function handleClick(i) {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = 'X';
+    } else {
+      nextSquares[i] = 'O';
+    }
+    onPlay(nextSquares);
+  }
+
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = 'Winner: ' + winner;
+  } else {
+    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+  }
+
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;status&quot;&gt;{status}&lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[0]} onSquareClick={() =&gt; handleClick(0)} /&gt;
+        &lt;Square value={squares[1]} onSquareClick={() =&gt; handleClick(1)} /&gt;
+        &lt;Square value={squares[2]} onSquareClick={() =&gt; handleClick(2)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[3]} onSquareClick={() =&gt; handleClick(3)} /&gt;
+        &lt;Square value={squares[4]} onSquareClick={() =&gt; handleClick(4)} /&gt;
+        &lt;Square value={squares[5]} onSquareClick={() =&gt; handleClick(5)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[6]} onSquareClick={() =&gt; handleClick(6)} /&gt;
+        &lt;Square value={squares[7]} onSquareClick={() =&gt; handleClick(7)} /&gt;
+        &lt;Square value={squares[8]} onSquareClick={() =&gt; handleClick(8)} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquares) {
+    setHistory([...history, nextSquares]);
+    setXIsNext(!xIsNext);
+  }
+
+  return (
+    &lt;div className=&quot;game&quot;&gt;
+      &lt;div className=&quot;game-board&quot;&gt;
+        &lt;Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;game-info&quot;&gt;
+        &lt;ol&gt;{/*TODO*/}&lt;/ol&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i &lt; lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+</code></pre>
+<pre><code class="language-css styles.css">* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+</code></pre>
+</Sandpack>
+<h3 id="showing-the-past-moves-showing-the-past-moves"><a class="header" href="#showing-the-past-moves-showing-the-past-moves">Showing the past moves {/<em>showing-the-past-moves</em>/}</a></h3>
+<p>Since you are recording the tic-tac-toe game's history, you can now display it to the player as a list of past moves.</p>
+<p>React elements like <code>&lt;button&gt;</code> are regular JavaScript objects; you can pass them around in your application. To render multiple items in React, you can use an array of React elements.</p>
+<p>You already have an array of <code>history</code> moves in state, so now you need to transform it to an array of React elements. In JavaScript, to transform one array into another, you can use the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">array <code>map</code> method:</a></p>
+<pre><code class="language-jsx">[1, 2, 3].map((x) =&gt; x * 2) // [2, 4, 6]
+</code></pre>
+<p>You'll use <code>map</code> to transform your <code>history</code> of moves into React elements representing buttons on the screen, and you'll display a list of buttons to &quot;jump&quot; to past moves. Let's <code>map</code> over the <code>history</code> in the Game component:</p>
+<pre><code class="language-js {11-13 15-27 35}">export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquares) {
+    setHistory([...history, nextSquares]);
+    setXIsNext(!xIsNext);
+  }
+
+  function jumpTo(nextMove) {
+    // TODO
+  }
+
+  const moves = history.map((squares, move) =&gt; {
+    let description;
+    if (move &gt; 0) {
+      description = 'Go to move #' + move;
+    } else {
+      description = 'Go to game start';
+    }
+    return (
+      &lt;li&gt;
+        &lt;button onClick={() =&gt; jumpTo(move)}&gt;{description}&lt;/button&gt;
+      &lt;/li&gt;
+    );
+  });
+
+  return (
+    &lt;div className=&quot;game&quot;&gt;
+      &lt;div className=&quot;game-board&quot;&gt;
+        &lt;Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;game-info&quot;&gt;
+        &lt;ol&gt;{moves}&lt;/ol&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p>You can see what your code should look like below. Note that you should see an error in the developer tools console that says: <code>Warning: Each child in an array or iterator should have a unique &quot;key&quot; prop. Check the render method of `Game`.</code> You'll fix this error in the next section.</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+
+function Square({ value, onSquareClick }) {
+  return (
+    &lt;button className=&quot;square&quot; onClick={onSquareClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+
+function Board({ xIsNext, squares, onPlay }) {
+  function handleClick(i) {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = 'X';
+    } else {
+      nextSquares[i] = 'O';
+    }
+    onPlay(nextSquares);
+  }
+
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = 'Winner: ' + winner;
+  } else {
+    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+  }
+
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;status&quot;&gt;{status}&lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[0]} onSquareClick={() =&gt; handleClick(0)} /&gt;
+        &lt;Square value={squares[1]} onSquareClick={() =&gt; handleClick(1)} /&gt;
+        &lt;Square value={squares[2]} onSquareClick={() =&gt; handleClick(2)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[3]} onSquareClick={() =&gt; handleClick(3)} /&gt;
+        &lt;Square value={squares[4]} onSquareClick={() =&gt; handleClick(4)} /&gt;
+        &lt;Square value={squares[5]} onSquareClick={() =&gt; handleClick(5)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[6]} onSquareClick={() =&gt; handleClick(6)} /&gt;
+        &lt;Square value={squares[7]} onSquareClick={() =&gt; handleClick(7)} /&gt;
+        &lt;Square value={squares[8]} onSquareClick={() =&gt; handleClick(8)} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquares) {
+    setHistory([...history, nextSquares]);
+    setXIsNext(!xIsNext);
+  }
+
+  function jumpTo(nextMove) {
+    // TODO
+  }
+
+  const moves = history.map((squares, move) =&gt; {
+    let description;
+    if (move &gt; 0) {
+      description = 'Go to move #' + move;
+    } else {
+      description = 'Go to game start';
+    }
+    return (
+      &lt;li&gt;
+        &lt;button onClick={() =&gt; jumpTo(move)}&gt;{description}&lt;/button&gt;
+      &lt;/li&gt;
+    );
+  });
+
+  return (
+    &lt;div className=&quot;game&quot;&gt;
+      &lt;div className=&quot;game-board&quot;&gt;
+        &lt;Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;game-info&quot;&gt;
+        &lt;ol&gt;{moves}&lt;/ol&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i &lt; lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+</code></pre>
+<pre><code class="language-css styles.css">* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+</code></pre>
+</Sandpack>
+<p>As you iterate through <code>history</code> array inside the function you passed to <code>map</code>, the <code>squares</code> argument goes through each element of <code>history</code>, and the <code>move</code> argument goes through each array index: <code>0</code>, <code>1</code>, <code>2</code>, …. (In most cases, you'd need the actual array elements, but in this case you don't use <code>squares</code> to render a list of moves.)</p>
+<p>For each move in the tic-tac-toe game's history, you create a list item <code>&lt;li&gt;</code> which contains a button <code>&lt;button&gt;</code>. The button has a <code>onClick</code> handler which calls a function called <code>jumpTo</code> (that you haven't implemented yet).</p>
+<p>For now, you should see a list of the moves that occurred in the game and an error in the developer tools console.</p>
+<p>Let's discuss what the &quot;key&quot; error means.</p>
+<h3 id="picking-a-key-picking-a-key"><a class="header" href="#picking-a-key-picking-a-key">Picking a key {/<em>picking-a-key</em>/}</a></h3>
+<p>When you render a list, React stores some information about each rendered list item. When you update a list, React needs to determine what has changed. You could have added, removed, re-arranged, or updated the list's items.</p>
+<p>Imagine transitioning from</p>
+<pre><code class="language-html">&lt;li&gt;Alexa: 7 tasks left&lt;/li&gt;
+&lt;li&gt;Ben: 5 tasks left&lt;/li&gt;
+</code></pre>
+<p>to</p>
+<pre><code class="language-html">&lt;li&gt;Ben: 9 tasks left&lt;/li&gt;
+&lt;li&gt;Claudia: 8 tasks left&lt;/li&gt;
+&lt;li&gt;Alexa: 5 tasks left&lt;/li&gt;
+</code></pre>
+<p>In addition to the updated counts, a human reading this would probably say that you swapped Alexa and Ben's ordering and inserted Claudia between Alexa and Ben. However, React is a computer program and can't know what you intended, so you need to specify a <em>key</em> property for each list item to differentiate each list item from its siblings. If you were displaying data from a database, Alexa, Ben, and Claudia's database IDs could be used as keys.</p>
+<pre><code class="language-js {1}">&lt;li key={user.id}&gt;
+  {user.name}: {user.taskCount} tasks left
+&lt;/li&gt;
+</code></pre>
+<p>When a list is re-rendered, React takes each list item's key and searches the previous list's items for a matching key. If the current list has a key that didn't exist before, React creates a component. If the current list is missing a key that existed in the previous list, React destroys the previous component. If two keys match, the corresponding component is moved.</p>
+<p>Keys tell React about the identity of each component, which allows React to maintain state between re-renders. If a component's key changes, the component will be destroyed and re-created with a new state.</p>
+<p><code>key</code> is a special and reserved property in React. When an element is created, React extracts the <code>key</code> property and stores the key directly on the returned element. Even though <code>key</code> may look like it is passed as props, React automatically uses <code>key</code> to decide which components to update. There's no way for a component to ask what <code>key</code> its parent specified.</p>
+<p><strong>It's strongly recommended that you assign proper keys whenever you build dynamic lists.</strong> If you don't have an appropriate key, you may want to consider restructuring your data so that you do.</p>
+<p>If no key is specified, React will report an error and use the array index as a key by default. Using the array index as a key is problematic when trying to re-order a list's items or inserting/removing list items. Explicitly passing <code>key={i}</code> silences the error but has the same problems as array indices and is not recommended in most cases.</p>
+<p>Keys do not need to be globally unique; they only need to be unique between components and their siblings.</p>
+<h3 id="implementing-time-travel-implementing-time-travel"><a class="header" href="#implementing-time-travel-implementing-time-travel">Implementing time travel {/<em>implementing-time-travel</em>/}</a></h3>
+<p>In the tic-tac-toe game's history, each past move has a unique ID associated with it: it's the sequential number of the move. Moves will never be re-ordered, deleted, or inserted in the middle, so it's safe to use the move index as a key.</p>
+<p>In the <code>Game</code> function, you can add the key as <code>&lt;li key={move}&gt;</code>, and if you reload the rendered game, React's &quot;key&quot; error should disappear:</p>
+<pre><code class="language-js {4}">const moves = history.map((squares, move) =&gt; {
+  //...
+  return (
+    &lt;li key={move}&gt;
+      &lt;button onClick={() =&gt; jumpTo(move)}&gt;{description}&lt;/button&gt;
+    &lt;/li&gt;
+  );
+});
+</code></pre>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+
+function Square({ value, onSquareClick }) {
+  return (
+    &lt;button className=&quot;square&quot; onClick={onSquareClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+
+function Board({ xIsNext, squares, onPlay }) {
+  function handleClick(i) {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = 'X';
+    } else {
+      nextSquares[i] = 'O';
+    }
+    onPlay(nextSquares);
+  }
+
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = 'Winner: ' + winner;
+  } else {
+    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+  }
+
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;status&quot;&gt;{status}&lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[0]} onSquareClick={() =&gt; handleClick(0)} /&gt;
+        &lt;Square value={squares[1]} onSquareClick={() =&gt; handleClick(1)} /&gt;
+        &lt;Square value={squares[2]} onSquareClick={() =&gt; handleClick(2)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[3]} onSquareClick={() =&gt; handleClick(3)} /&gt;
+        &lt;Square value={squares[4]} onSquareClick={() =&gt; handleClick(4)} /&gt;
+        &lt;Square value={squares[5]} onSquareClick={() =&gt; handleClick(5)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[6]} onSquareClick={() =&gt; handleClick(6)} /&gt;
+        &lt;Square value={squares[7]} onSquareClick={() =&gt; handleClick(7)} /&gt;
+        &lt;Square value={squares[8]} onSquareClick={() =&gt; handleClick(8)} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquares) {
+    setHistory([...history, nextSquares]);
+    setXIsNext(!xIsNext);
+  }
+
+  function jumpTo(nextMove) {
+    // TODO
+  }
+
+  const moves = history.map((squares, move) =&gt; {
+    let description;
+    if (move &gt; 0) {
+      description = 'Go to move #' + move;
+    } else {
+      description = 'Go to game start';
+    }
+    return (
+      &lt;li key={move}&gt;
+        &lt;button onClick={() =&gt; jumpTo(move)}&gt;{description}&lt;/button&gt;
+      &lt;/li&gt;
+    );
+  });
+
+  return (
+    &lt;div className=&quot;game&quot;&gt;
+      &lt;div className=&quot;game-board&quot;&gt;
+        &lt;Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;game-info&quot;&gt;
+        &lt;ol&gt;{moves}&lt;/ol&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i &lt; lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+
+</code></pre>
+<pre><code class="language-css styles.css">* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+</code></pre>
+</Sandpack>
+<p>Before you can implement <code>jumpTo</code>, you need the <code>Game</code> component to keep track of which step the user is currently viewing. To do this, define a new state variable called <code>currentMove</code>, defaulting to <code>0</code>:</p>
+<pre><code class="language-js {4}">export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const currentSquares = history[history.length - 1];
+  //...
+}
+</code></pre>
+<p>Next, update the <code>jumpTo</code> function inside <code>Game</code> to update that <code>currentMove</code>. You'll also set <code>xIsNext</code> to <code>true</code> if the number that you're changing <code>currentMove</code> to is even.</p>
+<pre><code class="language-js {4-5}">export default function Game() {
+  // ...
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove);
+    setXIsNext(nextMove % 2 === 0);
+  }
+  //...
+}
+</code></pre>
+<p>You will now make two changes to the <code>Game</code>'s <code>handlePlay</code> function which is called when you click on a square.</p>
+<ul>
+<li>If you &quot;go back in time&quot; and then make a new move from that point, you only want to keep the history up to that point. Instead of adding <code>nextSquares</code> after all items (<code>...</code> spread syntax) in <code>history</code>, you'll add it after all items in <code>history.slice(0, currentMove + 1)</code> so that you're only keeping that portion of the old history.</li>
+<li>Each time a move is made, you need to update <code>currentMove</code> to point to the latest history entry.</li>
+</ul>
+<pre><code class="language-js {2-4}">function handlePlay(nextSquares) {
+  const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+  setHistory(nextHistory);
+  setCurrentMove(nextHistory.length - 1);
+  setXIsNext(!xIsNext);
+}
+</code></pre>
+<p>Finally, you will modify the <code>Game</code> component to render the currently selected move, instead of always rendering the final move:</p>
+<pre><code class="language-js {5}">export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const currentSquares = history[currentMove];
+
+  // ...
+}
+</code></pre>
+<p>If you click on any step in the game's history, the tic-tac-toe board should immediately update to show what the board looked like after that step occurred.</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+
+function Square({value, onSquareClick}) {
+  return (
+    &lt;button className=&quot;square&quot; onClick={onSquareClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+
+function Board({ xIsNext, squares, onPlay }) {
+  function handleClick(i) {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = 'X';
+    } else {
+      nextSquares[i] = 'O';
+    }
+    onPlay(nextSquares);
+  }
+
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = 'Winner: ' + winner;
+  } else {
+    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+  }
+
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;status&quot;&gt;{status}&lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[0]} onSquareClick={() =&gt; handleClick(0)} /&gt;
+        &lt;Square value={squares[1]} onSquareClick={() =&gt; handleClick(1)} /&gt;
+        &lt;Square value={squares[2]} onSquareClick={() =&gt; handleClick(2)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[3]} onSquareClick={() =&gt; handleClick(3)} /&gt;
+        &lt;Square value={squares[4]} onSquareClick={() =&gt; handleClick(4)} /&gt;
+        &lt;Square value={squares[5]} onSquareClick={() =&gt; handleClick(5)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[6]} onSquareClick={() =&gt; handleClick(6)} /&gt;
+        &lt;Square value={squares[7]} onSquareClick={() =&gt; handleClick(7)} /&gt;
+        &lt;Square value={squares[8]} onSquareClick={() =&gt; handleClick(8)} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const currentSquares = history[currentMove];
+
+  function handlePlay(nextSquares) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+    setXIsNext(!xIsNext);
+  }
+
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove);
+    setXIsNext(nextMove % 2 === 0);
+  }
+
+  const moves = history.map((squares, move) =&gt; {
+    let description;
+    if (move &gt; 0) {
+      description = 'Go to move #' + move;
+    } else {
+      description = 'Go to game start';
+    }
+    return (
+      &lt;li key={move}&gt;
+        &lt;button onClick={() =&gt; jumpTo(move)}&gt;{description}&lt;/button&gt;
+      &lt;/li&gt;
+    );
+  });
+
+  return (
+    &lt;div className=&quot;game&quot;&gt;
+      &lt;div className=&quot;game-board&quot;&gt;
+        &lt;Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;game-info&quot;&gt;
+        &lt;ol&gt;{moves}&lt;/ol&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i &lt; lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+</code></pre>
+<pre><code class="language-css styles.css">* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+</code></pre>
+</Sandpack>
+<h3 id="final-cleanup-final-cleanup"><a class="header" href="#final-cleanup-final-cleanup">Final cleanup {/<em>final-cleanup</em>/}</a></h3>
+<p>If you look at the code very closely, you may notice that <code>xIsNext === true</code> when <code>currentMove</code> is even and <code>xIsNext === false</code> when <code>currentMove</code> is odd. In other words, if you know the value of <code>currentMove</code>, then you can always figure out what <code>xIsNext</code> should be.</p>
+<p>There's no reason for you to store both of these in state. In fact, always try to avoid redundant state. Simplifying what you store in state helps reduce bugs and make your code easier to understand. Change <code>Game</code> so that it no longer stores <code>xIsNext</code> as a separate state variable and instead figures it out based on the <code>currentMove</code>:</p>
+<pre><code class="language-js {4 11 15}">export default function Game() {
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
+
+  function handlePlay(nextSquares) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+  }
+
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove);
+  }
+  // ...
+}
+</code></pre>
+<p>You no longer need the <code>xIsNext</code> state declaration or the calls to <code>setXIsNext</code>. Now, there's no chance for <code>xIsNext</code> to get out of sync with <code>currentMove</code>, even if you make a mistake while coding the components.</p>
+<h3 id="wrapping-up-wrapping-up"><a class="header" href="#wrapping-up-wrapping-up">Wrapping up {/<em>wrapping-up</em>/}</a></h3>
+<p>Congratulations! You've created a tic-tac-toe game that:</p>
+<ul>
+<li>Lets you play tic-tac-toe,</li>
+<li>Indicates when a player has won the game,</li>
+<li>Stores a game's history as a game progresses,</li>
+<li>Allows players to review a game's history and see previous versions of a game's board.</li>
+</ul>
+<p>Nice work! We hope you now feel like you have a decent grasp of how React works.</p>
+<p>Check out the final result here:</p>
+<Sandpack>
+<pre><code class="language-js App.js">import { useState } from 'react';
+
+function Square({ value, onSquareClick }) {
+  return (
+    &lt;button className=&quot;square&quot; onClick={onSquareClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+
+function Board({ xIsNext, squares, onPlay }) {
+  function handleClick(i) {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = 'X';
+    } else {
+      nextSquares[i] = 'O';
+    }
+    onPlay(nextSquares);
+  }
+
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = 'Winner: ' + winner;
+  } else {
+    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+  }
+
+  return (
+    &lt;&gt;
+      &lt;div className=&quot;status&quot;&gt;{status}&lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[0]} onSquareClick={() =&gt; handleClick(0)} /&gt;
+        &lt;Square value={squares[1]} onSquareClick={() =&gt; handleClick(1)} /&gt;
+        &lt;Square value={squares[2]} onSquareClick={() =&gt; handleClick(2)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[3]} onSquareClick={() =&gt; handleClick(3)} /&gt;
+        &lt;Square value={squares[4]} onSquareClick={() =&gt; handleClick(4)} /&gt;
+        &lt;Square value={squares[5]} onSquareClick={() =&gt; handleClick(5)} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;board-row&quot;&gt;
+        &lt;Square value={squares[6]} onSquareClick={() =&gt; handleClick(6)} /&gt;
+        &lt;Square value={squares[7]} onSquareClick={() =&gt; handleClick(7)} /&gt;
+        &lt;Square value={squares[8]} onSquareClick={() =&gt; handleClick(8)} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function Game() {
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
+
+  function handlePlay(nextSquares) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+  }
+
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove);
+  }
+
+  const moves = history.map((squares, move) =&gt; {
+    let description;
+    if (move &gt; 0) {
+      description = 'Go to move #' + move;
+    } else {
+      description = 'Go to game start';
+    }
+    return (
+      &lt;li key={move}&gt;
+        &lt;button onClick={() =&gt; jumpTo(move)}&gt;{description}&lt;/button&gt;
+      &lt;/li&gt;
+    );
+  });
+
+  return (
+    &lt;div className=&quot;game&quot;&gt;
+      &lt;div className=&quot;game-board&quot;&gt;
+        &lt;Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;game-info&quot;&gt;
+        &lt;ol&gt;{moves}&lt;/ol&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i &lt; lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+</code></pre>
+<pre><code class="language-css styles.css">* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+</code></pre>
+</Sandpack>
+<p>If you have extra time or want to practice your new React skills, here are some ideas for improvements that you could make to the tic-tac-toe game, listed in order of increasing difficulty:</p>
+<ol>
+<li>For the current move only, show &quot;You are at move #...&quot; instead of a button</li>
+<li>Rewrite <code>Board</code> to use two loops to make the squares instead of hardcoding them.</li>
+<li>Add a toggle button that lets you sort the moves in either ascending or descending order.</li>
+<li>When someone wins, highlight the three squares that caused the win (and when no one wins, display a message about the result being a draw).</li>
+<li>Display the location for each move in the format (col, row) in the move history list.</li>
+</ol>
+<p>Throughout this tutorial, you've touched on React concepts including elements, components, props, and state. Now that you've seen how these concepts work when building a game, check out <a href="/learn/thinking-in-react">Thinking in React</a> to see how the same React concepts work when build an app's UI.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../learn/thinking-in-react.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../learn/thinking-in-react.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
